@@ -1,0 +1,17 @@
+pt-BR:
+  activerecord:
+    models:
+      company:
+        one: Empresa
+        other: Empresas
+    attributes:
+      company:
+        brand_name: Nome fantasia
+        corporate_name: Razão social
+        registration_number: CNPJ
+        address: Endereço
+        phone_number: Telefone
+        email: E-mail
+        domain: Domínio
+        status: Status
+        logo: Logo

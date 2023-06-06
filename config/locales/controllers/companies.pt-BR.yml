@@ -1,0 +1,4 @@
+pt-BR:
+  companies:
+    create:
+      success: Empresa cadastrada com sucesso
