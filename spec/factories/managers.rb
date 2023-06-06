@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :manager do
-    email { "MyString" }
+    email { 'MyString' }
   end
 end
