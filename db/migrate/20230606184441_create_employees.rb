@@ -13,7 +13,7 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
       t.date :admission_date
       t.date :dismissal_date
       t.integer :marital_status
-      t.references :departament, null: false, foreign_key: true
+      t.references :department, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
       t.references :position, null: false, foreign_key: true
 

@@ -62,12 +62,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_184441) do
     t.date "admission_date"
     t.date "dismissal_date"
     t.integer "marital_status"
-    t.integer "departament_id", null: false
+    t.integer "department_id", null: false
     t.integer "user_id", null: false
     t.integer "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["departament_id"], name: "index_employees_on_departament_id"
+    t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["position_id"], name: "index_employees_on_position_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_184441) do
   end
 
   add_foreign_key "departments", "companies"
-  add_foreign_key "employees", "departaments"
+  add_foreign_key "employees", "departments"
   add_foreign_key "employees", "positions"
   add_foreign_key "employees", "users"
   add_foreign_key "managers", "users", column: "create_by_id"
