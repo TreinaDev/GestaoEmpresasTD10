@@ -1,6 +1,10 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: %i[show edit update]
 
+  def index
+    @companies = Company.all
+  end
+
   def show; end
 
   def new
@@ -11,9 +15,12 @@ class CompaniesController < ApplicationController
 
   def create
     @company = Company.new(company_params)
-    @company.save
-
-    redirect_to @company, notice: t('.success')
+    if @company.save
+      redirect_to @company, notice: t('.success')
+    else
+      flash.now[:notice] = 'Empresa não cadastrada'
+      render :new
+    end
   end
 
   def update

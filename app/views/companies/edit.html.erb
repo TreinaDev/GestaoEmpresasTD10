@@ -1,3 +1,11 @@
+<%if @company.errors.any?%>
+<ul>
+  <% @company.errors.full_messages.each do |msg|%>
+    <li><%= msg %></li>
+  <%end%>
+</ul>
+<%end%>
+
 <div class="card border-primary">
     <div class="card-body">
       <h4 class="card-title">Nova Empresa</h4>
