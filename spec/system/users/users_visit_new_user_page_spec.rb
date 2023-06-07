@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'visittante se cadastra' do
+describe 'visitante se cadastra' do
   it 'e vê o formulário de novo usuário' do
     visit root_path
     click_on 'Cadastrar-se'
