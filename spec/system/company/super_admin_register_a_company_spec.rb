@@ -1,12 +1,14 @@
+# TODO: Alterar a navegação após a criação dos menus e links
+
 require 'rails_helper'
 
-describe 'Super_Admin' do
+describe 'Admin' do
   it 'registra uma empresa' do
     ##
-    super_admin = User.create!(email: 'manoel@punti.com', role: super_admin, password: '123456')
+    admin = User.create!(email: 'manoel@punti.com', role: admin, password: '123456')
 
     ##
-    login_as super_admin
+    login_as admin
     visit new_company_path
 
     fill_in 'Nome fantasia',	with: 'Campus Code'
@@ -31,10 +33,10 @@ describe 'Super_Admin' do
 
   it 'erros ao registra uma empresa' do
     ##
-    super_admin = User.create!(email: 'manoel@punti.com', role: super_admin, password: '123456')
+    admin = User.create!(email: 'manoel@punti.com', role: admin, password: '123456')
 
     ##
-    login_as super_admin
+    login_as admin
     visit new_company_path
 
     fill_in 'Nome fantasia',	with: ''
@@ -49,5 +51,34 @@ describe 'Super_Admin' do
 
     ##
     expect(page).to have_content 'Empresa não cadastrada'
+  end
+
+  it 'visualiza as mensagens de erro de atributos na criação de empresa' do
+    ##
+    admin = User.create!(email: 'manoel@punti.com', role: admin, password: '123456')
+
+    ##
+    login_as admin
+    visit new_company_path
+
+    fill_in 'Nome fantasia',	with: ''
+    fill_in 'Razão social', with: ''
+    fill_in 'CNPJ', with: ''
+    fill_in 'Endereço', with: ''
+    fill_in 'Telefone', with: '1130302525'
+    fill_in 'E-mail', with: ''
+    fill_in 'Domínio', with: ''
+
+    click_on 'Salvar'
+
+    ##
+    expect(page).to have_content 'Empresa não cadastrada'
+    expect(page).to have_content 'Razão social não pode ficar em branco'
+    expect(page).to have_content 'CNPJ não pode ficar em branco'
+    expect(page).to have_content 'Endereço não pode ficar em branco'
+    expect(page).to have_content '1130302525'
+    expect(page).to have_content 'E-mail não pode ficar em branco'
+    expect(page).to have_content 'Domínio não pode ficar em branco'
+    expect(page).to have_content 'Logo não pode ficar em branco'
   end
 end

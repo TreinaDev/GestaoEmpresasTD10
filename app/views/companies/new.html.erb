@@ -1,7 +1,7 @@
 <div class="card border-primary">
   <div class="card-body">
     <h4 class="card-title">Nova Empresa</h4>
-    <%= form_with model: @company  do |f| %>
+    <%= form_with model: @company, data: { turbo: false }  do |f| %>
       <div class="mb-3">
         <%= f.label :brand_name, class: 'form-label' %>
         <%= f.text_field :brand_name, class: 'form-control'%>
