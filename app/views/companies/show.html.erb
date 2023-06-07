@@ -1,0 +1,11 @@
+<h1>Visualização da empresa <%= @company.brand_name %></h1>
+
+<h4>Cadastrar email</h4>
+
+
+<%= form_with model:@manager, url:managers_path do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email, placeholder: "Cadastrar email" %>
+
+  <%= f.submit 'Cadastrar' %>
+<% end %>

@@ -1,0 +1,14 @@
+<h3>Empresas</h3>
+
+
+<% if @companies.any? %>
+  <ul>
+  <% @companies.each do |company| %>
+    <li>
+      <%= link_to company.brand_name, company_path(company) %>
+    </li>
+  <% end %>
+  </ul>
+<% else %>
+  else
+<% end %>
