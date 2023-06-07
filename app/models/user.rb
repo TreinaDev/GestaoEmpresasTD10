@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
-  validate :set_admin_role
+  before_save :set_admin_role
 
   def description
     "#{role.upcase}: #{email}"

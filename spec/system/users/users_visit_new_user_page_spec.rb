@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'visitante se cadastra' do
-  it 'e vê o formulário de novo usuário' do
+feature 'visitante se cadastra' do
+  scenario 'e vê o formulário de novo usuário' do
     visit root_path
     click_on 'Cadastrar-se'
 
@@ -11,7 +11,7 @@ describe 'visitante se cadastra' do
     expect(page).to have_button 'Criar conta'
   end
 
-  it 'com sucesso' do
+  scenario 'com sucesso' do
     visit root_path
 
     click_on 'Cadastrar-se'
@@ -29,7 +29,7 @@ describe 'visitante se cadastra' do
     expect(User.first.role).to eq 'admin'
   end
 
-  # it "e falha" do
+  # scenario "e falha" do
 
   #   visit root_path
 
