@@ -1,5 +1,8 @@
 <div class="card border-primary">
   <div class="card-body">
+    <% if @company.errors.present? %>
+      <%= render "shared/errors", errors: @company.errors %>
+    <% end %>
     <h4 class="card-title">Nova Empresa</h4>
     <%= form_with model: @company, data: { turbo: false }  do |f| %>
       <div class="mb-3">

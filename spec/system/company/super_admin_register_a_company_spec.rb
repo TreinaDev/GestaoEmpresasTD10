@@ -76,7 +76,7 @@ describe 'Admin' do
     expect(page).to have_content 'Razão social não pode ficar em branco'
     expect(page).to have_content 'CNPJ não pode ficar em branco'
     expect(page).to have_content 'Endereço não pode ficar em branco'
-    expect(page).to have_content '1130302525'
+    expect(page).to have_field   'Telefone', with: '1130302525'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Domínio não pode ficar em branco'
     expect(page).to have_content 'Logo não pode ficar em branco'
