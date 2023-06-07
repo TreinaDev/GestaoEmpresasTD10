@@ -4,6 +4,7 @@
 
 
 <%= form_with model:@manager, url:managers_path do |f| %>
+  <%= f.hidden_field :company_id, :value => @company.id%>
   <%= f.label :email %>
   <%= f.text_field :email, placeholder: "Cadastrar email" %>
 

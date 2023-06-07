@@ -16,5 +16,21 @@ describe 'administrator register company manager email' do
     expect(page).to have_button 'Cadastrar'
   end
 
-  
+  it 'successfully' do
+    user = User.create!(email: 'admin@gmail.com', password: 'password', role: 1)
+    company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
+                              address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
+                              domain: 'gmail.com', status: true)
+    login_as(user)
+    # Act
+    visit root_path
+    click_on 'Empresas'
+    click_on 'Google'
+    fill_in 'Cadastrar email', with: 'usuario123@gmail.com'
+    click_on 'Cadastrar'
+    # Assert
+    expect(current_path).to eq company_path(company)
+    expect(page).to have_content 'Email cadastrado com sucesso'
+    expect(page).to have_content 'Google'
+  end
 end
