@@ -2,3 +2,5 @@ pt-BR:
   companies:
     new:
       save: Salvar
+    edit:
+      save: Salvar
