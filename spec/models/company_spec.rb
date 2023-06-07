@@ -24,7 +24,7 @@ RSpec.describe Company, type: :model do
       other_company.valid?
 
       expect(other_company.errors[:registration_number].size).to eq 1
-      expect(other_company.errors[:registration_number].full_messages).to include 'asd'
+      expect(other_company.errors[:registration_number]).to include 'já está em uso'
     end
   end
 end

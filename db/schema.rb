@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_205409) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_214142) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_205409) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["registration_number"], name: "index_companies_on_registration_number", unique: true
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
