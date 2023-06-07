@@ -63,7 +63,7 @@ feature 'Registro de uma empresa' do
   end
 
   context 'Logado como gerente' do
-    scenario 'e obtem erro' do
+    scenario 'e obtém erro' do
       ##
       manager = User.create!(email: 'gerente@empresa.com', role: 'manager', password: '123456')
 
@@ -77,8 +77,18 @@ feature 'Registro de uma empresa' do
     end
   end
 
-  # context 'Logado como funcionário' do
-  #   scenario 'e obtem erro' do
-  #   end
-  # end
+  context 'Logado como funcionário' do
+    scenario 'e obtém erro' do
+      ##
+      employee = User.create!(email: 'gerente@empresa.com', role: 'manager', password: '123456')
+
+      ##
+      login_as employee
+      visit new_company_path
+
+      ##
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Usuário sem permissão para executar essa ação'
+    end
+  end
 end

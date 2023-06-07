@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class CompaniesController < AdminController
   def show
     @company = Company.find(params[:id])
   end
