@@ -3,10 +3,19 @@
 <h4>Cadastrar email</h4>
 
 
+<% if @manager.errors.any? %>
+  <h2>Verifique os erros abaixo:</h2>
+  <ul>
+    <% @manager.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with model:@manager, url:managers_path do |f| %>
   <%= f.hidden_field :company_id, :value => @company.id%>
   <%= f.label :email %>
-  <%= f.text_field :email, placeholder: "Cadastrar email" %>
+  <%= f.text_field :email, placeholder: 'Cadastrar email' %>
 
   <%= f.submit 'Cadastrar' %>
 <% end %>
