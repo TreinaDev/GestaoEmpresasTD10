@@ -7,7 +7,7 @@ FactoryBot.define do
     phone_number { '1130302525' }
     email { 'contato@campuscode.com.br' }
     domain { 'campuscode.com.br' }
-    logo { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'logo.png'), 'image/png') }
+    logo { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/logo.png'), 'image/png') }
 
     status { true }
   end
