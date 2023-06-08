@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   validates :role, presence: true
 
+  private
+  
   def assign_role
     if email.include?('@punti.com')
       self.role = :admin

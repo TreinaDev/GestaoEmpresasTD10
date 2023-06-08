@@ -25,6 +25,7 @@ pt-BR:
         unconfirmed_email: E-mail não confirmado
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
+        cpf: CPF
     models:
       user:
         one: Usuário
