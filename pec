@@ -1,0 +1,86 @@
+[33mcommit 39b080596f07f22e6f6c79e60af8823478ab3aca[m[33m ([m[1;36mHEAD -> [m[1;32medit_company[m[33m, [m[1;31morigin/edit_company[m[33m)[m
+Author: iancalip <ianllima@live.com>
+Date:   Wed Jun 7 12:14:01 2023 -0300
+
+    CRUD Company
+
+[33mcommit be54157154a2f867ea30e896b29e051eaddc1626[m
+Author: Eduardo Diniz <diniz480@gmail.com>
+Date:   Tue Jun 6 22:45:43 2023 -0300
+
+    WIP edit/update company
+
+[33mcommit 2ddcb95983ea887a7580e5ab15944414ea9a5878[m[33m ([m[1;31morigin/create_company[m[33m, [m[1;32mcreate_company[m[33m)[m
+Author: Leandro Gomes Cardoso <leanddro.cardoso@gmail.com>
+Date:   Tue Jun 6 19:39:11 2023 -0300
+
+    teste de verificar a validação campos obrigatórios
+
+[33mcommit 2b3c3dae243369dcbc4148743f1bb02605746df7[m
+Author: Leandro Gomes Cardoso <leanddro.cardoso@gmail.com>
+Date:   Tue Jun 6 19:38:04 2023 -0300
+
+    Configuração de tradução e traduções
+
+[33mcommit bcd83ffd6e156d37af5f427e7c97f01145aa7ba4[m
+Author: Leandro Gomes Cardoso <leanddro.cardoso@gmail.com>
+Date:   Tue Jun 6 19:37:43 2023 -0300
+
+    Views da company
+
+[33mcommit 4632f71f96cce9f4a27f94c110ca083791557e42[m
+Author: Leandro Gomes Cardoso <leanddro.cardoso@gmail.com>
+Date:   Tue Jun 6 19:37:23 2023 -0300
+
+    Definido métodos show, new e create da company
+
+[33mcommit 00389bd195b0c41b1c32f0f76f6f63ec672a528b[m
+Author: Leandro Gomes Cardoso <leanddro.cardoso@gmail.com>
+Date:   Tue Jun 6 19:36:38 2023 -0300
+
+    Adicionando rotas de companies
+
+[33mcommit 66ca0ef7e45079ced246cde260eba5d0592176b4[m
+Author: Leandro Gomes Cardoso <leanddro.cardoso@gmail.com>
+Date:   Tue Jun 6 19:35:58 2023 -0300
+
+    Adicionando role(enum) ao usuário
+
+[33mcommit 0c5b60a664bf44448a8568fe68c7365744926ab0[m
+Author: Renan Antonio da Silva <renanras@gmail.com>
+Date:   Tue Jun 6 18:26:51 2023 -0300
+
+    Teste de criação de empresa pelo super_admin
+
+[33mcommit d5672eb5ab03ada5e3e4fc83b88f5cbe3cd1dbee[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 2d7de2e b1eee1f
+Author: Ian <124096795+iancalip@users.noreply.github.com>
+Date:   Tue Jun 6 17:28:08 2023 -0300
+
+    Merge pull request #9 from TreinaDev/create_models
+    
+    Criação de Models
+
+[33mcommit b1eee1fdbe8033152747c7227a89995d141aaa80[m[33m ([m[1;31morigin/create_models[m[33m)[m
+Author: Bruno <bruno.soares.guimaraes@gmail.com>
+Date:   Tue Jun 6 17:12:23 2023 -0300
+
+    Solucionando Rubocop
+
+[33mcommit 47730f9bb5665c31fd2a05487855e8373781f714[m
+Author: Bruno <bruno.soares.guimaraes@gmail.com>
+Date:   Tue Jun 6 16:10:55 2023 -0300
+
+    Atualização de Models
+
+[33mcommit e5256e51f179e152c395f52eb519a73d3013f9e5[m
+Author: Bruno <bruno.soares.guimaraes@gmail.com>
+Date:   Tue Jun 6 15:50:21 2023 -0300
+
+    Criação de Models
+
+[33mcommit 2d7de2e2e336d2b900bdada610091def6609a685[m
+Author: João Almeida <joao@campuscode.com.br>
+Date:   Tue Jun 6 12:22:48 2023 -0300
+
+    Commit inicial

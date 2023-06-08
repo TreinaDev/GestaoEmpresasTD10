@@ -12,4 +12,7 @@
     <p class="card-text"><%= @company.domain %></p>
   </div>
 </div>
-<%= link_to 'Editar', edit_company_path(@company) %>
+
+
+<%= link_to 'Editar', edit_company_path(@company) if current_user.role == "admin" %>
+
