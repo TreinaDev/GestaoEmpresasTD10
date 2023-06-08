@@ -17,6 +17,7 @@ feature 'visitante se cadastra' do
     click_on 'Cadastrar-se'
     fill_in 'E-mail', with: 'walisson@punti.com'
     fill_in 'Senha', with: 'password'
+    fill_in 'CPF', with: '44429533768'
     fill_in 'Confirme sua senha', with: 'password'
     click_on 'Criar conta'
 
@@ -29,19 +30,33 @@ feature 'visitante se cadastra' do
     expect(User.first.role).to eq 'admin'
   end
 
-  # scenario "e falha" do
+  scenario 'e tem role padrão' do
+    visit root_path
 
-  #   visit root_path
+    click_on 'Cadastrar-se'
+    fill_in 'E-mail', with: 'bruno@gmail.com'
+    fill_in 'Senha', with: 'password'
+    fill_in 'CPF', with: '44429533768'
+    fill_in 'Confirme sua senha',	with: 'password'
+    click_on 'Criar conta'
 
-  #   click_on 'Cadastrar-se'
-  #   fill_in 'E-mail', with: 'bruno@gmail.com'
-  #   fill_in 'Senha', with: 'password'
-  #   fill_in 'Confirme sua senha',	with: 'password'
-  #   click_on 'Criar conta'
+    expect(page).to have_content 'Você realizou seu registro com sucesso'
+    expect(page).to have_content 'FUNCIONÁRIO'
+    expect(User.first.role).to eq 'employee'
+  end
 
-  #   expect(page).to have_content 'Não foi possível cadastrar o usuário'
-  #   expect(page).not_to have_content 'Você realizou seu registro com sucesso'
-  #   expect(page).not_to have_button 'Sair'
-  #   expect(current_path).to eq new_user_registration_path
-  # end
+  scenario 'e tem role de manager' do
+    visit root_path
+
+    click_on 'Cadastrar-se'
+    fill_in 'E-mail', with: 'bruno@gmail.com'
+    fill_in 'Senha', with: 'password'
+    fill_in 'CPF', with: '44429533768'
+    fill_in 'Confirme sua senha',	with: 'password'
+    click_on 'Criar conta'
+
+    expect(page).to have_content 'Você realizou seu registro com sucesso'
+    expect(page).to have_content 'FUNCIONÁRIO'
+    expect(User.first.role).to eq 'employee'
+  end
 end
