@@ -5,10 +5,8 @@ require 'rails_helper'
 feature 'Registro de uma empresa' do
   context 'Logado como admin' do
     scenario 'com sucesso' do
-      ##
       admin = User.create!(email: 'manoel@punti.com', role: 'admin', password: '123456')
 
-      ##
       login_as admin
       visit new_company_path
 
@@ -20,10 +18,8 @@ feature 'Registro de uma empresa' do
       fill_in 'E-mail', with: 'contato@campuscode.com.br'
       fill_in 'Domínio', with: 'campuscode.com.br'
       attach_file 'company[logo]', Rails.root.join('spec/support/images/logo.png')
-
       click_on 'Salvar'
 
-      ##
       expect(page).to have_content 'Empresa cadastrada com sucesso'
       expect(page).to have_css("img[src*='logo.png']")
       expect(page).to have_content 'Campus Code Treinamentos LTDA'
@@ -33,10 +29,8 @@ feature 'Registro de uma empresa' do
     end
 
     scenario 'com falha' do
-      ##
       admin = User.create!(email: 'manoel@punti.com', role: 'admin', password: '123456')
 
-      ##
       login_as admin
       visit new_company_path
 
@@ -47,10 +41,8 @@ feature 'Registro de uma empresa' do
       fill_in 'Telefone', with: '1130302525'
       fill_in 'E-mail', with: ''
       fill_in 'Domínio', with: ''
-
       click_on 'Salvar'
 
-      ##
       expect(page).to have_content 'Empresa não cadastrada'
       expect(page).to have_content 'Razão social não pode ficar em branco'
       expect(page).to have_content 'CNPJ não pode ficar em branco'
@@ -64,14 +56,11 @@ feature 'Registro de uma empresa' do
 
   context 'Logado como gerente' do
     scenario 'e obtém erro' do
-      ##
       manager = User.create!(email: 'gerente@empresa.com', role: 'manager', password: '123456')
 
-      ##
       login_as manager
       visit new_company_path
 
-      ##
       expect(current_path).to eq root_path
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
@@ -79,14 +68,11 @@ feature 'Registro de uma empresa' do
 
   context 'Logado como funcionário' do
     scenario 'e obtém erro' do
-      ##
-      employee = User.create!(email: 'gerente@empresa.com', role: 'manager', password: '123456')
+      employee = User.create!(email: 'funcionario@empresa.com', role: 'employee', password: '123456')
 
-      ##
       login_as employee
       visit new_company_path
 
-      ##
       expect(current_path).to eq root_path
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
