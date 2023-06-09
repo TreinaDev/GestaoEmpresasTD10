@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Admin bloqueia manager" do
+feature 'Admin bloqueia manager' do
   scenario 'e vê o índice de managers' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
@@ -8,7 +8,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
 
     login_as admin
     visit root_path
@@ -27,7 +28,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
 
     login_as admin
     visit root_path
@@ -37,7 +39,7 @@ feature "Admin bloqueia manager" do
     expect(current_path).to eq users_path
     expect(page).to have_button 'Desbloquear Gerente'
     expect(manager.employee.status).to eq 'blocked'
-    expect(page).to have_content 'Usuário Bloqueado.'
+    expect(page).to have_content 'Usuário Bloqueado'
   end
 
   scenario 'e falha' do
@@ -47,7 +49,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
     allow_any_instance_of(User).to receive(:block!).and_return(false)
 
     login_as admin
@@ -65,7 +68,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
 
     visit root_path
     click_on 'Entrar'
@@ -85,7 +89,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
 
     login_as admin
     visit root_path
@@ -105,7 +110,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
     allow_any_instance_of(User).to receive(:unblock!).and_return(false)
 
     login_as admin
@@ -115,7 +121,7 @@ feature "Admin bloqueia manager" do
 
     expect(page).to have_content 'Não foi possível desbloquear o usuário'
   end
-  
+
   scenario 'visitante tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
@@ -123,16 +129,14 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
 
     visit users_path
- 
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Permissão negada'
   end
-  
-  
 
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
@@ -141,7 +145,8 @@ feature "Admin bloqueia manager" do
     company = Company.create!(brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
     position = Position.create!(department_id: department.id, name: 'gerente')
-    employee = Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id, user_id: manager.id)
+    Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
+                     user_id: manager.id)
 
     login_as manager
     visit users_path
