@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     attributes:
-      admin:
+      user:
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
         confirmed_at: Confirmado em
@@ -26,7 +26,7 @@ pt-BR:
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
     models:
-      admin:
+      user:
         one: Usuário
         other: Usuários
   devise:

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'administrator register company manager email' do
   it 'and see registration form' do
-    user = User.create!(email: 'admin@gmail.com', password: 'password', role: 1)
+    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                     domain: 'gmail.com', status: true)
@@ -17,7 +17,7 @@ describe 'administrator register company manager email' do
   end
 
   it 'successfully' do
-    user = User.create!(email: 'admin@gmail.com', password: 'password', role: 1)
+    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                               domain: 'gmail.com', status: true)
@@ -35,7 +35,7 @@ describe 'administrator register company manager email' do
   end
 
   it 'and fails because the email is not from a valid domain' do
-    user = User.create!(email: 'admin@gmail.com', password: 'password', role: 1)
+    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                     domain: 'gmail.com', status: true)
@@ -53,7 +53,7 @@ describe 'administrator register company manager email' do
   end
 
   it 'and fails because the email is invalid' do
-    user = User.create!(email: 'admin@gmail.com', password: 'password', role: 1)
+    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                     domain: 'gmail.com', status: true)
