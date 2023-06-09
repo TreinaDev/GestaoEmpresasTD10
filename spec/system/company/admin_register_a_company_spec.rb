@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Registro de uma empresa' do
   context 'Logado como admin' do
     scenario 'com sucesso' do
-      admin = User.create!(email: 'manoel@punti.com', role: 'admin', password: '123456')
+      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
 
       login_as admin
       visit new_company_path
@@ -27,7 +27,7 @@ feature 'Registro de uma empresa' do
     end
 
     scenario 'com falha' do
-      admin = User.create!(email: 'manoel@punti.com', role: 'admin', password: '123456')
+      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
 
       login_as admin
       visit new_company_path
@@ -54,7 +54,9 @@ feature 'Registro de uma empresa' do
 
   context 'Logado como gerente' do
     scenario 'e obtém erro' do
-      manager = User.create!(email: 'gerente@empresa.com', role: 'manager', password: '123456')
+      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
+      Manager.create!(email: 'gerente@empresa.com', created_by: admin)
+      manager = User.create!(email: 'gerente@empresa.com', password: '123456', cpf: '75676854006')
 
       login_as manager
       visit new_company_path
@@ -66,9 +68,17 @@ feature 'Registro de uma empresa' do
 
   context 'Logado como funcionário' do
     scenario 'e obtém erro' do
-      employee = User.create!(email: 'funcionario@empresa.com', role: 'employee', password: '123456')
+      company = FactoryBot.create(:company)
+      department = FactoryBot.create(:department, company:)
+      position = FactoryBot.create(:position, department:)
+      employee_data = FactoryBot.create(:employee, position:, department:)
+      employee_user = User.create!(
+        email: employee_data.email,
+        cpf: employee_data.cpf,
+        password: '123456'
+      )
 
-      login_as employee
+      login_as employee_user
       visit new_company_path
 
       expect(current_path).to eq root_path
