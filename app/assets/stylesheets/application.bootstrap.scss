@@ -1,2 +1,7 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.fixed-height {
+  height: 200px;
+  object-fit: contain;
+}

@@ -4,3 +4,5 @@ pt-BR:
       success: Empresa cadastrada com sucesso
     update:
       success: Empresa atualizada com sucesso
+    authenticate_admin:
+      warning: Apenas administradores podem executar essa ação

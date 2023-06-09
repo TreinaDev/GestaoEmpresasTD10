@@ -1,8 +1,14 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: %i[show edit update]
+  before_action :authenticate_admin!, only: %i[index inactives create update new]
 
   def index
     @companies = Company.all
+    @active_companies = Company.where(status: true)
+  end
+
+  def inactives
+    @inactive_companies = Company.where(status: false)
   end
 
   def show; end
@@ -33,6 +39,12 @@ class CompaniesController < ApplicationController
   end
 
   private
+
+  def authenticate_admin!
+    return if current_user&.role == 'admin'
+
+    redirect_to root_path, alert: t('.warning')
+  end
 
   def set_company
     @company = Company.find(params[:id])
