@@ -7,10 +7,39 @@ class User < ApplicationRecord
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
   before_save :set_admin_role
   before_save :set_manager_role
+  has_one :employee
 
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
   end
+
+  def block!
+    if self.employee
+      self.employee.status = :blocked
+      self.employee.save
+    end
+  end
+
+  def unblock!
+    if self.employee
+      self.employee.status = :unblocked
+      self.employee.save
+    end
+  end
+
+  def blocked?
+    self.employee && self.employee.status == 'blocked'
+  end
+
+  def active_for_authentication?
+    super && !blocked?
+  end
+
+  def inactive_message
+    blocked? ? :blocked : super
+  end
+
+
 
   private
 
