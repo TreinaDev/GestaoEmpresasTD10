@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Registro de uma empresa' do
   context 'Logado como admin' do
     scenario 'com sucesso' do
-      admin = User.create!(email: 'manoel@punti.com', password: '123456')
+      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
 
       login_as admin
       visit new_company_path
@@ -27,7 +27,7 @@ feature 'Registro de uma empresa' do
     end
 
     scenario 'com falha' do
-      admin = User.create!(email: 'manoel@punti.com', password: '123456')
+      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
 
       login_as admin
       visit new_company_path
@@ -54,9 +54,9 @@ feature 'Registro de uma empresa' do
 
   context 'Logado como gerente' do
     scenario 'e obtém erro' do
-      admin = User.create!(email: 'manoel@punti.com', password: '123456')
+      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
       Manager.create!(email: 'gerente@empresa.com', created_by: admin)
-      manager = User.create!(email: 'gerente@empresa.com', password: '123456')
+      manager = User.create!(email: 'gerente@empresa.com', password: '123456', cpf: '75676854006')
 
       login_as manager
       visit new_company_path

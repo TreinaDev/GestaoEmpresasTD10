@@ -18,9 +18,9 @@ feature 'Registro de funcionário' do
     fill_in 'Senha', with: 'password'
     fill_in 'Confirme sua senha', with: 'password'
     fill_in 'CPF', with: '69142235219'
-    click_on 'Sign up'
+    click_on 'Criar conta'
 
-    expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso'
+    expect(page).to have_content 'Você realizou seu registro com sucesso'
     expect(User.last.role).to eq 'employee'
     employee.reload
     expect(employee.user_id).to eq User.last.id
@@ -43,9 +43,9 @@ feature 'Registro de funcionário' do
     fill_in 'Senha', with: 'password'
     fill_in 'Confirme sua senha', with: 'password'
     fill_in 'CPF', with: '66614254901'
-    click_on 'Sign up'
+    click_on 'Criar conta'
 
-    expect(page).to have_content 'Não foi possível salvar usuário'
+    expect(page).to have_content 'Não foi possível cadastrar o usuário'
     expect(page).to have_content 'Email ou CPF não estão cadastrados nas tabelas correspondentes'
   end
 end
