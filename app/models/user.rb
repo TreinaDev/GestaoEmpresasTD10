@@ -9,7 +9,7 @@ class User < ApplicationRecord
   before_save :set_manager_role
 
   def description
-    "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase}: #{email}"
+    "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
   end
 
   private
