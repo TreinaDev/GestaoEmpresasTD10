@@ -1,0 +1,8 @@
+pt-BR:
+  controllers:
+    managers:
+      create:
+        success: 'Email cadastrado com sucesso'
+        failed: 'Não foi possível cadastrar email'
+      destroy:
+        success: 'Email desativado com sucesso'

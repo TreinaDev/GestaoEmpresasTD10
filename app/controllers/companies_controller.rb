@@ -6,5 +6,6 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find(params[:id])
     @manager = Manager.new
+    @emails = Manager.active.where(company: @company)
   end
 end

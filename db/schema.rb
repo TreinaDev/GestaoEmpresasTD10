@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_200846) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_140634) do
   create_table "companies", force: :cascade do |t|
     t.string "brand_name"
     t.string "corporate_name"
@@ -77,6 +77,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_200846) do
     t.integer "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "company_id"
+    t.boolean "status", default: true
+    t.index ["company_id"], name: "index_managers_on_company_id"
     t.index ["created_by_id"], name: "index_managers_on_created_by_id"
   end
 
