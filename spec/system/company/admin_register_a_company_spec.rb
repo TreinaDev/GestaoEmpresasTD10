@@ -1,5 +1,3 @@
-# TODO: Alterar a navegação após a criação dos menus e links
-
 require 'rails_helper'
 
 feature 'Registro de uma empresa' do
