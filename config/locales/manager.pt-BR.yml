@@ -4,5 +4,6 @@ pt-BR:
       create:
         success: 'Email cadastrado com sucesso'
         failed: 'Não foi possível cadastrar email'
+        reactivated: 'Email reativado'
       destroy:
         success: 'Email desativado com sucesso'
