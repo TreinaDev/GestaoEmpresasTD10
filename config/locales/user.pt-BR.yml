@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      user: "Usuário"
+    attributes:
+      user:
+        cpf: "CPF"
+        email: "E-mail"
+        password: "Senha"
+        description: 'Descrição'
+        roles:
+          one: "roles"
+          other:
+            admin: "Admin"
+            manager: "Gerente"
+            employee: "Funcionário"

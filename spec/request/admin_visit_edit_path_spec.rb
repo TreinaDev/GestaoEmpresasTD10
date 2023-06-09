@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Admin visita tela de edição', type: :request do
   it 'com sucesso' do
-    admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456')
+    admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
     company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                           registration_number: '12.345.678/0001-95',
                           address: 'Rua California, 3000', phone_number: '11 99999-9999',

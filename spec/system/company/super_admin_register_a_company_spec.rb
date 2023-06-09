@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Super_Admin' do
   it 'registra uma empresa' do
     ##
-    super_admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456')
+    super_admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
 
     ##
     login_as super_admin
@@ -31,7 +31,7 @@ describe 'Super_Admin' do
 
   it 'erros ao registra uma empresa' do
     ##
-    super_admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456')
+    super_admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
 
     ##
     login_as super_admin
