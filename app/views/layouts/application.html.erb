@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CompanyManagement</title>
+    <title>Gerenciador de Empresas</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,6 +13,12 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <% if user_signed_in? %>
+      <p><%= current_user.description%></p>
+      <%= button_to "Sair", destroy_user_session_path, method: :delete %>
+    <%else%>
+      <%= link_to 'Cadastrar-se', new_user_registration_path %>
+    <%end%>
     <%= yield %>
   </body>
 </html>

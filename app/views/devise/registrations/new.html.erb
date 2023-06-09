@@ -1,0 +1,34 @@
+<h2>Inscrever-se</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "e-mail" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cpf %><br />
+    <%= f.text_field :cpf %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> caracteres mínimos)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "nova-senha" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "nova-senha" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Criar conta" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
