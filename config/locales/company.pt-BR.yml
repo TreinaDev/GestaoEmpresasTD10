@@ -6,5 +6,7 @@ pt-BR:
     attributes:
       company:
         email: 'Email'
-    create:
-      success: 'Email cadastrado com sucesso'
+  controllers:
+    managers:
+      create:
+        success: 'Email cadastrado com sucesso'
