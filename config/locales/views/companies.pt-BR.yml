@@ -4,3 +4,5 @@ pt-BR:
       save: Salvar
     edit:
       save: Salvar
+    index:
+      warning: Apenas administradores podem executar essa ação

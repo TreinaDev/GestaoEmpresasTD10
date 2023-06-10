@@ -5,22 +5,33 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-# User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
 
-# company1 = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
-#                        registration_number: '12.345.678/0001-95',
-#                        address: 'Rua California, 3000', phone_number: '11 99999-9999',
-#                        email: 'company@apple.com',
-#                        domain: 'apple.com', status: true)
-# company1.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-#                      filename: 'logo.png', content_type: 'logo.png')
+User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
+company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
+                      registration_number: '12.345.678/0001-95',
+                      address: 'Rua California, 3000', phone_number: '11 99999-9999',
+                      email: 'company@apple.com',
+                      domain: 'apple.com', status: true)
+company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
+                    filename: 'logo.png', content_type: 'logo.png')
 
-# company2 = Company.new(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
-#                        registration_number: '12.345.678/0001-95',
-#                        address: 'Rua do Silício, 1995', phone_number: '11 99999-9999',
-#                        email: 'company@microsoft.com',
-#                        domain: 'microsoft.com', status: true)
-# company2.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-#                      filename: 'logo.png', content_type: 'logo.png')
-# company1.save!
-# company2.save!
+company2 = Company.new(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
+                       registration_number: '12.345.678/0001-95',
+                       address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
+                       email: 'company@microsoft.com',
+                       domain: 'microsoft.com', status: true)
+
+company2.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
+                     filename: 'logo.png', content_type: 'logo.png')
+
+company3 = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
+                       registration_number: '12.345.678/0001-95',
+                       address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
+                       email: 'company@ibm.com',
+                       domain: 'ibm.com', status: false)
+
+company3.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
+                     filename: 'logo.png', content_type: 'logo.png')
+company.save!
+company2.save!
+company3.save!

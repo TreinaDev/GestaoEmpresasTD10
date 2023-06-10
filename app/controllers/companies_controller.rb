@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  before_action :set_company, only: %i[show edit update]
+  before_action :set_company, only: %i[show edit update activate deactivate]
   before_action :authenticate_admin!, only: %i[index inactives create update new]
 
   def index
@@ -36,6 +36,16 @@ class CompaniesController < ApplicationController
       flash.now[:notice] = 'Não foi possível atualizar dados da empresa'
       render :edit
     end
+  end
+
+  def activate
+    @company.update(status: true)
+    redirect_to company_path(@company)
+  end
+
+  def deactivate
+    @company.update(status: false)
+    redirect_to company_path(@company)
   end
 
   private
