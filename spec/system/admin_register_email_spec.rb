@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'administrator register company manager email' do
-  scenario 'and see registration form' do
+feature 'administrator registra email do gerente da empresa' do
+  scenario 'e vê formulário para cadastro' do
     user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
@@ -16,7 +16,7 @@ feature 'administrator register company manager email' do
     expect(page).to have_button 'Cadastrar'
   end
 
-  scenario 'successfully' do
+  scenario 'com sucesso' do
     user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
@@ -34,7 +34,7 @@ feature 'administrator register company manager email' do
     expect(page).to have_content 'Google'
   end
 
-  scenario 'and fails because the email is not from a valid domain' do
+  scenario 'e falha porque o email não é de um ddomínio válido' do
     user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
@@ -49,10 +49,10 @@ feature 'administrator register company manager email' do
     # Assert
     expect(page).not_to have_content 'Email cadastrado com sucesso'
     expect(page).to have_content 'Não foi possível cadastrar email'
-    expect(page).to have_content 'precisa ser do domínio de uma empresa'
+    expect(page).to have_content 'domínio do email não pertence a empresa'
   end
 
-  scenario 'and fails because the email is invalid' do
+  scenario 'e falha porque o email é inválido' do
     user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
@@ -106,5 +106,41 @@ feature 'administrator register company manager email' do
     expect(current_path).to eq company_path(company)
     expect(page).not_to have_content 'Email cadastrado com sucesso'
     expect(page).to have_content 'Email reativado'
+  end
+
+  # scenario 'e não esta logado como administrador' do
+  #   admin = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password')
+  #   company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
+  # address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
+  # domain: 'gmail.com', status: true)
+  #   Manager.create!(email: 'zezinho@gmail.com', created_by: admin, company: company)
+  #   user = User.create!(email: 'zezinho@gmail.com', cpf: '76482272070', password: 'password')
+
+  #   login_as(user)
+  #   visit root_path
+
+  #   expect(current_path).to eq company_path(company)
+  #   expect(page).not_to have_field 'Cadastrar email'
+  #   expect(page).not_to have_button 'Cadastrar'
+  # end
+
+  scenario 'e cadastra no domínio de outra empresa' do
+    admin = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password')
+    Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
+                    address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
+                    domain: 'gmail.com', status: true)
+    Company.create!(brand_name: 'Outlook', corporate_name: 'Outlook LTDA', registration_number: '123456789',
+                    address: 'Rua abigail, 13', phone_number: '90900755433', email: 'contato@outlook.com',
+                    domain: 'outlook.com', status: true)
+
+    login_as(admin)
+    visit root_path
+    click_on 'Empresas'
+    click_on 'Outlook'
+    fill_in 'Cadastrar email', with: 'zezinho@gmail.com'
+    click_on 'Cadastrar'
+
+    expect(page).to have_content 'Não foi possível cadastrar email'
+    expect(page).to have_content 'domínio do email não pertence a empresa'
   end
 end

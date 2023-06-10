@@ -11,11 +11,12 @@ class Manager < ApplicationRecord
   validates :email, format: /\A[^@\s]+@[^@\s]+\z/
 
   def email_equal_to_do_domain
-    if email.present?
+    if email.present? && company.present?
       domain = email.split('@')[-1]
-      errors.add(:email, 'precisa ser do domínio de uma empresa') unless Company.find_by(domain:)
+      errors.add(:email, 'domínio do email não pertence a empresa') unless
+                                                                    Company.where(id: company.id, domain:).first
     else
-      errors.add(:email, 'precisa ser do domínio de uma empresa')
+      errors.add(:email, 'domínio do email não pertence a empresa')
     end
   end
 

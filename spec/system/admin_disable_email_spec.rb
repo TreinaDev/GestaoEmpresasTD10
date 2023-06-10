@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'admin disable manager email' do
-  scenario 'successfully' do
+feature 'administrador desativa email do gerente' do
+  scenario 'com sucesso' do
     user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
