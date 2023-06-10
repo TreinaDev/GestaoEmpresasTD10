@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: %i[show edit update activate deactivate]
-  before_action :authenticate_admin!, only: %i[index inactives create update new]
+  before_action :authenticate_admin!, only: %i[index inactives new create edit update activate deactivate]
 
   def index
     @companies = Company.all
