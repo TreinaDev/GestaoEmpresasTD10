@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'administrador desativa email do gerente' do
   scenario 'com sucesso' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                               domain: 'gmail.com', status: true)

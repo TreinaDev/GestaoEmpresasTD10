@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'administrator registra email do gerente da empresa' do
   scenario 'e vê formulário para cadastro' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                     domain: 'gmail.com', status: true)
@@ -17,7 +17,7 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'com sucesso' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                               domain: 'gmail.com', status: true)
@@ -35,7 +35,7 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e falha porque o email não é de um ddomínio válido' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                     domain: 'gmail.com', status: true)
@@ -53,7 +53,7 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e falha porque o email é inválido' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                     address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                     domain: 'gmail.com', status: true)
@@ -71,7 +71,7 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e falha porque o email já existe' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                               domain: 'gmail.com', status: true)
@@ -90,7 +90,7 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e reativa o email já cadastrado e desativado previamente' do
-    user = User.create!(email: 'admin@gmail.com', cpf: '05823272294', password: 'password', role: 1)
+    user = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password', role: 0)
     company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                               domain: 'gmail.com', status: true)
@@ -108,21 +108,21 @@ feature 'administrator registra email do gerente da empresa' do
     expect(page).to have_content 'Email reativado'
   end
 
-  # scenario 'e não esta logado como administrador' do
-  #   admin = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password')
-  #   company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
-  # address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
-  # domain: 'gmail.com', status: true)
-  #   Manager.create!(email: 'zezinho@gmail.com', created_by: admin, company: company)
-  #   user = User.create!(email: 'zezinho@gmail.com', cpf: '76482272070', password: 'password')
+  scenario 'e não esta logado como administrador' do
+    admin = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password')
+    company = Company.create!(brand_name: 'Google', corporate_name: 'Google LTDA', registration_number: '123456789',
+                              address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
+                              domain: 'gmail.com', status: true)
+    Manager.create!(email: 'zezinho@gmail.com', created_by: admin, company:)
+    user = User.create!(email: 'zezinho@gmail.com', cpf: '76482272070', password: 'password')
 
-  #   login_as(user)
-  #   visit root_path
+    login_as(user)
+    visit company_path(company)
 
-  #   expect(current_path).to eq company_path(company)
-  #   expect(page).not_to have_field 'Cadastrar email'
-  #   expect(page).not_to have_button 'Cadastrar'
-  # end
+    expect(current_path).to eq company_path(company)
+    expect(page).not_to have_field 'Cadastrar email'
+    expect(page).not_to have_button 'Cadastrar'
+  end
 
   scenario 'e cadastra no domínio de outra empresa' do
     admin = User.create!(email: 'admin@punti.com', cpf: '05823272294', password: 'password')
