@@ -26,7 +26,7 @@ feature 'Registro de uma empresa' do
       expect(page).to have_content '00.394.460/0058-87'
     end
 
-    scenario 'com falha' do
+    scenario 'com falha devido a campos faltantes' do
       admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
 
       login_as admin
@@ -52,8 +52,8 @@ feature 'Registro de uma empresa' do
     end
   end
 
-  context 'Logado como gerente' do
-    scenario 'e obtém erro' do
+  context 'Com erro de permissão' do
+    scenario 'Logado como gerente' do
       admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
       Manager.create!(email: 'gerente@empresa.com', created_by: admin)
       manager = User.create!(email: 'gerente@empresa.com', password: '123456', cpf: '75676854006')
@@ -64,10 +64,8 @@ feature 'Registro de uma empresa' do
       expect(current_path).to eq root_path
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
-  end
 
-  context 'Logado como funcionário' do
-    scenario 'e obtém erro' do
+    scenario 'Logado como funcionário' do
       company = FactoryBot.create(:company)
       department = FactoryBot.create(:department, company:)
       position = FactoryBot.create(:position, department:)
