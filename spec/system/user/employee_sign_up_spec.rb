@@ -26,7 +26,7 @@ feature 'Registro de funcionário' do
     expect(employee.user_id).to eq User.last.id
   end
 
-  scenario 'sem sucesso' do
+  scenario 'sem sucesso pois não tem CPF pré-cadastrado' do
     company = FactoryBot.create(:company)
     department = FactoryBot.create(:department, company:)
     position = FactoryBot.create(:position, department:)
