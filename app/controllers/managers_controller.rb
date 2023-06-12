@@ -5,8 +5,9 @@ class ManagersController < ApplicationController
     if @manager.save
       redirect_to company_path(@company), notice: t('controllers.managers.create.success')
     else
-      redirect_to company_path(@company), notice: [@manager.errors.full_messages,
-                                                   t('controllers.managers.create.failed')]
+      @emails = Manager.active.where(company: @company)
+      flash.now[:notice] = t('controllers.managers.create.failed')
+      render 'companies/show', status: :unprocessable_entity
     end
   end
 

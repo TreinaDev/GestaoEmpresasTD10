@@ -76,15 +76,14 @@ feature 'administrator registra email do gerente da empresa' do
                               address: 'Rua abigail, 13', phone_number: '90908765433', email: 'contato@gmail.com',
                               domain: 'gmail.com', status: true)
     Manager.create!(email: 'zezinho@gmail.com', created_by: user, company:, status: :active)
-
+    # Act
     login_as(user)
     visit root_path
     click_on 'Empresas'
     click_on 'Google'
     fill_in 'Cadastrar email', with: 'zezinho@gmail.com'
     click_on 'Cadastrar'
-
-    expect(current_path).to eq company_path(company)
+    # Assert
     expect(page).to have_content 'Email já cadastrado'
     expect(page).not_to have_content 'Email cadastrado com sucesso'
   end

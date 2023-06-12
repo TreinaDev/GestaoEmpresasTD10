@@ -6,6 +6,7 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find(params[:id])
     @manager = Manager.new
-    @emails = Manager.active.where(company: @company)
+    used_emails = User.manager.all.pluck('email')
+    @emails = Manager.active.where(company: @company).where.not(email: used_emails)
   end
 end
