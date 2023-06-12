@@ -71,7 +71,7 @@ feature 'Usuário edita empresa' do
   end
 
   context 'enquanto gerente' do
-    scenario 'sem sucesso' do
+    scenario 'não vê botão para rota de editar' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       Manager.create!(email: 'manager@apple.com', created_by: admin)
       manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
@@ -92,7 +92,7 @@ feature 'Usuário edita empresa' do
   end
 
   context 'enquanto funcionário' do
-    scenario 'sem sucesso' do
+    scenario 'não vê botão para rota de editar' do
       employee = User.create!(email: 'employee@apple.com', role: :employee, password: '123456', cpf: '02324252481')
       company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                             registration_number: '12.345.678/0001-95',
