@@ -37,7 +37,7 @@ feature 'Usuário edita empresa' do
       expect(page).to have_selector("img[src$='logo.png']")
     end
 
-    scenario 'sem sucesso' do
+    scenario 'e todos os campos são necessários' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                             registration_number: '12.345.678/0001-95',

@@ -6,7 +6,7 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
 
       login_as admin
-      get '/companies/inactives'
+      get inactives_companies_path
 
       expect(response).to have_http_status(:ok)
     end
@@ -19,10 +19,10 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
       manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
 
       login_as manager
-      get '/companies/inactives'
+      get inactives_companies_path
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to root_path
+      expect(response).to have_http_status(:forbidden)
+      expect(response.body).to include 'Apenas administradores podem executar essa ação'
     end
   end
 
@@ -31,10 +31,10 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
       employee = User.create!(email: 'employee@apple.com', role: :employee, password: '123456', cpf: '02324252481')
 
       login_as employee
-      get '/companies/inactives'
+      get inactives_companies_path
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to root_path
+      expect(response).to have_http_status(:forbidden)
+      expect(response.body).to include 'Apenas administradores podem executar essa ação'
     end
   end
 end

@@ -14,14 +14,35 @@ describe 'Usuário visita tela de edição', type: :request do
       company.save!
 
       login_as admin
-      get "/companies/#{company.id}/edit"
 
-      expect(response).to have_http_status(:ok)
+      new_attributes = {
+        brand_name: 'New Brand Name',
+        corporate_name: 'New Corporate Name',
+        registration_number: '98.765.432/1000-85',
+        address: 'New Address',
+        phone_number: '22 88888-8888',
+        email: 'new_email@company.com',
+        domain: 'newdomain.com'
+      }
+
+      patch company_path(company), params: { company: new_attributes }
+
+      company.reload
+
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to company_path(company)
+      expect(company.brand_name).to eq(new_attributes[:brand_name])
+      expect(company.corporate_name).to eq(new_attributes[:corporate_name])
+      expect(company.registration_number).to eq(new_attributes[:registration_number])
+      expect(company.address).to eq(new_attributes[:address])
+      expect(company.phone_number).to eq(new_attributes[:phone_number])
+      expect(company.email).to eq(new_attributes[:email])
+      expect(company.domain).to eq(new_attributes[:domain])
     end
   end
 
-  context 'enquanto gerente' do
-    it 'sem sucesso' do
+  context 'sem sucesso' do
+    it 'enquanto gerente' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       Manager.create!(email: 'manager@apple.com', created_by: admin)
       manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
@@ -35,15 +56,13 @@ describe 'Usuário visita tela de edição', type: :request do
       company.save!
 
       login_as manager
-      get "/companies/#{company.id}/edit"
+      get edit_company_path(company)
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to root_path
+      expect(response).to have_http_status(:forbidden)
+      expect(response.body).to include 'Apenas administradores podem executar essa ação'
     end
-  end
 
-  context 'enquanto funcionário' do
-    it 'sem sucesso' do
+    it 'enquanto funcionário' do
       employee = User.create!(email: 'employee@apple.com', role: :employee, password: '123456', cpf: '02324252481')
       company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                             registration_number: '12.345.678/0001-95',
@@ -55,10 +74,10 @@ describe 'Usuário visita tela de edição', type: :request do
       company.save!
 
       login_as employee
-      get "/companies/#{company.id}/edit"
+      get edit_company_path(company)
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to root_path
+      expect(response).to have_http_status(:forbidden)
+      expect(response.body).to include 'Apenas administradores podem executar essa ação'
     end
   end
 end

@@ -14,7 +14,7 @@ describe 'Usuário desativa empresa', type: :request do
       company.save!
 
       login_as admin
-      put "/companies/#{company.id}/deactivate"
+      put deactivate_company_path(company)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to company_path(company)
@@ -37,10 +37,10 @@ describe 'Usuário desativa empresa', type: :request do
       company.save!
 
       login_as manager
-      put "/companies/#{company.id}/deactivate"
+      put deactivate_company_path(company)
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to root_path
+      expect(response).to have_http_status(:forbidden)
+      expect(response.body).to include 'Apenas administradores podem executar essa ação'
       expect(company.reload.status).to eq true
     end
   end
@@ -58,10 +58,10 @@ describe 'Usuário desativa empresa', type: :request do
       company.save!
 
       login_as employee
-      put "/companies/#{company.id}/deactivate"
+      put deactivate_company_path(company)
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to root_path
+      expect(response).to have_http_status(:forbidden)
+      expect(response.body).to include 'Apenas administradores podem executar essa ação'
       expect(company.reload.status).to eq true
     end
   end

@@ -3,7 +3,6 @@ class CompaniesController < ApplicationController
   before_action :authenticate_admin!, only: %i[index inactives new create edit update activate deactivate]
 
   def index
-    @companies = Company.all
     @active_companies = Company.where(status: true)
   end
 
@@ -53,7 +52,7 @@ class CompaniesController < ApplicationController
   def authenticate_admin!
     return if current_user&.role == 'admin'
 
-    redirect_to root_path, alert: t('.warning')
+    render plain: t('.warning'), status: :forbidden
   end
 
   def set_company

@@ -49,17 +49,6 @@ feature 'Usuário visualiza empresas ativas' do
       expect(page).not_to have_css('img[alt="IBM"]')
     end
 
-    scenario 'e vê mensagem caso não haja nenhuma empresa cadastrada' do
-      admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-
-      login_as admin
-      visit root_path
-      click_on 'Empresas'
-
-      expect(page).not_to have_content 'Apple'
-      expect(page).to have_content 'Nenhuma empresa cadastrada'
-    end
-
     scenario 'e vê mensagem caso não haja nenhuma empresa ativa' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       company = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
