@@ -6,8 +6,4 @@ module UserHelper
   def manager?
     user_signed_in? && current_user.manager?
   end
-
-  def employee?
-    user_signed_in? && current_user.is_employee?
-  end
 end

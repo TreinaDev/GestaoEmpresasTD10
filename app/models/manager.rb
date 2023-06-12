@@ -7,6 +7,8 @@ class Manager < ApplicationRecord
 
   validate :email_equal_to_do_domain
   validate :email_exists_active?, on: :create
+  validate :created_by_must_be_admin
+  validate :email_exists_in_a_user?
 
   validates :email, format: /\A[^@\s]+@[^@\s]+\z/
 
@@ -22,5 +24,13 @@ class Manager < ApplicationRecord
 
   def email_exists_active?
     errors.add(:email, 'já cadastrado') if email.present? && Manager.where(email:).active.any?
+  end
+
+  def created_by_must_be_admin
+    errors.add(:created_by, 'deve ser administrador') unless created_by.present? && created_by.admin?
+  end
+
+  def email_exists_in_a_user?
+    errors.add(:email, 'já cadastrado em um usuário') if email.present? && User.where(email:).any?
   end
 end
