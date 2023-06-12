@@ -41,7 +41,7 @@ feature 'Admin bloqueia manager' do
     expect(page).to have_content 'Não foi possível bloquear o usuário'
   end
 end
-context "usuário já bloqueado" do
+context 'usuário já bloqueado' do
   scenario 'Usuário tenta logar em conta bloqueada e é impedido.' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
@@ -104,7 +104,7 @@ context "usuário já bloqueado" do
   end
 end
 
-context "visitante tenta acessar" do
+context 'visitante tenta acessar' do
   scenario 'lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
@@ -120,7 +120,7 @@ context "visitante tenta acessar" do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Permissão negada'
   end
-   
+
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
