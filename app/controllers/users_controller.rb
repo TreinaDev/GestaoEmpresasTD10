@@ -8,17 +8,17 @@ class UsersController < ApplicationController
 
   def block
     if @user.block!
-      redirect_to users_path, alert: t('success.blocked')
+      redirect_to users_path, alert: t('success.user.blocked')
     else
-      redirect_to users_path, alert: t('errors.blocked_fail')
+      redirect_to users_path, alert: t('errors.user.blocked_fail')
     end
   end
 
   def unblock
     if @user.unblock!
-      redirect_to users_path, notice: t('success.unblocked')
+      redirect_to users_path, notice: t('success.user.unblocked')
     else
-      redirect_to users_path, alert: t('errors.unblocked_fail')
+      redirect_to users_path, alert: t('errors.user.unblocked_fail')
     end
   end
 

@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_admin
-    return unless current_user.nil? || current_user.role != 'admin'
+    return unless current_user.nil? || !current_user.admin?
 
-    redirect_to root_path, alert: t('errors.permission_denied')
+    redirect_to root_path, alert: t('errors.user.permission_denied')
   end
 end

@@ -16,15 +16,13 @@ class User < ApplicationRecord
   def block!
     return unless employee
 
-    employee.status = :blocked
-    employee.save
+    employee.update(status: :blocked)
   end
 
   def unblock!
     return unless employee
 
-    employee.status = :unblocked
-    employee.save
+    employee.update(status: :unblocked)
   end
 
   def blocked?

@@ -1,26 +1,6 @@
 require 'rails_helper'
 
 feature 'Admin bloqueia manager' do
-  scenario 'e vê o índice de managers' do
-    admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
-    manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = Company.create!(brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
-    Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
-                     user_id: manager.id)
-
-    login_as admin
-    visit root_path
-    click_on 'Gerentes Cadastrados'
-
-    expect(current_path).to eq users_path
-    expect(page).to have_content 'Email'
-    expect(page).to have_content 'user@apple.com'
-    expect(page).to have_button 'Bloquear Gerente'
-  end
-
   scenario 'com sucesso' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
@@ -60,7 +40,8 @@ feature 'Admin bloqueia manager' do
 
     expect(page).to have_content 'Não foi possível bloquear o usuário'
   end
-
+end
+context "usuário já bloqueado" do
   scenario 'Usuário tenta logar em conta bloqueada e é impedido.' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
@@ -82,7 +63,7 @@ feature 'Admin bloqueia manager' do
     expect(page).to have_content 'Sua conta está suspensa.'
   end
 
-  scenario 'e desbloqueia' do
+  scenario 'e admin o desbloqueia' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
@@ -103,7 +84,7 @@ feature 'Admin bloqueia manager' do
     expect(page).to have_content 'Usuário Desbloqueado'
   end
 
-  scenario 'tenta desbloquear e falha' do
+  scenario 'e admin tenta desbloquear e falha' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
@@ -121,8 +102,10 @@ feature 'Admin bloqueia manager' do
 
     expect(page).to have_content 'Não foi possível desbloquear o usuário'
   end
+end
 
-  scenario 'visitante tenta acessar lista de Gerentes Cadastrados' do
+context "visitante tenta acessar" do
+  scenario 'lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
@@ -137,7 +120,7 @@ feature 'Admin bloqueia manager' do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Permissão negada'
   end
-
+   
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)

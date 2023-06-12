@@ -1,8 +1,0 @@
-pt-BR:
-  errors:
-    blocked_fail: 'Não foi possível bloquear o usuário'
-    unblocked_fail: 'Não foi possível desbloquear o usuário.'
-    permission_denied: 'Permissão negada'
-  success:
-    blocked: 'Usuário Bloqueado'
-    unblocked: 'Usuário Desbloqueado'
