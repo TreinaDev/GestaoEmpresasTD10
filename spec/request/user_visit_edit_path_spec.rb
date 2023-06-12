@@ -16,13 +16,13 @@ describe 'Usuário visita tela de edição', type: :request do
       login_as admin
 
       new_attributes = {
-        brand_name: 'New Brand Name',
-        corporate_name: 'New Corporate Name',
+        brand_name: 'Novo nome fantasia',
+        corporate_name: 'Nova razão social ',
         registration_number: '98.765.432/1000-85',
-        address: 'New Address',
+        address: 'Novo endereço',
         phone_number: '22 88888-8888',
-        email: 'new_email@company.com',
-        domain: 'newdomain.com'
+        email: 'novoemail@company.com',
+        domain: 'novodominio.com'
       }
 
       patch company_path(company), params: { company: new_attributes }
