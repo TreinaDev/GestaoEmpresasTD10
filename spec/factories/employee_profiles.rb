@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :employee do
+  factory :employee_profile do
     name { 'MyString' }
     social_name { 'MyString' }
     cpf { 'MyString' }

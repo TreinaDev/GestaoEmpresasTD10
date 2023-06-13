@@ -6,7 +6,7 @@ feature 'Registro de funcionário' do
     department = FactoryBot.create(:department, company:)
     position = FactoryBot.create(:position, department:)
     employee = FactoryBot.create(
-      :employee,
+      :employee_profile,
       position:,
       department:,
       email: 'funcionario@empresa.com',
@@ -31,7 +31,7 @@ feature 'Registro de funcionário' do
     department = FactoryBot.create(:department, company:)
     position = FactoryBot.create(:position, department:)
     FactoryBot.create(
-      :employee,
+      :employee_profile,
       position:,
       department:,
       email: 'funcionario@empresa.com',
