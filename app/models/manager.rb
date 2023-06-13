@@ -31,6 +31,6 @@ class Manager < ApplicationRecord
   end
 
   def email_exists_in_a_user?
-    errors.add(:email, 'já cadastrado em um usuário') if email.present? && User.where(email:).any?
+    errors.add(:email, 'já cadastrado em um usuário') if User.where(email:).any?
   end
 end
