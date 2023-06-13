@@ -107,7 +107,7 @@ feature 'administrator registra email do gerente da empresa' do
 
   scenario 'e cadastra no domínio de outra empresa' do
     admin = create(:user, email: 'admin@punti.com')
-    create(:company)
+    create(:company, registration_number: '123')
     create(:company, brand_name: 'Outlook', corporate_name: 'Outlook LTDA', domain: 'outlook.com')
 
     login_as(admin)
@@ -122,8 +122,12 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e não esta logado como administrador' do
+    company = FactoryBot.create(:company)
+    department = FactoryBot.create(:department, company:)
+    position = FactoryBot.create(:position, department:)
+    FactoryBot.create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+
     admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
     create(:manager, created_by: admin, company:)
     user = create(:user, email: 'zezinho@gmail.com', cpf: '30805775072')
 

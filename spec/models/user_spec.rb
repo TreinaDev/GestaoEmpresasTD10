@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
         admin = create(:user, email: 'user@punti.com')
         company = create(:company)
         create(:manager, created_by: admin, company:)
-        new_user = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+        new_user = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
 
         expect(new_user.valid?).to be true
         expect(new_user.role).to eq 'manager'
@@ -39,18 +39,23 @@ RSpec.describe User, type: :model do
     it 'exibe o role e e-mail do Manager' do
       admin = create(:user, email: 'user@punti.com')
       company = create(:company)
-      manager = create(:manager, created_by: admin, company:)
-      new_user = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+      create(:manager, created_by: admin, company:)
+      new_user = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
 
       result = new_user.description
 
       expect(result).not_to eq('ADMIN - user@punti.com')
-      expect(result).to eq('GERENTE - user@gmail.com')
-      expect(result).not_to eq('FUNCIONÁRIO - user@gmail.com')
+      expect(result).to eq('GERENTE - joaozinho@gmail.com')
+      expect(result).not_to eq('FUNCIONÁRIO - joaozinho@gmail.com')
     end
 
     it 'exibe o role e e-mail do Employee' do
-      new_user = create(:user, email: 'user@treinadev.com', role: 2)
+      company = FactoryBot.create(:company)
+      department = FactoryBot.create(:department, company:)
+      position = FactoryBot.create(:position, department:)
+      FactoryBot.create(:employee, position:, department:, email: 'user@treinadev.com', cpf: '44429533768')
+      new_user = User.create!(email: 'user@treinadev.com', cpf: '44429533768', password: 'password')
+
       result = new_user.description
 
       expect(result).not_to eq('ADMIN - user@punti.com')

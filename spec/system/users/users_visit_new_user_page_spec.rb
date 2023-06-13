@@ -31,6 +31,11 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role padrão' do
+    company = FactoryBot.create(:company)
+    department = FactoryBot.create(:department, company:)
+    position = FactoryBot.create(:position, department:)
+    FactoryBot.create(:employee, position:, department:, email: 'bruno@gmail.com', cpf: '44429533768')
+
     visit root_path
 
     click_on 'Cadastrar-se'
@@ -46,6 +51,11 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role de manager' do
+    company = FactoryBot.create(:company)
+    department = FactoryBot.create(:department, company:)
+    position = FactoryBot.create(:position, department:)
+    FactoryBot.create(:employee, position:, department:, email: 'bruno@gmail.com', cpf: '44429533768')
+
     visit root_path
 
     click_on 'Cadastrar-se'

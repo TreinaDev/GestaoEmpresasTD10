@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Manager, type: :model do
   context 'presença' do
     it 'Email deve estar presente' do
-      user = create(:user)
+      user = create(:user, email: 'admin@punti.com')
       company = create(:company)
       manager = build(:manager, created_by: user, company:, email: nil)
 
@@ -13,7 +13,7 @@ RSpec.describe Manager, type: :model do
     end
 
     it 'Criado por deve estar presente' do
-      create(:user)
+      create(:user, email: 'admin@punti.com')
       company = create(:company)
       manager = build(:manager, created_by: nil, company:, email: 'marizinha@gmail.com')
 
@@ -23,7 +23,7 @@ RSpec.describe Manager, type: :model do
     end
 
     it 'Empresa deve estar presente' do
-      user = create(:user)
+      user = create(:user, email: 'admin@punti.com')
       create(:company)
       manager = build(:manager, created_by: user, company: nil, email: 'marizinha@gmail.com')
 
@@ -35,7 +35,7 @@ RSpec.describe Manager, type: :model do
 
   context 'valido' do
     it 'Email deve pertencer ao domínio da empresa' do
-      user = create(:user)
+      user = create(:user, email: 'admin@punti.com')
       company = create(:company)
       manager = build(:manager, created_by: user, company:, email: 'teste@outlook.com')
 
@@ -45,7 +45,7 @@ RSpec.describe Manager, type: :model do
     end
 
     it 'Email deve ser válido' do
-      user = create(:user)
+      user = create(:user, email: 'admin@punti.com')
       company = create(:company)
       manager = build(:manager, created_by: user, company:, email: '@@teste@gmail.com')
 
@@ -55,8 +55,8 @@ RSpec.describe Manager, type: :model do
     end
 
     it 'Email deve ser do domínio da empresa que ele foi criado' do
-      user = create(:user)
-      create(:company)
+      user = create(:user, email: 'admin@punti.com')
+      create(:company, registration_number: '123')
       company = create(:company, domain: 'outlook.com')
       manager = build(:manager, created_by: user, company:, email: 'marizinha@gmail.com')
 
@@ -77,8 +77,10 @@ RSpec.describe Manager, type: :model do
     end
 
     it 'Criador deve ser administrador' do
-      user = create(:user)
+      admin = create(:user, email: 'admin@punti.com', cpf: '02850181080')
       company = create(:company)
+      create(:manager, email: 'joao@gmail.com', company:, created_by: admin)
+      user = create(:user, email: 'joao@gmail.com')
       manager = build(:manager, created_by: user, company:, email: 'marizinha@gmail.com')
 
       result = manager.valid?

@@ -5,7 +5,7 @@ feature 'Admin bloqueia manager' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
     create(:manager, created_by: admin, company:)
-    manager = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
@@ -25,7 +25,7 @@ feature 'Admin bloqueia manager' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
     create(:manager, created_by: admin, company:)
-    manager = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
@@ -44,14 +44,14 @@ context 'usuário já bloqueado' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
     create(:manager, created_by: admin, company:)
-    manager = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
 
     visit root_path
     click_on 'Entrar'
-    fill_in 'E-mail', with: 'user@gmail.com'
+    fill_in 'E-mail', with: 'joaozinho@gmail.com'
     fill_in 'Senha', with: 'password'
     within('#form') do
       click_on 'Entrar'
@@ -64,7 +64,7 @@ context 'usuário já bloqueado' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
     create(:manager, created_by: admin, company:)
-    manager = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
@@ -105,7 +105,7 @@ context 'visitante tenta acessar' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
     create(:manager, created_by: admin, company:)
-    manager = create(:user, email: 'user@gmail.com', cpf: '44429533768')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
@@ -119,9 +119,12 @@ context 'visitante tenta acessar' do
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
+    department = FactoryBot.create(:department, company:)
+    position = FactoryBot.create(:position, department:)
+    FactoryBot.create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+
     create(:manager, created_by: admin, company:)
     manager = create(:user, cpf: '30805775072')
-    department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
 

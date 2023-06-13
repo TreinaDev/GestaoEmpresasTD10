@@ -16,6 +16,4 @@ FactoryBot.define do
     user { nil }
     position { nil }
   end
-  # status: 'blocked', department_id: department.id, position_id: position.id,
-  # user_id: manager.id
 end

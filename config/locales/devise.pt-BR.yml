@@ -145,5 +145,5 @@ pt-BR:
       not_found: não encontrado
       not_locked: não foi bloqueado
       not_saved:
-        one: 'Não foi possível salvar %{resource}: 1 erro'
-        other: 'Não foi possível salvar %{resource}: %{count} erros.'
+        one: 'Não foi possível cadastrar %{resource}: 1 erro'
+        other: 'Não foi possível cadastrar %{resource}: %{count} erros.'
