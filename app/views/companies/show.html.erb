@@ -47,3 +47,17 @@
     </div>
   </div>
 <% end %>
+<div class="card border-primary">
+  <% if @company.logo.present? %>
+    <%= image_tag @company.logo, class: 'card-img-top rounded' %>
+  <% end %>
+  <div class="card-body">
+    <h2 class="card-title"><%= Company.human_attribute_name('brand_name') %>: <%=  @company.brand_name %></h2>
+    <p class="card-text"><%= Company.human_attribute_name('corporate_name') %>: <%= @company.corporate_name %></p>
+    <p class="card-text"> <%= Company.human_attribute_name('registration_number') %>: <%= @company.registration_number %></p>
+    <p class="card-text"><%= Company.human_attribute_name('address') %>: <%= @company.address %></p>
+    <p class="card-text"><%= Company.human_attribute_name('phone_number') %>: <%= @company.phone_number %></p>
+    <p class="card-text"><%= Company.human_attribute_name('email') %>: <%= @company.email %></p>
+    <p class="card-text"><%= Company.human_attribute_name('domain') %>: <%= @company.domain %></p>
+  </div>
+</div>

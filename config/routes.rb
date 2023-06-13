@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
   root "home#index"
-  resources :companies, only: %i(index show)
+  resources :companies, only: %i(index new  create show)
   resources :managers, only: %i(create destroy)
 
 end

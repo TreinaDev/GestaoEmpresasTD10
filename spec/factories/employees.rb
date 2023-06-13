@@ -1,19 +1,19 @@
 FactoryBot.define do
   factory :employee do
-    name { 'João Pereira Neto' }
-    social_name {}
-    cpf { '01341598020' }
-    rg { '182132754' }
-    address { 'Rua Ipiranga, 3123' }
-    email { 'joaozinho@gmail.com' }
-    phone_number { '99981999929' }
-    status { :unblocked }
-    birth_date { '1997-06-06' }
+    name { 'Roberto Carlos Nascimento' }
+    social_name { 'Roberto Carlos' }
+    cpf { '69142235219' }
+    rg { '12345678901' }
+    address { 'Rua do funcionário, 1200' }
+    email { 'funcionario@empresa.com' }
+    phone_number { '1199776655' }
+    status { nil }
+    birth_date { '2023-06-06' }
     admission_date { '2023-06-06' }
     dismissal_date { '2023-06-06' }
     marital_status { 1 }
-    department { nil }
+    department
     user { nil }
-    position { nil }
+    position
   end
 end

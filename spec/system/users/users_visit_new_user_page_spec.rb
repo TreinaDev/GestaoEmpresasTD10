@@ -51,9 +51,11 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role de manager' do
+    admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
+    create(:manager, company:, created_by: admin, email: 'bruno@gmail.com')
     create(:employee, position:, department:, email: 'bruno@gmail.com', cpf: '44429533768')
 
     visit root_path
@@ -66,7 +68,8 @@ feature 'visitante se cadastra' do
     click_on 'Criar conta'
 
     expect(page).to have_content 'Você realizou seu registro com sucesso'
-    expect(page).to have_content 'FUNCIONÁRIO'
-    expect(User.first.role).to eq 'employee'
+    # debugger
+    expect(page).to have_content 'GERENTE'
+    expect(User.find_by(cpf: '44429533768').role).to eq 'manager'
   end
 end

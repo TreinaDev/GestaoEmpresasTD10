@@ -8,5 +8,6 @@ FactoryBot.define do
     email { 'contato@gmail.com' }
     domain { 'gmail.com' }
     status { true }
+    logo { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/logo.png'), 'image/png') }
   end
 end
