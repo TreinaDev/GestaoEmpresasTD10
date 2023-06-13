@@ -13,7 +13,7 @@ feature 'Usuário visualiza empresas ativas' do
                           filename: 'logo.png', content_type: 'logo.png')
 
       company2 = Company.new(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
-                             registration_number: '12.345.678/0001-95',
+                             registration_number: '12.345.678/0002-95',
                              address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
                              email: 'company@microsoft.com',
                              domain: 'microsoft.com', status: true)
@@ -22,7 +22,7 @@ feature 'Usuário visualiza empresas ativas' do
                            filename: 'logo.png', content_type: 'logo.png')
 
       company3 = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
-                             registration_number: '12.345.678/0001-95',
+                             registration_number: '12.345.678/0003-95',
                              address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
                              email: 'company@ibm.com',
                              domain: 'ibm.com', status: false)
@@ -95,17 +95,17 @@ feature 'Usuário visualiza empresas ativas' do
 
   context 'enquanto funcionário' do
     scenario 'sem sucesso' do
-      employee = User.create!(email: 'employee@apple.com', role: :employee, password: '123456', cpf: '02324252481')
-      company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua California, 3000', phone_number: '11 99999-9999',
-                            email: 'company@apple.com',
-                            domain: 'apple.com', status: true)
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-      company.save!
+      company = FactoryBot.create(:company)
+      department = FactoryBot.create(:department, company:)
+      position = FactoryBot.create(:position, department:)
+      employee_data = FactoryBot.create(:employee, position:, department:)
+      employee_user = User.create!(
+        email: employee_data.email,
+        cpf: employee_data.cpf,
+        password: '123456'
+      )
 
-      login_as employee
+      login_as employee_user
       visit root_path
 
       expect(page).not_to have_link 'Empresas'

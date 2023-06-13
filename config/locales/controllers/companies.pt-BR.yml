@@ -12,3 +12,7 @@ pt-BR:
       warning: Apenas administradores podem executar essa ação
     inactives:
       warning: Apenas administradores podem executar essa ação
+    create:
+      success: Empresa cadastrada com sucesso
+      failure: Empresa não cadastrada
+

@@ -31,6 +31,18 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role padrão' do
+    company = FactoryBot.create(:company)
+    department = FactoryBot.create(:department, company:)
+    position = FactoryBot.create(:position, department:)
+
+    FactoryBot.create(
+      :employee,
+      position:,
+      department:,
+      email: 'bruno@gmail.com',
+      cpf: '44429533768'
+    )
+
     visit root_path
 
     click_on 'Cadastrar-se'
@@ -46,6 +58,9 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role de manager' do
+    admin = User.create!(email: 'admir@punti.com', password: 'password', cpf: '53099430056')
+    Manager.create!(email: 'bruno@gmail.com', created_by: admin)
+
     visit root_path
 
     click_on 'Cadastrar-se'
@@ -56,7 +71,7 @@ feature 'visitante se cadastra' do
     click_on 'Criar conta'
 
     expect(page).to have_content 'Você realizou seu registro com sucesso'
-    expect(page).to have_content 'FUNCIONÁRIO'
-    expect(User.first.role).to eq 'employee'
+    expect(page).to have_content 'GERENTE'
+    expect(User.find_by(cpf: '44429533768').role).to eq 'manager'
   end
 end

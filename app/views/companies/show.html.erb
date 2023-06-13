@@ -3,13 +3,13 @@
     <%= image_tag @company.logo, class: 'card-img-top rounded' %>
   <% end %>
   <div class="card-body">
-    <h2 class="card-title"><%= @company.brand_name %></h2>
-    <p class="card-text"><%= @company.corporate_name %></p>
-    <p class="card-text"><%= @company.registration_number %></p>
-    <p class="card-text"><%= @company.address %></p>
-    <p class="card-text"><%= @company.phone_number %></p>
-    <p class="card-text"><%= @company.email %></p>
-    <p class="card-text"><%= @company.domain %></p>
+    <h2 class="card-title"><%= Company.human_attribute_name('brand_name') %>: <%=  @company.brand_name %></h2>
+    <p class="card-text"><%= Company.human_attribute_name('corporate_name') %>: <%= @company.corporate_name %></p>
+    <p class="card-text"> <%= Company.human_attribute_name('registration_number') %>: <%= @company.registration_number %></p>
+    <p class="card-text"><%= Company.human_attribute_name('address') %>: <%= @company.address %></p>
+    <p class="card-text"><%= Company.human_attribute_name('phone_number') %>: <%= @company.phone_number %></p>
+    <p class="card-text"><%= Company.human_attribute_name('email') %>: <%= @company.email %></p>
+    <p class="card-text"><%= Company.human_attribute_name('domain') %>: <%= @company.domain %></p>
     <p class="card-text"> 
       <% if @company.status %>
         <span>Status: Ativo</span>
@@ -24,9 +24,3 @@
   <% end %>
   <%= link_to 'Editar', edit_company_path(@company) if current_user.role == 'admin' %>
 </div>
-
-
-
-
-
-

@@ -13,7 +13,7 @@ feature 'Usuário visualiza empresas inativas' do
                           filename: 'logo.png', content_type: 'logo.png')
 
       company2 = Company.new(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
-                             registration_number: '12.345.678/0001-95',
+                             registration_number: '12.345.678/003-95',
                              address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
                              email: 'company@microsoft.com',
                              domain: 'microsoft.com', status: false)
@@ -22,7 +22,7 @@ feature 'Usuário visualiza empresas inativas' do
                            filename: 'logo.png', content_type: 'logo.png')
 
       company3 = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
-                             registration_number: '12.345.678/0001-95',
+                             registration_number: '12.345.678/0002-95',
                              address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
                              email: 'company@ibm.com',
                              domain: 'ibm.com', status: true)

@@ -1,27 +1,66 @@
 class User < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  before_validation :assign_role
+  before_validation :assign_role
+  after_create :update_employee, if: -> { employee? }
+
   validates :cpf, presence: true
   validates :cpf, uniqueness: true
   validate :cpf_validation
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  validates :role, presence: true
+
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
-  before_save :set_admin_role
-  before_save :set_manager_role
+
+  has_one :employee, dependent: nil
 
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
   end
 
-  private
+  def block!
+    return unless employee
 
-  def set_admin_role
-    self.role = 'admin' if email.match?('@punti.com')
+    employee.update(status: :blocked)
   end
 
-  def set_manager_role
-    return unless Manager.exists?(email:)
+  def unblock!
+    return unless employee
 
-    self.role = 'manager'
+    employee.update(status: :unblocked)
+  end
+
+  def blocked?
+    employee && employee.status == 'blocked'
+  end
+
+  def active_for_authentication?
+    super && !blocked?
+  end
+
+  def inactive_message
+    blocked? ? :blocked : super
+  end
+
+  private
+
+  def assign_role
+    if email.include?('@punti.com')
+      self.role = :admin
+    elsif Manager.find_by(email:)
+      self.role = :manager
+    elsif Employee.find_by(cpf:)
+      self.role = :employee
+    else
+      errors.add(:base, 'Email ou CPF não estão cadastrados nas tabelas correspondentes')
+      throw(:abort)
+    end
+  end
+
+  def update_employee
+    employee = Employee.find_by(cpf:)
+    employee.update(user_id: id)
   end
 
   def cpf_validation

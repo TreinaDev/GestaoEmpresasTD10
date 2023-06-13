@@ -57,27 +57,23 @@ describe 'Usuário visita tela de edição', type: :request do
 
       login_as manager
       get edit_company_path(company)
-
-      expect(response).to have_http_status(:forbidden)
-      expect(response.body).to include 'Apenas administradores podem executar essa ação'
+      follow_redirect!
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
 
     it 'enquanto funcionário' do
-      employee = User.create!(email: 'employee@apple.com', role: :employee, password: '123456', cpf: '02324252481')
-      company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua California, 3000', phone_number: '11 99999-9999',
-                            email: 'company@apple.com',
-                            domain: 'apple.com', status: true)
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-      company.save!
+      company = FactoryBot.create(:company)
+      department = FactoryBot.create(:department, company:)
+      position = FactoryBot.create(:position, department:)
+      FactoryBot.create(:employee, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
+      employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
 
       login_as employee
       get edit_company_path(company)
-
-      expect(response).to have_http_status(:forbidden)
-      expect(response.body).to include 'Apenas administradores podem executar essa ação'
+      follow_redirect!
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
   end
 end

@@ -1,18 +1,35 @@
-class CompaniesController < ApplicationController
+class CompaniesController < AdminController
   before_action :set_company, only: %i[show edit update activate deactivate]
-  before_action :authenticate_admin!, only: %i[edit update activate deactivate index inactives]
-
   def index
+    @companies = Company.all
     @active_companies = Company.where(status: true)
+  end
+
+  def show
+    @company = Company.find(params[:id])
+  end
+
+  def new
+    @company = Company.new
+  end
+
+  def edit; end
+
+  def create
+    company_params = params.require(:company).permit(:brand_name, :corporate_name,
+                                                     :registration_number, :address,
+                                                     :phone_number, :email, :domain, :logo)
+    @company = Company.new company_params
+
+    return redirect_to @company, notice: t('.success') if @company.save
+
+    flash.now[:alert] = t('.failure')
+    render :new
   end
 
   def inactives
     @inactive_companies = Company.where(status: false)
   end
-
-  def show; end
-
-  def edit; end
 
   def update
     if @company.update(company_params)
@@ -31,14 +48,6 @@ class CompaniesController < ApplicationController
   def deactivate
     @company.update(status: false)
     redirect_to company_path(@company)
-  end
-
-  private
-
-  def authenticate_admin!
-    return if current_user&.role == 'admin'
-
-    render plain: t('.warning'), status: :forbidden
   end
 
   def set_company
