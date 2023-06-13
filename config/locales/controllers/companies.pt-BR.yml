@@ -1,0 +1,14 @@
+pt-BR:
+  companies:
+    update:
+      success: Empresa atualizada com sucesso
+    authenticate_admin:
+      warning: Apenas administradores podem executar essa ação
+    activate:
+      warning: Apenas administradores podem executar essa ação
+    deactivate:
+      warning: Apenas administradores podem executar essa ação
+    edit:
+      warning: Apenas administradores podem executar essa ação
+    inactives:
+      warning: Apenas administradores podem executar essa ação

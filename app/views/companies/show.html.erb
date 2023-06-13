@@ -1,0 +1,27 @@
+<div class="card border-primary">
+  <% if @company.logo.present? %>
+    <%= image_tag @company.logo, class: 'card-img-top rounded' %>
+  <% end %>
+  <div class="card-body">
+    <h2 class="card-title"><%= @company.brand_name %></h2>
+    <p class="card-text"><%= @company.corporate_name %></p>
+    <p class="card-text"><%= @company.registration_number %></p>
+    <p class="card-text"><%= @company.address %></p>
+    <p class="card-text"><%= @company.phone_number %></p>
+    <p class="card-text"><%= @company.email %></p>
+    <p class="card-text"><%= @company.domain %></p>
+    <p class="card-text"> 
+      <% if @company.status %>
+        <span>Status: Ativo</span>
+        <% else %>
+        <span>Status: Inativo</span>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+
+
+<%= link_to 'Editar', edit_company_path(@company) if current_user.role == 'admin' %>
+
+
