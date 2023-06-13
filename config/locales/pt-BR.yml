@@ -1,2 +1,12 @@
 pt-BR:
   forbidden: Usuário sem permissão para executar essa ação
+  errors:
+    user:
+      blocked_fail: 'Não foi possível bloquear o usuário'
+      unblocked_fail: 'Não foi possível desbloquear o usuário.'
+      permission_denied: 'Permissão negada'
+  success:
+    user:
+      blocked: 'Usuário Bloqueado'
+      unblocked: 'Usuário Desbloqueado'
+
