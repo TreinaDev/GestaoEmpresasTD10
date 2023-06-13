@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one :employee, dependent: nil
+
   before_validation :assign_role
   after_create :update_employee, if: -> { employee? }
 
@@ -12,7 +14,6 @@ class User < ApplicationRecord
   validates :role, presence: true
 
   enum role: { admin: 1, manager: 3, employee: 5 }
-
 
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"

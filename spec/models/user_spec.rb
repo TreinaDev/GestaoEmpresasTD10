@@ -56,7 +56,8 @@ RSpec.describe User, type: :model do
         position:,
         department:,
         email: 'user@treinadev.com',
-        cpf: '44429533768'
+        cpf: '44429533768',
+        status: 'unblocked'
       )
 
       new_user = User.create!(email: 'user@treinadev.com', cpf: '44429533768', password: 'password')
