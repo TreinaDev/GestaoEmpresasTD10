@@ -18,10 +18,15 @@
       <% end %>
     </p>
   </div>
+  <% if current_user.admin? %>
+    <%= link_to "Desativar", deactivate_company_path(@company), method: :put, class: 'btn-danger' if @company.status %>
+    <%= link_to "Ativar", activate_company_path(@company), method: :put, class: 'btn-primary' if !@company.status %>
+  <% end %>
+  <%= link_to 'Editar', edit_company_path(@company) if current_user.role == 'admin' %>
 </div>
 
 
 
-<%= link_to 'Editar', edit_company_path(@company) if current_user.role == 'admin' %>
+
 
 
