@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     end
   end
   root "home#index"
+  resources :companies, only: %i(new create show)
 end

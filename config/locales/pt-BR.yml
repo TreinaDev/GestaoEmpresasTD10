@@ -1,4 +1,5 @@
- pt-BR: 
+pt-BR:
+  forbidden: Usuário sem permissão para executar essa ação
   errors:
     user:
       blocked_fail: 'Não foi possível bloquear o usuário'
@@ -8,3 +9,4 @@
     user:
       blocked: 'Usuário Bloqueado'
       unblocked: 'Usuário Desbloqueado'
+

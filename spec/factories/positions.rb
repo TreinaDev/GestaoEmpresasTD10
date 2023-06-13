@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :position do
-    name { 'MyString' }
-    description { 'MyString' }
-    code { 'MyString' }
+    name { 'Estagiário' }
+    description { 'Faz tudo' }
+    code { 'EST001' }
     card_type_id { 1 }
-    department { nil }
+    department
   end
 end

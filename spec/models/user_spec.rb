@@ -51,7 +51,14 @@ RSpec.describe User, type: :model do
       company = FactoryBot.create(:company)
       department = FactoryBot.create(:department, company:)
       position = FactoryBot.create(:position, department:)
-      FactoryBot.create(:employee, position:, department:, email: 'user@treinadev.com', cpf: '44429533768')
+      FactoryBot.create(
+        :employee,
+        position:,
+        department:,
+        email: 'user@treinadev.com',
+        cpf: '44429533768'
+      )
+
       new_user = User.create!(email: 'user@treinadev.com', cpf: '44429533768', password: 'password')
 
       result = new_user.description

@@ -1,0 +1,5 @@
+pt-BR:
+  companies:
+    create:
+      success: Empresa cadastrada com sucesso
+      failure: Empresa não cadastrada
