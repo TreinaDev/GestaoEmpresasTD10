@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      position:
+        one: Cargo
+        other: Cargos
+    attributes:
+      position:
+        name: Nome
+        description: Descrição
+        code: Código
+        card_type_id: Tipo de cartão
+        department_id: Departamento
+

@@ -1,0 +1,5 @@
+pt-BR:
+  positions:
+    create:
+      success: Cargo cadastrado com sucesso
+      failure: Cargo não cadastrado

@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   end
   root "home#index"
   resources :companies, only: %i(new create show)
+  resources :positions, only: %i(new create show)
 end
