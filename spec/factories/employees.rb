@@ -7,7 +7,7 @@ FactoryBot.define do
     address { 'MyString' }
     email { 'MyString' }
     phone_number { 'MyString' }
-    status { 1 }
+    status { nil }
     birth_date { '2023-06-06' }
     admission_date { '2023-06-06' }
     dismissal_date { '2023-06-06' }

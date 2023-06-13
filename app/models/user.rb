@@ -5,9 +5,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
-  before_save :set_admin_role
-  before_save :set_manager_role
+
   has_one :employee, dependent: nil
+  before_validation :assign_role
+  after_create :update_employee, if: -> { employee? }
 
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
@@ -39,14 +40,22 @@ class User < ApplicationRecord
 
   private
 
-  def set_admin_role
-    self.role = 'admin' if email.match?('@punti.com')
+  def assign_role
+    if email.include?('@punti.com')
+      self.role = :admin
+    elsif Manager.find_by(email:)
+      self.role = :manager
+    elsif Employee.find_by(cpf:)
+      self.role = :employee
+    else
+      errors.add(:base, 'Email ou CPF não estão cadastrados nas tabelas correspondentes')
+      throw(:abort)
+    end
   end
 
-  def set_manager_role
-    return unless Manager.exists?(email:)
-
-    self.role = 'manager'
+  def update_employee
+    employee = Employee.find_by(cpf:)
+    employee.update(user_id: id)
   end
 
   def cpf_validation
