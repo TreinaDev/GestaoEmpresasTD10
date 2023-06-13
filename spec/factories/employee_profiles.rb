@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :employee_profile do
-    name { 'MyString' }
-    social_name { 'MyString' }
-    cpf { 'MyString' }
-    rg { 'MyString' }
-    address { 'MyString' }
-    email { 'MyString' }
-    phone_number { 'MyString' }
+    name { 'Roberto Carlos Nascimento' }
+    social_name { 'Roberto Carlos' }
+    cpf { '69142235219' }
+    rg { '12345678901' }
+    address { 'Rua do funcionário, 1200' }
+    email { 'funcionario@empresa.com' }
+    phone_number { '1199776655' }
     status { nil }
     birth_date { '2023-06-06' }
     admission_date { '2023-06-06' }
