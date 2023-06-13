@@ -122,10 +122,10 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e não esta logado como administrador' do
-    company = FactoryBot.create(:company)
-    department = FactoryBot.create(:department, company:)
-    position = FactoryBot.create(:position, department:)
-    FactoryBot.create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+    company = create(:company)
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     admin = create(:user, email: 'admin@punti.com')
     create(:manager, created_by: admin, company:)

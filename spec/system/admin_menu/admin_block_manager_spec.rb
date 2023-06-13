@@ -119,9 +119,9 @@ context 'visitante tenta acessar' do
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company)
-    department = FactoryBot.create(:department, company:)
-    position = FactoryBot.create(:position, department:)
-    FactoryBot.create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     create(:manager, created_by: admin, company:)
     manager = create(:user, cpf: '30805775072')

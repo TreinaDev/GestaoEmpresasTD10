@@ -2,10 +2,10 @@ require 'rails_helper'
 
 feature 'Registro de funcionário' do
   scenario 'com sucesso' do
-    company = FactoryBot.create(:company)
-    department = FactoryBot.create(:department, company:)
-    position = FactoryBot.create(:position, department:)
-    employee = FactoryBot.create(
+    company = create(:company)
+    department = create(:department, company:)
+    position = create(:position, department:)
+    employee = create(
       :employee,
       position:,
       department:,
@@ -27,10 +27,10 @@ feature 'Registro de funcionário' do
   end
 
   scenario 'sem sucesso pois não tem CPF pré-cadastrado' do
-    company = FactoryBot.create(:company)
-    department = FactoryBot.create(:department, company:)
-    position = FactoryBot.create(:position, department:)
-    FactoryBot.create(
+    company = create(:company)
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(
       :employee,
       position:,
       department:,
