@@ -1,6 +1,10 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: %i[show edit update activate deactivate]
-  before_action :authenticate_admin!, only: %i[edit update activate deactivate]
+  before_action :authenticate_admin!, only: %i[edit update activate deactivate index]
+
+  def index
+    @active_companies = Company.where(status: true)
+  end
 
   def show; end
 
