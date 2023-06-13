@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   before_validation :assign_role
+  before_validation :assign_role
   after_create :update_employee, if: -> { employee? }
 
   validates :cpf, presence: true
@@ -10,7 +11,7 @@ class User < ApplicationRecord
   validate :cpf_validation
   validates :role, presence: true
 
-  enum role: { admin: 1, manager: 3, employee: 5 }
+  enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
 
   has_one :employee, dependent: nil
 

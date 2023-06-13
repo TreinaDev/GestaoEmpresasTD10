@@ -34,6 +34,7 @@ feature 'visitante se cadastra' do
     company = FactoryBot.create(:company)
     department = FactoryBot.create(:department, company:)
     position = FactoryBot.create(:position, department:)
+
     FactoryBot.create(
       :employee,
       position:,
