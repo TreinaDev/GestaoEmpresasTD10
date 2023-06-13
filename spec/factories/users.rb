@@ -3,6 +3,6 @@ FactoryBot.define do
     role { 1 }
     cpf { '85218947083' }
     email { 'zezinho@gmail.com' }
-    password { '12345678' }
+    password { 'password' }
   end
 end

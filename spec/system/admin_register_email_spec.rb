@@ -75,7 +75,7 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e falha porque o email já existe' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    Manager.create!(email: 'zezinho@gmail.com', created_by: user, company:, status: :active)
+    create(:manager, created_by: user, company:, email: 'zezinho@gmail.com')
 
     login_as(user)
     visit root_path
@@ -91,7 +91,7 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e reativa o email já cadastrado e desativado previamente' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    Manager.create!(email: 'zezinho@gmail.com', created_by: user, company:, status: :canceled)
+    create(:manager, company:, created_by: user, status: :canceled, email: 'zezinho@gmail.com')
 
     login_as(user)
     visit root_path
@@ -105,24 +105,10 @@ feature 'administrator registra email do gerente da empresa' do
     expect(page).to have_content 'Email reativado'
   end
 
-  scenario 'e não esta logado como administrador' do
-    admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
-    Manager.create!(email: 'zezinho@gmail.com', created_by: admin, company:)
-    user = create(:user, email: 'zezinho@gmail.com', cpf: '30805775072')
-
-    login_as(user)
-    visit company_path(company)
-
-    expect(current_path).to eq company_path(company)
-    expect(page).not_to have_field 'Cadastrar email'
-    expect(page).not_to have_button 'Cadastrar'
-  end
-
   scenario 'e cadastra no domínio de outra empresa' do
     admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
-    create(:company, brand_name: 'Outlook',corporate_name: 'Outlook LTDA',domain: 'outlook.com')
+    create(:company)
+    create(:company, brand_name: 'Outlook', corporate_name: 'Outlook LTDA', domain: 'outlook.com')
 
     login_as(admin)
     visit root_path
@@ -133,5 +119,28 @@ feature 'administrator registra email do gerente da empresa' do
 
     expect(page).to have_content 'Não foi possível cadastrar email'
     expect(page).to have_content 'domínio do email não pertence a empresa'
+  end
+
+  scenario 'e não esta logado como administrador' do
+    admin = create(:user, email: 'admin@punti.com')
+    company = create(:company)
+    create(:manager, created_by: admin, company:)
+    user = create(:user, email: 'zezinho@gmail.com', cpf: '30805775072')
+
+    login_as(user)
+    visit company_path(company)
+
+    expect(current_path).to eq company_path(company)
+    expect(page).not_to have_field 'Cadastrar email'
+    expect(page).not_to have_button 'Cadastrar'
+  end
+
+  scenario 'e falha por não estar logado' do
+    company = create(:company)
+
+    visit company_path(company)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 end

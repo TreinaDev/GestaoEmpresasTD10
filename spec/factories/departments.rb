@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :department do
-    name { 'MyString' }
-    description { 'MyString' }
-    code { 'MyString' }
+    name { 'RH' }
+    description { 'Departamento de RH' }
+    code { 'ABC123' }
     company { nil }
   end
 end
