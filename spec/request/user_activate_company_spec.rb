@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário para ativar empresa', type: :request do
   context 'precisa ser admin' do
-    it 'com sucesso' do
+    it 'e ativa com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                             registration_number: '12.345.678/0001-95',
@@ -16,6 +16,7 @@ describe 'Usuário para ativar empresa', type: :request do
       login_as admin
       put activate_company_path(company)
       follow_redirect!
+
       expect(response).to have_http_status(:ok)
       expect(company.reload.status).to eq true
     end
@@ -36,6 +37,7 @@ describe 'Usuário para ativar empresa', type: :request do
       login_as manager
       put activate_company_path(company)
       follow_redirect!
+
       expect(response).to have_http_status(:ok)
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
       expect(company.reload.status).to eq false
@@ -51,6 +53,7 @@ describe 'Usuário para ativar empresa', type: :request do
       login_as employee
       put activate_company_path(company)
       follow_redirect!
+
       expect(response).to have_http_status(:ok)
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
       expect(company.reload.status).to eq false

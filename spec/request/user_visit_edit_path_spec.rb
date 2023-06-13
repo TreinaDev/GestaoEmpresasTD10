@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visita tela de edição', type: :request do
+describe 'Usuário altera informações de uma empresa', type: :request do
   context 'enquanto admin' do
     it 'com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')

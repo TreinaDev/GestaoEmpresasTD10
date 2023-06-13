@@ -50,6 +50,8 @@ class CompaniesController < AdminController
     redirect_to company_path(@company)
   end
 
+  private
+
   def set_company
     @company = Company.find(params[:id])
   end
