@@ -15,6 +15,7 @@
     <p class="alert"><%= alert %></p>
     <% if user_signed_in? %>
       <%= link_to 'Empresas', companies_path if current_user.role == 'admin' %>
+      <%= link_to 'Empresas Inativas', inactives_companies_path if current_user.role == 'admin' %>
       <p><%= current_user.description%></p>
       <%= button_to "Sair", destroy_user_session_path, method: :delete %>
     <%else%>
