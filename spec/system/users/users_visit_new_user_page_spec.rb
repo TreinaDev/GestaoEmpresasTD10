@@ -31,17 +31,10 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role padrão' do
-    company = FactoryBot.create(:company)
-    department = FactoryBot.create(:department, company:)
-    position = FactoryBot.create(:position, department:)
-
-    FactoryBot.create(
-      :employee,
-      position:,
-      department:,
-      email: 'bruno@gmail.com',
-      cpf: '44429533768'
-    )
+    company = create(:company)
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:employee, position:, department:, email: 'bruno@campuscode.com.br', cpf: '44429533768')
 
     visit root_path
 
@@ -58,13 +51,14 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role de manager' do
-    admin = User.create!(email: 'admir@punti.com', password: 'password', cpf: '53099430056')
-    Manager.create!(email: 'bruno@gmail.com', created_by: admin)
+    admin = create(:user, email: 'admin@punti.com')
+    company = create(:company)
+    create(:manager, company:, created_by: admin, email: 'bruno@campuscode.com.br')
 
     visit root_path
 
     click_on 'Cadastrar-se'
-    fill_in 'E-mail', with: 'bruno@gmail.com'
+    fill_in 'E-mail', with: 'bruno@campuscode.com.br'
     fill_in 'Senha', with: 'password'
     fill_in 'CPF', with: '44429533768'
     fill_in 'Confirme sua senha',	with: 'password'

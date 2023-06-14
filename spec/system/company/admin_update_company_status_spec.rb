@@ -34,9 +34,9 @@ feature 'Usuário atualiza status' do
   context 'enquanto gerente' do
     scenario 'sem sucesso por não ver botão de desativar' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      Manager.create!(email: 'manager@apple.com', created_by: admin)
-      manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
       company = FactoryBot.create(:company, active: true)
+      Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
 
       login_as manager
       visit company_path(company)
@@ -46,9 +46,9 @@ feature 'Usuário atualiza status' do
 
     scenario 'sem sucesso por não ver botão de ativar' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      Manager.create!(email: 'manager@apple.com', created_by: admin)
-      manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
       company = FactoryBot.create(:company, active: false)
+      Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
 
       login_as manager
       visit company_path(company)

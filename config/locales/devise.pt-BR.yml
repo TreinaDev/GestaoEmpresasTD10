@@ -9,14 +9,14 @@ pt-BR:
         current_password: Senha atual
         current_sign_in_at: Atualmente logado em
         current_sign_in_ip: IP do acesso atual
-        email: "E-mail:"
+        email: E-mail
         encrypted_password: Senha criptografada
         failed_attempts: Tentativas sem sucesso
         last_sign_in_at: Último acesso em
         last_sign_in_ip: Último IP de acesso
         locked_at: Bloqueado em
-        password: "Senha:"
-        password_confirmation: "Confirme sua senha:"
+        password: Senha
+        password_confirmation: Confirme sua senha
         remember_created_at: Lembrar criado em
         remember_me: Lembre-se de mim
         reset_password_sent_at: Resetar senha enviado em
@@ -25,8 +25,6 @@ pt-BR:
         unconfirmed_email: E-mail não confirmado
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
-        name: "Nome:"
-        cpf: "CPF:"
     models:
       user:
         one: Usuário
@@ -39,7 +37,8 @@ pt-BR:
       send_instructions: Dentro de minutos, você receberá um email com as instruções de confirmação da sua conta.
       send_paranoid_instructions: Se o seu e-mail existir em nosso banco de dados, você receberá um email com instruções sobre como confirmar sua conta em alguns minutos.
     failure:
-      blocked: "Sua conta está suspensa."
+      user:
+        blocked: "Sua conta está suspensa."
       already_authenticated: Você já está autenticado.
       inactive: A sua conta ainda não foi ativada.
       invalid: "%{authentication_keys} ou senha inválidos."
@@ -107,7 +106,7 @@ pt-BR:
         we_need_your_current_password_to_confirm_your_changes: precisamos da sua senha atual para confirmar suas mudanças
       new:
         sign_up: Inscrever-se
-      signed_up: Você realizou seu registro com sucesso.
+      signed_up: Bem vindo! Você realizou seu registro com sucesso.
       signed_up_but_inactive: Você se inscreveu com sucesso, porém nós não podemos autenticá-lo porque sua conta ainda não foi ativada.
       signed_up_but_locked: Você se inscreveu com sucesso. Porém nós não podemos autenticá-lo porque sua conta está bloqueada.
       signed_up_but_unconfirmed: Uma mensagem com um link de confirmação foi enviada para o seu e-mail. Por favor, acesse o link para ativar sua conta.
@@ -146,5 +145,5 @@ pt-BR:
       not_found: não encontrado
       not_locked: não foi bloqueado
       not_saved:
-        one: 'Não foi possível cadastrar o %{resource}: 1 erro'
-        other: 'Não foi possível salvar %{resource}: %{count} erros.'
+        one: 'Não foi possível cadastrar %{resource}: 1 erro'
+        other: 'Não foi possível cadastrar %{resource}: %{count} erros.'

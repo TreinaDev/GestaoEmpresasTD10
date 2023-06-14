@@ -43,9 +43,9 @@ feature 'Usuário visualiza empresas ativas' do
   context 'enquanto gerente' do
     scenario 'sem sucesso' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      Manager.create!(email: 'manager@apple.com', created_by: admin)
-      manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
-      FactoryBot.create(:company, active: true)
+      company = create(:company)
+      Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
 
       login_as manager
       visit root_path
