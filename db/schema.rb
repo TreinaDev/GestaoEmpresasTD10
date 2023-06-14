@@ -78,7 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_234913) do
     t.index ["company_id"], name: "index_departments_on_company_id"
   end
 
-  create_table "employees", force: :cascade do |t|
+  create_table "employee_profiles", force: :cascade do |t|
     t.string "name"
     t.string "social_name"
     t.string "cpf"
@@ -96,9 +96,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_234913) do
     t.integer "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["department_id"], name: "index_employees_on_department_id"
-    t.index ["position_id"], name: "index_employees_on_position_id"
-    t.index ["user_id"], name: "index_employees_on_user_id"
+    t.index ["department_id"], name: "index_employee_profiles_on_department_id"
+    t.index ["position_id"], name: "index_employee_profiles_on_position_id"
+    t.index ["user_id"], name: "index_employee_profiles_on_user_id"
   end
 
   create_table "managers", force: :cascade do |t|
@@ -141,9 +141,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_234913) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "departments", "companies"
-  add_foreign_key "employees", "departments"
-  add_foreign_key "employees", "positions"
-  add_foreign_key "employees", "users"
+  add_foreign_key "employee_profiles", "departments"
+  add_foreign_key "employee_profiles", "positions"
+  add_foreign_key "employee_profiles", "users"
   add_foreign_key "managers", "users", column: "created_by_id"
   add_foreign_key "positions", "departments"
 end

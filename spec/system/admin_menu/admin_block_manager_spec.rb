@@ -8,7 +8,7 @@ feature 'Admin bloqueia manager' do
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
+    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
 
     login_as admin
     visit root_path
@@ -17,7 +17,7 @@ feature 'Admin bloqueia manager' do
 
     expect(current_path).to eq users_path
     expect(page).to have_button 'Desbloquear Gerente'
-    expect(manager.employee.status).to eq 'blocked'
+    expect(manager.employee_profile.status).to eq 'blocked'
     expect(page).to have_content 'Usuário Bloqueado'
   end
 
@@ -28,7 +28,7 @@ feature 'Admin bloqueia manager' do
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
+    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
     allow_any_instance_of(User).to receive(:block!).and_return(false)
 
     login_as admin
@@ -47,7 +47,7 @@ context 'usuário já bloqueado' do
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    create(:employee, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
+    create(:employee_profile, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
 
     visit root_path
     click_on 'Entrar'
@@ -67,7 +67,7 @@ context 'usuário já bloqueado' do
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    create(:employee, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
+    create(:employee_profile, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
 
     login_as admin
     visit root_path
@@ -76,7 +76,7 @@ context 'usuário já bloqueado' do
 
     expect(current_path).to eq users_path
     expect(page).to have_button 'Bloquear Gerente'
-    expect(manager.employee.status).to eq 'unblocked'
+    expect(manager.employee_profile.status).to eq 'unblocked'
     expect(page).to have_content 'Usuário Desbloqueado'
   end
 
@@ -87,8 +87,8 @@ context 'usuário já bloqueado' do
     manager = create(:user, email: 'user@apple.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
-                     user_id: manager.id)
+    EmployeeProfile.create!(status: 'blocked', department_id: department.id, position_id: position.id,
+                            user_id: manager.id)
     allow_any_instance_of(User).to receive(:unblock!).and_return(false)
 
     login_as admin
@@ -108,7 +108,7 @@ context 'visitante tenta acessar' do
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
+    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
 
     visit users_path
 
@@ -121,12 +121,12 @@ context 'visitante tenta acessar' do
     company = create(:company, domain: 'gmail.com')
     department = create(:department, company:)
     position = create(:position, department:)
-    create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+    create(:employee_profile, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     create(:manager, created_by: admin, company:)
     manager = create(:user, cpf: '30805775072')
     position = create(:position, department_id: department.id)
-    create(:employee, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
+    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
 
     login_as manager
     visit users_path

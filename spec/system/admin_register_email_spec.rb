@@ -139,7 +139,7 @@ feature 'administrator registra email do gerente da empresa' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+    create(:employee_profile, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     admin = create(:user, email: 'admin@punti.com')
     create(:manager, created_by: admin, company:, email: 'joaozinho@campuscode.com.br')

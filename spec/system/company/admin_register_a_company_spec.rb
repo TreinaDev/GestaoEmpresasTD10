@@ -70,7 +70,7 @@ feature 'Registro de uma empresa' do
       company = FactoryBot.create(:company)
       department = FactoryBot.create(:department, company:)
       position = FactoryBot.create(:position, department:)
-      employee_data = FactoryBot.create(:employee, position:, department:)
+      employee_data = FactoryBot.create(:employee_profile, position:, department:)
       employee_user = User.create!(
         email: employee_data.email,
         cpf: employee_data.cpf,
