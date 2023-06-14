@@ -13,15 +13,14 @@ feature 'Gerente cria cargo com sucesso' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
 
     login_as(manager_user)
-    visit new_position_path
+    visit new_company_department_position_path(company_id: company.id, department_id: department.id)
     fill_in 'Nome', with: 'Estagiário'
     fill_in 'Descrição', with: 'Faz tudo'
     fill_in 'Código', with: 'EST001'
-    fill_in 'Departamento', with: department.id
-    select 'Cartão Avançado', from: 'Tipos de cartão'
+    select 'Cartão Avançado', from: 'Tipo de cartão'
     click_on 'Salvar'
 
-    expect(current_path).to eq position_path(id: Position.first.id)
+    expect(current_path).to eq company_department_position_path(company_id: company.id, department_id: department.id, id: Position.first.id)
     expect(page).to have_content 'Cargo cadastrado com sucesso'
     expect(page).to have_content 'Nome: Estagiário'
     expect(page).to have_content 'Descrição: Faz tudo'
