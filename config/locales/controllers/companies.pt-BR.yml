@@ -1,5 +1,8 @@
 pt-BR:
   companies:
+    update:
+      success: Empresa atualizada com sucesso
     create:
       success: Empresa cadastrada com sucesso
       failure: Empresa não cadastrada
+
