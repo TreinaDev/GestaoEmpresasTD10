@@ -1,0 +1,18 @@
+<% if @inactive_companies.any? %>
+  <div class="d-flex flex-wrap justify-content-center">
+    <% @inactive_companies.each do |company| %>
+      <div class="card m-3 w-20" style="width: 18rem;">
+        <img src="<%= url_for(company.logo) %>"class="card-img-top fixed-height" alt= <%= company.brand_name %> >
+        <div class="card-body">
+          <h5 class="card-title"><%= company.brand_name %></h5>
+          <p class="card-text"><%= company.domain %></p>
+          <a href="<%= company_path(company) %>" class="btn btn-primary">Ver Detalhes</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else  %>
+  <div class="alert">
+    <p> Nenhuma empresa inativa </p>
+  </div>
+<% end %>
