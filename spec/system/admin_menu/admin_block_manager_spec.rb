@@ -5,8 +5,7 @@ feature 'Admin bloqueia manager' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -26,8 +25,7 @@ feature 'Admin bloqueia manager' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -46,8 +44,7 @@ context 'usuário já bloqueado' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -67,8 +64,7 @@ context 'usuário já bloqueado' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -88,8 +84,7 @@ context 'usuário já bloqueado' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -109,8 +104,7 @@ context 'visitante tenta acessar' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -125,8 +119,7 @@ context 'visitante tenta acessar' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     Manager.create!(email: 'user@apple.com', created_by: admin)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    company = FactoryBot.create(:company, brand_name: 'Apple')
-    department = Department.create!(company_id: company.id, name: 'rh')
+    department = FactoryBot.create(:department)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)

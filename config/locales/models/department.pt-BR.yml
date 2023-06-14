@@ -9,5 +9,5 @@ pt-BR:
         name: Nome
         description: Descrição
         code: Código
-        company: Empresas
-        company_id: Empresas
+        company: Empresa
+        company_id: Empresa

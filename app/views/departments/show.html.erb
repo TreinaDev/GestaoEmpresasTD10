@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title"><%= Department.human_attribute_name('name') %>: <%=  @department.name %></h2>
+    <p class="card-text"><%= Department.human_attribute_name('description') %>: <%= @department.description %></p>
+    <p class="card-text"> <%= Department.human_attribute_name('code') %>: <%= @department.code %></p>
+    <p class="card-text"><%= Department.human_attribute_name('company') %>: <%= @department.company.brand_name %></p>
+  </div>
+</div>
+

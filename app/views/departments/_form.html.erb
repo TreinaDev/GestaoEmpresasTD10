@@ -18,10 +18,10 @@
         <%= f.text_field :code, class: 'form-control'%>
       </div>
       <div class="mb-3">
-        <%= f.label :company, class: 'form-label' %>
-        <%= f.collection_select  :company, @companies, :id, :brand_name, class: 'form-control'%>
+        <%= f.label :company_id, class: 'form-label' %>
+        <%= f.collection_select :company_id, @companies, :id, :brand_name, { prompt: true }, class: 'form-select'%>
       </div>
-      <%= f.submit 'Criar Departamento'%>
+      <%= f.submit t('.save')%>
     <% end %>
   </div>
 </div>
