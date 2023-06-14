@@ -36,7 +36,7 @@ RSpec.describe UserHelper, type: :helper do
 
     it 'retorna false quando não é gerente' do
       user = create(:user, email: 'admin@punti.com')
-      
+
       allow(helper).to receive(:user_signed_in?).and_return(true)
       allow(helper).to receive(:current_user).and_return(user)
       expect(helper.manager?).to eq(false)
