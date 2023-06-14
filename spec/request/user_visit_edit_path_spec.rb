@@ -37,13 +37,12 @@ describe 'Usuário altera informações de uma empresa', type: :request do
   context 'sem sucesso' do
     it 'enquanto gerente' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      Manager.create!(email: 'manager@apple.com', created_by: admin)
-      manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
       company = FactoryBot.create(:company, active: false)
+      Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = User.create(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
 
       login_as manager
       get edit_company_path(company)
-
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')

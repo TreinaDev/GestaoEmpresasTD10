@@ -3,7 +3,6 @@
     <% if @department.errors.present? %>
       <%= render "shared/errors", errors: @department.errors %>
     <% end %>
-    <h4 class="card-title">Nova Departamento</h4>
     <%= form_with model: @department, data: { turbo: false }  do |f| %>
       <div class="mb-3">
         <%= f.label :name, class: 'form-label' %>

@@ -15,10 +15,11 @@ describe 'Usuário para ativar empresa', type: :request do
     end
 
     it 'e falha enquanto gerente' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      Manager.create!(email: 'manager@apple.com', created_by: admin)
-      manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
-      company = FactoryBot.create(:company, active: false)
+      admin = User.create!(email: 'admin@punti.com', password: '123456', cpf: '02324252481')
+      company = create(:company, active: false)
+      create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
+      manager = create(:user, email: 'joaozinho@campuscode.com.br', role: :manager, password: '123456',
+                              cpf: '51959723030')
 
       login_as manager
       put activate_company_path(company)
@@ -30,11 +31,11 @@ describe 'Usuário para ativar empresa', type: :request do
     end
 
     it 'e falha enquanto funcionário' do
-      company = FactoryBot.create(:company, active: false)
-      department = FactoryBot.create(:department, company:)
-      position = FactoryBot.create(:position, department:)
-      FactoryBot.create(:employee, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
-      employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
+      company = create(:company, active: false)
+      department = create(:department, company:)
+      position = create(:position, department:)
+      create(:employee, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
+      employee = create(:user, email: 'employee@apple.com', password: '123456', cpf: '02324252481')
 
       login_as employee
       put activate_company_path(company)

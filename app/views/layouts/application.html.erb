@@ -11,17 +11,54 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if user_signed_in? %>
-      <%= link_to 'Empresas', companies_path if current_user.role == 'admin' %>
-      <%= link_to 'Empresas Inativas', inactives_companies_path if current_user.role == 'admin' %>
-      <p><%= current_user.description%></p>
-      <%= button_to "Sair", destroy_user_session_path, method: :delete %>
-    <%else%>
-      <%= link_to 'Cadastrar-se', new_user_registration_path %>
-      <%= link_to 'Entrar', new_user_session_path %>
-    <%end%>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Logo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%# <a class="nav-link" href="#">Empresas</a> %>
+              <%# <%= link_to 'Empresas', companies_path, class:"nav-link" %> %>
+            </li>
+            <% if user_signed_in? %>
+              <%= link_to 'Empresas', companies_path if current_user.role == 'admin' %>
+              <%= link_to 'Empresas Inativas', inactives_companies_path if current_user.role == 'admin' %>
+              <li class="nav-item" >
+                  <%= current_user.description%>
+                  <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn nav-link' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Cadastrar-se', new_user_registration_path, class:'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Entrar', new_user_session_path, class:'nav-link' %>
+              </li>
+            <%end%>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="mt-3">
+        <div class="alert alert-success alert-dismissible fade show <%= notice.nil? ? 'd-none' : '' %>" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-warning alert-dismissible fade show  <%= alert.nil? ? 'd-none' : '' %>" role="alert" >
+          <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
     <%= yield %>
+
   </body>
 </html>

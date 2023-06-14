@@ -1,5 +1,7 @@
 class DepartmentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_department, only: :show
+  before_action :manager?, only: %i[new create]
 
   def show; end
 
@@ -27,5 +29,9 @@ class DepartmentsController < ApplicationController
 
   def set_department
     @department = Department.find(params[:id])
+  end
+
+  def manager?
+    return redirect_to root_path, alert: t('forbidden') unless current_user.manager?
   end
 end

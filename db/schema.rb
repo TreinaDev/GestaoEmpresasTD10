@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_234913) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_14_200057) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -71,10 +71,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_234913) do
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "code"
+    t.string "code", null: false
     t.integer "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_departments_on_code", unique: true
     t.index ["company_id"], name: "index_departments_on_company_id"
   end
 
@@ -106,6 +107,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_234913) do
     t.integer "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "company_id"
+    t.boolean "status", default: true
+    t.index ["company_id"], name: "index_managers_on_company_id"
     t.index ["created_by_id"], name: "index_managers_on_created_by_id"
   end
 

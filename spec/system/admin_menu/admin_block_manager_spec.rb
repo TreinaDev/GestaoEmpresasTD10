@@ -3,9 +3,10 @@ require 'rails_helper'
 feature 'Admin bloqueia manager' do
   scenario 'com sucesso' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -23,9 +24,10 @@ feature 'Admin bloqueia manager' do
 
   scenario 'e falha' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -42,9 +44,10 @@ end
 context 'usuário já bloqueado' do
   scenario 'Usuário tenta logar em conta bloqueada e é impedido.' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -53,7 +56,7 @@ context 'usuário já bloqueado' do
     click_on 'Entrar'
     fill_in 'E-mail', with: 'user@apple.com'
     fill_in 'Senha', with: 'password'
-    within('div#form') do
+    within('#form') do
       click_on 'Entrar'
     end
 
@@ -62,9 +65,10 @@ context 'usuário já bloqueado' do
 
   scenario 'e admin o desbloqueia' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -82,9 +86,10 @@ context 'usuário já bloqueado' do
 
   scenario 'e admin tenta desbloquear e falha' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -102,9 +107,10 @@ end
 context 'visitante tenta acessar' do
   scenario 'lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
@@ -117,9 +123,10 @@ context 'visitante tenta acessar' do
 
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
-    Manager.create!(email: 'user@apple.com', created_by: admin)
+    company = create(:company, email: 'contato@apple.com', domain: 'apple.com')
+    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
-    department = FactoryBot.create(:department)
+    department = create(:department, company:)
     position = Position.create!(department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
