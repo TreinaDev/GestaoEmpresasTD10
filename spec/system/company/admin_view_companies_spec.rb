@@ -4,34 +4,11 @@ feature 'Usuário visualiza empresas ativas' do
   context 'enquanto admin' do
     scenario 'com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua California, 3000', phone_number: '11 99999-9999',
-                            email: 'company@apple.com',
-                            domain: 'apple.com', status: true)
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-
-      company2 = Company.new(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
-                             registration_number: '12.345.678/0002-95',
-                             address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
-                             email: 'company@microsoft.com',
-                             domain: 'microsoft.com', status: true)
-
-      company2.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                           filename: 'logo.png', content_type: 'logo.png')
-
-      company3 = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
-                             registration_number: '12.345.678/0003-95',
-                             address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
-                             email: 'company@ibm.com',
-                             domain: 'ibm.com', status: false)
-
-      company3.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                           filename: 'logo.png', content_type: 'logo.png')
-      company.save!
-      company2.save!
-      company3.save!
+      FactoryBot.create(:company, brand_name: 'Apple', domain: 'apple.com', active: true)
+      FactoryBot.create(:company, brand_name: 'Microsoft', registration_number: '12.345.678/0002-95',
+                                  domain: 'microsoft.com', active: true)
+      FactoryBot.create(:company, brand_name: 'IBM', registration_number: '12.345.678/0003-95',
+                                  domain: 'ibm.com', active: false)
 
       login_as admin
       visit root_path
@@ -51,22 +28,13 @@ feature 'Usuário visualiza empresas ativas' do
 
     scenario 'e vê mensagem caso não haja nenhuma empresa ativa' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
-                            email: 'company@ibm.com',
-                            domain: 'ibm.com', status: false)
-
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-
-      company.save!
+      company = FactoryBot.create(:company, active: false)
 
       login_as admin
       visit root_path
       click_on 'Empresas'
 
-      expect(page).not_to have_content 'Apple'
+      expect(page).not_to have_content company.brand_name
       expect(page).not_to have_content 'Nenhuma empresa cadastrada'
       expect(page).to have_content 'Nenhuma empresa ativa'
     end
@@ -77,14 +45,7 @@ feature 'Usuário visualiza empresas ativas' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       Manager.create!(email: 'manager@apple.com', created_by: admin)
       manager = User.create!(email: 'manager@apple.com', role: :manager, password: '123456', cpf: '51959723030')
-      company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua California, 3000', phone_number: '11 99999-9999',
-                            email: 'company@apple.com',
-                            domain: 'apple.com', status: true)
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-      company.save!
+      FactoryBot.create(:company, active: true)
 
       login_as manager
       visit root_path

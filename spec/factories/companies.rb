@@ -9,6 +9,6 @@ FactoryBot.define do
     domain { 'campuscode.com.br' }
     logo { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/logo.png'), 'image/png') }
 
-    status { true }
+    active { true }
   end
 end

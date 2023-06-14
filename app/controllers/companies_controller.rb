@@ -1,13 +1,11 @@
 class CompaniesController < AdminController
   before_action :set_company, only: %i[show edit update activate deactivate]
+
   def index
-    @companies = Company.all
-    @active_companies = Company.where(status: true)
+    @active_companies = Company.where(active: true)
   end
 
-  def show
-    @company = Company.find(params[:id])
-  end
+  def show; end
 
   def new
     @company = Company.new
@@ -16,9 +14,6 @@ class CompaniesController < AdminController
   def edit; end
 
   def create
-    company_params = params.require(:company).permit(:brand_name, :corporate_name,
-                                                     :registration_number, :address,
-                                                     :phone_number, :email, :domain, :logo)
     @company = Company.new company_params
 
     return redirect_to @company, notice: t('.success') if @company.save
@@ -28,7 +23,7 @@ class CompaniesController < AdminController
   end
 
   def inactives
-    @inactive_companies = Company.where(status: false)
+    @inactive_companies = Company.where(active: false)
   end
 
   def update
@@ -41,12 +36,12 @@ class CompaniesController < AdminController
   end
 
   def activate
-    @company.update(status: true)
+    @company.update(active: true)
     redirect_to company_path(@company)
   end
 
   def deactivate
-    @company.update(status: false)
+    @company.update(active: false)
     redirect_to company_path(@company)
   end
 

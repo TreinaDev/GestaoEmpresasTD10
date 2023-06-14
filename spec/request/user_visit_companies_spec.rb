@@ -20,15 +20,16 @@ describe 'Usuário visita tela de empresas ativas', type: :request do
 
       login_as manager
       get companies_path
-      follow_redirect!
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
     end
   end
 
   context 'enquanto funcionário' do
     it 'sem sucesso' do
-      company = FactoryBot.create(:company, status: false)
+      company = FactoryBot.create(:company, active: false)
       department = FactoryBot.create(:department, company:)
       position = FactoryBot.create(:position, department:)
       FactoryBot.create(:employee, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
@@ -36,9 +37,10 @@ describe 'Usuário visita tela de empresas ativas', type: :request do
 
       login_as employee
       get companies_path
-      follow_redirect!
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
     end
   end
 end

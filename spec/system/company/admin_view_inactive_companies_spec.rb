@@ -4,34 +4,11 @@ feature 'Usuário visualiza empresas inativas' do
   context 'enquanto admin' do
     scenario 'com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = Company.new(brand_name: 'Apple', corporate_name: 'Apple LTDA',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua California, 3000', phone_number: '11 99999-9999',
-                            email: 'company@apple.com',
-                            domain: 'apple.com', status: false)
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-
-      company2 = Company.new(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
-                             registration_number: '12.345.678/003-95',
-                             address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
-                             email: 'company@microsoft.com',
-                             domain: 'microsoft.com', status: false)
-
-      company2.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                           filename: 'logo.png', content_type: 'logo.png')
-
-      company3 = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
-                             registration_number: '12.345.678/0002-95',
-                             address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
-                             email: 'company@ibm.com',
-                             domain: 'ibm.com', status: true)
-
-      company3.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                           filename: 'logo.png', content_type: 'logo.png')
-      company.save!
-      company2.save!
-      company3.save!
+      FactoryBot.create(:company, brand_name: 'Apple', domain: 'apple.com', active: false)
+      FactoryBot.create(:company, brand_name: 'Microsoft', domain: 'microsoft.com',
+                                  registration_number: '12.345.678/003-95', active: false)
+      FactoryBot.create(:company, brand_name: 'IBM', domain: 'ibm.com',
+                                  registration_number: '12.345.678/0002-95', active: true)
 
       login_as admin
       visit root_path
@@ -51,16 +28,7 @@ feature 'Usuário visualiza empresas inativas' do
 
     scenario 'e vê mensagem caso não haja nenhuma empresa ativa' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = Company.new(brand_name: 'IBM', corporate_name: 'IBM Corporation',
-                            registration_number: '12.345.678/0001-95',
-                            address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
-                            email: 'company@ibm.com',
-                            domain: 'ibm.com', status: true)
-
-      company.logo.attach(io: Rails.root.join('spec/support/images/logo.png').open,
-                          filename: 'logo.png', content_type: 'logo.png')
-
-      company.save!
+      FactoryBot.create(:company, active: true)
 
       login_as admin
       visit root_path

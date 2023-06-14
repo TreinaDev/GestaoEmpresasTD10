@@ -20,9 +20,10 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
 
       login_as manager
       get inactives_companies_path
-      follow_redirect!
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
     end
   end
 
@@ -33,11 +34,13 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
       position = FactoryBot.create(:position, department:)
       FactoryBot.create(:employee, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
       employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
+
       login_as employee
       get inactives_companies_path
-      follow_redirect!
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
     end
   end
 end
