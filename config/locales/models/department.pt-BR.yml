@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      department:
+        one: Departamento
+        other: Departamentos
+    attributes:
+      department:
+        name: Nome
+        description: Descrição
+        code: Código
+        company: Empresas
+        company_id: Empresas

@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :manager do
-    email { 'MyString' }
+    email { 'email@email.com' }
+    created_by {association :user, email: 'email@punti.com'}
   end
 end
