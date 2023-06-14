@@ -8,7 +8,7 @@ feature 'administrator registra email do gerente da empresa' do
     visit root_path
     click_on 'Empresas'
 
-    expect(page).to have_content 'Não há empresas cadastradas'
+    expect(page).to have_content 'Nenhuma empresa ativa'
   end
 
   scenario 'e vê formulário para cadastro' do
@@ -18,7 +18,9 @@ feature 'administrator registra email do gerente da empresa' do
 
     visit root_path
     click_on 'Empresas'
-    click_on 'Google'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
 
     expect(page).to have_field 'Cadastrar email'
     expect(page).to have_button 'Cadastrar'
@@ -26,18 +28,20 @@ feature 'administrator registra email do gerente da empresa' do
 
   scenario 'com sucesso' do
     user = create(:user, email: 'admin@punti.com')
-    company = create(:company)
+    company = create(:company, domain: 'campuscode.com.br')
     login_as(user)
 
     visit root_path
     click_on 'Empresas'
-    click_on 'Google'
-    fill_in 'Cadastrar email', with: 'usuario123@gmail.com'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
+    fill_in 'Cadastrar email', with: 'usuario123@campuscode.com.br'
     click_on 'Cadastrar'
 
     expect(current_path).to eq company_path(company)
     expect(page).to have_content 'Email cadastrado com sucesso'
-    expect(page).to have_content 'Google'
+    expect(page).to have_content 'Campus Code'
   end
 
   scenario 'e falha porque o email não é de um domínio válido' do
@@ -47,7 +51,9 @@ feature 'administrator registra email do gerente da empresa' do
 
     visit root_path
     click_on 'Empresas'
-    click_on 'Google'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
     fill_in 'Cadastrar email', with: 'usuario123@outlook.com'
     click_on 'Cadastrar'
 
@@ -63,7 +69,9 @@ feature 'administrator registra email do gerente da empresa' do
 
     visit root_path
     click_on 'Empresas'
-    click_on 'Google'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
     fill_in 'Cadastrar email', with: 'usuário@@gmail.com'
     click_on 'Cadastrar'
 
@@ -75,13 +83,15 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e falha porque o email já existe' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, created_by: user, company:, email: 'zezinho@gmail.com')
+    create(:manager, created_by: user, company:, email: 'zezinho@campuscode.com.br')
 
     login_as(user)
     visit root_path
     click_on 'Empresas'
-    click_on 'Google'
-    fill_in 'Cadastrar email', with: 'zezinho@gmail.com'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
+    fill_in 'Cadastrar email', with: 'zezinho@campuscode.com.br'
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Email já cadastrado'
@@ -91,13 +101,15 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e reativa o email já cadastrado e desativado previamente' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, company:, created_by: user, status: :canceled, email: 'zezinho@gmail.com')
+    create(:manager, company:, created_by: user, status: :canceled, email: 'zezinho@campuscode.com.br')
 
     login_as(user)
     visit root_path
     click_on 'Empresas'
-    click_on 'Google'
-    fill_in 'Cadastrar email', with: 'zezinho@gmail.com'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
+    fill_in 'Cadastrar email', with: 'zezinho@campuscode.com.br'
     click_on 'Cadastrar'
 
     expect(current_path).to eq company_path(company)
@@ -113,7 +125,9 @@ feature 'administrator registra email do gerente da empresa' do
     login_as(admin)
     visit root_path
     click_on 'Empresas'
-    click_on 'Outlook'
+    within('#company2') do
+      click_on 'Ver Detalhes'
+    end
     fill_in 'Cadastrar email', with: 'zezinho@gmail.com'
     click_on 'Cadastrar'
 
@@ -128,7 +142,7 @@ feature 'administrator registra email do gerente da empresa' do
     create(:employee, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     admin = create(:user, email: 'admin@punti.com')
-    create(:manager, created_by: admin, company:)
+    create(:manager, created_by: admin, company:, email: 'joaozinho@campuscode.com.br')
     user = create(:user, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     login_as(user)

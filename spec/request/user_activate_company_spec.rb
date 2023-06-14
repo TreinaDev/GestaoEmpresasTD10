@@ -17,8 +17,9 @@ describe 'Usuário para ativar empresa', type: :request do
     it 'e falha enquanto gerente' do
       admin = User.create!(email: 'admin@punti.com', password: '123456', cpf: '02324252481')
       company = create(:company, active: false)
-      manager = create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
-      create(:user, email: 'joaozinho@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
+      manager = create(:user, email: 'joaozinho@campuscode.com.br', role: :manager, password: '123456',
+                              cpf: '51959723030')
 
       login_as manager
       put activate_company_path(company)
