@@ -25,13 +25,13 @@
               <%= link_to 'Empresas', companies_path, class:"nav-link" %>
             </li>
             <% if user_signed_in? %>
+              <%= link_to 'Empresas', companies_path if current_user.role == 'admin' %>
+              <%= link_to 'Empresas Inativas', inactives_companies_path if current_user.role == 'admin' %>
               <li class="nav-item" >
-                <% if user_signed_in? %>
                   <%= current_user.description%>
                   <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn nav-link' %>
-                <%end%>
               </li>
-            <%else%>
+            <% else %>
               <li class="nav-item">
                 <%= link_to 'Cadastrar-se', new_user_registration_path, class:'nav-link' %>
               </li>
@@ -56,10 +56,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       </div>
+    </div>
 
-    
     <%= yield %>
 
-    </div>
   </body>
 </html>

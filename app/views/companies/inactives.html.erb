@@ -1,6 +1,6 @@
-<% if @active_companies.any? %>
+<% if @inactive_companies.any? %>
   <div class="d-flex flex-wrap justify-content-center">
-    <% @active_companies.each do |company| %>
+    <% @inactive_companies.each do |company| %>
       <div class="card m-3 w-20" style="width: 18rem;">
         <img src="<%= url_for(company.logo) %>"class="card-img-top fixed-height" alt= <%= company.brand_name %> >
         <div class="card-body">
@@ -10,9 +10,9 @@
         </div>
       </div>
     <% end %>
-<% else %>
-    <div class="alert">
-      <p>Nenhuma empresa ativa</p>
-    </div>
+  </div>
+<% else  %>
+  <div class="alert">
+    <p> Nenhuma empresa inativa </p>
   </div>
 <% end %>

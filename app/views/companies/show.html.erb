@@ -47,7 +47,9 @@
     </div>
   </div>
 <% end %>
+
 <div class="card border-primary">
+<div class="card">
   <% if @company.logo.present? %>
     <%= image_tag @company.logo, class: 'card-img-top rounded' %>
   <% end %>
@@ -59,5 +61,17 @@
     <p class="card-text"><%= Company.human_attribute_name('phone_number') %>: <%= @company.phone_number %></p>
     <p class="card-text"><%= Company.human_attribute_name('email') %>: <%= @company.email %></p>
     <p class="card-text"><%= Company.human_attribute_name('domain') %>: <%= @company.domain %></p>
+    <p class="card-text"><%= Company.human_attribute_name('active') %>:
+      <% if @company.active %>
+        Ativo
+      <% else %>
+        Inativo
+      <% end %>
+    </p>
   </div>
 </div>
+<% if current_user.admin? %>
+  <%= button_to "Desativar", deactivate_company_path(@company), method: :put, class: 'btn btn-danger' if @company.active %>
+  <%= button_to "Ativar", activate_company_path(@company), method: :put, class: 'btn btn-primary' if !@company.active %>
+  <%= link_to 'Editar', edit_company_path(@company), class: 'btn btn-primary' %>
+<% end %>

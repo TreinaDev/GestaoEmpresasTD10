@@ -34,7 +34,7 @@ feature 'visitante se cadastra' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    create(:employee, position:, department:, email: 'bruno@gmail.com', cpf: '44429533768')
+    create(:employee, position:, department:, email: 'bruno@campuscode.com.br', cpf: '44429533768')
 
     visit root_path
 
@@ -55,8 +55,8 @@ feature 'visitante se cadastra' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    create(:manager, company:, created_by: admin, email: 'bruno@gmail.com')
-    create(:employee, position:, department:, email: 'bruno@gmail.com', cpf: '44429533768')
+    create(:manager, company:, created_by: admin, email: 'bruno@campuscode.com.br')
+    create(:employee, position:, department:, email: 'bruno@campuscode.com.br', cpf: '44429533768')
 
     visit root_path
 

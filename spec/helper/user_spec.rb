@@ -24,8 +24,8 @@ RSpec.describe UserHelper, type: :helper do
     it 'retorna true quando é gerente' do
       admin = create(:user, email: 'admin@punti.com', cpf: '02850181080')
       company = create(:company)
-      create(:manager, email: 'admin@gmail.com', created_by: admin, company:)
-      user = create(:user, email: 'admin@gmail.com', role: :manager)
+      create(:manager, email: 'admin@campuscode.com.br', created_by: admin, company:)
+      user = create(:user, email: 'admin@campuscode.com.br')
       allow(helper).to receive(:user_signed_in?).and_return(true)
       allow(helper).to receive(:current_user).and_return(user)
       expect(helper.manager?).to eq(true)
