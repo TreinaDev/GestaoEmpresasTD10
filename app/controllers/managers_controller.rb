@@ -1,6 +1,7 @@
 class ManagersController < ApplicationController
   before_action :set_new_manager_and_company, only: [:create]
   before_action :email_exists_canceled?, only: [:create]
+
   def create
     if @manager.save
       redirect_to company_path(@company), notice: t('controllers.managers.create.success')

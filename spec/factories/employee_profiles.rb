@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :employee do
+  factory :employee_profile do
     name { 'Roberto Carlos Nascimento' }
     social_name { 'Roberto Carlos' }
     cpf { '69142235219' }
@@ -12,8 +12,8 @@ FactoryBot.define do
     admission_date { '2023-06-06' }
     dismissal_date { '2023-06-06' }
     marital_status { 1 }
-    department
+    department { nil }
     user { nil }
-    position
+    position { nil }
   end
 end

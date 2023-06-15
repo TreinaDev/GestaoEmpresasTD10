@@ -53,7 +53,7 @@ RSpec.describe User, type: :model do
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department:)
-      create(:employee, position:, department:, email: 'user@treinadev.com', cpf: '44429533768')
+      create(:employee_profile, position:, department:, email: 'user@treinadev.com', cpf: '44429533768')
       new_user = User.create!(email: 'user@treinadev.com', cpf: '44429533768', password: 'password')
 
       result = new_user.description

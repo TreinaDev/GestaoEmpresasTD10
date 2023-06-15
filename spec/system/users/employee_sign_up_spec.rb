@@ -6,7 +6,7 @@ feature 'Registro de funcionário' do
     department = create(:department, company:)
     position = create(:position, department:)
     employee = create(
-      :employee,
+      :employee_profile,
       position:,
       department:,
       email: 'funcionario@empresa.com',
@@ -31,7 +31,7 @@ feature 'Registro de funcionário' do
     department = create(:department, company:)
     position = create(:position, department:)
     create(
-      :employee,
+      :employee_profile,
       position:,
       department:,
       email: 'funcionario@empresa.com',

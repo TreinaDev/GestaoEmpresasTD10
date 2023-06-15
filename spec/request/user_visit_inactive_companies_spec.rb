@@ -33,7 +33,7 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
       company = FactoryBot.create(:company)
       department = FactoryBot.create(:department, company:)
       position = FactoryBot.create(:position, department:)
-      FactoryBot.create(:employee, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
+      FactoryBot.create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
       employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
 
       login_as employee

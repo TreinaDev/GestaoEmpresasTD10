@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   before_validation :assign_role
   before_validation :assign_role
+  before_validation :assign_role
   after_create :update_employee, if: -> { employee? }
 
   validates :cpf, presence: true
@@ -13,26 +14,26 @@ class User < ApplicationRecord
 
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
 
-  has_one :employee, dependent: nil
-
+  has_one :employee_profile, dependent: nil
+  after_create :update_employee, if: -> { employee? }
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
   end
 
   def block!
-    return unless employee
+    return unless employee_profile
 
-    employee.update(status: :blocked)
+    employee_profile.update(status: :blocked)
   end
 
   def unblock!
-    return unless employee
+    return unless employee_profile
 
-    employee.update(status: :unblocked)
+    employee_profile.update(status: :unblocked)
   end
 
   def blocked?
-    employee && employee.status == 'blocked'
+    employee_profile && employee_profile.status == 'blocked'
   end
 
   def active_for_authentication?
@@ -50,7 +51,7 @@ class User < ApplicationRecord
       self.role = :admin
     elsif Manager.find_by(email:)
       self.role = :manager
-    elsif Employee.find_by(cpf:)
+    elsif EmployeeProfile.find_by(cpf:)
       self.role = :employee
     else
       errors.add(:base, 'Email ou CPF não estão cadastrados nas tabelas correspondentes')
@@ -59,7 +60,7 @@ class User < ApplicationRecord
   end
 
   def update_employee
-    employee = Employee.find_by(cpf:)
+    employee = EmployeeProfile.find_by(cpf:)
     employee.update(user_id: id)
   end
 
