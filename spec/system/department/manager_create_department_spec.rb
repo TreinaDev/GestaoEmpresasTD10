@@ -41,7 +41,7 @@ feature 'Manager cria departamento' do
 end
 
 feature 'usuário tenta criar departamento' do
-  scenario  'sem sucesso' do
+  scenario  'mas apenas managers tem permissão para isso' do
     admin = create(:user, email: 'user@punti.com')
 
     login_as(admin)

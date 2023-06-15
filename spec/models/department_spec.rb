@@ -27,24 +27,28 @@ RSpec.describe Department, type: :model do
       department = build(:department, name: '')
 
       expect(department.valid?).to be false
+      expect(department.errors[:name]).to include 'não pode ficar em branco'
     end
 
     it 'Código deve ser obrigatório' do
       department = build(:department, code: '')
 
       expect(department.valid?).to be false
+      expect(department.errors[:code]).to include 'não pode ficar em branco'
     end
 
     it 'Descrição deve ser obrigatório' do
       department = build(:department, description: '')
 
       expect(department.valid?).to be false
+      expect(department.errors[:description]).to include 'não pode ficar em branco'
     end
 
     it 'Empresa deve ser obrigatória' do
-      department = build(:department, company_id: '')
+      department = build(:department, company: nil)
 
       expect(department.valid?).to be false
+      expect(department.errors[:company]).to include 'é obrigatório(a)'
     end
   end
 end
