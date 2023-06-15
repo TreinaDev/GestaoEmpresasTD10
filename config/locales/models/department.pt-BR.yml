@@ -1,0 +1,21 @@
+pt-BR:
+  activerecord:
+    models:
+      department:
+        one: Departamento
+        other: Departamentos
+    attributes:
+      department:
+        name: Nome
+        description: Descrição
+        code: Código
+        company: Empresa
+        company_id: Empresa
+    errors:
+      models:
+        department:
+          attributes:
+            code:
+              invalid_format: o código deve ser composto por 3 letras e 6 caracteres
+
+

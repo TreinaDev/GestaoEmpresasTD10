@@ -1,0 +1,10 @@
+pt-BR:
+  controllers:
+    managers:
+      create:
+        success: 'Email cadastrado com sucesso'
+        failed: 'Não foi possível cadastrar email'
+        reactivated: 'Email reativado'
+        not_authorized: 'Você não tem permissão para essa ação'
+      destroy:
+        success: 'Email desativado com sucesso'

@@ -1,4 +1,55 @@
+<h1>Visualização da empresa <%= @company.brand_name %></h1>
+<% if admin? %>
+  <h4>Cadastrar email</h4>
+  <% if @manager.errors.any? %>
+    <h2>Verifique os erros abaixo:</h2>
+    <ul>
+      <% @manager.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <div class="col-sm-12 col-md-4">
+      <%= form_with model:@manager, url:managers_path do |f| %>
+        <%= f.hidden_field :company_id, :value => @company.id%>
+        <%= f.label :email, class:'form-label' %>
+        <div class="input-group mb-3">
+          <%= f.text_field :email, placeholder: 'Cadastrar email', class:'form-control' %>
+          <%= f.submit 'Cadastrar', class:'btn btn-success' %>
+        </div>
+      <% end %>
+      <% if  @emails.present? %>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Ações</th>
+            </tr>
+          <thead>
+          <tbody>
+            <% @emails.each do |email| %>
+              <tr>
+                <td><%= email.email %></td>
+                <td>
+                  <%= button_to manager_path(email.id), {method: :delete, id:"delete#{email.id}", class:'btn btn-danger d-flex'} do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                    </svg>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <div class="card border-primary">
+<div class="card">
   <% if @company.logo.present? %>
     <%= image_tag @company.logo, class: 'card-img-top rounded' %>
   <% end %>
@@ -10,5 +61,17 @@
     <p class="card-text"><%= Company.human_attribute_name('phone_number') %>: <%= @company.phone_number %></p>
     <p class="card-text"><%= Company.human_attribute_name('email') %>: <%= @company.email %></p>
     <p class="card-text"><%= Company.human_attribute_name('domain') %>: <%= @company.domain %></p>
+    <p class="card-text"><%= Company.human_attribute_name('active') %>:
+      <% if @company.active %>
+        Ativo
+      <% else %>
+        Inativo
+      <% end %>
+    </p>
   </div>
 </div>
+<% if current_user.admin? %>
+  <%= button_to "Desativar", deactivate_company_path(@company), method: :put, class: 'btn btn-danger' if @company.active %>
+  <%= button_to "Ativar", activate_company_path(@company), method: :put, class: 'btn btn-primary' if !@company.active %>
+  <%= link_to 'Editar', edit_company_path(@company), class: 'btn btn-primary' %>
+<% end %>

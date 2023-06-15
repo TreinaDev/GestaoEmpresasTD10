@@ -1,0 +1,5 @@
+pt-BR:
+  departments:
+    create:
+      success: Departamento criado com sucesso!
+      error: Departamento não pode ser criado!

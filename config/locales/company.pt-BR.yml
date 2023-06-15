@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      company: 'Empresa'
+      user: 'Usúario'
+    attributes:
+      company:
+        email: 'Email'
+  controllers:
+    managers:
+      create:
+        success: 'Email cadastrado com sucesso'
