@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       patch :unblock
     end
   end
+
+  resources :departments, only: [:new, :create, :show] 
   root "home#index"
   resources :managers, only: %i(create destroy)
   resources :companies, only: %i( new create show edit update index) do

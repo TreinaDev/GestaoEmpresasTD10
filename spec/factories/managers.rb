@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :manager do
-    email { 'joaozinho@gmail.com' }
-    created_by { nil }
-    company { nil }
+    email { 'email@email.com' }
+    created_by { association :user, email: 'email@punti.com' }
+    company
   end
 end

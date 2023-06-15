@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :user do
-    role { 1 }
-    cpf { '85218947083' }
-    email { 'zezinho@gmail.com' }
+    email { 'email@email.com' }
+    cpf { '20603758606' }
     password { 'password' }
   end
 end
