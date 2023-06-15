@@ -1,13 +1,15 @@
 class PositionsController < ManagerController
-  before_action :set_company_and_department, only: %i[show new create]
-  before_action :set_position, only: %i[show]
-  before_action :set_card_types, only: %i[show new]
+  before_action :set_company_and_department, only: %i[show new create edit update]
+  before_action :set_position, only: %i[show edit update]
+  before_action :set_card_types, only: %i[show new edit]
 
   def show; end
 
   def new
     @position = Position.new
   end
+
+  def edit; end
 
   def create
     @position = Position.new(position_params.merge(department: @department))
@@ -17,6 +19,15 @@ class PositionsController < ManagerController
     else
       flash.now[:alert] = t('.failure')
       render :new
+    end
+  end
+
+  def update
+    if @position.update(position_params)
+      redirect_to [@company, @department, @position], notice: t('.success')
+    else
+      flash.now[:alert] = t('.failure')
+      render :edit
     end
   end
 
