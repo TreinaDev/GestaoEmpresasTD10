@@ -7,15 +7,15 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 gem 'cssbundling-rails'
 gem 'delayed_job_active_record'
 gem 'devise'
+gem 'faraday'
 gem 'jbuilder'
 gem 'jsbundling-rails'
+gem 'pry'
 gem 'puma', '~> 5.0'
 gem 'sprockets-rails'
 gem 'sqlite3', '~> 1.4'
 gem 'stimulus-rails'
 gem 'turbo-rails'
-gem 'faraday'
-gem 'pry'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

@@ -3,9 +3,7 @@ class PositionsController < ManagerController
   before_action :set_position, only: %i[show]
   before_action :set_card_types, only: %i[show new]
 
-  def show
-    @card_type = @card_types.find { |card_type| card_type.id == @position.card_type_id }
-  end
+  def show; end
 
   def new
     @position = Position.new
@@ -26,6 +24,7 @@ class PositionsController < ManagerController
 
   def set_position
     @position = Position.find(params[:id])
+    @card_type = CardType.find(@position.card_type_id, @company.registration_number)
   end
 
   def set_company_and_department
@@ -34,9 +33,7 @@ class PositionsController < ManagerController
   end
 
   def set_card_types
-    response = Faraday.get("http://localhost:4000/api/v1/company_card_types?cnpj=#{@department.company.registration_number}")
-    card_types_array = JSON.parse(response.body)
-    @card_types = card_types_array.map { |hash| OpenStruct.new(hash) }
+    @card_types = CardType.all(@company.registration_number)
   end
 
   def position_params
