@@ -57,4 +57,22 @@ feature 'Gerente cria cargo' do
 
     expect(Position.count).to eq 0
   end
+
+  scenario 'sem sucesso por api estar indisponível' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager, created_by: admin_user)
+    manager_user = create(:manager_user)
+
+    json_data = "{}"
+    fake_response = double('faraday_response', status: 500, body: json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
+
+    login_as(manager_user)
+    visit new_company_department_position_path(company_id: company.id, department_id: department.id)
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+  end
 end
