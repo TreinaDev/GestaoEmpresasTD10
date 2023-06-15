@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :user do
-    password { 'password123' }
+    password { 'password' }
+    cpf { '94462646690' }
 
     factory :admin_user do
       email { 'admin@punti.com' }

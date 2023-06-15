@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Criação de Departamento', type: :request do
   context 'Admin tenta criar departamento' do
     it 'e não tem permissão' do
-      admin = create(:user, email: 'user@punti.com')
+      admin = create(:admin_user, email: 'user@punti.com')
 
       login_as admin
 

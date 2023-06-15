@@ -44,7 +44,6 @@ Manager.create!(email: 'manager@ibm.com', created_by: User.first, company_id: Co
 
 User.create!(email: 'manager@apple.com', cpf: '44429533768', password: 'password')
 User.create!(email: 'manager@microsoft.com', cpf: '28543435064', password: 'password')
-User.create!(email: 'manager@google.com', cpf: '85488790098', password: 'password')
 
 company = Company.create!(
   brand_name: 'Apple',
@@ -56,10 +55,15 @@ company = Company.create!(
   domain: 'campuscode.com.br',
   logo: { io: Rails.root.join('spec/support/images/logo.png').open, filename: 'logo.png',
           content_type: 'logo/png' },
-  status: true
+  active: true
 )
 
-Department.create!(company_id: company.id, name: 'rh')
+Department.create!(
+  company_id: company.id,
+  name: 'rh',
+  code: 'ABC!@#',
+  description: 'Recursos humanos'
+)
 
 # position = Position.create!(department_id: department.id, name: 'gerente')
 
