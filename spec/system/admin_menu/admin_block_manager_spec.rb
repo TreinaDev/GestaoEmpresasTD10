@@ -52,7 +52,7 @@ context 'usuário já bloqueado' do
     visit root_path
     fill_in 'E-mail', with: 'joaozinho@gmail.com'
     fill_in 'Senha', with: 'password'
-    within('#form') do
+    within('form') do
       click_on 'Entrar'
     end
 
