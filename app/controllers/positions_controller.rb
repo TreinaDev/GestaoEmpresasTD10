@@ -1,4 +1,5 @@
-class PositionsController < ManagerController
+class PositionsController < ApplicationController
+  before_action :require_manager
   before_action :status_api
   before_action :set_company_and_department, only: %i[show new create edit update]
   before_action :set_position, only: %i[show edit update]

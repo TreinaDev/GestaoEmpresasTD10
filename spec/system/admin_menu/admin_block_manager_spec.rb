@@ -53,7 +53,6 @@ context 'usuário já bloqueado' do
                      user_id: manager.id)
 
     visit root_path
-    click_on 'Entrar'
     fill_in 'E-mail', with: 'user@apple.com'
     fill_in 'Senha', with: 'password'
     within('div#form') do
@@ -117,8 +116,8 @@ context 'visitante tenta acessar' do
 
     visit users_path
 
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Permissão negada'
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
@@ -135,6 +134,6 @@ context 'visitante tenta acessar' do
     visit users_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Permissão negada'
+    expect(page).to have_content 'Usuário sem permissão para executar essa ação'
   end
 end

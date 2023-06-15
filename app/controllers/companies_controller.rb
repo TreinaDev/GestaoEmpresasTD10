@@ -1,4 +1,6 @@
-class CompaniesController < AdminController
+class CompaniesController < ApplicationController
+  before_action :require_admin
+
   def show
     @company = Company.find(params[:id])
   end
