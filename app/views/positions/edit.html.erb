@@ -3,7 +3,7 @@
     <% if @position.errors.present? %>
       <%= render "shared/errors", errors: @position.errors %>
     <% end %>
-    <h4 class="card-title">Edit Position</h4>
+    <h4 class="card-title">Editar Cargo</h4>
     <%= form_with(model: [@company, @department, @position]) do |f| %>
       <div class="mb-3">
         <%= f.label :name, class: 'form-label' %>

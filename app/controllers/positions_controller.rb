@@ -1,7 +1,7 @@
 class PositionsController < ManagerController
   before_action :set_company_and_department, only: %i[show new create edit update]
   before_action :set_position, only: %i[show edit update]
-  before_action :set_card_types, only: %i[show new edit]
+  before_action :set_card_types, only: %i[show new edit create update]
 
   def show; end
 

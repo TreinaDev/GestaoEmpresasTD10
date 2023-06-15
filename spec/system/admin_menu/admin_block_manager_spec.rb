@@ -7,7 +7,7 @@ feature 'Admin bloqueia manager' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
 
@@ -28,7 +28,7 @@ feature 'Admin bloqueia manager' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
     allow_any_instance_of(User).to receive(:block!).and_return(false)
@@ -48,7 +48,7 @@ context 'usuário já bloqueado' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
 
@@ -69,7 +69,7 @@ context 'usuário já bloqueado' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
 
@@ -90,7 +90,7 @@ context 'usuário já bloqueado' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'blocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
     allow_any_instance_of(User).to receive(:unblock!).and_return(false)
@@ -111,7 +111,7 @@ context 'visitante tenta acessar' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
 
@@ -127,7 +127,7 @@ context 'visitante tenta acessar' do
     manager = User.create!(email: 'user@apple.com', cpf: '44429533768', password: 'password')
     company = FactoryBot.create(:company, brand_name: 'Apple')
     department = Department.create!(company_id: company.id, name: 'rh')
-    position = Position.create!(department_id: department.id, name: 'gerente')
+    position = create(:position, department_id: department.id, name: 'gerente')
     Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
                      user_id: manager.id)
 
