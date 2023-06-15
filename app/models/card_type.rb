@@ -18,4 +18,8 @@ class CardType
   def self.find(id, cnpj)
     all(cnpj).detect { |card_type| card_type.id == id }
   end
+
+  def self.status
+    Faraday.get('http://localhost:4000/api/v1').status
+  end
 end

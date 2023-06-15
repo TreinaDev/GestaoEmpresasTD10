@@ -8,6 +8,10 @@ feature 'Gerente cria cargo' do
     create(:manager, created_by: admin_user)
     manager_user = create(:manager_user)
 
+    json_data = '{}'
+    fake_status = double('faraday_status', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
+
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
@@ -29,50 +33,57 @@ feature 'Gerente cria cargo' do
     expect(page).to have_content 'Tipo de cartão: Cartão Avançado'
   end
 
-  scenario 'sem sucesso por falta de atributo obrigatório' do
-    company = create(:company)
-    department = create(:department, company:)
-    admin_user = create(:admin_user)
-    create(:manager, created_by: admin_user)
-    manager_user = create(:manager_user)
+  context 'sem sucesso' do
+    scenario 'por falta de atributo obrigatório' do
+      company = create(:company)
+      department = create(:department, company:)
+      admin_user = create(:admin_user)
+      create(:manager, created_by: admin_user)
+      manager_user = create(:manager_user)
 
-    json_data = Rails.root.join('spec/support/json/card_types.json').read
-    fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
+      json_data = '{}'
+      fake_status = double('faraday_status', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
 
-    login_as(manager_user)
-    visit new_company_department_position_path(company_id: company.id, department_id: department.id)
-    fill_in 'Nome', with: ''
-    fill_in 'Descrição', with: ''
-    fill_in 'Código', with: ''
-    select 'Cartão Intermediário', from: 'Tipo de cartão'
-    click_on 'Salvar'
+      json_data = Rails.root.join('spec/support/json/card_types.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
 
-    expect(current_path).to eq company_department_positions_path(company_id: company.id, department_id: department.id)
-    expect(page).to have_content 'Cargo não cadastrado'
-    expect(page).to have_content 'Nome não pode ficar em branco'
-    expect(page).to have_content 'Descrição não pode ficar em branco'
-    expect(page).to have_content 'Código não pode ficar em branco'
-    expect(page).to have_content 'Código Formato: 3 letras maiúsculas seguidas por 3 números (ex.: XYZ567)'
+      login_as(manager_user)
+      visit new_company_department_position_path(company_id: company.id, department_id: department.id)
 
-    expect(Position.count).to eq 0
-  end
+      fill_in 'Nome', with: ''
+      fill_in 'Descrição', with: ''
+      fill_in 'Código', with: ''
+      select 'Cartão Intermediário', from: 'Tipo de cartão'
+      click_on 'Salvar'
 
-  scenario 'sem sucesso por api estar indisponível' do
-    company = create(:company)
-    department = create(:department, company:)
-    admin_user = create(:admin_user)
-    create(:manager, created_by: admin_user)
-    manager_user = create(:manager_user)
+      expect(current_path).to eq company_department_positions_path(company_id: company.id, department_id: department.id)
+      expect(page).to have_content 'Cargo não cadastrado'
+      expect(page).to have_content 'Nome não pode ficar em branco'
+      expect(page).to have_content 'Descrição não pode ficar em branco'
+      expect(page).to have_content 'Código não pode ficar em branco'
+      expect(page).to have_content 'Código Formato: 3 letras maiúsculas seguidas por 3 números (ex.: XYZ567)'
 
-    json_data = "{}"
-    fake_response = double('faraday_response', status: 500, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
+      expect(Position.count).to eq 0
+    end
 
-    login_as(manager_user)
-    visit new_company_department_position_path(company_id: company.id, department_id: department.id)
+    scenario 'por api estar indisponível' do
+      company = create(:company)
+      department = create(:department, company:)
+      admin_user = create(:admin_user)
+      create(:manager, created_by: admin_user)
+      manager_user = create(:manager_user)
 
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+      json_data = '{}'
+      fake_status = double('faraday_status', status: 500, body: json_data)
+      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
+
+      login_as(manager_user)
+      visit new_company_department_position_path(company_id: company.id, department_id: department.id)
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+    end
   end
 end

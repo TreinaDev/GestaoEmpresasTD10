@@ -1,4 +1,5 @@
 class PositionsController < ManagerController
+  before_action :status_api
   before_action :set_company_and_department, only: %i[show new create edit update]
   before_action :set_position, only: %i[show edit update]
   before_action :set_card_types, only: %i[show new edit create update]
@@ -45,6 +46,10 @@ class PositionsController < ManagerController
 
   def set_card_types
     @card_types = CardType.all(@company.registration_number)
+  end
+
+  def status_api
+    redirect_to root_path, alert: t('api_down') if CardType.status == 500
   end
 
   def position_params

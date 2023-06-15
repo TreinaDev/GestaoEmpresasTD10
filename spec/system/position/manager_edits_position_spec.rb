@@ -9,6 +9,10 @@ feature 'Gerente edita cargo' do
     manager_user = create(:manager_user)
     create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
 
+    json_data = '{}'
+    fake_status = double('faraday_status', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
+
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
@@ -38,6 +42,10 @@ feature 'Gerente edita cargo' do
     create(:manager, created_by: admin_user)
     manager_user = create(:manager_user)
     create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+
+    json_data = '{}'
+    fake_status = double('faraday_status', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -73,12 +81,13 @@ feature 'Gerente edita cargo' do
     manager_user = create(:manager_user)
     create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
 
-    json_data = "{}"
+    json_data = '{}'
     fake_response = double('faraday_response', status: 500, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_response)
 
     login_as(manager_user)
-    visit edit_company_department_position_path(company_id: company.id, department_id: department.id, id: Position.first.id)
+    visit edit_company_department_position_path(company_id: company.id, department_id: department.id,
+                                                id: Position.first.id)
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
