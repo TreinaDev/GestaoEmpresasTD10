@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'administrador entra no sisetma' do  
+feature 'administrador entra no sisetma' do
   scenario 'e vê os items estilizados do navbar' do
     user = create(:user, email: 'admin@punti.com')
     link_empresas = nil
@@ -12,7 +12,7 @@ feature 'administrador entra no sisetma' do
     login_as(user)
     visit root_path
     within('nav') do
-      link_empresas = find('a', exact_text: 'Empresas') 
+      link_empresas = find('a', exact_text: 'Empresas')
       link_empresas_inativas = find('a', exact_text: 'Empresas Inativas')
       link_gerentes_cadastrados = find('a', exact_text: 'Gerentes Cadastrados')
       link_cadastrar_empresa = find('a', exact_text: 'Cadastrar Empresa')
@@ -28,7 +28,7 @@ feature 'administrador entra no sisetma' do
     expect(button_to_sair[:class]).to include('btn')
   end
 
-  context "e clica no botão" do
+  context 'e clica no botão' do
     scenario 'de empresas' do
       admin = create(:user, email: 'admin@punti.com')
 
@@ -52,7 +52,7 @@ feature 'administrador entra no sisetma' do
 
       expect(current_path).to eq inactives_companies_path
     end
-    
+
     scenario 'de gerentes cadastrados' do
       admin = create(:user, email: 'admin@punti.com')
 

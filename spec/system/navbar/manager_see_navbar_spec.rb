@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'manager entra no sisetma' do  
+feature 'manager entra no sisetma' do
   scenario 'e não vê os items do administrador' do
     company = create(:company, domain: 'email.com')
     create(:manager, company:)
@@ -8,7 +8,7 @@ feature 'manager entra no sisetma' do
 
     login_as(user_manager)
     visit root_path
-    
+
     within('nav') do
       expect(page).not_to have_link 'Empresas'
       expect(page).not_to have_link 'Empresas Inativas'
