@@ -14,4 +14,5 @@ Rails.application.routes.draw do
     put :activate, on: :member
     put :deactivate, on: :member
   end
+  resources :employee_profiles, only: %i(new create show)
 end

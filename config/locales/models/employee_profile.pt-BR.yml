@@ -1,0 +1,34 @@
+pt-BR:
+  activerecord:
+    models:
+      employee_profile:
+        one: Dados do Funcionário
+        other: Dados dos Funcionários
+    attributes:
+      employee_profile:
+        name: Nome Completo
+        social_name: Nome Social
+        email: E-mail
+        birth_date: Data de Nascimento
+        cpf: CPF
+        rg: RG
+        address: Endereço
+        phone_number: Telefone
+        marital_status: Estado Civil
+        status: Status
+        admission_date: Data de Admissão
+        dismissal_date: Data de Demissão
+        department_id: Departamento
+        position_id: Cargo
+    enum:
+      employee_profile:
+        status:
+          unblocked: Ativo
+          blocked: Bloqueado
+          fired: Desligado
+        marital_status:
+          single: Solteiro(a)
+          married: Casado(a)
+          widower: Viúvo(a)
+          divorced: Divorciado(a)
+
