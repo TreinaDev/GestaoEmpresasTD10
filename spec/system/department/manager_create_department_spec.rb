@@ -31,7 +31,6 @@ feature 'Manager cria departamento' do
 
     fill_in 'Nome',	with: ''
     fill_in 'Descrição',	with: 'O departamento jurídico'
-    fill_in 'Código',	with: 'AA007'
     click_on 'Salvar'
 
     expect(page).to have_content 'Departamento não pode ser criado!'

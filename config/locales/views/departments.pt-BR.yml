@@ -2,3 +2,9 @@ pt-BR:
   departments:
     form:
       save: Salvar
+    show:
+      edit: Editar
+    new:
+      return: Voltar
+    edit:
+      return: Voltar

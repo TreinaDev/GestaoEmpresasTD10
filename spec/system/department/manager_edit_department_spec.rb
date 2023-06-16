@@ -5,14 +5,15 @@ feature 'Manager edita departamento' do
     company = create(:company, brand_name: 'Apple', domain: 'apple.com')
     create(:manager, email: 'user@apple.com', company:)
     new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('AAA007')
     department = create(:department, company:)
 
     login_as new_user
-    visit edit_department_path(department.id)
+    visit department_path(department.id)
+    click_on 'Editar'
 
     fill_in 'Nome',	with: 'Jurídico'
     fill_in 'Descrição',	with: 'O departamento jurídico'
-    fill_in 'Código',	with: 'AAA007'
     select 'Apple', from: 'Empresa'
     click_on 'Salvar'
 
@@ -29,11 +30,11 @@ feature 'Manager edita departamento' do
     department = create(:department, company:)
 
     login_as new_user
-    visit edit_department_path(department.id)
+    visit department_path(department.id)
+    click_on 'Editar'
 
     fill_in 'Nome',	with: 'Jurídico'
     fill_in 'Descrição',	with: ''
-    fill_in 'Código',	with: 'AAA007'
     select 'Apple', from: 'Empresa'
     click_on 'Salvar'
 
