@@ -39,8 +39,6 @@
                         <i class="bi bi-eye"></i>
                       </button>
                     </td>
-                    <%# <td>
-                    </td> %>
                   </tr>
                 <% end %>
               </tbody>
@@ -48,33 +46,33 @@
           <% end %>
         </div>
         <div class="col-sm-12 col-md-7">
-          <div class="card border-primary">
-            <div class="card">
-              <% if @company.logo.present? %>
-                <%= image_tag @company.logo, class: 'card-img-top rounded' %>
-              <% end %>
-              <div class="card-body">
-                <h2 class="card-title"><%= Company.human_attribute_name('brand_name') %>: <%=  @company.brand_name %></h2>
-                <p class="card-text"><%= Company.human_attribute_name('corporate_name') %>: <%= @company.corporate_name %></p>
-                <p class="card-text"> <%= Company.human_attribute_name('registration_number') %>: <%= @company.registration_number %></p>
-                <p class="card-text"><%= Company.human_attribute_name('address') %>: <%= @company.address %></p>
-                <p class="card-text"><%= Company.human_attribute_name('phone_number') %>: <%= @company.phone_number %></p>
-                <p class="card-text"><%= Company.human_attribute_name('email') %>: <%= @company.email %></p>
-                <p class="card-text"><%= Company.human_attribute_name('domain') %>: <%= @company.domain %></p>
-                <p class="card-text"><%= Company.human_attribute_name('active') %>:
-                  <% if @company.active %>
-                    Ativo
-                  <% else %>
-                    Inativo
-                  <% end %>
-                </p>
-              </div>
-            </div>
-            <% if current_user.admin? %>
-              <%= button_to "Desativar", deactivate_company_path(@company), method: :put, class: 'btn btn-danger' if @company.active %>
-              <%= button_to "Ativar", activate_company_path(@company), method: :put, class: 'btn btn-primary' if !@company.active %>
-              <%= link_to 'Editar', edit_company_path(@company), class: 'btn btn-primary' %>
+          <div class="card my-4">
+            <% if @company.logo.present? %>
+              <%= image_tag @company.logo, class: 'card-img-top rounded' %>
             <% end %>
+            <div class="card-body">
+              <h3 class="card-title"><%= @company.brand_name %></h2>
+              <p class="card-text mb-1"><%= Company.human_attribute_name('corporate_name') %>: <%= @company.corporate_name %></p>
+              <p class="card-text mb-1"> <%= Company.human_attribute_name('registration_number') %>: <%= @company.registration_number %></p>
+              <p class="card-text mb-1"><%= Company.human_attribute_name('address') %>: <%= @company.address %></p>
+              <p class="card-text mb-1"><%= Company.human_attribute_name('phone_number') %>: <%= @company.phone_number %></p>
+              <p class="card-text mb-1"><%= Company.human_attribute_name('email') %>: <%= @company.email %></p>
+              <p class="card-text mb-1"><%= Company.human_attribute_name('domain') %>: <%= @company.domain %></p>
+              <p class="card-text mb-1"><%= Company.human_attribute_name('active') %>:
+                <% if @company.active %>
+                  Ativo
+                <% else %>
+                  Inativo
+                <% end %>
+              </p>
+            </div>
+            <div class="card-footer">
+              <% if admin? %>
+                <%= button_to "Desativar", deactivate_company_path(@company), method: :put, form: { class: 'd-inline m-1' }, class: 'btn btn-danger' if @company.active %>
+                <%= button_to "Ativar", activate_company_path(@company), method: :put, form: { class: 'd-inline m-1' }, class: 'btn btn-primary' if !@company.active %>
+                <%= link_to 'Editar', edit_company_path(@company), class: 'btn btn-primary' %>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>

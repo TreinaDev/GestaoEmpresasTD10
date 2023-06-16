@@ -5,7 +5,7 @@
         <% if @company.errors.present? %>
           <%= render "shared/errors", errors: @company.errors %>
         <% end %>
-        <h4 class="card-title">Nova Empresa</h4>
+        <h4 class="card-title mb-5">Nova Empresa</h4>
         <%= form_with model: @company, data: { turbo: false }  do |f| %>
           <div class="card-inputs">
             <div class="col-4">
