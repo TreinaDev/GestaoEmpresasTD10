@@ -1,22 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permited_parameters, if: :devise_controller?
-  before_action :authenticate_user!
 
   def configure_permited_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:cpf])
   end
 
-  def require_manager
-    return if current_user.manager?
+  def authorize_admin!
+    return unless current_user.nil? || !current_user.admin?
 
-    flash[:alert] = t('forbidden')
-    redirect_to root_path
-  end
-
-  def require_admin
-    return if current_user.admin?
-
-    flash[:alert] = t('forbidden')
-    redirect_to root_path
+    redirect_to root_path, alert: t('errors.user.permission_denied')
   end
 end
