@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
               <ul class="navbar-nav d-flex w-100">
-                <% if admin? %>
+                <% if current_user.admin? %>
                   <li class="nav-item">
                     <%= link_to 'Empresas', companies_path, class:'nav-link' %>
                   </li>
@@ -35,8 +35,7 @@
                     <%= link_to 'Cadastrar Empresa', new_company_path, class:'nav-link'  %>
                   </li>
                 <% end %>
-                <%# Se admin:
-                  Cadastrar Empresa | Empresas | Empresas Inativas %>
+                
                 <li class="nav-item ms-auto">
                   <div class='nav-user'>
                     <%= current_user.description%>
