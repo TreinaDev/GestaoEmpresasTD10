@@ -1,5 +1,4 @@
-class CompaniesController < AdminController
-  before_action :authenticate_user!
+class CompaniesController < ApplicationController
   before_action :require_admin, except: %i[show]
   before_action :set_company, only: %i[show edit update activate deactivate]
 
