@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'manager entra no sisetma' do
-  scenario 'e não vê os items do administrador' do
+feature 'manager entra no sistema' do
+  scenario 'e não vê os itens do administrador' do
     company = create(:company, domain: 'email.com')
     create(:manager, company:)
     user_manager = create(:user, cpf: '50081919000')

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'administrador entra no sisetma' do
-  scenario 'e vê os items estilizados do navbar' do
+feature 'administrador entra no sistema' do
+  scenario 'e vê os itens estilizados do navbar' do
     user = create(:user, email: 'admin@punti.com')
     link_empresas = nil
     link_empresas_inativas = nil
@@ -65,7 +65,7 @@ feature 'administrador entra no sisetma' do
       expect(current_path).to eq users_path
     end
 
-    scenario 'de cadastra empresa' do
+    scenario 'de cadastrar empresas' do
       admin = create(:user, email: 'admin@punti.com')
 
       login_as admin
