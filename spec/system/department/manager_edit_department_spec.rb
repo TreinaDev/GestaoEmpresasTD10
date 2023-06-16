@@ -14,7 +14,7 @@ feature 'Manager edita departamento' do
     fill_in 'Descrição',	with: 'O departamento jurídico'
     fill_in 'Código',	with: 'AAA007'
     select 'Apple', from: 'Empresa'
-    click_on 'Criar Departamento'
+    click_on 'Salvar'
 
     expect(page).to have_content 'Departamento atualizado com sucesso!'
     expect(page).to have_content 'Jurídico'
@@ -35,7 +35,7 @@ feature 'Manager edita departamento' do
     fill_in 'Descrição',	with: ''
     fill_in 'Código',	with: 'AAA007'
     select 'Apple', from: 'Empresa'
-    click_on 'Criar Departamento'
+    click_on 'Salvar'
 
     expect(page).not_to have_content 'Departamento atualizado com sucesso!'
     expect(page).to have_content 'Não foi possível atualizar departamento!'
