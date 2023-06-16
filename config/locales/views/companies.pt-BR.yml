@@ -2,7 +2,5 @@ pt-BR:
   companies:
     edit:
       save: Salvar
-    index:
-      warning: Apenas administradores podem executar essa ação
     new:
       save: Salvar

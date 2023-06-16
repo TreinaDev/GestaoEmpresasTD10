@@ -113,7 +113,7 @@ context 'visitante tenta acessar' do
     visit users_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Permissão negada'
+    expect(page).to have_content 'Permissão Negada'
   end
 
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
@@ -132,6 +132,6 @@ context 'visitante tenta acessar' do
     visit users_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Permissão negada'
+    expect(page).to have_content 'Permissão Negada'
   end
 end

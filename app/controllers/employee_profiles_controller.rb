@@ -1,6 +1,7 @@
 class EmployeeProfilesController < ApplicationController
   before_action :set_employee_profile, only: %i[show]
   before_action :set_departments, :set_positions, only: %i[new create]
+  before_action :authenticate_manager!
 
   def show; end
 

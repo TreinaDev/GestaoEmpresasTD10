@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
 
     redirect_to root_path, alert: t('errors.user.permission_denied')
   end
+
+  def authenticate_manager!
+    return if current_user&.manager?
+
+    redirect_to root_path, alert: t('errors.user.permission_denied')
+  end
 end
