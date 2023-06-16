@@ -10,28 +10,28 @@ RSpec.describe Position, type: :model do
       end
 
       it 'name' do
-        position = build(:position, name: '')
+        position = build(:position, name: nil)
 
         expect(position).to_not be_valid
         expect(position.errors[:name]).to include 'não pode ficar em branco'
       end
 
       it 'description' do
-        position = build(:position, description: '')
+        position = build(:position, description: nil)
 
         expect(position).to_not be_valid
         expect(position.errors[:description]).to include 'não pode ficar em branco'
       end
 
       it 'card_type_id' do
-        position = build(:position, card_type_id: '')
+        position = build(:position, card_type_id: nil)
 
         expect(position).to_not be_valid
         expect(position.errors[:card_type_id]).to include 'não pode ficar em branco'
       end
 
       it 'code' do
-        position = build(:position, code: '')
+        position = build(:position, code: nil)
 
         expect(position).to_not be_valid
         expect(position.errors[:code]).to include 'não pode ficar em branco'
