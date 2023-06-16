@@ -100,5 +100,15 @@ RSpec.describe Manager, type: :model do
       expect(result).to eq(false)
       expect(manager.errors[:email]).to include('já cadastrado em um usuário')
     end
+
+    it 'Empresa deve estar ativa' do
+      user = create(:user, email: 'admin@punti.com')
+      company = create(:company, active: false)
+      manager = build(:manager, created_by: user, company:, email: 'teste@outlook.com')
+
+      result = manager.valid?
+      expect(result).to eq(false)
+      expect(manager.errors[:company]).to include('não está ativa')
+    end
   end
 end

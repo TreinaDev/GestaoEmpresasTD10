@@ -9,6 +9,7 @@ class Manager < ApplicationRecord
   validate :email_exists_active?, on: :create
   validate :created_by_must_be_admin
   validate :email_exists_in_a_user?
+  validate :company_active?, on: :create
 
   validates :email, format: /\A[^@\s]+@[^@\s]+\z/
 
@@ -32,5 +33,11 @@ class Manager < ApplicationRecord
 
   def email_exists_in_a_user?
     errors.add(:email, 'já cadastrado em um usuário') if User.where(email:).any?
+  end
+
+  def company_active?
+    return if email.present? && company.present? && company.active
+
+    errors.add(:company, 'não está ativa')
   end
 end
