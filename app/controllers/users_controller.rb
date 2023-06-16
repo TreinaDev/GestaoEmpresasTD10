@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_admin
   before_action :find_user, only: %i[block unblock]
+  before_action :authorize_admin!
 
   def index
     @users = User.where(role: 'manager')

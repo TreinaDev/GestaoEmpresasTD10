@@ -1,9 +1,0 @@
-pt-BR:
-  api_down: Sistema indisponível no momento, por favor tente mais tarde
-  positions:
-    create:
-      success: Cargo cadastrado com sucesso
-      failure: Cargo não cadastrado
-    update:
-      success: Cargo editado com sucesso
-      failure: Cargo não editado
