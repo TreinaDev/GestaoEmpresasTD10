@@ -1,9 +1,9 @@
 class PositionsController < ApplicationController
   before_action :require_manager
   before_action :status_api
-  before_action :set_company_and_department, only: %i[show new create edit update]
+  before_action :set_company_and_department, only: %i[show new edit create update]
   before_action :set_position, only: %i[show edit update]
-  before_action :set_card_types, only: %i[show new edit create update]
+  before_action :set_card_types, only: %i[new edit create update]
 
   def show; end
 
@@ -15,22 +15,17 @@ class PositionsController < ApplicationController
 
   def create
     @position = Position.new(position_params.merge(department: @department))
+    return redirect_to [@company, @department, @position], notice: t('.success') if @position.save
 
-    if @position.save
-      redirect_to [@company, @department, @position], notice: t('.success')
-    else
-      flash.now[:alert] = t('.failure')
-      render :new
-    end
+    flash.now[:alert] = t('.failure')
+    render :new
   end
 
   def update
-    if @position.update(position_params)
-      redirect_to [@company, @department, @position], notice: t('.success')
-    else
-      flash.now[:alert] = t('.failure')
-      render :edit
-    end
+    return redirect_to [@company, @department, @position], notice: t('.success') if @position.update(position_params)
+
+    flash.now[:alert] = t('.failure')
+    render :edit
   end
 
   private

@@ -17,6 +17,7 @@ feature 'Gerente edita cargo' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
     login_as(manager_user)
     visit edit_company_department_position_path(company_id: company.id, department_id: department.id,
                                                 id: Position.first.id)

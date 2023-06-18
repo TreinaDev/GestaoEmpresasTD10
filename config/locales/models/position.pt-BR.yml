@@ -10,7 +10,7 @@ pt-BR:
         description: Descrição
         code: Código
         card_type_id: Tipo de cartão
-        department_id: Departamento
+        department: Departamento
     errors:
       models:
         position:
