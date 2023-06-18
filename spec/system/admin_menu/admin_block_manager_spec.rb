@@ -4,7 +4,7 @@ feature 'Admin bloqueia manager' do
   scenario 'com sucesso' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:)
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -24,7 +24,7 @@ feature 'Admin bloqueia manager' do
   scenario 'e falha' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:)
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -43,7 +43,7 @@ context 'usuário já bloqueado' do
   scenario 'Usuário tenta logar em conta bloqueada e é impedido.' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:)
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -63,7 +63,7 @@ context 'usuário já bloqueado' do
   scenario 'e admin o desbloqueia' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:)
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -81,10 +81,10 @@ context 'usuário já bloqueado' do
   end
 
   scenario 'e admin tenta desbloquear e falha' do
-    admin = create(:user, email: 'user@punti.com')
-    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
-    Manager.create!(email: 'user@apple.com', created_by: admin, company:)
-    manager = create(:user, email: 'user@apple.com', cpf: '44429533768')
+    admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
+    company = create(:company, email: 'contato@gmail.com', domain: 'gmail.com')
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee_profile, status: 'blocked', department_id: department.id, position_id: position.id,
@@ -104,7 +104,7 @@ context 'visitante tenta acessar' do
   scenario 'lista de Gerentes Cadastrados' do
     admin = create(:user, email: 'user@punti.com')
     company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:)
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -117,14 +117,12 @@ context 'visitante tenta acessar' do
   end
 
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
-    admin = create(:user, email: 'user@punti.com')
-    company = create(:company, domain: 'gmail.com')
-    department = create(:department, company:)
-    position = create(:position, department:)
-    create(:employee_profile, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+    admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
+    company = create(:company, email: 'contato@gmail.com', domain: 'gmail.com')
 
-    create(:manager, created_by: admin, company:)
-    manager = create(:user, cpf: '30805775072')
+    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
+    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
+    department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
 

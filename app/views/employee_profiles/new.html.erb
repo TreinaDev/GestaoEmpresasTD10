@@ -43,7 +43,7 @@
       </div>
       <div class="mt-3">
         <%= f.label :marital_status, class: 'form-label' %>:
-        <%= f.select :marital_status, EmployeeProfile.marital_statuses.keys.map { |s| [I18n.t("activerecord.enum.employee_profile.marital_status.#{s}"), s] }, {}, class: 'form-control' %>
+        <%= f.select :marital_status, EmployeeProfile.marital_statuses.keys.map { |s| [I18n.t("activerecord.enum.employee_profile.marital_status.#{s}"), s] }, {}, class: 'form-control'%>
       </div>
       <div class="mt-3">
         <%= f.label :department_id, class: 'form-label' %>:

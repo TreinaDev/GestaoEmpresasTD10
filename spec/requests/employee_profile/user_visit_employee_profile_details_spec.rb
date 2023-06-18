@@ -23,7 +23,6 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
 
       login_as admin
       get new_employee_profile_path
-
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to eq('Permissão Negada')
