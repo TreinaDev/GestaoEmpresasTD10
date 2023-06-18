@@ -11,12 +11,12 @@ feature 'Gerente edita cargo' do
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_status)
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
-
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
     login_as(manager_user)
     visit edit_company_department_position_path(company_id: company.id, department_id: department.id,
                                                 id: Position.first.id)
@@ -45,11 +45,12 @@ feature 'Gerente edita cargo' do
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_status)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_status)
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}").and_return(fake_response)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as(manager_user)
     visit edit_company_department_position_path(company_id: company.id, department_id: department.id,
@@ -83,7 +84,7 @@ feature 'Gerente edita cargo' do
 
     json_data = '{}'
     fake_response = double('faraday_response', status: 500, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as(manager_user)
     visit edit_company_department_position_path(company_id: company.id, department_id: department.id,

@@ -4,7 +4,7 @@
       <%= render "shared/errors", errors: @position.errors %>
     <% end %>
     <h4 class="card-title">Editar Cargo</h4>
-    <%= form_with(model: [@company, @department, @position]) do |f| %>
+    <%= form_with(model: [@company, @department, @position], data: { turbo: false }) do |f| %>
       <div class="mb-3">
         <%= f.label :name, class: 'form-label' %>
         <%= f.text_field :name, class: 'form-control'%>
