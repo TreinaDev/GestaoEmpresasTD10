@@ -50,10 +50,9 @@ context 'usuário já bloqueado' do
     create(:employee_profile, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
 
     visit root_path
-    click_on 'Entrar'
     fill_in 'E-mail', with: 'joaozinho@gmail.com'
     fill_in 'Senha', with: 'password'
-    within('#form') do
+    within('form') do
       click_on 'Entrar'
     end
 
@@ -110,6 +109,7 @@ context 'visitante tenta acessar' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
 
+    login_as manager
     visit users_path
 
     expect(current_path).to eq root_path

@@ -12,7 +12,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
       employee = create(:employee_profile, department_id: department.id, position_id: position.id)
 
       login_as user_manager
-      get employee_profile_path(employee)
+      get department_employee_profile_path(department_id: department.id, id: employee.id)
 
       expect(response).to have_http_status(:ok)
     end
@@ -29,7 +29,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
       employee = create(:employee_profile, department_id: department.id, position_id: position.id)
 
       login_as admin
-      get employee_profile_path(employee)
+      get department_employee_profile_path(department_id: department.id, id: employee.id)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
@@ -46,7 +46,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
       employee = create(:user, cpf: '02324252481', email: 'employee@campuscode.com.br')
 
       login_as employee
-      get employee_profile_path(employee)
+      get department_employee_profile_path(department_id: department.id, id: employee.id)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)

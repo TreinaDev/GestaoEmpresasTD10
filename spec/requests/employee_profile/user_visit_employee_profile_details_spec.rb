@@ -11,7 +11,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
       create(:position, department_id: department.id)
 
       login_as user_manager
-      get new_employee_profile_path
+      get new_department_employee_profile_path(department_id: department.id)
 
       expect(response).to have_http_status(:ok)
     end
@@ -20,9 +20,11 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
   context 'enquanto admin' do
     it 'sem sucesso' do
       admin = create(:user, email: 'manoel@punti.com')
+      company = create(:company)
+      department = create(:department, company:)
 
       login_as admin
-      get new_employee_profile_path
+      get new_department_employee_profile_path(department_id: department.id)
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to eq('Permissão Negada')
@@ -38,7 +40,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
       employee = create(:user, cpf: '02324252481', email: 'employee@campuscode.com.br')
 
       login_as employee
-      get new_employee_profile_path
+      get new_department_employee_profile_path(department_id: department.id)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
@@ -74,10 +76,11 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
         position_id: position.id
       }
 
-      post employee_profiles_path, params: { employee_profile: new_attributes }
+      post department_employee_profiles_path(department_id: department.id), params: { employee_profile: new_attributes }
 
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to employee_profile_path(EmployeeProfile.last.id)
+      expect(response).to redirect_to department_employee_profile_path(department_id: department.id,
+                                                                       id: EmployeeProfile.last.id)
       expect(EmployeeProfile.last.name).to eq(new_attributes[:name])
       expect(EmployeeProfile.last.social_name).to eq(new_attributes[:social_name])
       expect(EmployeeProfile.last.cpf).to eq(new_attributes[:cpf])
@@ -116,7 +119,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
         position_id: position.id
       }
 
-      post employee_profiles_path, params: { employee_profile: new_attributes }
+      post department_employee_profiles_path(department_id: department.id), params: { employee_profile: new_attributes }
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
@@ -149,7 +152,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
         position_id: position.id
       }
 
-      post employee_profiles_path, params: { employee_profile: new_attributes }
+      post department_employee_profiles_path(department_id: department.id), params: { employee_profile: new_attributes }
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)

@@ -11,8 +11,7 @@ feature 'Usuário cadastra perfil de funcionário' do
       position = create(:position, department_id: department.id)
 
       login_as manager
-      visit root_path
-      click_on 'Cadastrar Funcionário'
+      visit new_department_employee_profile_path(department_id: department.id)
       fill_in 'Nome Completo', with: 'João da Silva'
       fill_in 'Nome Social', with: 'João'
       fill_in 'E-mail', with: 'joao@campuscode.com.br'
@@ -23,7 +22,6 @@ feature 'Usuário cadastra perfil de funcionário' do
       fill_in 'Endereço', with: 'Rua do Avesso, 50'
       select 'Casado', from: 'Estado Civil'
       fill_in 'Data de Admissão', with: '12/10/2020'
-      select 'RH', from: 'Departamento'
       select position.name, from: 'Cargo'
       click_on 'Salvar'
 
@@ -51,7 +49,7 @@ feature 'Usuário cadastra perfil de funcionário' do
       create(:position, department_id: department.id)
 
       login_as manager
-      visit new_employee_profile_path
+      visit new_department_employee_profile_path(department_id: department.id)
       fill_in 'Nome Completo', with: ''
       fill_in 'Nome Social', with: ''
       fill_in 'E-mail', with: ''
