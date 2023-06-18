@@ -46,7 +46,8 @@ manager = User.create!(email: 'manager@apple.com', cpf: '44429533768', password:
 manager2 = User.create!(email: 'manager@microsoft.com', cpf: '28543435064', password: 'password')
 manager3 = User.create!(email: 'manager@ibm.com', cpf: '85488790098', password: 'password')
 
-Department.create!(company_id: Company.first.id, name: 'rh')
+Department.create!(company_id: Company.first.id, name: 'rh', code: 'ABC123',
+                   description: 'Descrição do departamento de RH da rebase')
 
 Position.create!(department_id: Department.first.id, name: 'gerente')
 
