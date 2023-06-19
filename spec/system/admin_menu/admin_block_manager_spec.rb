@@ -101,22 +101,6 @@ context 'usuário já bloqueado' do
 end
 
 context 'visitante tenta acessar' do
-  scenario 'lista de Gerentes Cadastrados' do
-    admin = create(:admin_user)
-    company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
-    manager = create(:manager_user, email: 'joaozinho@gmail.com', cpf: '44429533768')
-    department = create(:department, company_id: company.id)
-    position = create(:position, department_id: department.id)
-    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
-
-    login_as manager
-    visit users_path
-
-    expect(current_path).to eq new_user_session_path
-    expect(page).to have_content 'Para continuar, faça login ou registre-se'
-  end
-
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     company = create(:company, email: 'contato@gmail.com', domain: 'gmail.com')
