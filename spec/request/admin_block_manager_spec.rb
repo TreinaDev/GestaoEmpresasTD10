@@ -16,7 +16,7 @@ describe 'Bloqueio de manager', type: :request do
 
       follow_redirect!
 
-      expect(response.body).to include 'Permissão negada'
+      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
   end
 
@@ -30,14 +30,14 @@ describe 'Bloqueio de manager', type: :request do
       position = create(:position, department:)
       create(:employee_profile, status: 'unblocked', department:, user: manager, position:)
       create(:employee_profile, department:, cpf: '27549954046', position:)
-      employee = create(:user, cpf: '27549954046')
+      employee = create(:user, cpf: '27549954046', email: 'employee@gmail.com')
 
       login_as employee
       get users_path
 
       follow_redirect!
 
-      expect(response.body).to include 'Permissão negada'
+      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
   end
 end

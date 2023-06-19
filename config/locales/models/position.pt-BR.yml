@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      position:
+        one: Cargo
+        other: Cargos
+    attributes:
+      position:
+        name: Nome
+        description: Descrição
+        code: Código
+        card_type_id: Tipo de cartão
+        department: Departamento
+    errors:
+      models:
+        position:
+          attributes:
+            code:
+              invalid_format: 'Formato: 3 letras maiúsculas seguidas por 3 números (ex.: XYZ567)'

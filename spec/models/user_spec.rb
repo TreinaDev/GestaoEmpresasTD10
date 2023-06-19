@@ -14,10 +14,10 @@ RSpec.describe User, type: :model do
   describe 'Triagem' do
     context 'email de manager está pré cadastrado' do
       it 'Usuário tem role Manager' do
-        admin = create(:user, email: 'user@punti.com')
+        admin = create(:admin_user, email: 'user@punti.com')
         company = create(:company)
         create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
-        new_user = create(:user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
+        new_user = create(:manager_user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
 
         expect(new_user.valid?).to be true
         expect(new_user.role).to eq 'manager'
@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
 
   describe '#description' do
     it 'exibe o role e e-mail do Admin' do
-      admin = create(:user, email: 'user@punti.com')
+      admin = create(:admin_user, email: 'user@punti.com')
 
       result = admin.description
 
@@ -37,10 +37,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'exibe o role e e-mail do Manager' do
-      admin = create(:user, email: 'user@punti.com')
+      admin = create(:admin_user, email: 'user@punti.com')
       company = create(:company)
       create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
-      new_user = create(:user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
+      new_user = create(:manager_user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
 
       result = new_user.description
 

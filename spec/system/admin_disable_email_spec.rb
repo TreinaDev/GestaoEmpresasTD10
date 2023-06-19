@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'administrador desativa email do gerente' do
   scenario 'com sucesso' do
-    user = create(:user, email: 'admin@punti.com')
+    user = create(:admin_user, email: 'admin@punti.com')
     company = create(:company, domain: 'gmail.com')
     Manager.create!(email: 'zezinho@gmail.com', created_by: user, company:)
     Manager.create!(email: 'mariazinha@gmail.com', created_by: user, company:)
@@ -23,7 +23,7 @@ feature 'administrador desativa email do gerente' do
   end
 
   scenario 'e não lista quando o email pre-cadastrado já foi usado' do
-    user = create(:user, email: 'admin@punti.com')
+    user = create(:admin_user, email: 'admin@punti.com')
     company = create(:company, domain: 'gmail.com')
     Manager.create!(email: 'zezinho@gmail.com', created_by: user, company:)
     Manager.create!(email: 'mariazinha@gmail.com', created_by: user, company:)
