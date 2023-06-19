@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Admin bloqueia manager' do
   scenario 'com sucesso' do
-    admin = create(:user, email: 'user@punti.com')
+    admin = create(:admin_user)
     company = create(:company, domain: 'gmail.com')
     create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
@@ -22,7 +22,7 @@ feature 'Admin bloqueia manager' do
   end
 
   scenario 'e falha' do
-    admin = create(:user, email: 'user@punti.com')
+    admin = create(:admin_user)
     company = create(:company, domain: 'gmail.com')
     create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
@@ -39,12 +39,13 @@ feature 'Admin bloqueia manager' do
     expect(page).to have_content 'Não foi possível bloquear o usuário'
   end
 end
+
 context 'usuário já bloqueado' do
   scenario 'Usuário tenta logar em conta bloqueada e é impedido.' do
-    admin = create(:user, email: 'user@punti.com')
+    admin = create(:admin_user)
     company = create(:company, domain: 'gmail.com')
     create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
-    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
+    manager = create(:manager_user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee_profile, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
@@ -60,10 +61,10 @@ context 'usuário já bloqueado' do
   end
 
   scenario 'e admin o desbloqueia' do
-    admin = create(:user, email: 'user@punti.com')
+    admin = create(:admin_user)
     company = create(:company, domain: 'gmail.com')
     create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
-    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
+    manager = create(:manager_user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
     create(:employee_profile, status: 'blocked', department_id: department.id, user_id: manager.id, position:)
@@ -100,22 +101,6 @@ context 'usuário já bloqueado' do
 end
 
 context 'visitante tenta acessar' do
-  scenario 'lista de Gerentes Cadastrados' do
-    admin = create(:user, email: 'user@punti.com')
-    company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
-    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
-    department = create(:department, company_id: company.id)
-    position = create(:position, department_id: department.id)
-    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
-
-    login_as manager
-    visit users_path
-
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Permissão negada'
-  end
-
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = User.create!(email: 'user@punti.com', cpf: '05823272294', password: 'password')
     company = create(:company, email: 'contato@gmail.com', domain: 'gmail.com')
@@ -130,6 +115,6 @@ context 'visitante tenta acessar' do
     visit users_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Permissão negada'
+    expect(page).to have_content 'Usuário sem permissão para executar essa ação'
   end
 end

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Cartão Básico",
+    "icon": "STR (ícone do tipo de cartão - url)",
+    "start_points": 0,
+    "conversion_tax": 1.0
+  },
+  {
+    "id": 2,
+    "name": "Cartão Intermediário",
+    "icon": "STR (ícone do tipo de cartão - url)",
+    "start_points": 0,
+    "conversion_tax": 1.0
+  },
+  {
+    "id": 3,
+    "name": "Cartão Avançado",
+    "icon": "STR (ícone do tipo de cartão - url)",
+    "start_points": 0,
+    "conversion_tax": 1.0
+  }
+]

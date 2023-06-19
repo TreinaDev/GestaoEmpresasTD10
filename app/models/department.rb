@@ -1,5 +1,6 @@
 class Department < ApplicationRecord
   belongs_to :company
+  has_many :positions, dependent: nil
   validates :name, :description, :code, presence: true
   validates :code, uniqueness: true
 

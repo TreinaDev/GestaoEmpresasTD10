@@ -2,11 +2,13 @@ require 'rails_helper'
 
 feature 'manager entra no sistema' do
   scenario 'e não vê os itens do administrador' do
-    company = create(:company, domain: 'email.com')
-    create(:manager, company:)
-    user_manager = create(:user, cpf: '50081919000')
+    company = create(:company)
+    create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
 
-    login_as(user_manager)
+    login_as(manager_user)
     visit root_path
 
     within('nav') do
