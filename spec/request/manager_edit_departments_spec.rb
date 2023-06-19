@@ -9,7 +9,7 @@ describe 'Edição de Departamento', type: :request do
 
       login_as admin
 
-      get edit_department_path(department.id)
+      get edit_company_department_path(company.id, department.id)
 
       follow_redirect!
 
@@ -22,7 +22,7 @@ describe 'Edição de Departamento', type: :request do
       company = create(:company)
       department = create(:department, company:)
 
-      get edit_department_path(department.id)
+      get edit_company_department_path(company.id, department.id)
 
       follow_redirect!
 
@@ -43,7 +43,7 @@ describe 'Edição de Departamento', type: :request do
       )
 
       login_as employee_user
-      get edit_department_path(department.id)
+      get edit_company_department_path(company.id, department.id)
 
       follow_redirect!
 

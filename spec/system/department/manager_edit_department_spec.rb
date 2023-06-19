@@ -9,12 +9,11 @@ feature 'Manager edita departamento' do
     department = create(:department, company:)
 
     login_as new_user
-    visit department_path(department.id)
+    visit company_department_path(company.id, department.id)
     click_on 'Editar'
 
     fill_in 'Nome',	with: 'Jurídico'
     fill_in 'Descrição',	with: 'O departamento jurídico'
-    select 'Apple', from: 'Empresa'
     click_on 'Salvar'
 
     expect(page).to have_content 'Departamento atualizado com sucesso!'
@@ -30,12 +29,11 @@ feature 'Manager edita departamento' do
     department = create(:department, company:)
 
     login_as new_user
-    visit department_path(department.id)
+    visit company_department_path(company.id, department.id)
     click_on 'Editar'
 
     fill_in 'Nome',	with: 'Jurídico'
     fill_in 'Descrição',	with: ''
-    select 'Apple', from: 'Empresa'
     click_on 'Salvar'
 
     expect(page).not_to have_content 'Departamento atualizado com sucesso!'

@@ -4,10 +4,11 @@ describe 'Criação de Departamento', type: :request do
   context 'Admin tenta criar departamento' do
     it 'e não tem permissão' do
       admin = create(:user, email: 'user@punti.com')
+      company = create(:company)
 
       login_as admin
 
-      post departments_path, params: {
+      post company_departments_path(company.id), params: {
         department: {
           name: 'A'
         }
@@ -21,7 +22,8 @@ describe 'Criação de Departamento', type: :request do
 
   context 'visitante tenta criar departamento' do
     it 'e não consegue pois precisa estar logado como manager' do
-      post departments_path, params: {
+      company = create(:company)
+      post company_departments_path(company.id), params: {
         department: {
           name: 'A'
         }
@@ -46,7 +48,7 @@ describe 'Criação de Departamento', type: :request do
       )
 
       login_as employee_user
-      post departments_path, params: {
+      post company_departments_path(company.id), params: {
         department: {
           name: 'A'
         }

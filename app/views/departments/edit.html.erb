@@ -3,4 +3,4 @@
 
 <%= render 'form' %>
 <br>
-<%= link_to(t('.return'), @department, class: 'btn btn-primary') %>
+<%= link_to(t('.return'), company_department_path(@company, @department), class: 'btn btn-primary') %>
