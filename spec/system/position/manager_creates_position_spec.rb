@@ -86,6 +86,7 @@ feature 'Gerente cria cargo' do
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+      expect(Position.count).to eq 0
     end
   end
 end

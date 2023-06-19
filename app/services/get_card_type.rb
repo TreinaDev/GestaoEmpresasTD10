@@ -1,4 +1,4 @@
-class CardType
+class GetCardType
   API_BASE_URL = 'http://localhost:4000/api/v1/company_card_types'.freeze
   attr_reader :id, :name, :icon, :start_points, :conversion_tax
 

@@ -1,3 +1,5 @@
+require 'get_card_type'
+
 class PositionsController < ApplicationController
   before_action :require_manager
   before_action :status_api
@@ -32,7 +34,7 @@ class PositionsController < ApplicationController
 
   def set_position
     @position = Position.find(params[:id])
-    @card_type = CardType.find(@position.card_type_id, @company.registration_number)
+    @card_type = GetCardType.find(@position.card_type_id, @company.registration_number)
   end
 
   def set_company_and_department
@@ -41,11 +43,11 @@ class PositionsController < ApplicationController
   end
 
   def set_card_types
-    @card_types = CardType.all(@company.registration_number)
+    @card_types = GetCardType.all(@company.registration_number)
   end
 
   def status_api
-    redirect_to root_path, alert: t('api_down') if CardType.status == 500
+    redirect_to root_path, alert: t('api_down') if GetCardType.status == 500
   end
 
   def position_params

@@ -3,7 +3,7 @@
     <h2 class="card-title"><%= Position.human_attribute_name('name') %>: <%=  @position.name %></h2>
     <p class="card-text"><%= Position.human_attribute_name('description') %>: <%= @position.description %></p>
     <p class="card-text"> <%= Position.human_attribute_name('code') %>: <%= @position.code %></p>
-    <%= card_name = @card_type.nil? ? 'Cartão Inválido' : @card_type.name %>
+    <% card_name = @card_type.nil? ? 'Cartão Inválido' : @card_type.name %>
     <p class="card-text"><%= Position.human_attribute_name('card_type_id')%>: <%= card_name %></p>
     <p class="card-text"><%= Position.human_attribute_name('department') %>: <%= @position.department.name %></p>
   </div>
