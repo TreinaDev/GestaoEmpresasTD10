@@ -3,3 +3,7 @@ pt-BR:
     create:
       success: Departamento criado com sucesso!
       error: Departamento não pode ser criado!
+    update:
+      success: Departamento atualizado com sucesso!
+      error: Não foi possível atualizar departamento!
+

@@ -1,7 +1,8 @@
 class EmployeeProfilesController < ApplicationController
   before_action :set_employee_profile, only: %i[show]
-  before_action :set_department
-  before_action :authenticate_manager!
+  before_action :set_department_and_company
+  before_action :require_manager
+  before_action :manager_belongs_to_company?
 
   def show; end
 
@@ -13,7 +14,7 @@ class EmployeeProfilesController < ApplicationController
     @employee_profile = EmployeeProfile.new(employee_profile_params)
     @employee_profile.department_id = @department.id
 
-    return redirect_to [@department, @employee_profile], notice: t('.success') if @employee_profile.save
+    return redirect_to [@company, @department, @employee_profile], notice: t('.success') if @employee_profile.save
 
     flash.now[:alert] = t('.failure')
     render :new
@@ -25,8 +26,9 @@ class EmployeeProfilesController < ApplicationController
     @employee_profile = EmployeeProfile.find(params[:id])
   end
 
-  def set_department
+  def set_department_and_company
     @department = Department.find_by(id: params[:department_id])
+    @company = Company.find_by(id: params[:company_id])
   end
 
   def employee_profile_params

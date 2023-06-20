@@ -4,7 +4,7 @@
       <%= render "shared/errors", errors: @employee_profile.errors %>
     <% end %>
     <h4 class="card-title">Cadastro de Funcionário</h4>
-    <%= form_with model: [@department, @employee_profile], data: { turbo: false }  do |f| %>
+    <%= form_with model: [@company, @department, @employee_profile], data: { turbo: false }  do |f| %>
       <div class="mb-3">
         <%= f.label :name, class: 'form-label' %>
         <%= f.text_field :name, class: 'form-control'%>

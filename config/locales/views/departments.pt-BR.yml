@@ -1,4 +1,10 @@
 pt-BR:
   departments:
     form:
-      save: Criar Departamento
+      save: Salvar
+    show:
+      edit: Editar
+    new:
+      return: Voltar
+    edit:
+      return: Voltar

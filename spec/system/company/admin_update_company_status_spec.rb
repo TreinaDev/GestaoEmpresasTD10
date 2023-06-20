@@ -46,9 +46,11 @@ feature 'Usuário atualiza status' do
 
     scenario 'sem sucesso por não ver botão de ativar' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: false)
+      company = FactoryBot.create(:company)
       Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
       manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      company.active = false
+      company.save!
 
       login_as manager
       visit company_path(company)

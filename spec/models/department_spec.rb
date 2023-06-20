@@ -2,23 +2,26 @@ require 'rails_helper'
 
 RSpec.describe Department, type: :model do
   describe '#code' do
-    it 'formato incorreto' do
-      department = build(:department, code: '5as1')
-      result = department.valid?
-
-      expect(result).to be false
-      expect(department.errors[:code]).to include 'o código deve ser composto por 3 letras e 6 caracteres'
-    end
-
-    it 'e unico' do
-      create(:department, code: 'COD123')
+    it 'e único' do
+      allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('COD123')
+      create(:department)
+      allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('COD123')
       company = create(:company, registration_number: '12.566.284/0001-67')
-      department = build(:department, company:, code: 'COD123')
+      department = build(:department, company:)
 
       result = department.valid?
 
       expect(result).to be false
       expect(department.errors[:code]).to include 'já está em uso'
+    end
+
+    it 'e gerado automático' do
+      department = build(:department, code: nil)
+
+      result = department.valid?
+
+      expect(result).to be true
+      expect(department.errors.size).to eq 0
     end
   end
 
@@ -28,13 +31,6 @@ RSpec.describe Department, type: :model do
 
       expect(department.valid?).to be false
       expect(department.errors[:name]).to include 'não pode ficar em branco'
-    end
-
-    it 'Código deve ser obrigatório' do
-      department = build(:department, code: '')
-
-      expect(department.valid?).to be false
-      expect(department.errors[:code]).to include 'não pode ficar em branco'
     end
 
     it 'Descrição deve ser obrigatório' do

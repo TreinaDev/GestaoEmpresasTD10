@@ -4,6 +4,8 @@
     <p class="card-text"><%= Department.human_attribute_name('description') %>: <%= @department.description %></p>
     <p class="card-text"> <%= Department.human_attribute_name('code') %>: <%= @department.code %></p>
     <p class="card-text"><%= Department.human_attribute_name('company') %>: <%= @department.company.brand_name %></p>
+    <br>
+    <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), class: 'btn btn-primary' %>
   </div>
 </div>
 
