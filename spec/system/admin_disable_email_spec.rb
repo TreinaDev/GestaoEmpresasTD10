@@ -9,8 +9,9 @@ feature 'administrador desativa email do gerente' do
 
     login_as(user)
     visit root_path
-    click_on 'Empresas'
-
+    within('#collapsibleNavbar') do
+      click_on 'Empresas'
+    end
     within('#company1') do
       click_on 'Ver Detalhes'
     end

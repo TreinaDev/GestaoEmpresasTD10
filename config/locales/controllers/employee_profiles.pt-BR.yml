@@ -1,0 +1,7 @@
+pt-BR:
+  employee_profiles:
+    update:
+      success: Perfil de Funcionário atualizado com sucesso
+    create:
+      success: Perfil de Funcionário cadastrado com sucesso
+      failure: Perfil de Funcionário não cadastrado
