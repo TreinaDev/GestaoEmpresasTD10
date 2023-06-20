@@ -1,5 +1,4 @@
 class DepartmentsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_department, only: %i[show edit update]
   before_action :set_company, only: %i[show new edit create update]
   before_action :require_manager, only: %i[new create edit update]
