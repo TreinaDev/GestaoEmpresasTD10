@@ -26,7 +26,7 @@ describe 'Usuário altera informações de uma empresa', type: :request do
       expect(response).to redirect_to company_path(company)
       expect(company.brand_name).to eq(new_attributes[:brand_name])
       expect(company.corporate_name).to eq(new_attributes[:corporate_name])
-      expect(company.registration_number).to eq(new_attributes[:registration_number])
+      expect(company.registration_number).to eq(new_attributes[:registration_number].tr('^0-9', ''))
       expect(company.address).to eq(new_attributes[:address])
       expect(company.phone_number).to eq(new_attributes[:phone_number])
       expect(company.email).to eq(new_attributes[:email])

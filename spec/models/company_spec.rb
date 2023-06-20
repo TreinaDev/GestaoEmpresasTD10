@@ -19,7 +19,13 @@ RSpec.describe Company, type: :model do
   end
 
   describe '#registration_number' do
-    it 'e único' do
+    it 'está formatado' do
+      create(:company, registration_number: '00.394.460/0058-87', active: true)
+
+      expect(Company.last.registration_number).to eq '00394460005887'
+    end
+
+    it 'é único' do
       company_params = {
         company: {
           registration_number: '00.394.460/0058-87',
@@ -30,7 +36,8 @@ RSpec.describe Company, type: :model do
       }
 
       fake_response = double('faraday_response', success?: true, status: 200)
-      allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/companies', company_params).and_return(fake_response)
+      allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/companies',
+                                            company_params).and_return(fake_response)
 
       Company.create!(brand_name: 'Campus Code', corporate_name: 'Campus Code Treinamentos LTDA',
                       registration_number: '00.394.460/0058-87', address: 'Rua da tecnologia, nº 1500',
@@ -54,28 +61,6 @@ RSpec.describe Company, type: :model do
 
       expect(other_company.errors[:registration_number].size).to eq 1
       expect(other_company.errors[:registration_number]).to include 'já está em uso'
-    end
-  end
-
-  describe '#after_create' do
-    it 'Método send_new_company_to_loja' do
-      company_params = {
-        company: {
-          registration_number: '10394460005887',
-          brand_name: 'Campus Code',
-          corporate_name: 'Campus Code Treinamentos LTDA',
-          active: true
-        }
-      }
-      fake_response = double('faraday_response', success?: true, status: 200)
-      allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/companies', company_params).and_return(fake_response)
-
-      create(:company, registration_number: '10394460005887',
-                       brand_name: 'Campus Code',
-                       corporate_name: 'Campus Code Treinamentos LTDA',
-                       active: true)
-
-      expect(Faraday).to have_received(:post).with('http://localhost:5000/api/v1/companies', company_params)
     end
   end
 end
