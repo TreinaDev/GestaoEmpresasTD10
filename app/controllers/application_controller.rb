@@ -35,6 +35,6 @@ class ApplicationController < ActionController::Base
     company = Company.find(params[:company_id])
     return if company.active
 
-    redirect_to root_path, alert: t('forbidden')
+    redirect_to root_path, alert: t('inactive_company')
   end
 end

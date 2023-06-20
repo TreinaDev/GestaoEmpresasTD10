@@ -1,5 +1,6 @@
 pt-BR:
   forbidden: Usuário sem permissão para executar essa ação
+  inactive_company: Empresa inativa
   errors:
     user:
       blocked_fail: 'Não foi possível bloquear o usuário'

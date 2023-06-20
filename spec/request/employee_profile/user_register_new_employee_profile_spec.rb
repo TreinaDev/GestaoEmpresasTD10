@@ -141,6 +141,6 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
 
     follow_redirect!
 
-    expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
+    expect(flash[:alert]).to eq('Empresa inativa')
   end
 end
