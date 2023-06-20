@@ -1,5 +1,5 @@
 class EmployeeProfilesController < ApplicationController
-  before_action :set_employee_profile, only: %i[show]
+  before_action :set_employee_profile, only: %i[show edit update]
   before_action :set_department_and_company
   before_action :require_manager
   before_action :manager_belongs_to_company?
@@ -15,6 +15,15 @@ class EmployeeProfilesController < ApplicationController
     @employee_profile.department_id = @department.id
 
     return redirect_to [@company, @department, @employee_profile], notice: t('.success') if @employee_profile.save
+
+    flash.now[:alert] = t('.failure')
+    render :new
+  end
+
+  def edit; end
+
+  def update
+    return redirect_to [@company, @department, @employee_profile], notice: t('.success') if @employee_profile.update(employee_profile_params)
 
     flash.now[:alert] = t('.failure')
     render :new
