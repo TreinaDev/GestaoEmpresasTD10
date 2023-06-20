@@ -30,4 +30,14 @@ class ApplicationController < ActionController::Base
 
     redirect_to root_path, alert: t('forbidden')
   end
+
+  def after_sign_in_path_for(resource)
+    if current_user.manager? && !current_user.employee_profile
+      manager = Manager.find_by(email: current_user.email)
+      return redirect_to new_company_department_employee_profile_path(company_id: manager.company.id, department_id: 1), alert: 'Conclua seu cadastro para continuar.'
+      # new_company_department_employee_profile_path(company_id: company.id, department_id: department.id)
+    else
+      super # chama a implementação original do Devise
+    end
+  end
 end

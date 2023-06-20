@@ -6,6 +6,24 @@ class EmployeeProfilesController < ApplicationController
 
   def show; end
 
+  def new_manager
+    @employee_profile = EmployeeProfile.new
+    # dados do user vem de current_user, não precisa trazer
+
+  end
+
+  def create_manager
+    @employee_profile = EmployeeProfile.new(employee_profile_params)
+    @employee_profile.department_id = @department.id
+    @employee_profile.user_id = current_user.id
+
+    return redirect_to [@company, @department, @employee_profile], notice: t('.success') if @employee_profile.save
+
+    flash.now[:alert] = t('.failure')
+    render :new
+  end
+  
+
   def new
     @employee_profile = EmployeeProfile.new
   end
