@@ -1,8 +1,14 @@
+require 'pry'
 class DepartmentsController < ApplicationController
   before_action :set_department, only: %i[show edit update]
   before_action :set_company, only: %i[show new edit create update]
   before_action :require_manager, only: %i[new create edit update]
   before_action :manager_belongs_to_company?
+
+  def index 
+    @departments = Department.where(company_id: params[:company_id])
+    
+  end
 
   def show; end
 

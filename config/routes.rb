@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :managers, only: %i(create destroy)
 
   resources :companies, only: %i( new create show edit update index) do
-    resources :departments, only: [:new, :create, :show, :update, :edit] do
+    resources :departments, only: %i(index new create show update edit) do
       resources :positions, only: %i(new create show edit update)
     end
     get 'inactives', on: :collection
