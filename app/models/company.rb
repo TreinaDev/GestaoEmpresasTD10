@@ -1,4 +1,5 @@
 class Company < ApplicationRecord
+  has_many :department, dependent: :nullify
   has_one_attached :logo
   has_many :departments, dependent: :destroy
   has_many :positions, through: :departments

@@ -4,7 +4,7 @@ pt-BR:
     user:
       blocked_fail: 'Não foi possível bloquear o usuário'
       unblocked_fail: 'Não foi possível desbloquear o usuário.'
-      permission_denied: 'Permissão negada'
+      permission_denied: 'Permissão Negada'
   success:
     user:
       blocked: 'Usuário Bloqueado'

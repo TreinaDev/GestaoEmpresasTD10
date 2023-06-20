@@ -69,8 +69,8 @@ context 'usuário já bloqueado' do
     manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
-    EmployeeProfile.create!(status: 'blocked', department_id: department.id, position_id: position.id,
-                            user_id: manager.id)
+    create(:employee_profile, status: 'blocked', department_id: department.id, position_id: position.id,
+                              user_id: manager.id)
     allow_any_instance_of(User).to receive(:unblock!).and_return(false)
 
     login_as admin
