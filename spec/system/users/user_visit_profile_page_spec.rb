@@ -44,4 +44,3 @@ feature 'usuario visita página de perfil' do
     end
   end
 end
-

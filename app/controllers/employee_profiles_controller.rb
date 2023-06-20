@@ -10,6 +10,8 @@ class EmployeeProfilesController < ApplicationController
     @employee_profile = EmployeeProfile.new
   end
 
+  def edit; end
+
   def create
     @employee_profile = EmployeeProfile.new(employee_profile_params)
     @employee_profile.department_id = @department.id
@@ -20,10 +22,11 @@ class EmployeeProfilesController < ApplicationController
     render :new
   end
 
-  def edit; end
-
   def update
-    return redirect_to [@company, @department, @employee_profile], notice: t('.success') if @employee_profile.update(employee_profile_params)
+    if @employee_profile.update(employee_profile_params)
+      return redirect_to [@company, @department, @employee_profile],
+                         notice: t('.success')
+    end
 
     flash.now[:alert] = t('.failure')
     render :new

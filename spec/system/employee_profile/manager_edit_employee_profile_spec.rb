@@ -9,7 +9,8 @@ feature 'Usuário edita perfil de funcionário' do
       manager = create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:, position: )
+      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
+                                                   position:)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
@@ -30,7 +31,8 @@ feature 'Usuário edita perfil de funcionário' do
       manager = create(:user, email: 'manager@campuscode.com.br', role: 1, cpf: '14101674027')
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:, position: )
+      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
+                                                   position:)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
