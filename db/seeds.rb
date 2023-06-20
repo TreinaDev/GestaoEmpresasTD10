@@ -35,12 +35,12 @@ Company.create!(brand_name: 'IBM', corporate_name: 'IBM Corporation',
 User.create!(email: 'admin@punti.com', password: 'password', cpf: '71056473029')
 User.create!(email: 'otheradmin@punti.com', password: 'password', cpf: '43302699026')
 
-Manager.create!(email: 'zezinho@apple.com', created_by: User.first, company_id: Company.first.id)
-Manager.create!(email: 'mariazinha@apple.com', created_by: User.first, company_id: Company.first.id)
-Manager.create!(email: 'manager@apple.com', created_by: User.first, company_id: Company.first.id)
-Manager.create!(email: 'manager@microsoft.com', created_by: User.first,
-                company_id: Company.find_by(brand_name: 'Microsoft').id)
-Manager.create!(email: 'manager@ibm.com', created_by: User.first, company_id: Company.last.id)
+ManagerEmails.create!(email: 'zezinho@apple.com', created_by: User.first, company_id: Company.first.id)
+ManagerEmails.create!(email: 'mariazinha@apple.com', created_by: User.first, company_id: Company.first.id)
+ManagerEmails.create!(email: 'manager@apple.com', created_by: User.first, company_id: Company.first.id)
+ManagerEmails.create!(email: 'manager@microsoft.com', created_by: User.first,
+                      company_id: Company.find_by(brand_name: 'Microsoft').id)
+ManagerEmails.create!(email: 'manager@ibm.com', created_by: User.first, company_id: Company.last.id)
 
 User.create!(email: 'manager@apple.com', cpf: '44429533768', password: 'password')
 User.create!(email: 'manager@microsoft.com', cpf: '28543435064', password: 'password')

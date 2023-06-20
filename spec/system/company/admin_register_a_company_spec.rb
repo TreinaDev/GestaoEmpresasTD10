@@ -56,7 +56,7 @@ feature 'Registro de uma empresa' do
     scenario 'Logado como gerente' do
       admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
       company = create(:company, domain: 'empresa.com')
-      Manager.create!(email: 'gerente@empresa.com', created_by: admin, company:)
+      ManagerEmails.create!(email: 'gerente@empresa.com', created_by: admin, company:)
       manager = User.create!(email: 'gerente@empresa.com', password: '123456', cpf: '75676854006')
 
       login_as manager

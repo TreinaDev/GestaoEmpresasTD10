@@ -5,7 +5,7 @@ feature 'Gerente visualiza cargo' do
     company = create(:company)
     department = create(:department, company:, name: 'Comercial')
     admin_user = create(:admin_user)
-    create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 9, department:)
 

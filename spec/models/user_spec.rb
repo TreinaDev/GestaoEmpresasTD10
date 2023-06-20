@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
       it 'Usuário tem role Manager' do
         admin = create(:admin_user, email: 'user@punti.com')
         company = create(:company)
-        create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
+        create(:manager_emails, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
         new_user = create(:manager_user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
 
         expect(new_user.valid?).to be true
@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
     it 'exibe o role e e-mail do Manager' do
       admin = create(:admin_user, email: 'user@punti.com')
       company = create(:company)
-      create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
+      create(:manager_emails, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
       new_user = create(:manager_user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
 
       result = new_user.description
