@@ -4,7 +4,7 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
   it 'enquanto gerente com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
+    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
     user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
@@ -19,7 +19,7 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
   it 'enquanto admin sem sucesso' do
     admin = create(:user, email: 'manoel@punti.com')
     company = create(:company)
-    create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
+    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
     create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
     department = create(:department, company:)
     position = create(:position, department_id: department.id)

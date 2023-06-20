@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :managers, only: %i(create destroy)
+  resources :manager_emails, only: %i(create destroy)
 
   resources :companies, only: %i( new create show edit update index) do
     resources :departments, only: [:new, :create, :show, :update, :edit] do
