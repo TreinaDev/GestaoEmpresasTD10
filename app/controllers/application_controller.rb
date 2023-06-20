@@ -22,7 +22,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def manager?
-    return redirect_to root_path, alert: t('forbidden') unless current_user.manager?
+  def manager_belongs_to_company?
+    company_id = params[:company_id]
+    manager = Manager.find_by(email: current_user.email)
+
+    return if manager.company_id == company_id.to_i
+
+    redirect_to root_path, alert: t('forbidden')
   end
 end

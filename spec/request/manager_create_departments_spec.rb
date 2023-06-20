@@ -59,4 +59,25 @@ describe 'Criação de Departamento', type: :request do
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
   end
+
+  context 'Manager tenta criar departamento de outra empresa' do
+    it 'e não tem permissão' do
+      company = create(:company)
+      admin_user = create(:admin_user)
+      create(:manager, created_by: admin_user, company:, email: 'manager@campuscode.com.br')
+      manager = create(:manager_user, email: 'manager@campuscode.com.br')
+      second_company = create(:company, brand_name: 'Apple', domain: 'apple.com.br',
+                                        registration_number: '10394460005884')
+
+      login_as manager
+      post company_departments_path(second_company.id), params: {
+        department: {
+          name: 'A'
+        }
+      }
+      follow_redirect!
+
+      expect(response.body).to include 'Usuário sem permissão para executar essa ação'
+    end
+  end
 end
