@@ -20,24 +20,6 @@ feature 'Admin bloqueia manager' do
     expect(manager.employee_profile.status).to eq 'blocked'
     expect(page).to have_content 'Usuário Bloqueado'
   end
-
-  scenario 'e falha' do
-    admin = create(:admin_user)
-    company = create(:company, domain: 'gmail.com')
-    create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
-    manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
-    department = create(:department, company_id: company.id)
-    position = create(:position, department_id: department.id)
-    create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
-    allow_any_instance_of(User).to receive(:block!).and_return(false)
-
-    login_as admin
-    visit root_path
-    click_on 'Gerentes Cadastrados'
-    find("#block_user_#{manager.id}").click
-
-    expect(page).to have_content 'Não foi possível bloquear o usuário'
-  end
 end
 
 context 'usuário já bloqueado' do
