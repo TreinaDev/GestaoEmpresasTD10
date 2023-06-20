@@ -1,6 +1,8 @@
 pt-BR:
   forbidden: Usuário sem permissão para executar essa ação
   errors:
+    internal_server_error: "Erro interno do Servidor"
+    not_found: "Página não encontrada"
     user:
       blocked_fail: 'Não foi possível bloquear o usuário'
       unblocked_fail: 'Não foi possível desbloquear o usuário.'
