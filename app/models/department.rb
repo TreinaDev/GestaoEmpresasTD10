@@ -1,5 +1,5 @@
 class Department < ApplicationRecord
-  has_many :employee_profiles, dependent: :nullify
+  has_many :employee_profiles, through: :positions
   belongs_to :company
   before_validation :set_code, on: :create
   has_many :positions, dependent: nil
