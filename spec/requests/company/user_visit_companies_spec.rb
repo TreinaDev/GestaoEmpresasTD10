@@ -16,7 +16,7 @@ describe 'Usuário visita tela de empresas ativas', type: :request do
     it 'sem sucesso' do
       admin = create(:user, email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       company = create(:company)
-      create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
+      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
       manager = create(:user, email: 'manager@campuscode.com.br', role: :manager, password: '123456',
                               cpf: '51959723030')
 
