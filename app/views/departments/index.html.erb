@@ -1,0 +1,7 @@
+<div class = "row">
+  <div class = "col-12">
+    <% @departments.each do |d|%>
+      <%= link_to d.name, company_department_path(company_id: d.company_id, id: d.id)%>
+    <%end%>
+  </div>
+</div>

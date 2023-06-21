@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_20_192546) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_21_001817) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -97,6 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_192546) do
     t.integer "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "card_status", default: false
     t.index ["cpf"], name: "index_employee_profiles_on_cpf", unique: true
     t.index ["department_id"], name: "index_employee_profiles_on_department_id"
     t.index ["position_id"], name: "index_employee_profiles_on_position_id"

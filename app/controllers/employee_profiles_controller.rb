@@ -20,6 +20,19 @@ class EmployeeProfilesController < ApplicationController
     render :new
   end
 
+  def create_card
+    response = AppCardApi.new(params[:card]).send
+    return redirect_to [@company, @department], notice: t('.unavailable') if response == 500
+
+    @employee_profile = EmployeeProfile.find_by(cpf: params[:card]['cpf'])
+    case response.status
+    when 201
+      redirect_to [@company, @department], notice: t('.success') if @employee_profile.update(card_status: true)
+    else
+      redirect_to [@company, @department], notice: t('.failure')
+    end
+  end
+
   private
 
   def set_employee_profile
