@@ -7,4 +7,5 @@ pt-BR:
       failure: Perfil de Funcionário não cadastrado
     create_card:
       success: Cartão solicitado com sucesso
-      failure: Cartão não solicitado
+      failure: Cartão não solicitado, verifique informações
+      unavailable: Sistema indisponível no momento, por favor tente mais tarde
