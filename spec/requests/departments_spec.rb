@@ -1,15 +1,18 @@
 require 'rails_helper'
 
-describe 'Edição de Departamento', type: :request do
-  context 'Admin tenta editar departamento' do
+describe 'Criação de Departamento', type: :request do
+  context 'Admin tenta criar departamento' do
     it 'e não tem permissão' do
       admin = create(:user, email: 'user@punti.com')
       company = create(:company)
-      department = create(:department, company:)
 
       login_as admin
 
-      get edit_company_department_path(company.id, department.id)
+      post company_departments_path(company.id), params: {
+        department: {
+          name: 'A'
+        }
+      }
 
       follow_redirect!
 
@@ -17,12 +20,14 @@ describe 'Edição de Departamento', type: :request do
     end
   end
 
-  context 'visitante tenta editar departamento' do
+  context 'visitante tenta criar departamento' do
     it 'e não consegue pois precisa estar logado como manager' do
       company = create(:company)
-      department = create(:department, company:)
-
-      get edit_company_department_path(company.id, department.id)
+      post company_departments_path(company.id), params: {
+        department: {
+          name: 'A'
+        }
+      }
 
       follow_redirect!
 
@@ -30,7 +35,7 @@ describe 'Edição de Departamento', type: :request do
     end
   end
 
-  context 'funcionário tenta editar departamento' do
+  context 'funcionário tenta criar departamento' do
     it 'e não tem permissão' do
       company = create(:company)
       department = create(:department, company:)
@@ -43,7 +48,11 @@ describe 'Edição de Departamento', type: :request do
       )
 
       login_as employee_user
-      get edit_company_department_path(company.id, department.id)
+      post company_departments_path(company.id), params: {
+        department: {
+          name: 'A'
+        }
+      }
 
       follow_redirect!
 
@@ -51,18 +60,21 @@ describe 'Edição de Departamento', type: :request do
     end
   end
 
-  context 'Manager tenta editar departamento de outra empresa' do
+  context 'Manager tenta criar departamento de outra empresa' do
     it 'e não tem permissão' do
       company = create(:company)
       admin_user = create(:admin_user)
-      create(:manager, created_by: admin_user, company:, email: 'manager@campuscode.com.br')
+      create(:manager_emails, created_by: admin_user, company:, email: 'manager@campuscode.com.br')
       manager = create(:manager_user, email: 'manager@campuscode.com.br')
       second_company = create(:company, brand_name: 'Apple', domain: 'apple.com.br',
                                         registration_number: '10394460005884')
-      second_department = create(:department, company: second_company)
 
       login_as manager
-      get edit_company_department_path(second_company.id, second_department.id)
+      post company_departments_path(second_company.id), params: {
+        department: {
+          name: 'A'
+        }
+      }
       follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'

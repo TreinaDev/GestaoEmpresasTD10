@@ -4,7 +4,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
   it 'enquanto gerente com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
+    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
     user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
@@ -111,7 +111,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
   it 'e a empresa esta desativada não cadastra funcionário' do
     admin = create(:user, email: 'manoel@punti.com')
     company = create(:company)
-    create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
+    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
     user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
     company.active = false
     company.save!

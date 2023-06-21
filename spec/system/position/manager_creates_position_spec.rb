@@ -5,7 +5,7 @@ feature 'Gerente cria cargo' do
     company = create(:company)
     department = create(:department, company:)
     admin_user = create(:admin_user)
-    create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
 
     json_data = '{}'
@@ -39,7 +39,7 @@ feature 'Gerente cria cargo' do
       company = create(:company)
       department = create(:department, company:)
       admin_user = create(:admin_user)
-      create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+      create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
 
       json_data = '{}'
@@ -74,7 +74,7 @@ feature 'Gerente cria cargo' do
       company = create(:company)
       department = create(:department, company:)
       admin_user = create(:admin_user)
-      create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+      create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
 
       json_data = '{}'

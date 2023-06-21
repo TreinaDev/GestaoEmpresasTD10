@@ -53,7 +53,7 @@ feature 'visitante se cadastra' do
   scenario 'e tem role de manager' do
     admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, company:, created_by: admin, email: 'bruno@campuscode.com.br')
+    create(:manager_emails, company:, created_by: admin, email: 'bruno@campuscode.com.br')
 
     visit root_path
 

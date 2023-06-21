@@ -16,7 +16,7 @@
           <h5 class="ms-1 mt-2 ps-3 mt-3">Dados cadastrais</h5>
           <div class="ms-1 ps-3">
             <p class="card-text mb-1 mt-2"><b><%= Company.human_attribute_name('corporate_name') %></b>: <%= @company.corporate_name %></p>
-            <p class="card-text mb-1"> <b><%= Company.human_attribute_name('registration_number') %></b>: <%= @company.registration_number %></p>
+            <p class="card-text mb-1"> <b><%= Company.human_attribute_name('registration_number') %></b>: <%= format_cnpj(@company.registration_number) %></p>
             <p class="card-text mb-1"><b><%= Company.human_attribute_name('address') %></b>: <%= @company.address %></p>
             <p class="card-text mb-1"><b><%= Company.human_attribute_name('phone_number') %></b>: <%= @company.phone_number %></p>
             <p class="card-text mb-1"><b><%= Company.human_attribute_name('email') %></b>: <%= @company.email %></p>
@@ -61,7 +61,7 @@
             <% end %>
           </ul>
         <% end %>
-        <%= form_with model:@manager, url:managers_path do |f| %>
+        <%= form_with model:@manager, url:manager_emails_path do |f| %>
           <%= f.hidden_field :company_id, :value => @company.id%>
           <div class="input-group mb-3">
             <%= f.text_field :email, placeholder: 'Cadastrar email', class:'form-control' %>
@@ -81,7 +81,7 @@
                     <tr>
                       <td class="align-baseline"><%= email.email %></td>
                       <td class="d-flex justify-content-around">
-                        <%= button_to manager_path(email.id), {method: :delete, id:"delete#{email.id}", form: { class: 'd-inline m-0' }, class:'btn btn-danger d-inline'} do %>
+                        <%= button_to manager_email_path(email.id), {method: :delete, id:"delete#{email.id}", form: { class: 'd-inline m-0' }, class:'btn btn-danger d-inline'} do %>
                           <i class="bi bi-trash"></i>
                         <% end %>
                         <button class="btn btn-primary d-inline">
