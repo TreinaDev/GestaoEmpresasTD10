@@ -9,5 +9,7 @@ class AppCardApi
   def send
     new_card = to_json
     Faraday.post("#{API_BASE_URL}/cards", new_card, 'Content-Type' => 'application/json')
+  rescue Faraday::ConnectionFailed
+    500
   end
 end

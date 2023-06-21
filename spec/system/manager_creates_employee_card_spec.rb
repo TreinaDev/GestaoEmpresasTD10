@@ -77,7 +77,7 @@ feature 'Gerente vai para index do departamento' do
                                           { card: { company_card_type_id: position.card_type_id.to_s,
                                                     cpf: employee_profile.cpf } }.to_json,
                                           'Content-Type' => 'application/json')
-                                    .and_return(fake_response)
+                                    .and_return(fake_response.status)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
