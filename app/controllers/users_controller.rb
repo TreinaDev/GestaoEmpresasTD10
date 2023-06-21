@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_admin, except: :profile
   before_action :find_user, only: %i[block unblock]
-  before_action :verify_user, only: %i[profile]
 
   def index
     @users = User.manager
@@ -32,11 +31,5 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find(params[:id])
-  end
-
-  def verify_user
-    @employee_profile = EmployeeProfile.find_by(email: current_user.email)
-    redirect_to root_path, notice: t('.not_current_user') if current_user.email? != @employee_profile.email?
-    @employee_profile
   end
 end
