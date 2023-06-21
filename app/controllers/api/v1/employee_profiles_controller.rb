@@ -2,6 +2,8 @@ class Api::V1::EmployeeProfilesController < Api::V1::ApiController
   def index
     employee_profiles = if params[:cpf]
                           EmployeeProfile.where(cpf: params[:cpf])
+                        elsif params[:status]
+                          EmployeeProfile.where(status: params[:status])
                         else
                           EmployeeProfile.all
                         end
