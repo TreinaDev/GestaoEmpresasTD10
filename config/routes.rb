@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   resources :manager_emails, only: %i(create destroy)
 
   resources :companies, only: %i( new create show edit update index) do
-    resources :departments, only: [:new, :create, :show, :update, :edit] do
-      resources :employee_profiles, only: %i(new create show)
+    resources :departments, only: %i(index new create show update edit) do
+      resources :employee_profiles, only: %i(new create show edit update) do
+        post :create_card, on: :collection
+      end
       resources :positions, only: %i(new create show edit update)
     end
     get 'inactives', on: :collection
@@ -23,10 +25,11 @@ Rails.application.routes.draw do
     put :deactivate, on: :member
   end
 
-  namespace :api do 
+  namespace :api do
     namespace :v1 do
       resources :companies, only: %i[show index]
       resources :employee_profiles, only: %i(index)
     end
   end
 end
+
