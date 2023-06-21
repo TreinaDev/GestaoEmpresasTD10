@@ -54,7 +54,7 @@ feature 'Gerente vai para index do departamento' do
     within('div#1') do
       expect(page).to_not have_button('Solicitar Cartão')
     end
-    expect(page).to have_content 'Cartão cadastrado com sucesso'
+    expect(page).to have_content 'Cartão solicitado com sucesso'
     expect(fake_response.body).to eq 'Cartão cadastrado com sucesso'
   end
 end
