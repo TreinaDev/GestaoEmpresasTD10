@@ -22,4 +22,10 @@ Rails.application.routes.draw do
     put :activate, on: :member
     put :deactivate, on: :member
   end
+
+  namespace :api do 
+    namespace :v1 do
+      resources :companies, only: %i[show index]
+    end
+  end
 end
