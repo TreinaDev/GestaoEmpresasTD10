@@ -108,7 +108,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
     expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
   end
 
-  it 'e a empresa esta desativada' do
+  it 'e a empresa esta desativada não cadastra funcionário' do
     admin = create(:user, email: 'manoel@punti.com')
     company = create(:company)
     create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
@@ -142,5 +142,6 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
     follow_redirect!
 
     expect(flash[:alert]).to eq('Empresa inativa')
+    expect(EmployeeProfile.first.present?).to be false
   end
 end
