@@ -5,7 +5,7 @@ feature 'Gerente vai para index do departamento' do
     company = create(:company)
     department = create(:department, company:)
     admin_user = create(:admin_user)
-    create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
     create(:employee_profile, position:, department_id: position.department.id,
@@ -26,7 +26,7 @@ feature 'Gerente vai para index do departamento' do
     company = create(:company)
     department = create(:department, company:)
     admin_user = create(:admin_user)
-    create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
     employee_profile = create(:employee_profile, position:, department_id: position.department.id,
