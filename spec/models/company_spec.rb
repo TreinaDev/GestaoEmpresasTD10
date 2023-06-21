@@ -26,19 +26,6 @@ RSpec.describe Company, type: :model do
     end
 
     it 'é único' do
-      company_params = {
-        company: {
-          registration_number: '00.394.460/0058-87',
-          brand_name: 'Campus Code',
-          corporate_name: 'Campus Code Treinamentos LTDA',
-          active: nil
-        }
-      }
-
-      fake_response = double('faraday_response', success?: true, status: 200)
-      allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/companies',
-                                            company_params).and_return(fake_response)
-
       Company.create!(brand_name: 'Campus Code', corporate_name: 'Campus Code Treinamentos LTDA',
                       registration_number: '00.394.460/0058-87', address: 'Rua da tecnologia, nº 1500',
                       phone_number: '1130302525', email: 'contato@campuscode.com.br',
