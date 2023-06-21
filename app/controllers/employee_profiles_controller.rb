@@ -1,14 +1,17 @@
 class EmployeeProfilesController < ApplicationController
-  before_action :set_employee_profile, only: %i[show]
+  before_action :set_employee_profile, only: %i[show edit update]
   before_action :set_department_and_company
   before_action :require_manager
   before_action :manager_belongs_to_company?
+  before_action :company_is_active?, only: %i[new create]
 
   def show; end
 
   def new
     @employee_profile = EmployeeProfile.new
   end
+
+  def edit; end
 
   def create
     @employee_profile = EmployeeProfile.new(employee_profile_params)
@@ -33,7 +36,24 @@ class EmployeeProfilesController < ApplicationController
     end
   end
 
+  def update
+    if @employee_profile.update(employee_profile_params)
+      return redirect_to [@company, @department, @employee_profile],
+                         notice: t('.success')
+    end
+
+    flash.now[:alert] = t('.failure')
+    render :new
+  end
+
   private
+
+  def company_is_active?
+    company = Company.find(params[:company_id])
+    return if company.active
+
+    redirect_to root_path, alert: t('inactive_company')
+  end
 
   def set_employee_profile
     @employee_profile = EmployeeProfile.find(params[:id])
