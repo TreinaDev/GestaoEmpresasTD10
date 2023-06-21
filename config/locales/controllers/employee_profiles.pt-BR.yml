@@ -6,5 +6,5 @@ pt-BR:
       success: Perfil de Funcionário cadastrado com sucesso
       failure: Perfil de Funcionário não cadastrado
     create_card:
-      success: Cartão cadastrado com sucesso
-      failure: Cartão não cadastrado
+      success: Cartão solicitado com sucesso
+      failure: Cartão não solicitado

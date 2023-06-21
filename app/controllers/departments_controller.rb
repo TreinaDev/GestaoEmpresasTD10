@@ -1,4 +1,3 @@
-require 'pry'
 class DepartmentsController < ApplicationController
   before_action :set_department, only: %i[show edit update]
   before_action :set_company, only: %i[show new edit create update]
