@@ -83,7 +83,7 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e falha porque o email já existe' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, created_by: user, company:, email: 'zezinho@campuscode.com.br')
+    create(:manager_emails, created_by: user, company:, email: 'zezinho@campuscode.com.br')
 
     login_as(user)
     visit root_path
@@ -101,7 +101,7 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e reativa o email já cadastrado e desativado previamente' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, company:, created_by: user, status: :canceled, email: 'zezinho@campuscode.com.br')
+    create(:manager_emails, company:, created_by: user, status: :canceled, email: 'zezinho@campuscode.com.br')
 
     login_as(user)
     visit root_path
@@ -142,7 +142,7 @@ feature 'administrator registra email do gerente da empresa' do
     create(:employee_profile, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     admin = create(:user, email: 'admin@punti.com')
-    create(:manager, created_by: admin, company:, email: 'joaozinho@campuscode.com.br')
+    create(:manager_emails, created_by: admin, company:, email: 'joaozinho@campuscode.com.br')
     user = create(:user, email: 'zezinho@gmail.com', cpf: '30805775072')
 
     login_as(user)

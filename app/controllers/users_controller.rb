@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
-  before_action :require_admin
+  before_action :require_admin, except: :profile
   before_action :find_user, only: %i[block unblock]
 
   def index
     @users = User.manager
+  end
+
+  def profile
+    @employee_profile = EmployeeProfile.find_by(email: current_user.email)
   end
 
   def block

@@ -2,24 +2,25 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, only: [:index] do
+    get :profile, on: :collection
     member do
       patch :block
       patch :unblock
     end
   end
 
-  resources :departments, only: [:new, :create, :show] 
   root "home#index"
-  
-  resources :managers, only: %i(create destroy)
+
+  resources :manager_emails, only: %i(create destroy)
 
   resources :companies, only: %i( new create show edit update index) do
+    resources :departments, only: [:new, :create, :show, :update, :edit] do
+      resources :employee_profiles, only: %i(new create show)
+      resources :positions, only: %i(new create show edit update)
+    end
     get 'inactives', on: :collection
     put :activate, on: :member
     put :deactivate, on: :member
-    resources :departments do
-      resources :positions, only: %i(new create show edit update)
-    end
   end
 
   namespace :api do 

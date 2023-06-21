@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permited_parameters, if: :devise_controller?
   before_action :authenticate_user!
 
+  protected
+
   def configure_permited_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:cpf])
   end
@@ -18,5 +20,14 @@ class ApplicationController < ActionController::Base
 
     flash[:alert] = t('forbidden')
     redirect_to root_path
+  end
+
+  def manager_belongs_to_company?
+    company_id = params[:company_id]
+    manager = ManagerEmails.find_by(email: current_user.email)
+
+    return if manager.company_id == company_id.to_i
+
+    redirect_to root_path, alert: t('forbidden')
   end
 end

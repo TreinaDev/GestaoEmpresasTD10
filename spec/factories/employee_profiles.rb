@@ -7,13 +7,13 @@ FactoryBot.define do
     address { 'Rua do funcionário, 1200' }
     email { 'funcionario@empresa.com' }
     phone_number { '1199776655' }
-    status { nil }
+    status { 'unblocked' }
     birth_date { '2023-06-06' }
     admission_date { '2023-06-06' }
     dismissal_date { '2023-06-06' }
     marital_status { 1 }
-    department { nil }
+    department
     user { nil }
-    position { nil }
+    position
   end
 end

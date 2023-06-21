@@ -35,17 +35,17 @@ Company.create!(brand_name: 'IBM', corporate_name: 'IBM Corporation',
 User.create!(email: 'admin@punti.com', password: 'password', cpf: '71056473029')
 User.create!(email: 'otheradmin@punti.com', password: 'password', cpf: '43302699026')
 
-Manager.create!(email: 'zezinho@apple.com', created_by: User.first, company_id: Company.first.id)
-Manager.create!(email: 'mariazinha@apple.com', created_by: User.first, company_id: Company.first.id)
-Manager.create!(email: 'manager@apple.com', created_by: User.first, company_id: Company.first.id)
-Manager.create!(email: 'manager@microsoft.com', created_by: User.first,
-                company_id: Company.find_by(brand_name: 'Microsoft').id)
-Manager.create!(email: 'manager@ibm.com', created_by: User.first, company_id: Company.last.id)
+ManagerEmails.create!(email: 'zezinho@apple.com', created_by: User.first, company_id: Company.first.id)
+ManagerEmails.create!(email: 'mariazinha@apple.com', created_by: User.first, company_id: Company.first.id)
+ManagerEmails.create!(email: 'manager@apple.com', created_by: User.first, company_id: Company.first.id)
+ManagerEmails.create!(email: 'manager@microsoft.com', created_by: User.first,
+                      company_id: Company.find_by(brand_name: 'Microsoft').id)
+ManagerEmails.create!(email: 'manager@ibm.com', created_by: User.first, company_id: Company.last.id)
 
 User.create!(email: 'manager@apple.com', cpf: '44429533768', password: 'password')
 User.create!(email: 'manager@microsoft.com', cpf: '28543435064', password: 'password')
 
-company = Company.create!(
+Company.create!(
   brand_name: 'Apple',
   corporate_name: 'Campus Code Treinamentos LTDA',
   registration_number: '10.394.460/0058-87',
@@ -58,18 +58,27 @@ company = Company.create!(
   active: true
 )
 
-Department.create!(
-  company_id: company.id,
-  name: 'rh',
-  code: 'ABC!@#',
-  description: 'Recursos humanos'
-)
+Department.create!(company_id: Company.first.id, name: 'RH', code: 'D34B5A',
+                   description: 'Departamento de Recursos Humanos')
+Department.create!(company_id: Company.first.id, name: 'Financeiro', code: 'CBA321',
+                   description: 'Departamento do Financeiro')
+Department.create!(company_id: Company.first.id, name: 'Marketing', code: 'ABC123',
+                   description: 'Departamento de Marketing')
 
-# position = Position.create!(department_id: department.id, name: 'gerente')
+Position.create!(department_id: Department.first.id, name: 'Gerente de RH')
+Position.create!(department_id: Department.first.id, name: 'Analista de RH')
+Position.create!(department_id: Department.first.id, name: 'Especialista em Treinamento')
+Position.create!(department_id: Department.find_by(name: 'Financeiro').id, name: 'Contador')
+Position.create!(department_id: Department.find_by(name: 'Financeiro').id, name: 'Tesoureiro')
+Position.create!(department_id: Department.find_by(name: 'Financeiro').id, name: 'Auditor')
+Position.create!(department_id: Department.find_by(name: 'Marketing').id, name: 'Coordernador')
+Position.create!(department_id: Department.find_by(name: 'Marketing').id, name: 'Especialista em Mídia Social')
+Position.create!(department_id: Department.find_by(name: 'Marketing').id, name: 'Gerente de Produto')
 
-# Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
-#                  user_id: manager.id)
-# Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
-#                  user_id: manager2.id)
-# Employee.create!(status: 'unblocked', department_id: department.id, position_id: position.id,
-#                  user_id: manager3.id)
+Position.create!(department_id: Department.first.id, name: 'gerente')
+
+User.create!(email: 'employee1@apple.com', cpf: '73741924016', password: 'password')
+User.create!(email: 'employee2@apple.com', cpf: '39984561046', password: 'password')
+User.create!(email: 'employee3@microsoft.com', cpf: '00825818001', password: 'password')
+User.create!(email: 'employee4@microsoft.com', cpf: '88734404015', password: 'password')
+User.create!(email: 'employee5@ibm.com', cpf: '90678712069', password: 'password')
