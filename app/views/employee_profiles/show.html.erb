@@ -19,5 +19,5 @@
     <p class="card-text"><%= EmployeeProfile.human_attribute_name('status') %>: <%= t("activerecord.enum.employee_profile.status.#{@employee_profile.status}") %></p>
   </div>
 </div>
-<%# <%= link_to 'Editar', edit_employee_profile_path(@employee_profile), class: 'btn btn-primary' if current_user.manager?%>
+<%= link_to 'Editar', edit_company_department_employee_profile_path(@employee_profile.department.company_id, @employee_profile.department.id, @employee_profile), class: 'btn btn-primary' if current_user.manager? %>
 
