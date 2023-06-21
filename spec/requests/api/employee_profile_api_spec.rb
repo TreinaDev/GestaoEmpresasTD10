@@ -9,7 +9,8 @@ describe 'Employee Profiles API' do
       department2 = create(:department, company: company2, code: 'XYZ456')
       position = create(:position, department:)
       position2 = create(:position, department: department2, code: 'POS999')
-      create(:employee_profile, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked', department: department2, position: position2)
+      create(:employee_profile, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
+                                department: department2, position: position2)
       create(:employee_profile, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:, position:)
       create(:employee_profile, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:, position:)
 
@@ -39,7 +40,8 @@ describe 'Employee Profiles API' do
       department2 = create(:department, company: company2, code: 'XYZ456')
       position = create(:position, department:)
       position2 = create(:position, department: department2, code: 'POS999')
-      create(:employee_profile, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked', department: department2, position: position2)
+      create(:employee_profile, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
+                                department: department2, position: position2)
       create(:employee_profile, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:, position:)
       create(:employee_profile, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:, position:)
 

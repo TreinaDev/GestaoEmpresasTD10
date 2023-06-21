@@ -12,7 +12,7 @@ class Api::V1::EmployeeProfilesController < Api::V1::ApiController
   private
 
   def format_employee_profile(employee_profiles)
-    employee_profiles.map { |profile|
+    employee_profiles.map do |profile|
       {
         id: profile.id,
         name: profile.name,
@@ -20,8 +20,6 @@ class Api::V1::EmployeeProfilesController < Api::V1::ApiController
         status: profile.status,
         company_cnpj: profile.department.company.registration_number
       }
-    }
+    end
   end
 end
-
-
