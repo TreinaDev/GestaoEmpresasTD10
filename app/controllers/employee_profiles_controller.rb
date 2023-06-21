@@ -20,6 +20,17 @@ class EmployeeProfilesController < ApplicationController
     render :new
   end
 
+  def create_card
+    response = AppCardApi.new(params[:card]).send
+    @employee_profile = EmployeeProfile.find_by(cpf: params[:card]['cpf'])
+    if response.status == 201
+      @employee_profile.update(card_status: true)
+      redirect_to [@company, @department], notice: t('.success')
+    else
+      redirect_to [@company, @department], notice: t('.failure')
+    end
+  end
+
   private
 
   def set_employee_profile

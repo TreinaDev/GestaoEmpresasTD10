@@ -5,9 +5,8 @@ class DepartmentsController < ApplicationController
   before_action :require_manager, only: %i[new create edit update]
   before_action :manager_belongs_to_company?
 
-  def index 
+  def index
     @departments = Department.where(company_id: params[:company_id])
-    
   end
 
   def show; end

@@ -11,7 +11,13 @@
     Funcionários:
     <% @department.employee_profiles.each do |e|%>
       <%= e.name%>
-      <%= button_to 'Solicitar Cartão'%>
+      <div id = <%= e.id %>>
+        <% if !e.card_status %>
+          <%= button_to 'Solicitar Cartão', create_card_company_department_employee_profiles_path(company_id: @department.company_id, 
+                                                                                                  department_id: @department.id, card: {cpf: e.cpf, company_card_type_id: e.position.card_type_id }),
+                                                                                                  method: :post%>
+        <%end%>
+      </div>
     <%end%>
   </div>
 </div>
