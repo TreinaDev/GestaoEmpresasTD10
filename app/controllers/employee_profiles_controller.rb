@@ -1,5 +1,5 @@
 class EmployeeProfilesController < ApplicationController
-  before_action :set_employee_profile, only: %i[show edit update]
+  before_action :set_employee_profile, only: %i[show edit update new_fired fired]
   before_action :set_department_and_company
   before_action :require_manager
   before_action :manager_belongs_to_company?
@@ -44,6 +44,16 @@ class EmployeeProfilesController < ApplicationController
 
     flash.now[:alert] = t('.failure')
     render :new
+  end
+
+  def new_fired; end
+
+  def fired
+    @employee_profile.status = 'fired'
+    @employee_profile.dismissal_date = params['fired']['date']
+    return redirect_to [@company, @department, @employee_profile] if @employee_profile.save
+
+    render 'new_fired'
   end
 
   private
