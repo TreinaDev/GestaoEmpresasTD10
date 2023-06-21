@@ -17,6 +17,7 @@ class PositionsController < ApplicationController
 
   def create
     @position = Position.new(position_params.merge(department: @department))
+
     return redirect_to [@company, @department, @position], notice: t('.success') if @position.save
 
     flash.now[:alert] = t('.failure')

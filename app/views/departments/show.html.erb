@@ -1,11 +1,24 @@
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"><%= Department.human_attribute_name('name') %>: <%=  @department.name %></h2>
+    <h2 class="card-title"> <%= Department.human_attribute_name('name') %>: <%=  @department.name %></h2>
     <p class="card-text"><%= Department.human_attribute_name('description') %>: <%= @department.description %></p>
     <p class="card-text"> <%= Department.human_attribute_name('code') %>: <%= @department.code %></p>
     <p class="card-text"><%= Department.human_attribute_name('company') %>: <%= @department.company.brand_name %></p>
     <br>
     <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), class: 'btn btn-primary' %>
+  </div>
+  <div>
+    Funcionários:
+    <% @department.employee_profiles.each do |e|%>
+      <%= e.name%>
+      <div id = <%= e.id %>>
+        <% if !e.card_status %>
+          <%= button_to 'Solicitar Cartão', create_card_company_department_employee_profiles_path(company_id: @department.company_id, 
+                                                                                                  department_id: @department.id, card: {cpf: e.cpf, company_card_type_id: e.position.card_type_id }),
+                                                                                                  method: :post%>
+        <%end%>
+      </div>
+    <%end%>
   </div>
 </div>
 

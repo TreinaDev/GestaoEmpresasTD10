@@ -4,7 +4,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
   it 'enquanto gerente com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
+    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
     user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
@@ -106,5 +106,42 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
     expect(response).to have_http_status(:found)
     expect(response).to redirect_to(root_path)
     expect(flash[:alert]).to eq('Usuário sem permissão para executar essa ação')
+  end
+
+  it 'e a empresa esta desativada não cadastra funcionário' do
+    admin = create(:user, email: 'manoel@punti.com')
+    company = create(:company)
+    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
+    user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
+    company.active = false
+    company.save!
+
+    department = create(:department, company:)
+    position = create(:position, department:)
+
+    login_as user_manager
+
+    new_attributes = {
+      name: 'Novo nome',
+      social_name: 'Nova nome social ',
+      cpf: '73741924016',
+      rg: '12345678',
+      address: 'Rua Apple, 1',
+      phone_number: '22 88888-8888',
+      email: 'novoemail@apple.com',
+      birth_date: '01-01-1990',
+      admission_date: '01-01-2020',
+      marital_status: 'single',
+      department_id: department.id,
+      position_id: position.id
+    }
+
+    post company_department_employee_profiles_path(company_id: company.id, department_id: department.id),
+         params: { employee_profile: new_attributes }
+
+    follow_redirect!
+
+    expect(flash[:alert]).to eq('Empresa inativa')
+    expect(EmployeeProfile.first.present?).to be false
   end
 end

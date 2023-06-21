@@ -3,7 +3,7 @@ class GetCardType
   attr_reader :id, :name, :icon, :start_points, :conversion_tax
 
   def initialize(attributes = {})
-    @id = attributes['id']
+    @id = attributes['company_card_type_id']
     @name = attributes['name']
     @icon = attributes['icon']
     @start_points = attributes['start_points']

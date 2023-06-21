@@ -1,4 +1,4 @@
-class Manager < ApplicationRecord
+class ManagerEmails < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :company
   validates :email, presence: true
@@ -24,7 +24,7 @@ class Manager < ApplicationRecord
   end
 
   def email_exists_active?
-    errors.add(:email, 'já cadastrado') if email.present? && Manager.where(email:).active.any?
+    errors.add(:email, 'já cadastrado') if email.present? && ManagerEmails.where(email:).active.any?
   end
 
   def created_by_must_be_admin

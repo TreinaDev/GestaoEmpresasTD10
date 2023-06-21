@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_204803) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_21_001817) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -97,21 +97,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_204803) do
     t.integer "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "card_status", default: false
     t.index ["cpf"], name: "index_employee_profiles_on_cpf", unique: true
     t.index ["department_id"], name: "index_employee_profiles_on_department_id"
     t.index ["position_id"], name: "index_employee_profiles_on_position_id"
     t.index ["user_id"], name: "index_employee_profiles_on_user_id"
   end
 
-  create_table "managers", force: :cascade do |t|
+  create_table "manager_emails", force: :cascade do |t|
     t.string "email"
     t.integer "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "company_id"
     t.boolean "status", default: true
-    t.index ["company_id"], name: "index_managers_on_company_id"
-    t.index ["created_by_id"], name: "index_managers_on_created_by_id"
+    t.index ["company_id"], name: "index_manager_emails_on_company_id"
+    t.index ["created_by_id"], name: "index_manager_emails_on_created_by_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -147,6 +148,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_204803) do
   add_foreign_key "employee_profiles", "departments"
   add_foreign_key "employee_profiles", "positions"
   add_foreign_key "employee_profiles", "users"
-  add_foreign_key "managers", "users", column: "created_by_id"
+  add_foreign_key "manager_emails", "users", column: "created_by_id"
   add_foreign_key "positions", "departments"
 end

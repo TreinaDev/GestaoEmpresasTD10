@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def manager_belongs_to_company?
     company_id = params[:company_id]
-    manager = Manager.find_by(email: current_user.email)
+    manager = ManagerEmails.find_by(email: current_user.email)
 
     return if manager.company_id == company_id.to_i
 

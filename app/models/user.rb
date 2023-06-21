@@ -49,7 +49,7 @@ class User < ApplicationRecord
   def assign_role
     if email.include?('@punti.com')
       self.role = :admin
-    elsif Manager.find_by(email:)
+    elsif ManagerEmails.find_by(email:)
       self.role = :manager
     elsif EmployeeProfile.find_by(cpf:)
       self.role = :employee
