@@ -13,5 +13,7 @@ class GetCardApi
   def self.show(cpf)
     response = Faraday.get("#{API_BASE_URL}cards/#{cpf}")
     GetCardApi.new(JSON.parse(response.body)) if response.status == 200
+  rescue Faraday::ConnectionFailed
+    nil
   end
 end

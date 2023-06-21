@@ -41,7 +41,7 @@ feature 'visitante visita página de perfil' do
       expect(page).to have_content('Número do cartão: 1234560987')
       expect(page).to have_content('Pontos: 100')
       expect(page).to have_content('Status: Ativo')
-    end 
+    end
   end
 
   scenario 'Api está offline e não exibe informações do cartão' do
@@ -70,5 +70,5 @@ feature 'visitante visita página de perfil' do
       expect(page).to_not have_content('Pontos: 100')
       expect(page).to_not have_content('Status: Ativo')
     end
-  end 
+  end
 end
