@@ -38,7 +38,7 @@ describe 'Usuário altera informações de uma empresa', type: :request do
     it 'enquanto gerente' do
       admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
       company = FactoryBot.create(:company)
-      Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
+      ManagerEmails.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
       manager = User.create(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
       company.active = false
       company.save!

@@ -61,7 +61,7 @@
             <% end %>
           </ul>
         <% end %>
-        <%= form_with model:@manager, url:managers_path do |f| %>
+        <%= form_with model:@manager, url:manager_emails_path do |f| %>
           <%= f.hidden_field :company_id, :value => @company.id%>
           <div class="input-group mb-3">
             <%= f.text_field :email, placeholder: 'Cadastrar email', class:'form-control' %>
@@ -81,7 +81,7 @@
                     <tr>
                       <td class="align-baseline"><%= email.email %></td>
                       <td class="d-flex justify-content-around">
-                        <%= button_to manager_path(email.id), {method: :delete, id:"delete#{email.id}", form: { class: 'd-inline m-0' }, class:'btn btn-danger d-inline'} do %>
+                        <%= button_to manager_email_path(email.id), {method: :delete, id:"delete#{email.id}", form: { class: 'd-inline m-0' }, class:'btn btn-danger d-inline'} do %>
                           <i class="bi bi-trash"></i>
                         <% end %>
                         <button class="btn btn-primary d-inline">

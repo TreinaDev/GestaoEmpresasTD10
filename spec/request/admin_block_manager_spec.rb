@@ -5,7 +5,7 @@ describe 'Bloqueio de manager', type: :request do
     it 'e não tem permissão' do
       admin = create(:user, email: 'user@punti.com')
       company = create(:company, domain: 'gmail.com')
-      create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
+      create(:manager_emails, created_by: admin, company:, email: 'joaozinho@gmail.com')
       manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
       department = create(:department, company_id: company.id)
       position = create(:position, department_id: department.id)
@@ -24,7 +24,7 @@ describe 'Bloqueio de manager', type: :request do
     it 'e não tem permissão' do
       admin = create(:user, email: 'user@punti.com')
       company = create(:company, domain: 'gmail.com')
-      create(:manager, created_by: admin, company:, email: 'joaozinho@gmail.com')
+      create(:manager_emails, created_by: admin, company:, email: 'joaozinho@gmail.com')
       manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
       department = create(:department, company:)
       position = create(:position, department:)
