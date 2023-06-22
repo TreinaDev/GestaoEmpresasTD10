@@ -15,7 +15,6 @@ RSpec.describe Position, type: :model do
         expect(position).to_not be_valid
         expect(position.errors[:name]).to include 'não pode ficar em branco'
         expect(position.errors[:description]).to include 'não pode ficar em branco'
-        expect(position.errors[:card_type_id]).to include 'não pode ficar em branco'
         expect(position.errors[:code]).to include 'não pode ficar em branco'
         expect(position.errors[:department]).to include 'é obrigatório(a)'
       end

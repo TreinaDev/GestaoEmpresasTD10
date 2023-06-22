@@ -4,3 +4,5 @@ pt-BR:
       save: Salvar
     new:
       save: Salvar
+    new_manager:
+      save: Salvar

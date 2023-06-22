@@ -14,7 +14,7 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
     new_attributes = {
       name: 'Novo nome',
       social_name: 'Nova nome social ',
-      cpf: '73741924016',
+      cpf: '59812249087',
       rg: '12345678',
       address: 'Rua Apple, 1',
       phone_number: '22 88888-8888',

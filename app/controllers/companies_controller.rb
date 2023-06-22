@@ -22,7 +22,11 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new company_params
 
-    return redirect_to @company, notice: t('.success') if @company.save
+    if @company.save
+      @company.departments.create(name: "Departamento de RH", description: 'Recursos Humanos')
+      @company.positions.create(name: 'Gerente', code: 'GER003', description: 'Gerente Geral')
+      return redirect_to @company, notice: t('.success')
+    end
 
     flash.now[:alert] = t('.failure')
     render :new

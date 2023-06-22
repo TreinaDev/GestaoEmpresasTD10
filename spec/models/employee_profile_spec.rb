@@ -21,14 +21,14 @@ RSpec.describe EmployeeProfile, type: :model do
     end
 
     it 'inválido quando CPF já está em uso' do
-      user_admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
-      company = create(:company, registration_number: '00.394.460/0058-55')
-      create(:manager, email: 'manager@campuscode.com.br', created_by: user_admin, company:)
-      create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
+      admin_user = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      company = create(:company, registration_number: '00.394.460/0058-55', email: 'contato@microsoft.com', domain: 'microsoft.com')
       department = create(:department, company_id: company.id)
       position = create(:position, department_id: department.id)
-      create(:employee_profile, cpf: '69551387074', department_id: department.id, position_id: position.id)
-      employee_profile = build(:employee_profile, cpf: '69551387074', department_id: department.id,
+      create(:manager, created_by: admin_user, company:, email: 'manager@microsoft.com')
+      manager = create(:manager_user, email: 'manager@microsoft.com')
+      create(:employee_profile, cpf: manager.cpf, email: manager.email, department:, position:, user: manager)
+      employee_profile = build(:employee_profile, cpf: '15703243017', department_id: department.id,
                                                   position_id: position.id)
 
       expect(employee_profile).not_to be_valid

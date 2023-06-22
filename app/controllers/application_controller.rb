@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permited_parameters, if: :devise_controller?
   before_action :authenticate_user!
+  before_action :profile_check, unless: :devise_controller?
+
 
   protected
 
@@ -31,13 +33,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: t('forbidden')
   end
 
-  def after_sign_in_path_for(resource)
-    if current_user.manager? && !current_user.employee_profile
+  def profile_check
+    return if params[:controller] == "employee_profiles" && params[:action] == "new"
+    if current_user && current_user.manager? && !current_user.employee_profile
       manager = Manager.find_by(email: current_user.email)
-      return redirect_to new_company_department_employee_profile_path(company_id: manager.company.id, department_id: 1), alert: 'Conclua seu cadastro para continuar.'
-      # new_company_department_employee_profile_path(company_id: company.id, department_id: department.id)
-    else
-      super # chama a implementação original do Devise
+      if manager
+        department = Department.where(name: 'Departamento de RH').where(company_id: manager.company_id).first
+        redirect_to new_manager_company_department_employee_profiles_path(company_id: manager.company.id, department_id: department.id)
+      end
     end
   end
 end

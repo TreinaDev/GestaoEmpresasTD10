@@ -5,12 +5,10 @@ feature 'visitante visita página de perfil' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    employee_data = create(:employee_profile, position:, department:)
-    employee_user = User.create!(
-      email: employee_data.email,
-      cpf: employee_data.cpf,
-      password: '123456'
-    )
+
+    employee_data = create(:employee_profile, :employee, department: , position:, email: 'funcionario@empresa.com', cpf: '69142235219')
+    
+    employee_user = User.create!(email: employee_data.email,cpf: employee_data.cpf,password: '123456')
 
     login_as employee_user
 
