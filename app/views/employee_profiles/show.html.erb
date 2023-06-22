@@ -21,3 +21,26 @@
 </div>
 <%= link_to 'Editar', edit_company_department_employee_profile_path(@employee_profile.department.company_id, @employee_profile.department.id, @employee_profile), class: 'btn btn-primary' if current_user.manager? %>
 
+<div id='user_card'>
+    <%if @employee_profile.card_status%>
+      <%if @card.present?%>
+        <h3><%= t('.card')%> <%=@card.name%></h3>
+        <p><%= t('get_card_api.attributes.number')%>: <%=@card.number%></p>
+        <p><%= t('.status')%>: <%=t("get_card_api.attributes.status.#{@card.status}")%></p>
+        <%if @card.status == 'active'%>
+          <%= button_to 'Bloquear Cartão', deactivate_card_company_department_employee_profile_path(company_id: params[:company_id],
+                                                                                                    department_id: params[:department_id],
+                                                                                                    id: @employee_profile.id, method: :patch)%>
+        <%else%>
+          <%= button_to 'Desbloquear Cartão', activate_card_company_department_employee_profile_path(company_id: params[:company_id],
+                                                                                                    department_id: params[:department_id],
+                                                                                                    id: @employee_profile.id, method: :patch)%>
+        <%end%>
+      <%else%>
+        <%= t('.failed')%>
+      <%end%>
+    <%else%>
+      <p>Você não possui cartão, fale com o setor de RH</p>
+    <%end%>
+  </div>
+</div>

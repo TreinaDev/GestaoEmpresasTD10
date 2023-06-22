@@ -1,3 +1,4 @@
+require 'pry'
 class EmployeeProfilesController < ApplicationController
   before_action :set_employee_profile, only: %i[show edit update]
   before_action :set_department_and_company
@@ -5,7 +6,9 @@ class EmployeeProfilesController < ApplicationController
   before_action :manager_belongs_to_company?
   before_action :company_is_active?, only: %i[new create]
 
-  def show; end
+  def show
+    @card = GetCardApi.show(@employee_profile.cpf)
+  end
 
   def new
     @employee_profile = EmployeeProfile.new
@@ -38,8 +41,19 @@ class EmployeeProfilesController < ApplicationController
 
   def deactivate_card
     @employee_profile = EmployeeProfile.find_by(id: params[:id])
+    @card = GetCardApi.show(@employee_profile.cpf)
+    response = GetCardApi.deactivate(@card.id)
     
+    return redirect_to [@company, @department], notice: t('.unavailable') if response == 500
 
+    case response.status
+    when 202
+      redirect_to [@company, @department], notice: t('.deactivate_success')
+    else
+      redirect_to [@company, @department], notice: t('.deactivate_failure')
+    end
+  end
+    
   def update
     if @employee_profile.update(employee_profile_params)
       return redirect_to [@company, @department, @employee_profile],

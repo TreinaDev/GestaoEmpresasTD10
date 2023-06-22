@@ -14,22 +14,24 @@ feature 'Gerente vai para index do departamento' do
     create(:user, email: "funcionario@#{company.domain}", password: 'password',
                   cpf: '90900938005')
 
-    json_data = '{}'
-    fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{employee_profile.cpf}/deactivate").and_return(fake_response.status)
 
+    json_data = Rails.root.join('spec/support/json/cards.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_profile.cpf}").and_return(fake_response)
+    
+    json_data2 = '{}'
+    fake_response2 = double('faraday_response', status: 200, body: json_data2)
+    allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{JSON.parse(fake_response.body)['id']}/deactivate").and_return(fake_response2)
+    binding.pry
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
     click_on 'RH'
-    within('div#1') do
-      click_on 'Bloquear Cartão'
-    end
+    click_on 'Roberto Carlos Nascimento'
+    click_on 'Bloquear Cartão'
 
-    expect(page).to have_content 'Cartão bloqueado'
-    within('div#1') do
-      expect(page).to have_button 'Desbloquear'
-      expect(page).to_not have_button 'Solicitar Cartão'
-      expect(page).to_not have_button 'Bloquear Cartão'
-    end
+    expect(current_path).to eq company_departments_employee_profile_path(company_id: company.id,
+                                          department_id: department.id, id: employee_profile.id)
+    expect(page).to have_button 'Desbloquear Cartão'
+    expect(page).to_not have_button 'Bloquear Cartão'
   end
 end
