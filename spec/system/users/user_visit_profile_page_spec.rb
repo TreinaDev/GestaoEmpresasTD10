@@ -67,4 +67,24 @@ feature 'visitante visita página de perfil' do
       expect(page).to_not have_content('Status: Ativo')
     end
   end
+
+  scenario 'Usuário vê que ainda não possui cartão' do
+    company = create(:company)
+    department = create(:department, company:)
+    position = create(:position, department:)
+    employee_data = create(:employee_profile, position:, department:, card_status: false)
+    employee_user = User.create!(
+      email: employee_data.email,
+      cpf: employee_data.cpf,
+      password: '123456'
+    )
+
+    login_as employee_user
+
+    visit profile_users_path
+
+    within('div#user_card') do
+      expect(page).to have_content 'Você não possui cartão, fale com o setor de RH'
+    end
+  end
 end
