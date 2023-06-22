@@ -12,10 +12,6 @@ feature 'visitante visita página de perfil' do
       password: '123456'
     )
 
-    # json_data = '{}'
-    # fake_status = double('faraday_status', status: 200, body: json_data)
-    # allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards').and_return(fake_status)
-
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_user.cpf}").and_return(fake_response)

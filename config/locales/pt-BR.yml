@@ -1,5 +1,6 @@
 pt-BR:
   forbidden: Usuário sem permissão para executar essa ação
+  inactive_company: Empresa inativa
   errors:
     internal_server_error: Erro interno do Servidor
     not_found: Página não encontrada
