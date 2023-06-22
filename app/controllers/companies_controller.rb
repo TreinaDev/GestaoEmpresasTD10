@@ -21,6 +21,7 @@ class CompaniesController < ApplicationController
 
   def create
     @company = Company.new company_params
+    handle_response(api_post_company)
 
     return redirect_to @company, notice: t('.success') if @company.save
 
@@ -62,4 +63,32 @@ class CompaniesController < ApplicationController
                                     :registration_number, :address,
                                     :phone_number, :email, :domain, :logo)
   end
+
+  def api_post_company
+    # api_company_params = @company.as_json(only: %i[registration_number brand_name corporate_name])
+    api_company_params = {
+      company: {
+        registration_number: @company.registration_number,
+        brand_name: @company.brand_name,
+        corporate_name: @company.corporate_name
+      }
+    }
+
+    PostCompanyApi.new(api_company_params).send
+  end
+
+  def handle_response(response)
+    return if response.status == 201
+
+    flash.now[:alert] = case response.status
+                        when 500
+                          'Erro de acesso'
+                        when 406
+                          'Erro nos parâmetros'
+                        else
+                          "Erro inesperado: #{response.status}"
+                        end
+    render :new and return
+  end
+
 end
