@@ -36,6 +36,10 @@ class EmployeeProfilesController < ApplicationController
     end
   end
 
+  def deactivate_card
+    @employee_profile = EmployeeProfile.find_by(id: params[:id])
+    
+
   def update
     if @employee_profile.update(employee_profile_params)
       return redirect_to [@company, @department, @employee_profile],

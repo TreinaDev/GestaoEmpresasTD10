@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :departments, only: %i(index new create show update edit) do
       resources :employee_profiles, only: %i(new create show edit update) do
         post :create_card, on: :collection
+        patch :deactivate_card, on: :member
+        patch :activate_card, on: :member
       end
       resources :positions, only: %i(new create show edit update)
     end

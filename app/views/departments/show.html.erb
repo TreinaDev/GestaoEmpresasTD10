@@ -16,6 +16,14 @@
           <%= button_to 'Solicitar Cartão', create_card_company_department_employee_profiles_path(company_id: @department.company_id, 
                                                                                                   department_id: @department.id, card: {cpf: e.cpf, company_card_type_id: e.position.card_type_id }),
                                                                                                   method: :post%>
+        <%else%>
+          <%= if @card.status == 'active' %>
+            <%= button_to 'Bloquear Cartão', deactivate_card_company_department_employee_profile_path(company_id: @department.company.id, 
+                                                                                                      department_id: @department.id, id: e.id, method: :patch)%>
+          <%else%>
+            <%= button_to 'Ativar Cartão', activate_card_company_department_employee_profile_path(company_id: @department.company.id, 
+                                                                                                  department_id: @department.id, id: e.id, method: :patch)%>
+          <%end%>
         <%end%>
       </div>
     <%end%>
