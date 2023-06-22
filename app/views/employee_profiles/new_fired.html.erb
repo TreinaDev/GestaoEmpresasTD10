@@ -3,7 +3,11 @@
     <% if @employee_profile.errors.present? %>
       <%= render "shared/errors", errors: @employee_profile.errors %>
     <% end %>
-    <h4 class="card-title"></h4>
+    <h4 class="card-title">Desligamento do Funcionário</h4>
+    <p>Nome: <%= @employee_profile.name %></p>
+    <p>Email: <%= @employee_profile.email %></p>
+    <p>CPF: <%= @employee_profile.cpf %></p>
+    <hr>
     <%= form_with url: fired_company_department_employee_profiles_path(@company, @department, id: @employee_profile), data: { turbo: false }  do |f| %>
       <div class="mb-3">
         <label for="fired_date"><%= t('.dismissal_date') %></label>

@@ -1,11 +1,13 @@
 class EmployeeProfilesController < ApplicationController
   before_action :set_employee_profile, only: %i[show edit update new_fired fired]
   before_action :set_department_and_company
-  before_action :require_manager
+  before_action :require_manager, except: %i[show]
   before_action :manager_belongs_to_company?
   before_action :company_is_active?, only: %i[new create]
 
-  def show; end
+  def show
+    return redirect_to root_path, alert: t('forbidden') if current_user.employee?
+  end
 
   def new
     @employee_profile = EmployeeProfile.new
@@ -49,9 +51,8 @@ class EmployeeProfilesController < ApplicationController
   def new_fired; end
 
   def fired
-    @employee_profile.status = 'fired'
     @employee_profile.dismissal_date = params['fired']['date']
-    return redirect_to [@company, @department, @employee_profile] if @employee_profile.save
+    return redirect_to [@company, @department, @employee_profile] if @employee_profile.fired!
 
     render 'new_fired'
   end

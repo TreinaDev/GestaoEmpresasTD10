@@ -11,17 +11,52 @@ feature 'Desligamento de funcionário' do
       position = create(:position, department_id: department.id)
       employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1,
                                                    dismissal_date: nil, department:, position:)
+      date = 1.day.from_now
 
       login_as manager
       visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 
       click_on 'Desligar funcionário'
 
-      fill_in 'Data de Demissão', with: '10/05/2023'
+      fill_in 'Data de Demissão', with: date
       click_on 'Salvar'
 
-      expect(page).to have_content 'Data de Demissão: 10/05/2023'
+      expect(page).to have_content "Data de Demissão: #{date.strftime('%d/%m/%Y')}"
       expect(EmployeeProfile.first.status).to eq 'fired'
+    end
+  end
+
+  context 'como admin' do
+    scenario 'sem sucesso' do
+      admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      company = create(:company)
+      department = create(:department, company:)
+      position = create(:position, department_id: department.id)
+      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1,
+                                                   dismissal_date: nil, department:, position:)
+
+      login_as admin
+      visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
+
+      expect(page).to have_content 'Roberto Carlos Nascimento'
+      expect(page).not_to have_link 'Desligar funcionário'
+    end
+  end
+
+  context 'como funcionário' do
+    scenario 'sem sucesso' do
+      company = create(:company)
+      department = create(:department, company:)
+      position = create(:position, department_id: department.id)
+      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1,
+                                                   dismissal_date: nil, department:, position:)
+      user_employee = create(:employee_user, email: employee_profile.email, cpf: employee_profile.cpf)
+
+      login_as user_employee
+      visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
   end
 end
