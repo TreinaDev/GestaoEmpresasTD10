@@ -1,0 +1,6 @@
+pt-BR:
+  users:
+    profile:
+      card: Cartão
+      status: Status
+      failed: Sistema indisponível no momento, por favor tente mais tarde

@@ -18,4 +18,18 @@
     <p class="card-text"><%= EmployeeProfile.human_attribute_name('position_id') %>: <%= @employee_profile.position.name %></p>
     <p class="card-text"><%= EmployeeProfile.human_attribute_name('status') %>: <%= t("activerecord.enum.employee_profile.status.#{@employee_profile.status}") %></p>
   </div>
+  <div id='user_card'>
+    <%if @employee_profile.card_status%>
+      <%if @card.present?%>
+        <h3><%= t('.card')%> <%=@card.name%></h3>
+        <p><%= t('get_card_api.attributes.number')%>: <%=@card.number%></p>
+        <p><%= t('get_card_api.attributes.points')%>: <%=@card.points%></p>
+        <p><%= t('.status')%>: <%=t("get_card_api.attributes.status.#{@card.status}")%></p>
+      <%else%>
+        <%= t('.failed')%>
+      <%end%>
+      <%else%>
+      <p>Você não possui cartão, fale com o setor de RH</p>
+    <%end%>
+  </div>
 </div>
