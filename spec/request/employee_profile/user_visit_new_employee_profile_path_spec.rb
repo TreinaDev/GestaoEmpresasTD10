@@ -2,14 +2,13 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de cadastro de perfil de funcionários', type: :request do
   it 'enquanto gerente com sucesso' do
-    admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
-    user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
+    create(:manager, company:)
+    manager = create(:manager_user)
     department = create(:department, company:)
-    create(:position, department_id: department.id)
+    employee_profile = create(:employee_profile, :manager, user: manager)
 
-    login_as user_manager
+    login_as manager
     get new_company_department_employee_profile_path(company_id: company.id, department_id: department.id)
 
     expect(response).to have_http_status(:ok)
@@ -32,7 +31,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
     company = create(:company, active: false)
     department = create(:department, company:)
     position = create(:position, department:)
-    create(:employee_profile, position:, department:, cpf: '02324252481')
+    create(:employee_profile, :employee, position:, department:, cpf: '02324252481')
     employee = create(:user, cpf: '02324252481', email: 'employee@campuscode.com.br')
 
     login_as employee

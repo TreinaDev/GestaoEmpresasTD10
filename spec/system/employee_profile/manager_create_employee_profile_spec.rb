@@ -5,8 +5,8 @@ feature 'Usuário cadastra perfil de funcionário' do
     scenario 'com sucesso' do
       admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
       company = create(:company)
-      create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
+      create(:manager, created_by: admin, company:)
+      manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
 
@@ -43,10 +43,11 @@ feature 'Usuário cadastra perfil de funcionário' do
     scenario 'sem sucesso' do
       admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
       company = create(:company)
-      create(:manager, email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = create(:user, email: 'manager@campuscode.com.br', role: 1, cpf: '14101674027')
+      create(:manager, created_by: admin, company:)
+      manager = create(:manager_user)
       department = create(:department, company:)
-      create(:position, department_id: department.id)
+      position = create(:position, department_id: department.id)
+      employee_profile = create(:employee_profile, :manager, department:, position:, user: manager)
 
       login_as manager
       visit new_company_department_employee_profile_path(company.id, department.id)

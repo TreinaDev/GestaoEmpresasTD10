@@ -83,7 +83,7 @@ feature 'administrator registra email do gerente da empresa' do
   scenario 'e falha porque o email já existe' do
     user = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager, created_by: user, company:, email: 'zezinho@campuscode.com.br')
+    create(:manager, created_by: user, company:)
 
     login_as(user)
     visit root_path
@@ -91,7 +91,7 @@ feature 'administrator registra email do gerente da empresa' do
     within('#company1') do
       click_on 'Ver Detalhes'
     end
-    fill_in 'Cadastrar email', with: 'zezinho@campuscode.com.br'
+    fill_in 'Cadastrar email', with: 'manager@microsoft.com'
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Email já cadastrado'
@@ -99,17 +99,17 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e reativa o email já cadastrado e desativado previamente' do
-    user = create(:user, email: 'admin@punti.com')
+    admin_user = create(:admin_user)
     company = create(:company)
-    create(:manager, company:, created_by: user, status: :canceled, email: 'zezinho@campuscode.com.br')
+    create(:manager, company:, created_by: admin_user, status: :canceled)
 
-    login_as(user)
+    login_as(admin_user)
     visit root_path
     click_on 'Empresas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
-    fill_in 'Cadastrar email', with: 'zezinho@campuscode.com.br'
+    fill_in 'Cadastrar email', with: 'manager@microsoft.com'
     click_on 'Cadastrar'
 
     expect(current_path).to eq company_path(company)
@@ -136,16 +136,15 @@ feature 'administrator registra email do gerente da empresa' do
   end
 
   scenario 'e não esta logado como administrador' do
+    admin = create(:admin_user)
     company = create(:company)
-    department = create(:department, company:)
-    position = create(:position, department:)
-    create(:employee_profile, position:, department:, email: 'zezinho@gmail.com', cpf: '30805775072')
+    create(:manager, created_by: admin, company:)
+    manager = create(:manager_user)
+    department = create(:department, company_id: company.id)
+    position = create(:position, department_id: department.id)
+    create(:employee_profile, :manager, department_id: department.id, user_id: manager.id, position:)
 
-    admin = create(:user, email: 'admin@punti.com')
-    create(:manager, created_by: admin, company:, email: 'joaozinho@campuscode.com.br')
-    user = create(:user, email: 'zezinho@gmail.com', cpf: '30805775072')
-
-    login_as(user)
+    login_as(manager)
     visit company_path(company)
 
     expect(current_path).to eq company_path(company)

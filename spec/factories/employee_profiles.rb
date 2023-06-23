@@ -5,7 +5,7 @@ FactoryBot.define do
     cpf { nil }
     rg { '12345678901' }
     address { 'Rua do funcionário, 1200' }
-    email { nil}
+    email { nil }
     phone_number { '1199776655' }
     status { 'unblocked' }
     birth_date { '2023-06-06' }
@@ -17,16 +17,13 @@ FactoryBot.define do
     position
 
     trait :employee do
-      email { 'employee@apple.com' }
+      email { 'employee@microsoft.com' }
       cpf { '29963810926' }
     end
 
     trait :manager do
-      after(:build) do |employee_profile|
-        employee_profile.user = create(:manager_user)
-        employee_profile.cpf = employee_profile.user.cpf
-        employee_profile.email = employee_profile.user.email
-      end
+      email { 'manager@microsoft.com' }
+      cpf { '15703243017' }
     end
   end
 end

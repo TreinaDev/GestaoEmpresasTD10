@@ -2,9 +2,11 @@ require 'rails_helper'
 
 feature 'Manager cria departamento' do
   scenario 'Com sucesso' do
-    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
-    create(:manager, email: 'user@apple.com', company:)
-    new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    company = create(:company, brand_name: 'Apple')
+    create(:manager, company:)
+    new_user = create(:manager_user, cpf: '59684958471')
+    employee_profile = create(:employee_profile, :manager, user: new_user)
+
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('COD123')
 
     login_as(new_user)
@@ -21,9 +23,10 @@ feature 'Manager cria departamento' do
   end
 
   scenario 'Com dados incompletos' do
-    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
-    create(:manager, email: 'user@apple.com', company:)
-    new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    company = create(:company, brand_name: 'Apple')
+    create(:manager, company:)
+    new_user = create(:manager_user, cpf: '59684958471')
+    employee_profile = create(:employee_profile, :manager, user: new_user)
 
     login_as(new_user)
     visit new_company_department_path(company.id)

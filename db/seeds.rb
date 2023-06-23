@@ -28,7 +28,7 @@ Company.create!(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation'
                 active: true)
 
 Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH002',
-                description: 'Recursos Humanos')
+                   description: 'Recursos Humanos')
 Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER002', description: 'Gerente geral')
 
 Company.create!(brand_name: 'IBM', corporate_name: 'IBM Corporation',
@@ -41,7 +41,7 @@ Company.create!(brand_name: 'IBM', corporate_name: 'IBM Corporation',
                 active: true)
 
 Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH003',
-                description: 'Recursos Humanos')
+                   description: 'Recursos Humanos')
 Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER003', description: 'Gerente geral')
 
 User.create!(email: 'admin@punti.com', password: 'password', cpf: '71056473029')

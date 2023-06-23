@@ -42,10 +42,9 @@ feature 'Usuário visualiza empresas ativas' do
 
   context 'enquanto gerente' do
     scenario 'sem sucesso' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = create(:company)
-      Manager.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      create(:manager)
+      manager = create(:manager_user)
+      employee_profile = create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit root_path
@@ -56,10 +55,11 @@ feature 'Usuário visualiza empresas ativas' do
 
   context 'enquanto funcionário' do
     scenario 'sem sucesso' do
-      company = FactoryBot.create(:company)
-      department = FactoryBot.create(:department, company:)
-      position = FactoryBot.create(:position, department:)
-      employee_data = FactoryBot.create(:employee_profile, position:, department:)
+      company = create(:company)
+      department = create(:department, company:)
+      position = create(:position, department:)
+      employee_data = create(:employee_profile, :employee, position:, department:)
+
       employee_user = User.create!(
         email: employee_data.email,
         cpf: employee_data.cpf,

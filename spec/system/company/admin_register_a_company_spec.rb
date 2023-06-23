@@ -54,10 +54,9 @@ feature 'Registro de uma empresa' do
 
   context 'Com erro de permissão' do
     scenario 'Logado como gerente' do
-      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
-      company = create(:company, domain: 'empresa.com')
-      Manager.create!(email: 'gerente@empresa.com', created_by: admin, company:)
-      manager = User.create!(email: 'gerente@empresa.com', password: '123456', cpf: '75676854006')
+      create(:manager)
+      manager = create(:manager_user)
+      employee_profile = create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit new_company_path
@@ -67,10 +66,10 @@ feature 'Registro de uma empresa' do
     end
 
     scenario 'Logado como funcionário' do
-      company = FactoryBot.create(:company)
-      department = FactoryBot.create(:department, company:)
-      position = FactoryBot.create(:position, department:)
-      employee_data = FactoryBot.create(:employee_profile, position:, department:)
+      company = create(:company)
+      department = create(:department, company:)
+      position = create(:position, department:)
+      employee_data = create(:employee_profile, :employee, position:, department:)
       employee_user = User.create!(
         email: employee_data.email,
         cpf: employee_data.cpf,

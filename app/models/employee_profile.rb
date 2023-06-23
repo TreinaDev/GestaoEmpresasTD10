@@ -15,10 +15,9 @@ class EmployeeProfile < ApplicationRecord
   enum status: { unblocked: 0, blocked: 5, fired: 10 }, _default: :unblocked
   enum marital_status: { single: 1, married: 4, widower: 8, divorced: 10 }
 
-
   private
 
-  def manager? 
+  def manager?
     user&.manager?
   end
 end

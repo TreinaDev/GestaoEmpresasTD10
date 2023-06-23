@@ -40,7 +40,7 @@ describe 'Criação de Departamento', type: :request do
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department:)
-      employee_data = create(:employee_profile, position:, department:)
+      employee_data = create(:employee_profile, :employee, position:, department:)
       employee_user = User.create!(
         email: employee_data.email,
         cpf: employee_data.cpf,
@@ -68,7 +68,8 @@ describe 'Criação de Departamento', type: :request do
       admin_user = create(:admin_user)
       create(:manager, created_by: admin_user, company:, email: 'manager@microsoft.com')
       manager = create(:manager_user, email: 'manager@microsoft.com')
-      create(:employee_profile, cpf: manager.cpf, email: manager.email, department:, position:, user: manager)
+      create(:employee_profile, :employee, cpf: manager.cpf, email: manager.email, department:, position:,
+                                           user: manager)
       second_company = create(:company, brand_name: 'Apple', domain: 'apple.com.br',
                                         registration_number: '10394460005884')
 

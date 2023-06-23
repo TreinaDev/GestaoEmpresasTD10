@@ -16,8 +16,8 @@ RSpec.describe User, type: :model do
       it 'Usuário tem role Manager' do
         admin = create(:admin_user, email: 'user@punti.com')
         company = create(:company)
-        create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
-        new_user = create(:manager_user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
+        create(:manager, email: 'manager@microsoft.com', created_by: admin, company:)
+        new_user = create(:manager_user, email: 'manager@microsoft.com')
 
         expect(new_user.valid?).to be true
         expect(new_user.role).to eq 'manager'
@@ -39,13 +39,13 @@ RSpec.describe User, type: :model do
     it 'exibe o role e e-mail do Manager' do
       admin = create(:admin_user, email: 'user@punti.com')
       company = create(:company)
-      create(:manager, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
-      new_user = create(:manager_user, email: 'joaozinho@campuscode.com.br', cpf: '44429533768')
+      create(:manager, email: 'manager@microsoft.com', created_by: admin, company:)
+      new_user = create(:manager_user, email: 'manager@microsoft.com')
 
       result = new_user.description
 
       expect(result).not_to eq('ADMIN - user@punti.com')
-      expect(result).to eq('GERENTE - joaozinho@campuscode.com.br')
+      expect(result).to eq('GERENTE - manager@microsoft.com')
       expect(result).not_to eq('FUNCIONÁRIO - joaozinho@campuscode.com.br')
     end
 

@@ -52,20 +52,24 @@ feature 'visitante se cadastra' do
 
   scenario 'e tem role de manager' do
     admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
-    create(:manager, company:, created_by: admin, email: 'bruno@campuscode.com.br')
+    company = create(:company, :with_department_and_position)
+
+    manager = create(:manager, company:, created_by: admin, email: 'bruno@microsoft.com')
 
     visit root_path
 
     click_on 'Cadastrar-se'
-    fill_in 'E-mail', with: 'bruno@campuscode.com.br'
+    fill_in 'E-mail', with: 'bruno@microsoft.com'
     fill_in 'Senha', with: 'password'
     fill_in 'CPF', with: '44429533768'
     fill_in 'Confirme sua senha',	with: 'password'
     click_on 'Criar conta'
 
-    expect(page).to have_content 'Você realizou seu registro com sucesso'
+    expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     expect(page).to have_content 'GERENTE'
     expect(User.find_by(cpf: '44429533768').role).to eq 'manager'
+
+    expect(current_path).to eq new_manager_company_department_employee_profiles_path(company_id: manager.company.id,
+                                                                                     department_id: Department.last.id)
   end
 end

@@ -68,8 +68,8 @@ RSpec.describe Manager, type: :model do
     it 'Email não pode ser pre-cadastrado duas vezes' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      create(:manager, created_by: user, company:, email: 'marizinha@campuscode.com.br')
-      manager = build(:manager, created_by: user, company:, email: 'marizinha@campuscode.com.br')
+      create(:manager, created_by: user, company:, email: 'employee@microsoft.com')
+      manager = build(:manager, created_by: user, company:, email: 'employee@microsoft.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -79,8 +79,8 @@ RSpec.describe Manager, type: :model do
     it 'Criador deve ser administrador' do
       admin = create(:admin_user, email: 'admin@punti.com', cpf: '02850181080')
       company = create(:company)
-      create(:manager, email: 'joao@campuscode.com.br', company:, created_by: admin)
-      user = create(:manager_user, email: 'joao@campuscode.com.br')
+      create(:manager, email: 'employee@microsoft.com', company:, created_by: admin)
+      user = create(:manager_user, email: 'employee@microsoft.com')
       manager = build(:manager, created_by: user, company:, email: 'marizinha@gmail.com')
 
       result = manager.valid?
@@ -91,8 +91,8 @@ RSpec.describe Manager, type: :model do
     it 'Email já está em usuário ativo' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      manager = create(:manager, created_by: user, company:, email: 'marizinha@campuscode.com.br')
-      create(:manager_user, email: 'marizinha@campuscode.com.br', cpf: '95683693098')
+      manager = create(:manager, created_by: user, company:, email: 'employee@microsoft.com')
+      create(:manager_user, email: 'employee@microsoft.com', cpf: '95683693098')
 
       manager.status = :canceled
 

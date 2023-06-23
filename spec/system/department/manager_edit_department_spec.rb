@@ -2,11 +2,14 @@ require 'rails_helper'
 
 feature 'Manager edita departamento' do
   scenario 'Com sucesso' do
-    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
-    create(:manager, email: 'user@apple.com', company:)
-    new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    company = create(:company, brand_name: 'Apple')
+    create(:manager, company:)
+    new_user = create(:manager_user)
+
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('AAA007')
-    department = create(:department, company:)
+    department = create(:department, company:, name: 'Compras')
+    position = create(:position, department:)
+    employee_profile = create(:employee_profile, :manager, position:, department:, user: new_user)
 
     login_as new_user
     visit company_department_path(company.id, department.id)
@@ -23,10 +26,11 @@ feature 'Manager edita departamento' do
   end
 
   scenario 'com dados incompletos' do
-    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
-    create(:manager, email: 'user@apple.com', company:)
-    new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
-    department = create(:department, company:)
+    company = create(:company, brand_name: 'Apple')
+    create(:manager, company:)
+    new_user = create(:manager_user)
+    department = create(:department, company:, name: 'Compras')
+    employee_profile = create(:employee_profile, :manager, department:, user: new_user)
 
     login_as new_user
     visit company_department_path(company.id, department.id)

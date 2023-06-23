@@ -7,7 +7,9 @@ feature 'Gerente edita cargo' do
     admin_user = create(:admin_user)
     create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
-    create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+    position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
+                                 department:)
+    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -42,7 +44,9 @@ feature 'Gerente edita cargo' do
     admin_user = create(:admin_user)
     create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
-    create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+    position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
+                                 department:)
+    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -81,7 +85,9 @@ feature 'Gerente edita cargo' do
     admin_user = create(:admin_user)
     create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
-    create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+    position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
+                                 department:)
+    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_response = double('faraday_response', status: 500, body: json_data)
