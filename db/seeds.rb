@@ -39,7 +39,7 @@ ManagerEmails.create!(email: 'zezinho@apple.com', created_by: User.first, compan
 ManagerEmails.create!(email: 'mariazinha@apple.com', created_by: User.first, company_id: Company.first.id)
 ManagerEmails.create!(email: 'manager@apple.com', created_by: User.first, company_id: Company.first.id)
 ManagerEmails.create!(email: 'manager@microsoft.com', created_by: User.first,
-                company_id: Company.find_by(brand_name: 'Microsoft').id)
+                      company_id: Company.find_by(brand_name: 'Microsoft').id)
 
 User.create!(email: 'manager@apple.com', cpf: '44429533768', password: 'password')
 User.create!(email: 'manager@microsoft.com', cpf: '28543435064', password: 'password')
@@ -51,7 +51,8 @@ Department.create!(company_id: Company.first.id, name: 'Financeiro', code: 'CBA3
 Department.create!(company_id: Company.first.id, name: 'Marketing', code: 'ABC123',
                    description: 'Departamento de Marketing')
 
-Position.create!(department_id: Department.first.id, name: 'Gerente de RH', description: 'Gerente de RH', card_type_id: 1, code: 'OIU584')
+Position.create!(department_id: Department.first.id, name: 'Gerente de RH', description: 'Gerente de RH',
+                 card_type_id: 1, code: 'OIU584')
 # Position.create!(department_id: Department.first.id, name: 'Analista de RH')
 # Position.create!(department_id: Department.first.id, name: 'Especialista em Treinamento')
 # Position.create!(department_id: Department.find_by(name: 'Financeiro').id, name: 'Contador')

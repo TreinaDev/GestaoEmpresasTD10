@@ -1,0 +1,9 @@
+pt-BR:
+  get_card_api:
+    attributes:
+      name: Nome
+      number: Número do cartão
+      points: Pontos
+      status:
+        active: Ativo
+        inactive: Inativo

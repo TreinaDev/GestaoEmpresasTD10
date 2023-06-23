@@ -10,3 +10,6 @@ pt-BR:
       success: Cartão solicitado com sucesso
       failure: Cartão não solicitado, verifique informações
       unavailable: Sistema indisponível no momento, por favor tente mais tarde
+    fired:
+      already_fired: Funcionário já desligado
+      failure: Erro ao tentar desligar funcionário

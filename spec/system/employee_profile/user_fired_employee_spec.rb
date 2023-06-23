@@ -24,6 +24,47 @@ feature 'Desligamento de funcionário' do
       expect(page).to have_content "Data de Demissão: #{date.strftime('%d/%m/%Y')}"
       expect(EmployeeProfile.first.status).to eq 'fired'
     end
+
+    scenario 'e falha devido a data' do
+      admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      company = create(:company)
+      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
+      department = create(:department, company:)
+      position = create(:position, department_id: department.id)
+      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1,
+                                                   dismissal_date: nil, department:, position:)
+      date = 1.day.ago
+
+      login_as manager
+      visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
+
+      click_on 'Desligar funcionário'
+
+      fill_in 'Data de Demissão', with: date
+      click_on 'Salvar'
+
+      expect(page).to have_content 'Erro ao tentar desligar funcionário'
+      expect(EmployeeProfile.first.status).to eq 'unblocked'
+    end
+
+    scenario 'e falha pois funcionário ja esta desligado' do
+      admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      company = create(:company)
+      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
+      department = create(:department, company:)
+      position = create(:position, department_id: department.id)
+      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1,
+                                                   dismissal_date: 1.day.from_now, department:,
+                                                   position:, status: 'fired')
+
+      login_as manager
+      visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
+
+      expect(page).not_to have_link 'Desligar funcionário'
+      expect(EmployeeProfile.first.status).to eq 'fired'
+    end
   end
 
   context 'como admin' do
@@ -38,8 +79,8 @@ feature 'Desligamento de funcionário' do
       login_as admin
       visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 
-      expect(page).to have_content 'Roberto Carlos Nascimento'
-      expect(page).not_to have_link 'Desligar funcionário'
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
   end
 
