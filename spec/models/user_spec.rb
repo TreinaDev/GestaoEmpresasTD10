@@ -8,6 +8,12 @@ RSpec.describe User, type: :model do
 
         expect(new_user.valid?).to be false
       end
+
+      it 'deve estar no formato correto' do
+        create(:admin_user, cpf: '444.295.337-68')
+
+        expect(User.last.cpf).to eq '44429533768'
+      end
     end
   end
 
