@@ -54,14 +54,16 @@
             ),
             class: 'btn btn-primary'
         %>
-        <%= link_to t('.fired_employee'),
-            new_fired_company_department_employee_profiles_path(
-              @employee_profile.department.company_id,
-              @employee_profile.department.id,
-              id: @employee_profile.id
-            ),
-            class: 'btn btn-primary'
-        %>
+        <% if !@employee_profile.fired?%>
+          <%= link_to t('.fired_employee'),
+              new_fired_company_department_employee_profiles_path(
+                @employee_profile.department.company_id,
+                @employee_profile.department.id,
+                id: @employee_profile.id
+              ),
+              class: 'btn btn-primary'
+          %>
+        <% end %>
       <% end %>
     </div>
   </div>
