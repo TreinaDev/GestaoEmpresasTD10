@@ -61,9 +61,9 @@ class EmployeeProfilesController < ApplicationController
   end
 
   def manager_profile_params
-    params.require(:employee_profile).permit(:name, :social_name,
-                                             :birth_date, :phone_number,
-                                             :admission_date, :dismissal_date,
-                                             :status, :user_id)
+    params.require(:employee_profile).permit(:name, :social_name, :rg, :cpf, :email,
+                                            :address, :birth_date, :phone_number,
+                                            :admission_date, :dismissal_date, :marital_status,
+                                            :status, :user_id)
   end
 end

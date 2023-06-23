@@ -10,10 +10,9 @@ FactoryBot.define do
     logo { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/logo.png'), 'image/png') }
     active { true }
 
-    trait :with_department_and_position do
+    trait :with_department do
       after(:create) do |company, _|
         company.departments.create(name: 'Departamento de RH', description: 'Recursos Humanos')
-        company.positions.create(name: 'Gerente', code: 'GER003', description: 'Gerente Geral')
       end
     end
   end
