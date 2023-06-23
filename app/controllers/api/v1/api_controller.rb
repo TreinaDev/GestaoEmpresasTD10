@@ -16,4 +16,8 @@ class Api::V1::ApiController < ActionController::API
   def bad_request
     render status: :bad_request, json: { errors: I18n.t('errors.bad_request') }
   end
+
+  def no_content
+    render status: :no_content, json: { errors: I18n.t('errors.no_content') }
+  end
 end

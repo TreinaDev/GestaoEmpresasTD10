@@ -5,6 +5,7 @@ pt-BR:
     internal_server_error: Erro interno do Servidor
     not_found: Página não encontrada
     bad_request: Erro nos parâmetros enviados
+    no_content: Nenhum conteúdo
     user:
       blocked_fail: Não foi possível bloquear o usuário
       unblocked_fail: Não foi possível desbloquear o usuário.
@@ -13,4 +14,3 @@ pt-BR:
     user:
       blocked: Usuário Bloqueado
       unblocked: Usuário Desbloqueado
-

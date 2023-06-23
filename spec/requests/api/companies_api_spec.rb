@@ -23,13 +23,10 @@ describe 'Companies API' do
       expect(json_response[1]['active']).to eq true
     end
 
-    it 'e visualiza lista vazia' do
+    it 'retorna no_content quando a lista estiver vazia' do
       get '/api/v1/companies'
-      json_response = response.parsed_body
 
-      expect(response.status).to eq 200
-      expect(response.content_type).to include 'application/json'
-      expect(json_response).to eq []
+      expect(response.status).to eq 204
     end
 
     it 'e visualiza empresa pelo CNPJ' do
@@ -44,10 +41,10 @@ describe 'Companies API' do
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(json_response['brand_name']).to eq 'McDonalds'
-      expect(json_response['corporate_name']).to eq 'Arcos Dourados'
-      expect(json_response['id']).to eq company2.id
-      expect(json_response['active']).to eq true
+      expect(json_response[0]['brand_name']).to eq 'McDonalds'
+      expect(json_response[0]['corporate_name']).to eq 'Arcos Dourados'
+      expect(json_response[0]['id']).to eq company2.id
+      expect(json_response[0]['active']).to eq true
       expect(json_response).not_to include 'Campus Code'
       expect(json_response).not_to include 'Campus Code Treinamentos LTDA'
       expect(json_response).not_to include company1.id

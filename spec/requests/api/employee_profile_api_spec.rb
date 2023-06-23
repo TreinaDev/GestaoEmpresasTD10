@@ -98,5 +98,11 @@ describe 'Employee Profiles API' do
       expect(json_response).not_to include '12117237045'
       expect(json_response).not_to include 'fired'
     end
+
+    it 'retorna no_content quando a lista estiver vazia' do
+      get '/api/v1/employee_profiles'
+
+      expect(response).to have_http_status(:no_content)
+    end
   end
 end
