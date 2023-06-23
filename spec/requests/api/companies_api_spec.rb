@@ -55,5 +55,32 @@ describe 'Companies API' do
       expect(json_response).not_to include 'Maça de ouro'
       expect(json_response).not_to include company3.id
     end
+
+    it 'e visualiza empresa pelo status' do
+      company = create(:company, registration_number: '987654321', brand_name: 'Campus Code',
+                                 corporate_name: 'Campus Code Treinamentos LTDA', active: true)
+      company2 = create(:company, registration_number: '123456789', brand_name: 'McDonalds',
+                                  corporate_name: 'Arcos Dourados', active: true)
+      company3 = create(:company, registration_number: '567890123', brand_name: 'Apple',
+                                  corporate_name: 'Maça de ouro', active: false)
+
+      get '/api/v1/companies?active=true'
+      json_response = response.parsed_body
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+      expect(json_response[0]['brand_name']).to eq 'Campus Code'
+      expect(json_response[0]['corporate_name']).to eq 'Campus Code Treinamentos LTDA'
+      expect(json_response[0]['id']).to eq company.id
+      expect(json_response[0]['active']).to eq true
+      expect(json_response[1]['brand_name']).to eq 'McDonalds'
+      expect(json_response[1]['corporate_name']).to eq 'Arcos Dourados'
+      expect(json_response[1]['id']).to eq company2.id
+      expect(json_response[1]['active']).to eq true
+      expect(json_response).not_to include 'Apple'
+      expect(json_response).not_to include 'Maça de ouro'
+      expect(json_response).not_to include company3.id
+      expect(json_response).not_to include company3.active
+    end
   end
 end
