@@ -47,7 +47,7 @@
       </div>
       <div class="mt-3">
         <%= f.label :position_id, class: 'form-label' %>:
-        <%= f.collection_select :position_id, @department.positions, :id, :name, class: 'form-control'%>
+        <%= f.collection_select :position_id, @department.positions.where.not(name: 'Gerente'), :id, :name, {}, {class: 'form-control'} %>
       </div>
       <%= f.submit t('.save'), class: 'mt-3 btn btn-success' %>
     <% end %>

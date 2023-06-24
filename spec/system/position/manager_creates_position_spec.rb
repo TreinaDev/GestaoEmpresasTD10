@@ -23,7 +23,6 @@ feature 'Gerente cria cargo' do
     visit new_company_department_position_path(company_id: company.id, department_id: department.id)
     fill_in 'Nome', with: 'Estagiário'
     fill_in 'Descrição', with: 'Faz tudo'
-    fill_in 'Código', with: 'EST001'
     select 'Cartão Avançado', from: 'Tipo de cartão'
     click_on 'Salvar'
 
@@ -32,7 +31,6 @@ feature 'Gerente cria cargo' do
     expect(page).to have_content 'Cargo cadastrado com sucesso'
     expect(page).to have_content 'Nome: Estagiário'
     expect(page).to have_content 'Descrição: Faz tudo'
-    expect(page).to have_content 'Código: EST001'
     expect(page).to have_content 'Tipo de cartão: Cartão Avançado'
   end
 
@@ -60,7 +58,6 @@ feature 'Gerente cria cargo' do
 
       fill_in 'Nome', with: ''
       fill_in 'Descrição', with: ''
-      fill_in 'Código', with: ''
       select 'Cartão Intermediário', from: 'Tipo de cartão'
       click_on 'Salvar'
 
@@ -68,8 +65,6 @@ feature 'Gerente cria cargo' do
       expect(page).to have_content 'Cargo não cadastrado'
       expect(page).to have_content 'Nome não pode ficar em branco'
       expect(page).to have_content 'Descrição não pode ficar em branco'
-      expect(page).to have_content 'Código não pode ficar em branco'
-      expect(page).to have_content 'Código Formato: 3 letras maiúsculas seguidas por 3 números (ex.: XYZ567)'
 
       expect(Position.count).to eq 1
     end

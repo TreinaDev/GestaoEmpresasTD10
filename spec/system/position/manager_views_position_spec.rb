@@ -28,7 +28,6 @@ feature 'Gerente visualiza cargo' do
                                                                 id: Position.first.id)
     expect(page).to have_content 'Nome: Estagiário'
     expect(page).to have_content 'Descrição: Faz tudo'
-    expect(page).to have_content 'Código: EST001'
     expect(page).to have_content 'Tipo de cartão: Cartão Inválido'
     expect(page).to have_content 'Departamento: Departamento de RH'
   end
