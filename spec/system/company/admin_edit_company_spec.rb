@@ -60,7 +60,7 @@ feature 'Usuário edita empresa' do
       company = create(:company)
       create(:manager, company:)
       manager = create(:manager_user)
-      employee_profile = create(:employee_profile, :manager, user: manager)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit edit_company_path(company)

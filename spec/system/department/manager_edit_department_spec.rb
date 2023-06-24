@@ -9,7 +9,7 @@ feature 'Manager edita departamento' do
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('AAA007')
     department = create(:department, company:, name: 'Compras')
     position = create(:position, department:)
-    employee_profile = create(:employee_profile, :manager, position:, department:, user: new_user)
+    create(:employee_profile, :manager, position:, department:, user: new_user)
 
     login_as new_user
     visit company_department_path(company.id, department.id)
@@ -30,7 +30,7 @@ feature 'Manager edita departamento' do
     create(:manager, company:)
     new_user = create(:manager_user)
     department = create(:department, company:, name: 'Compras')
-    employee_profile = create(:employee_profile, :manager, department:, user: new_user)
+    create(:employee_profile, :manager, department:, user: new_user)
 
     login_as new_user
     visit company_department_path(company.id, department.id)
@@ -49,7 +49,7 @@ feature 'Manager edita departamento' do
     create(:manager, company:)
     new_user = create(:manager_user)
     department = create(:department, company:)
-    employee_profile = create(:employee_profile, :manager, department:, user: new_user)
+    create(:employee_profile, :manager, department:, user: new_user)
 
     login_as new_user
     visit company_department_path(company.id, department.id)

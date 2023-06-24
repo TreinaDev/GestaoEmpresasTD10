@@ -35,10 +35,13 @@ class ApplicationController < ActionController::Base
   def profile_check
     return if params[:controller] == 'employee_profiles' && params[:action] == 'new'
 
-    return unless current_user && current_user.manager? && !current_user.employee_profile
+    return unless current_user.manager? && !current_user.employee_profile
 
+    redirect_to_finish_register
+  end
+
+  def redirect_to_finish_register
     manager = Manager.find_by(email: current_user.email)
-    return unless manager
 
     department = Department.where(name: 'Departamento de RH').where(company_id: manager.company_id).first
     redirect_to new_manager_company_department_employee_profiles_path(company_id: manager.company.id,

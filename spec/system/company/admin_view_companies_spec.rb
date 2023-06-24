@@ -44,7 +44,7 @@ feature 'Usuário visualiza empresas ativas' do
     scenario 'sem sucesso' do
       create(:manager)
       manager = create(:manager_user)
-      employee_profile = create(:employee_profile, :manager, user: manager)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit root_path

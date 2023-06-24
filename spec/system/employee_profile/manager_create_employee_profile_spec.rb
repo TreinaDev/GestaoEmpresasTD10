@@ -47,7 +47,7 @@ feature 'Usuário cadastra perfil de funcionário' do
       manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, :manager, department:, position:, user: manager)
+      create(:employee_profile, :manager, department:, position:, user: manager)
 
       login_as manager
       visit new_company_department_employee_profile_path(company.id, department.id)
@@ -81,7 +81,7 @@ feature 'Usuário cadastra perfil de funcionário' do
       manager = create(:manager_user)
       department = create(:department, company:)
       create(:position, department_id: department.id, name: 'Gerente', code: 'GER000')
-      position = create(:position, department_id: department.id, name: 'Vendas', code: 'VEN001')
+      create(:position, department_id: department.id, name: 'Vendas', code: 'VEN001')
 
       login_as manager
       visit new_company_department_employee_profile_path(company.id, department.id)

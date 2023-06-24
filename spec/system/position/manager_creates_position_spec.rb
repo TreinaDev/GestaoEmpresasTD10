@@ -8,7 +8,7 @@ feature 'Gerente cria cargo' do
     create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:, code: 'DIR001')
-    employee_profile = create(:employee_profile, :manager, position:, department:, user: manager_user)
+    create(:employee_profile, :manager, position:, department:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -42,7 +42,7 @@ feature 'Gerente cria cargo' do
       create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
 
-      employee_profile = create(:employee_profile, :manager, department:, user: manager_user)
+      create(:employee_profile, :manager, department:, user: manager_user)
 
       json_data = '{}'
       fake_status = double('faraday_status', status: 200, body: json_data)
@@ -75,7 +75,7 @@ feature 'Gerente cria cargo' do
       admin_user = create(:admin_user)
       create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
-      employee_profile = create(:employee_profile, :manager, department:, user: manager_user)
+      create(:employee_profile, :manager, department:, user: manager_user)
 
       json_data = '{}'
       fake_status = double('faraday_status', status: 500, body: json_data)

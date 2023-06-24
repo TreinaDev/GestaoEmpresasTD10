@@ -6,7 +6,7 @@ describe 'Usuário acessa página de cadastro de perfil de funcionários', type:
     create(:manager, company:)
     manager = create(:manager_user)
     department = create(:department, company:)
-    employee_profile = create(:employee_profile, :manager, user: manager)
+    create(:employee_profile, :manager, user: manager)
 
     login_as manager
     get new_company_department_employee_profile_path(company_id: company.id, department_id: department.id)

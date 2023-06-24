@@ -61,7 +61,7 @@ describe 'Edição de Departamento', type: :request do
       department = create(:department, company:)
       position = create(:position, department:)
 
-      employee_profile = create(:employee_profile, :manager, department:, position:, user: manager)
+      create(:employee_profile, :manager, department:, position:, user: manager)
 
       second_company = create(:company, brand_name: 'Apple', domain: 'apple.com.br',
                                         registration_number: '10394460005884')

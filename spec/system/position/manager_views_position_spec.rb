@@ -11,7 +11,7 @@ feature 'Gerente visualiza cargo' do
 
     position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 9,
                                  department:)
-    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     fake_status = double('faraday_status', status: 200, body: '{}')
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_status)

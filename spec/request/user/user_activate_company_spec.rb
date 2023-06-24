@@ -18,7 +18,7 @@ describe 'Usuário para ativar empresa', type: :request do
       company = create(:company)
       create(:manager, company:)
       manager = create(:manager_user)
-      employee_profile = create(:employee_profile, :manager, user: manager)
+      create(:employee_profile, :manager, user: manager)
 
       company.active = false
       company.save!

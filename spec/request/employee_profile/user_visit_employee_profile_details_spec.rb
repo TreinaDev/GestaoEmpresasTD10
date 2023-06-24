@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de detalhes de perfil de funcionários', type: :request do
   it 'enquanto gerente com sucesso' do
-    admin = create(:admin_user)
+    create(:admin_user)
     company = create(:company)
     create(:manager, company:)
     user_manager = create(:manager_user)

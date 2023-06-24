@@ -35,7 +35,7 @@ feature 'Usuário atualiza status' do
     scenario 'sem sucesso por não ver botão de desativar' do
       create(:manager)
       manager = create(:manager_user)
-      employee_profile = create(:employee_profile, :manager, user: manager)
+      create(:employee_profile, :manager, user: manager)
       company = create(:company)
 
       login_as manager
@@ -48,7 +48,7 @@ feature 'Usuário atualiza status' do
       create(:manager)
       company = create(:company)
       manager = create(:manager_user)
-      employee_profile = create(:employee_profile, :manager, user: manager)
+      create(:employee_profile, :manager, user: manager)
 
       company.active = false
       company.save!

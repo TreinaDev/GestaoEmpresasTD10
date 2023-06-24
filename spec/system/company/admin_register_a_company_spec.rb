@@ -77,7 +77,7 @@ feature 'Registro de uma empresa' do
     scenario 'Logado como gerente' do
       create(:manager)
       manager = create(:manager_user)
-      employee_profile = create(:employee_profile, :manager, user: manager)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit new_company_path

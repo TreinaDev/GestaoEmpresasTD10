@@ -3,6 +3,9 @@ class EmployeeProfilesController < ApplicationController
   before_action :set_department_and_company
   before_action :require_manager
   before_action :manager_belongs_to_company?
+
+  before_action :set_employee_profile_data, only: %i[create_manager]
+  before_action :set_position_and_department_for_employee, only: %i[create_manager]
   skip_before_action :profile_check
 
   def show; end
@@ -13,13 +16,6 @@ class EmployeeProfilesController < ApplicationController
   end
 
   def create_manager
-    @employee_profile = EmployeeProfile.new(manager_profile_params)
-    @employee_profile.department_id = @department.id
-    @employee_profile.user_id = current_user.id
-    @employee_profile.email = current_user.email
-    @employee_profile.cpf = current_user.cpf
-    @employee_profile.position = Position.where(name: 'Gerente').where(department_id: @department.id).first
-
     return redirect_to root_path, notice: t('.success') if @employee_profile.save
 
     flash.now[:alert] = t('.failure')
@@ -51,6 +47,18 @@ class EmployeeProfilesController < ApplicationController
   def set_department_and_company
     @department = Department.find_by(id: params[:department_id])
     @company = Company.find_by(id: params[:company_id])
+  end
+
+  def set_employee_profile_data
+    @employee_profile = EmployeeProfile.new(manager_profile_params)
+    @employee_profile.user_id = current_user.id
+    @employee_profile.email = current_user.email
+    @employee_profile.cpf = current_user.cpf
+  end
+
+  def set_position_and_department_for_employee
+    @employee_profile.department_id = @department.id
+    @employee_profile.position = Position.where(name: 'Gerente').where(department_id: @department.id).first
   end
 
   def employee_profile_params

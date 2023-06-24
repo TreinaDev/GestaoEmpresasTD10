@@ -9,7 +9,7 @@ feature 'Gerente edita cargo' do
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
                                  department:)
-    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -44,7 +44,7 @@ feature 'Gerente edita cargo' do
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
                                  department:)
-    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -81,7 +81,7 @@ feature 'Gerente edita cargo' do
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
                                  department:)
-    employee_profile = create(:employee_profile, :manager, department:, position:, user: manager_user)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_response = double('faraday_response', status: 500, body: json_data)

@@ -24,7 +24,7 @@ class CompaniesController < ApplicationController
 
     if @company.save
       department = @company.departments.create!(name: 'Departamento de RH', description: 'Recursos Humanos')
-      position = department.positions.create!(name: 'Gerente', description: 'Gerente Geral')
+      department.positions.create!(name: 'Gerente', description: 'Gerente Geral')
 
       return redirect_to @company, notice: t('.success')
     end

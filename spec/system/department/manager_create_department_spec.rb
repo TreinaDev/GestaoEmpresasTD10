@@ -5,7 +5,7 @@ feature 'Manager cria departamento' do
     company = create(:company, brand_name: 'Apple')
     create(:manager, company:)
     new_user = create(:manager_user, cpf: '59684958471')
-    employee_profile = create(:employee_profile, :manager, user: new_user)
+    create(:employee_profile, :manager, user: new_user)
 
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('COD123')
 
@@ -26,7 +26,7 @@ feature 'Manager cria departamento' do
     company = create(:company, brand_name: 'Apple')
     create(:manager, company:)
     new_user = create(:manager_user, cpf: '59684958471')
-    employee_profile = create(:employee_profile, :manager, user: new_user)
+    create(:employee_profile, :manager, user: new_user)
 
     login_as(new_user)
     visit new_company_department_path(company.id)
