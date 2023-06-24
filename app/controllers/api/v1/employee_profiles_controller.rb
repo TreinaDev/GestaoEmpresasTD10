@@ -8,9 +8,7 @@ class Api::V1::EmployeeProfilesController < Api::V1::ApiController
                           EmployeeProfile.all
                         end
 
-    return no_content if employee_profiles.empty?
-
-    render status: :ok, json: format_employee_profile(employee_profiles)
+    render status: :ok, json: format_employee_profile(employee_profiles) unless employee_profiles.empty?
   end
 
   private

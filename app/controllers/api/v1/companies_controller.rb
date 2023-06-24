@@ -8,10 +8,9 @@ class Api::V1::CompaniesController < Api::V1::ApiController
                   Company.all
                 end
 
-    return no_content if companies.empty?
+    return if companies.empty?
 
-    render status: :ok,
-           json: companies.as_json(only: %i[id registration_number brand_name corporate_name active])
+    render status: :ok, json: companies.as_json(only: %i[id registration_number brand_name corporate_name active])
   end
 
   def show
