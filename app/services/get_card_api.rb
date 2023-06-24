@@ -14,13 +14,20 @@ class GetCardApi
     response = Faraday.get("#{API_BASE_URL}cards/#{cpf}")
     GetCardApi.new(JSON.parse(response.body)) if response.status == 200
   rescue Faraday::ConnectionFailed
-    nil
+    500
   end
-  
+
   def self.deactivate(id)
-    response = Faraday.patch("#{API_BASE_URL}api/v1/cards/#{id}/deactivate")
-    GetCardApi.new(JSON.parse(response.body)) if response.status == 200
+    response = Faraday.patch("#{API_BASE_URL}cards/#{id}/deactivate")
+    return response.status if response.status == 200
   rescue Faraday::ConnectionFailed
-    nil
+    500
+  end
+
+  def self.activate(id)
+    response = Faraday.patch("#{API_BASE_URL}cards/#{id}/activate")
+    return response.status if response.status == 200
+  rescue Faraday::ConnectionFailed
+    500
   end
 end

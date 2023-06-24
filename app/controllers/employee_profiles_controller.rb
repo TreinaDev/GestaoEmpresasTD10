@@ -8,6 +8,7 @@ class EmployeeProfilesController < ApplicationController
 
   def show
     @card = GetCardApi.show(@employee_profile.cpf)
+    @card = nil if @card == 500
   end
 
   def new
@@ -43,17 +44,32 @@ class EmployeeProfilesController < ApplicationController
     @employee_profile = EmployeeProfile.find_by(id: params[:id])
     @card = GetCardApi.show(@employee_profile.cpf)
     response = GetCardApi.deactivate(@card.id)
-    
+
     return redirect_to [@company, @department], notice: t('.unavailable') if response == 500
 
-    case response.status
-    when 202
-      redirect_to [@company, @department], notice: t('.deactivate_success')
+    case response
+    when 200
+      redirect_to [@company, @department, @employee_profile], notice: t('.success')
     else
-      redirect_to [@company, @department], notice: t('.deactivate_failure')
+      redirect_to [@company, @department, @employee_profile], notice: t('.failure')
     end
   end
-    
+
+  def activate_card
+    @employee_profile = EmployeeProfile.find_by(id: params[:id])
+    @card = GetCardApi.show(@employee_profile.cpf)
+    response = GetCardApi.activate(@card.id)
+
+    return redirect_to [@company, @department], notice: t('.unavailable') if response == 500
+
+    case response
+    when 200
+      redirect_to [@company, @department, @employee_profile], notice: t('.success')
+    else
+      redirect_to [@company, @department, @employee_profile], notice: t('.failure')
+    end
+  end
+
   def update
     if @employee_profile.update(employee_profile_params)
       return redirect_to [@company, @department, @employee_profile],

@@ -27,20 +27,21 @@
         <h3><%= t('.card')%> <%=@card.name%></h3>
         <p><%= t('get_card_api.attributes.number')%>: <%=@card.number%></p>
         <p><%= t('.status')%>: <%=t("get_card_api.attributes.status.#{@card.status}")%></p>
-        <%if @card.status == 'active'%>
-          <%= button_to 'Bloquear Cartão', deactivate_card_company_department_employee_profile_path(company_id: params[:company_id],
-                                                                                                    department_id: params[:department_id],
-                                                                                                    id: @employee_profile.id, method: :patch)%>
+        <%if @card&.status == 'active'%>
+          <%= button_to 'Bloquear Cartão', deactivate_card_company_department_employee_profile_path(company_id: @company.id,
+                                                                                                    department_id: @department.id,
+                                                                                                    id: @employee_profile.id), method: :patch %>
         <%else%>
-          <%= button_to 'Desbloquear Cartão', activate_card_company_department_employee_profile_path(company_id: params[:company_id],
-                                                                                                    department_id: params[:department_id],
-                                                                                                    id: @employee_profile.id, method: :patch)%>
+          <%= button_to 'Desbloquear Cartão', activate_card_company_department_employee_profile_path(company_id: @company.id,
+                                                                                                    department_id: @department.id,
+                                                                                                    id: @employee_profile.id), method: :patch%>
         <%end%>
       <%else%>
-        <%= t('.failed')%>
+   
+        <%=t('.unavailable')%>
       <%end%>
     <%else%>
-      <p>Você não possui cartão, fale com o setor de RH</p>
+      <p><%=t('.no_card')%></p>
     <%end%>
   </div>
 </div>
