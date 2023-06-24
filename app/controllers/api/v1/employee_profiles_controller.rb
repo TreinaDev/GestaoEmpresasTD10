@@ -8,7 +8,7 @@ class Api::V1::EmployeeProfilesController < Api::V1::ApiController
                           EmployeeProfile.all
                         end
 
-    render status: :ok, json: format_employee_profile(employee_profiles)
+    render status: :ok, json: format_employee_profile(employee_profiles) unless employee_profiles.empty?
   end
 
   private

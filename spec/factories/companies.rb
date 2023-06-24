@@ -8,6 +8,5 @@ FactoryBot.define do
     email { 'contato@campuscode.com.br' }
     domain { 'campuscode.com.br' }
     logo { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/images/logo.png'), 'image/png') }
-    active { true }
   end
 end

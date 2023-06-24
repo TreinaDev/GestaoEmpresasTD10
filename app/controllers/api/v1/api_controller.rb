@@ -2,6 +2,7 @@ class Api::V1::ApiController < ActionController::API
   rescue_from ActiveRecord::ActiveRecordError, with: :internet_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from ActionController::MissingExactTemplate, with: :no_content
 
   private
 
@@ -15,5 +16,9 @@ class Api::V1::ApiController < ActionController::API
 
   def bad_request
     render status: :bad_request, json: { errors: I18n.t('errors.bad_request') }
+  end
+
+  def no_content
+    render status: :no_content, json: { errors: I18n.t('errors.no_content') }
   end
 end

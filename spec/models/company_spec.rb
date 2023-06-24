@@ -34,4 +34,12 @@ RSpec.describe Company, type: :model do
       expect(other_company.errors[:registration_number]).to include 'já está em uso'
     end
   end
+
+  describe '#active' do
+    it 'é true por padrão' do
+      company = create(:company)
+
+      expect(company.active).to be true
+    end
+  end
 end
