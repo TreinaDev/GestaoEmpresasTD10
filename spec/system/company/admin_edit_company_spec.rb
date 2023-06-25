@@ -4,7 +4,7 @@ feature 'Usuário edita empresa' do
   context 'enquanto Admin' do
     scenario 'com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: true)
+      company = create(:company, active: true)
 
       login_as admin
       visit company_path(company)
@@ -31,7 +31,7 @@ feature 'Usuário edita empresa' do
 
     scenario 'e todos os campos são necessários' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: true)
+      company = create(:company, active: true)
 
       login_as admin
       visit edit_company_path(company)
@@ -57,10 +57,10 @@ feature 'Usuário edita empresa' do
 
   context 'enquanto gerente' do
     scenario 'não vê botão para rota de editar' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: true)
-      ManagerEmails.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      company = create(:company)
+      create(:manager_emails, company:)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit edit_company_path(company)
@@ -71,10 +71,10 @@ feature 'Usuário edita empresa' do
 
   context 'enquanto funcionário' do
     scenario 'não vê botão para rota de editar' do
-      company = FactoryBot.create(:company)
-      department = FactoryBot.create(:department, company:)
-      position = FactoryBot.create(:position, department:)
-      FactoryBot.create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
+      company = create(:company)
+      department = create(:department, company:)
+      position = create(:position, department:)
+      create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
       employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
 
       login_as employee

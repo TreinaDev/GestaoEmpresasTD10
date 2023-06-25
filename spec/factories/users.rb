@@ -14,7 +14,7 @@ FactoryBot.define do
     end
 
     factory :employee_user do
-      email { 'employee@apple.com' }
+      email { 'employee@microsoft.com' }
       cpf { '29963810926' }
     end
   end

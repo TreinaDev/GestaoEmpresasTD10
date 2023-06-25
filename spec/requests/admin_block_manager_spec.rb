@@ -9,7 +9,8 @@ describe 'Bloqueio de manager', type: :request do
       manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
       department = create(:department, company_id: company.id)
       position = create(:position, department_id: department.id)
-      create(:employee_profile, status: 'unblocked', department_id: department.id, user_id: manager.id, position:)
+      create(:employee_profile, :employee, status: 'unblocked', department_id: department.id, user_id: manager.id,
+                                           position:)
 
       login_as manager
       get users_path
@@ -28,8 +29,8 @@ describe 'Bloqueio de manager', type: :request do
       manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
       department = create(:department, company:)
       position = create(:position, department:)
-      create(:employee_profile, status: 'unblocked', department:, user: manager, position:)
-      create(:employee_profile, department:, cpf: '27549954046', position:)
+      create(:employee_profile, :employee, status: 'unblocked', department:, user: manager, position:)
+      create(:employee_profile, :employee, department:, cpf: '27549954046', position:)
       employee = create(:user, cpf: '27549954046', email: 'employee@gmail.com')
 
       login_as employee

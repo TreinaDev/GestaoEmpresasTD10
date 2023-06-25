@@ -6,7 +6,13 @@ pt-BR:
     create:
       success: Perfil de Funcionário cadastrado com sucesso
       failure: Perfil de Funcionário não cadastrado
+    create_manager:
+      success: Perfil de Gerente atualizado com sucesso
+      failure: Não foi possível atualizar perfil de Gerente
     create_card:
       success: Cartão solicitado com sucesso
       failure: Cartão não solicitado, verifique informações
       unavailable: Sistema indisponível no momento, por favor tente mais tarde
+    fired:
+      already_fired: Funcionário já desligado
+      failure: Erro ao tentar desligar funcionário
