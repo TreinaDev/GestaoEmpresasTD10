@@ -36,10 +36,10 @@ describe 'Usuário altera informações de uma empresa', type: :request do
 
   context 'sem sucesso' do
     it 'enquanto gerente' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company)
-      ManagerEmails.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = User.create(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      company = create(:company)
+      create(:manager_emails, company:)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
       company.active = false
       company.save!
 
@@ -51,11 +51,10 @@ describe 'Usuário altera informações de uma empresa', type: :request do
     end
 
     it 'enquanto funcionário' do
-      company = FactoryBot.create(:company)
-      department = FactoryBot.create(:department, company:)
-      position = FactoryBot.create(:position, department:)
-      FactoryBot.create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
-      employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
+      company = create(:company)
+      create(:manager_emails, company:)
+      create(:employee_profile, :employee)
+      employee = create(:employee_user)
 
       login_as employee
       get edit_company_path(company)

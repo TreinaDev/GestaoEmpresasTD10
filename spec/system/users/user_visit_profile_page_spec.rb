@@ -1,16 +1,15 @@
 require 'rails_helper'
 
-feature 'visitante visita página de perfil' do
+feature 'visitante acessa página de perfil' do
   scenario 'com sucesso' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    employee_data = create(:employee_profile, position:, department:, card_status: true)
-    employee_user = User.create!(
-      email: employee_data.email,
-      cpf: employee_data.cpf,
-      password: '123456'
-    )
+
+    employee_data = create(:employee_profile, :employee, department:, position:, email: 'funcionario@empresa.com',
+                                                         cpf: '69142235219', card_status: true)
+
+    employee_user = User.create!(email: employee_data.email, cpf: employee_data.cpf, password: '123456')
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -44,7 +43,7 @@ feature 'visitante visita página de perfil' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    employee_data = create(:employee_profile, position:, department:, card_status: true)
+    employee_data = create(:employee_profile, :employee, position:, department:, card_status: true)
     employee_user = User.create!(
       email: employee_data.email,
       cpf: employee_data.cpf,
@@ -68,11 +67,11 @@ feature 'visitante visita página de perfil' do
     end
   end
 
-  scenario 'Usuário vê que ainda não possui cartão' do
+  scenario 'e vê que ainda não possui cartão' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
-    employee_data = create(:employee_profile, position:, department:, card_status: false)
+    employee_data = create(:employee_profile, :employee, position:, department:, card_status: false)
     employee_user = User.create!(
       email: employee_data.email,
       cpf: employee_data.cpf,

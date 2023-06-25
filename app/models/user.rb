@@ -14,6 +14,9 @@ class User < ApplicationRecord
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
 
   has_one :employee_profile, dependent: nil
+  has_one :department, through: :employee_profile
+
+  after_create :update_employee, if: -> { employee? }
 
   def description
     if self.admin?

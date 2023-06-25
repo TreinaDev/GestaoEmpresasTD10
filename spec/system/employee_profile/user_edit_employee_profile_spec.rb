@@ -5,12 +5,12 @@ feature 'Usuário edita perfil de funcionário' do
     scenario 'com sucesso' do
       admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
       company = create(:company)
-      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
+      create(:manager_emails, created_by: admin, company:)
+      manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee,
+                                name: 'Roberto Carlos Nascimento', marital_status: 1, department:, position:)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
@@ -26,13 +26,13 @@ feature 'Usuário edita perfil de funcionário' do
 
     scenario 'sem sucesso' do
       admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
-      company = create(:company)
+      company = create(:company, domain: 'campuscode.com.br')
       create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
       manager = create(:user, email: 'manager@campuscode.com.br', role: 1, cpf: '14101674027')
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
+                                                              marital_status: 1, department:, position:)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
@@ -64,8 +64,8 @@ feature 'Usuário edita perfil de funcionário' do
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
+                                                              marital_status: 1, department:, position:)
 
       login_as admin
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
@@ -75,12 +75,12 @@ feature 'Usuário edita perfil de funcionário' do
   end
   context 'enquanto funcionario' do
     scenario 'não altera dados do funcionario' do
-      create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      create(:admin_user)
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee,
+                                name: 'Roberto Carlos Nascimento', marital_status: 1, department:, position:)
       employee = create(:employee_user, cpf: employee_profile.cpf)
 
       login_as employee

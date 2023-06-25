@@ -7,7 +7,9 @@ feature 'Gerente edita cargo' do
     admin_user = create(:admin_user)
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
-    create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+    position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
+                                 department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -23,7 +25,6 @@ feature 'Gerente edita cargo' do
                                                 id: Position.first.id)
     fill_in 'Nome', with: 'Vendedor'
     fill_in 'Descrição', with: 'Relacionamento com clientes'
-    fill_in 'Código', with: 'VND001'
     select 'Cartão Intermediário', from: 'Tipo de cartão'
     click_on 'Salvar'
 
@@ -32,7 +33,6 @@ feature 'Gerente edita cargo' do
     expect(page).to have_content 'Cargo editado com sucesso'
     expect(page).to have_content 'Nome: Vendedor'
     expect(page).to have_content 'Descrição: Relacionamento com clientes'
-    expect(page).to have_content 'Código: VND001'
     expect(page).to have_content 'Tipo de cartão: Cartão Intermediário'
   end
 
@@ -42,7 +42,9 @@ feature 'Gerente edita cargo' do
     admin_user = create(:admin_user)
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
-    create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+    position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
+                                 department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_status = double('faraday_status', status: 200, body: json_data)
@@ -58,7 +60,6 @@ feature 'Gerente edita cargo' do
                                                 id: Position.first.id)
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: ''
-    fill_in 'Código', with: ''
     select 'Cartão Intermediário', from: 'Tipo de cartão'
     click_on 'Salvar'
 
@@ -66,13 +67,10 @@ feature 'Gerente edita cargo' do
                                                                 id: Position.first.id)
     expect(Position.first.name).to eq 'Estagiário'
     expect(Position.first.description).to eq 'Faz tudo'
-    expect(Position.first.code).to eq 'EST001'
     expect(Position.first.card_type_id).to eq 1
     expect(page).to have_content 'Cargo não editado'
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'Descrição não pode ficar em branco'
-    expect(page).to have_content 'Código não pode ficar em branco'
-    expect(page).to have_content 'Código Formato: 3 letras maiúsculas seguidas por 3 números (ex.: XYZ567)'
   end
 
   scenario 'sem sucesso por api estar indisponível' do
@@ -81,7 +79,9 @@ feature 'Gerente edita cargo' do
     admin_user = create(:admin_user)
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
-    create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1, department:)
+    position = create(:position, name: 'Estagiário', description: 'Faz tudo', code: 'EST001', card_type_id: 1,
+                                 department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
 
     json_data = '{}'
     fake_response = double('faraday_response', status: 500, body: json_data)

@@ -24,6 +24,7 @@
     <% if @employee_profile.dismissal_date %>
       <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('dismissal_date') %>: <%= @employee_profile.dismissal_date.strftime('%d/%m/%Y') %></p>
     <% end %>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('company_id') %>: <%= @employee_profile.department.company.brand_name %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('department_id') %>: <%= @employee_profile.department.name %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('position_id') %>: <%= @employee_profile.position.name %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('status') %>: <%= t("activerecord.enum.employee_profile.status.#{@employee_profile.status}") %></p>

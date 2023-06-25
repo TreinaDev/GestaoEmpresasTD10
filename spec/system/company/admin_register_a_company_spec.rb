@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Registro de uma empresa' do
   context 'Logado como admin' do
     scenario 'com sucesso' do
-      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
+      admin = create(:admin_user)
 
       login_as admin
       visit new_company_path
@@ -50,14 +50,34 @@ feature 'Registro de uma empresa' do
       expect(page).to have_content 'Domínio não pode ficar em branco'
       expect(page).to have_content 'Logo não pode ficar em branco'
     end
+
+    scenario 'e cria automaticamente uma empresa e um departamento' do
+      admin = create(:admin_user)
+
+      login_as admin
+      visit new_company_path
+
+      fill_in 'Nome fantasia',	with: 'Campus Code'
+      fill_in 'Razão social', with: 'Campus Code Treinamentos LTDA'
+      fill_in 'CNPJ', with: '00.394.460/0058-87'
+      fill_in 'Endereço', with: 'Rua da tecnologia, nº 1500'
+      fill_in 'Telefone', with: '1130302525'
+      fill_in 'E-mail', with: 'contato@campuscode.com.br'
+      fill_in 'Domínio', with: 'campuscode.com.br'
+      attach_file 'company[logo]', Rails.root.join('spec/support/images/logo.png')
+      click_on 'Salvar'
+
+      expect(page).to have_content 'Empresa cadastrada com sucesso'
+      expect(Department.last.name).to eq 'Departamento de RH'
+      expect(Position.last.name).to eq 'Gerente'
+    end
   end
 
   context 'Com erro de permissão' do
     scenario 'Logado como gerente' do
-      admin = User.create!(email: 'manoel@punti.com', password: '123456', cpf: '19650667040')
-      company = create(:company, domain: 'empresa.com')
-      ManagerEmails.create!(email: 'gerente@empresa.com', created_by: admin, company:)
-      manager = User.create!(email: 'gerente@empresa.com', password: '123456', cpf: '75676854006')
+      create(:manager_emails)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       visit new_company_path
@@ -67,10 +87,10 @@ feature 'Registro de uma empresa' do
     end
 
     scenario 'Logado como funcionário' do
-      company = FactoryBot.create(:company)
-      department = FactoryBot.create(:department, company:)
-      position = FactoryBot.create(:position, department:)
-      employee_data = FactoryBot.create(:employee_profile, position:, department:)
+      company = create(:company)
+      department = create(:department, company:)
+      position = create(:position, department:)
+      employee_data = create(:employee_profile, :employee, position:, department:)
       employee_user = User.create!(
         email: employee_data.email,
         cpf: employee_data.cpf,
