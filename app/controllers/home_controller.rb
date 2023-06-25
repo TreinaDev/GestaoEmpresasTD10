@@ -1,3 +1,5 @@
 class HomeController < ApplicationController
-  def index; end
+  def index
+    @active_companies = Company.where(active: true)
+  end
 end

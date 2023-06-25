@@ -3,7 +3,6 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: %i[show edit update activate deactivate]
 
   def index
-    @active_companies = Company.where(active: true)
   end
 
   def show

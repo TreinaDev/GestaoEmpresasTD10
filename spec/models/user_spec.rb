@@ -66,7 +66,7 @@ RSpec.describe User, type: :model do
 
       expect(result).not_to eq('ADMIN - user@punti.com')
       expect(result).not_to eq('GERENTE - user@apple.com')
-      expect(result).to eq('FUNCIONÁRIO - user@treinadev.com')
+      expect(result).to eq('FUNCIONÁRIO - Roberto Carlos')
     end
   end
 end

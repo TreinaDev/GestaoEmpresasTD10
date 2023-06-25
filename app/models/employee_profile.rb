@@ -3,7 +3,7 @@ class EmployeeProfile < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :position
 
-  validates :name, :social_name, :cpf, :rg, :address, :email, :phone_number, :status, :birth_date, :admission_date,
+  validates :name, :cpf, :rg, :address, :email, :phone_number, :status, :birth_date, :admission_date,
             :marital_status, presence: true
 
   validates :cpf, uniqueness: true

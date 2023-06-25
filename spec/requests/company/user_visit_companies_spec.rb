@@ -6,7 +6,7 @@ describe 'Usuário visita tela de empresas ativas', type: :request do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
 
       login_as admin
-      get companies_path
+      get root_path
 
       expect(response).to have_http_status(:ok)
     end

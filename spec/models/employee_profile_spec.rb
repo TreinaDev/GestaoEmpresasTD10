@@ -7,7 +7,6 @@ RSpec.describe EmployeeProfile, type: :model do
 
       expect(employee_profile).not_to be_valid
       expect(employee_profile.errors[:name]).to include('não pode ficar em branco')
-      expect(employee_profile.errors[:social_name]).to include('não pode ficar em branco')
       expect(employee_profile.errors[:email]).to include('não pode ficar em branco')
       expect(employee_profile.errors[:birth_date]).to include('não pode ficar em branco')
       expect(employee_profile.errors[:cpf]).to include('não pode ficar em branco')

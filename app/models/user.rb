@@ -16,7 +16,16 @@ class User < ApplicationRecord
   has_one :employee_profile, dependent: nil
 
   def description
-    "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
+    if self.admin?
+      "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
+    else
+      if self.employee_profile
+        "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{self.employee_profile.social_name.present? ? self.employee_profile.social_name : self.employee_profile.name}"
+      else
+        "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
+      end
+    end
+
   end
 
   def block!
