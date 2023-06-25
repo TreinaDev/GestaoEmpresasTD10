@@ -4,11 +4,11 @@ describe 'Usuário tenta desligar funcionário', type: :request do
   it 'enquanto gerente com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
-    user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
+    create(:manager_emails, created_by: admin, company:)
+    user_manager = create(:manager_user)
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
-    employee = create(:employee_profile, department_id: department.id, position_id: position.id)
+    employee = create(:employee_profile, :manager, department_id: department.id, position_id: position.id)
     date = 1.day.from_now
 
     login_as user_manager
@@ -31,11 +31,11 @@ describe 'Usuário tenta desligar funcionário', type: :request do
   end
 
   it 'enquanto admin sem sucesso' do
-    admin = create(:user, email: 'admin@punti.com')
+    admin = create(:admin_user)
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
-    employee = create(:employee_profile, department_id: department.id, position_id: position.id)
+    employee = create(:employee_profile, :employee, department_id: department.id, position_id: position.id)
     date = 1.day.from_now
 
     login_as admin

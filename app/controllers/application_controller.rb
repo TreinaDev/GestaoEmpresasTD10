@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permited_parameters, if: :devise_controller?
   before_action :authenticate_user!
+  before_action :profile_check, unless: :devise_controller?
 
   protected
 
@@ -30,5 +31,21 @@ class ApplicationController < ActionController::Base
     return if manager.company_id == company_id.to_i
 
     redirect_to root_path, alert: t('forbidden')
+  end
+
+  def profile_check
+    return if params[:controller] == 'employee_profiles' && params[:action] == 'new'
+
+    return unless current_user.manager? && !current_user.employee_profile
+
+    redirect_to_finish_register
+  end
+
+  def redirect_to_finish_register
+    manager = ManagerEmails.find_by(email: current_user.email)
+
+    department = Department.where(name: 'Departamento de RH').where(company_id: manager.company_id).first
+    redirect_to new_manager_company_department_employee_profiles_path(company_id: manager.company.id,
+                                                                      department_id: department.id)
   end
 end

@@ -14,6 +14,10 @@ Company.create!(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                         filename: 'logo.png', content_type: 'image/png' },
                 active: true)
 
+Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH001',
+                   description: 'Recursos Humanos')
+Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER001', description: 'Gerente geral')
+
 Company.create!(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
                 registration_number: '12.345.678/0002-95',
                 address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
@@ -23,6 +27,10 @@ Company.create!(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation'
                         filename: 'logo.png', content_type: 'image/png' },
                 active: true)
 
+Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH002',
+                   description: 'Recursos Humanos')
+Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER002', description: 'Gerente geral')
+
 Company.create!(brand_name: 'IBM', corporate_name: 'IBM Corporation',
                 registration_number: '12.345.678/0003-95',
                 address: 'Rua do Silício, 6000', phone_number: '11 99999-9999',
@@ -30,7 +38,11 @@ Company.create!(brand_name: 'IBM', corporate_name: 'IBM Corporation',
                 domain: 'ibm.com',
                 logo: { io: Rails.root.join('spec/support/images/logo.png').open,
                         filename: 'logo.png', content_type: 'image/png' },
-                active: false)
+                active: true)
+
+Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH003',
+                   description: 'Recursos Humanos')
+Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER003', description: 'Gerente geral')
 
 User.create!(email: 'admin@punti.com', password: 'password', cpf: '71056473029')
 User.create!(email: 'otheradmin@punti.com', password: 'password', cpf: '43302699026')
