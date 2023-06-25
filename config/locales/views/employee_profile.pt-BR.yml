@@ -2,6 +2,12 @@ pt-BR:
   employee_profiles:
     form:
       save: Salvar
+    show:
+      edit: Editar
+      fired_employee: Desligar funcionário
+    new_fired:
+      save: Salvar
+      dismissal_date: Data de Demissão
     new:
       save: Salvar
     new_manager:

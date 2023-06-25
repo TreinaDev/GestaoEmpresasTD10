@@ -36,4 +36,13 @@ RSpec.describe EmployeeProfile, type: :model do
       expect(employee_profile.errors[:cpf]).to include('já está em uso')
     end
   end
+
+  describe 'dismissal_date' do
+    it 'tem que ser uma data futura' do
+      employee = build(:employee_profile, dismissal_date: '10/10/2010')
+
+      expect(employee.valid?).to be false
+      expect(employee.errors[:dismissal_date]).to include("deve ser maior que #{Time.zone.today}")
+    end
+  end
 end

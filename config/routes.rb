@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         post :create_card, on: :collection
         get :new_manager, on: :collection
         post :create_manager, on: :collection
+        get :new_fired, on: :collection
+        post :fired, on: :collection
       end
       resources :positions, only: %i(new create show edit update)
     end
