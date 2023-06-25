@@ -5,7 +5,8 @@ feature 'Gerente cria cargo' do
     admin_user = create(:admin_user)
     company = create(:company)
     department = create(:department, company:)
-    create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:, code: 'DIR001')
     create(:employee_profile, :manager, position:, department:, user: manager_user)
@@ -39,7 +40,7 @@ feature 'Gerente cria cargo' do
       company = create(:company)
       department = create(:department, company:)
       admin_user = create(:admin_user)
-      create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+      create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
 
       create(:employee_profile, :manager, department:, user: manager_user)
@@ -73,7 +74,7 @@ feature 'Gerente cria cargo' do
       company = create(:company)
       department = create(:department, company:)
       admin_user = create(:admin_user)
-      create(:manager, created_by: admin_user, company:, email: "nome@#{company.domain}")
+      create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       create(:employee_profile, :manager, department:, user: manager_user)
 

@@ -21,9 +21,10 @@ RSpec.describe EmployeeProfile, type: :model do
     end
 
     it 'inválido quando CPF já está em uso' do
-      admin_user = create(:user, cpf: '57049003050', email: 'admin@punti.com')
-      company = create(:company, registration_number: '00.394.460/0058-55', email: 'contato@microsoft.com',
-                                 domain: 'microsoft.com')
+      user_admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      company = create(:company, registration_number: '00.394.460/0058-55')
+      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: user_admin, company:)
+      create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
       department = create(:department, company_id: company.id)
       position = create(:position, department_id: department.id)
       create(:manager, created_by: admin_user, company:, email: 'manager@microsoft.com')

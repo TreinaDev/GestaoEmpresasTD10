@@ -75,7 +75,7 @@ feature 'Registro de uma empresa' do
 
   context 'Com erro de permissão' do
     scenario 'Logado como gerente' do
-      create(:manager)
+      create(:manager_emails)
       manager = create(:manager_user)
       create(:employee_profile, :manager, user: manager)
 

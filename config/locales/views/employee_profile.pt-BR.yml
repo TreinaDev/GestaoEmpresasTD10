@@ -1,6 +1,6 @@
 pt-BR:
   employee_profiles:
-    edit:
+    form:
       save: Salvar
     new:
       save: Salvar

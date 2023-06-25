@@ -33,10 +33,11 @@ feature 'Usuário atualiza status' do
 
   context 'enquanto gerente' do
     scenario 'sem sucesso por não ver botão de desativar' do
-      create(:manager)
+      create(:manager_emails)
       manager = create(:manager_user)
       create(:employee_profile, :manager, user: manager)
       company = create(:company)
+      
 
       login_as manager
       visit company_path(company)
@@ -45,7 +46,7 @@ feature 'Usuário atualiza status' do
     end
 
     scenario 'sem sucesso por não ver botão de ativar' do
-      create(:manager)
+      create(:manager_emails)
       company = create(:company)
       manager = create(:manager_user)
       create(:employee_profile, :manager, user: manager)

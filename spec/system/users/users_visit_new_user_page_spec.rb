@@ -54,7 +54,7 @@ feature 'visitante se cadastra' do
     admin = create(:user, email: 'admin@punti.com')
     company = create(:company, :with_department)
 
-    manager = create(:manager, company:, created_by: admin, email: 'bruno@microsoft.com')
+    manager = create(:manager_emails, company:, created_by: admin, email: 'bruno@microsoft.com')
 
     visit root_path
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Manager edita departamento' do
   scenario 'Com sucesso' do
     company = create(:company, brand_name: 'Apple')
-    create(:manager, company:)
+    create(:manager_emails, company:)
     new_user = create(:manager_user)
 
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('AAA007')
@@ -27,7 +27,7 @@ feature 'Manager edita departamento' do
 
   scenario 'com dados incompletos' do
     company = create(:company, brand_name: 'Apple')
-    create(:manager, company:)
+    create(:manager_emails, company:)
     new_user = create(:manager_user)
     department = create(:department, company:, name: 'Compras')
     create(:employee_profile, :manager, department:, user: new_user)

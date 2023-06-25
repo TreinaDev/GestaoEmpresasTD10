@@ -8,9 +8,9 @@ class CompaniesController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    @manager = Manager.new
+    @manager = ManagerEmails.new
     used_emails = User.manager.all.pluck('email')
-    @emails = Manager.active.where(company: @company).where.not(email: used_emails)
+    @emails = ManagerEmails.active.where(company: @company).where.not(email: used_emails)
   end
 
   def new

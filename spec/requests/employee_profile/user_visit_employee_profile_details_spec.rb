@@ -4,7 +4,7 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
   it 'enquanto gerente com sucesso' do
     create(:admin_user)
     company = create(:company)
-    create(:manager, company:)
+    create(:manager_emails, company:)
     user_manager = create(:manager_user)
 
     department = create(:department, company:)
@@ -20,7 +20,7 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
   it 'enquanto admin sem sucesso' do
     admin = create(:admin_user)
     company = create(:company)
-    create(:manager, company:)
+    create(:manager_emails, company:)
 
     department = create(:department, company:)
     position = create(:position, department_id: department.id)

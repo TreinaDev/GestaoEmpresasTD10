@@ -5,7 +5,7 @@ feature 'Usuário cadastra perfil de funcionário' do
     scenario 'com sucesso' do
       admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
       company = create(:company)
-      create(:manager, created_by: admin, company:)
+      create(:manager_emails, created_by: admin, company:)
       manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
@@ -30,7 +30,7 @@ feature 'Usuário cadastra perfil de funcionário' do
       expect(page).to have_content('Nome Social: João')
       expect(page).to have_content('E-mail: joao@campuscode.com.br')
       expect(page).to have_content('Data de Nascimento: 01/01/1980')
-      expect(page).to have_content('CPF: 19650667040')
+      expect(page).to have_content('CPF: 196.506.670-40')
       expect(page).to have_content('RG: 408493057')
       expect(page).to have_content('Telefone: 11 99999-9999')
       expect(page).to have_content('Endereço: Rua do Avesso, 50')
@@ -43,7 +43,7 @@ feature 'Usuário cadastra perfil de funcionário' do
     scenario 'sem sucesso' do
       admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
       company = create(:company)
-      create(:manager, created_by: admin, company:)
+      create(:manager_emails, created_by: admin, company:)
       manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)

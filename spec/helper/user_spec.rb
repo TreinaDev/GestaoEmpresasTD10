@@ -13,7 +13,7 @@ RSpec.describe UserHelper, type: :helper do
     it 'retorna false quando não é administrador' do
       admin = create(:admin_user, email: 'admin@punti.com')
       company = create(:company, domain: 'qualquer.com')
-      create(:manager, email: 'admin@qualquer.com', created_by: admin, company:)
+      create(:manager_emails, email: 'admin@qualquer.com', created_by: admin, company:)
       user = create(:manager_user, email: 'admin@qualquer.com', cpf: '02850181080')
 
       allow(helper).to receive(:user_signed_in?).and_return(true)
@@ -26,7 +26,7 @@ RSpec.describe UserHelper, type: :helper do
     it 'retorna true quando é gerente' do
       admin = create(:admin_user, email: 'admin@punti.com', cpf: '02850181080')
       company = create(:company)
-      create(:manager, created_by: admin, company:)
+      create(:manager_emails, created_by: admin, company:)
       user = create(:manager_user)
 
       allow(helper).to receive(:user_signed_in?).and_return(true)

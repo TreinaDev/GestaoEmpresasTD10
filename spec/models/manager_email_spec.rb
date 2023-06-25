@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Manager, type: :model do
+RSpec.describe ManagerEmails, type: :model do
   context 'presença' do
     it 'Email deve estar presente' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      manager = build(:manager, created_by: user, company:, email: nil)
+      manager = build(:manager_emails, created_by: user, company:, email: nil)
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -15,7 +15,7 @@ RSpec.describe Manager, type: :model do
     it 'Criado por deve estar presente' do
       create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      manager = build(:manager, created_by: nil, company:, email: 'marizinha@gmail.com')
+      manager = build(:manager_emails, created_by: nil, company:, email: 'marizinha@gmail.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -25,7 +25,7 @@ RSpec.describe Manager, type: :model do
     it 'Empresa deve estar presente' do
       user = create(:admin_user, email: 'admin@punti.com')
       create(:company)
-      manager = build(:manager, created_by: user, company: nil, email: 'marizinha@gmail.com')
+      manager = build(:manager_emails, created_by: user, company: nil, email: 'marizinha@gmail.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -37,7 +37,7 @@ RSpec.describe Manager, type: :model do
     it 'Email deve pertencer ao domínio da empresa' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      manager = build(:manager, created_by: user, company:, email: 'teste@outlook.com')
+      manager = build(:manager_emails, created_by: user, company:, email: 'teste@outlook.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -47,7 +47,7 @@ RSpec.describe Manager, type: :model do
     it 'Email deve ser válido' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      manager = build(:manager, created_by: user, company:, email: '@@teste@gmail.com')
+      manager = build(:manager_emails, created_by: user, company:, email: '@@teste@gmail.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -58,7 +58,7 @@ RSpec.describe Manager, type: :model do
       user = create(:admin_user, email: 'admin@punti.com')
       create(:company, registration_number: '123')
       company = create(:company, domain: 'outlook.com')
-      manager = build(:manager, created_by: user, company:, email: 'marizinha@gmail.com')
+      manager = build(:manager_emails, created_by: user, company:, email: 'marizinha@gmail.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -68,8 +68,8 @@ RSpec.describe Manager, type: :model do
     it 'Email não pode ser pre-cadastrado duas vezes' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      create(:manager, created_by: user, company:, email: 'employee@microsoft.com')
-      manager = build(:manager, created_by: user, company:, email: 'employee@microsoft.com')
+      create(:manager_emails, created_by: user, company:, email: 'marizinha@campuscode.com.br')
+      manager = build(:manager_emails, created_by: user, company:, email: 'marizinha@campuscode.com.br')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -79,9 +79,9 @@ RSpec.describe Manager, type: :model do
     it 'Criador deve ser administrador' do
       admin = create(:admin_user, email: 'admin@punti.com', cpf: '02850181080')
       company = create(:company)
-      create(:manager, email: 'employee@microsoft.com', company:, created_by: admin)
-      user = create(:manager_user, email: 'employee@microsoft.com')
-      manager = build(:manager, created_by: user, company:, email: 'marizinha@gmail.com')
+      create(:manager_emails, email: 'joao@campuscode.com.br', company:, created_by: admin)
+      user = create(:manager_user, email: 'joao@campuscode.com.br')
+      manager = build(:manager_emails, created_by: user, company:, email: 'marizinha@gmail.com')
 
       result = manager.valid?
       expect(result).to eq(false)
@@ -91,8 +91,8 @@ RSpec.describe Manager, type: :model do
     it 'Email já está em usuário ativo' do
       user = create(:admin_user, email: 'admin@punti.com')
       company = create(:company)
-      manager = create(:manager, created_by: user, company:, email: 'employee@microsoft.com')
-      create(:manager_user, email: 'employee@microsoft.com', cpf: '95683693098')
+      manager = create(:manager_emails, created_by: user, company:, email: 'marizinha@campuscode.com.br')
+      create(:manager_user, email: 'marizinha@campuscode.com.br', cpf: '95683693098')
 
       manager.status = :canceled
 
@@ -104,7 +104,7 @@ RSpec.describe Manager, type: :model do
     it 'Empresa deve estar ativa' do
       user = create(:user, email: 'admin@punti.com')
       company = create(:company, active: false)
-      manager = build(:manager, created_by: user, company:, email: 'teste@outlook.com')
+      manager = build(:manager_emails, created_by: user, company:, email: 'teste@outlook.com')
 
       result = manager.valid?
       expect(result).to eq(false)

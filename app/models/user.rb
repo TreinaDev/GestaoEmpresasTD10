@@ -3,8 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   before_validation :assign_role
-  before_validation :assign_role
-  before_validation :assign_role
+  before_validation :clean_cpf
   after_create :update_employee, if: -> { employee? }
 
   validates :cpf, presence: true
@@ -18,6 +17,7 @@ class User < ApplicationRecord
   has_one :department, through: :employee_profile
 
   after_create :update_employee, if: -> { employee? }
+
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
   end
@@ -46,12 +46,16 @@ class User < ApplicationRecord
     blocked? ? :blocked : super
   end
 
+  def clean_cpf
+    cpf&.gsub!(/\D/, '')
+  end
+
   private
 
   def assign_role
     if email.include?('@punti.com')
       self.role = :admin
-    elsif Manager.find_by(email:)
+    elsif ManagerEmails.find_by(email:)
       self.role = :manager
     elsif EmployeeProfile.find_by(cpf:)
       self.role = :employee

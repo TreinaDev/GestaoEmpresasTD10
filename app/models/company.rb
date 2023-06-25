@@ -7,4 +7,11 @@ class Company < ApplicationRecord
   validates :registration_number, uniqueness: true
   validates :brand_name, :corporate_name, :registration_number,
             :address, :phone_number, :email, :domain, :logo, presence: true
+  before_validation :clean_registration_number
+
+  private
+
+  def clean_registration_number
+    registration_number&.gsub!(/\D/, '')
+  end
 end

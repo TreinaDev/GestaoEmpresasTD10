@@ -4,7 +4,7 @@ feature 'Admin bloqueia manager' do
   scenario 'com sucesso' do
     admin = create(:admin_user)
     company = create(:company)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -26,7 +26,7 @@ context 'usuário já bloqueado' do
   scenario 'Usuário tenta logar em conta bloqueada e é impedido.' do
     admin = create(:admin_user)
     company = create(:company)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -45,7 +45,7 @@ context 'usuário já bloqueado' do
   scenario 'e admin o desbloqueia' do
     admin = create(:admin_user)
     company = create(:company)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -65,7 +65,7 @@ context 'usuário já bloqueado' do
   scenario 'e admin tenta desbloquear e falha' do
     admin = create(:admin_user)
     company = create(:company)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)
@@ -85,7 +85,7 @@ context 'visitante tenta acessar' do
   scenario 'Usuário que não é admin tenta acessar lista de Gerentes Cadastrados' do
     admin = create(:admin_user)
     company = create(:company)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
     department = create(:department, company_id: company.id)
     position = create(:position, department_id: department.id)

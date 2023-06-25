@@ -58,7 +58,7 @@ feature 'Usuário edita empresa' do
   context 'enquanto gerente' do
     scenario 'não vê botão para rota de editar' do
       company = create(:company)
-      create(:manager, company:)
+      create(:manager_emails, company:)
       manager = create(:manager_user)
       create(:employee_profile, :manager, user: manager)
 

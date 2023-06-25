@@ -7,7 +7,10 @@ class UsersController < ApplicationController
   end
 
   def profile
+    return redirect_to root_path, alert: t('forbidden') if current_user.admin?
+
     @employee_profile = EmployeeProfile.find_by(email: current_user.email)
+    @card = GetCardApi.show(@employee_profile.cpf)
   end
 
   def block

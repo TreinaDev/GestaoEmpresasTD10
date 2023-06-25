@@ -4,7 +4,7 @@ describe 'Usuário altera informações de uma empresa', type: :request do
   context 'enquanto admin' do
     it 'com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = create(:company, active: true)
+      company = FactoryBot.create(:company, active: true)
 
       login_as admin
 
@@ -26,7 +26,7 @@ describe 'Usuário altera informações de uma empresa', type: :request do
       expect(response).to redirect_to company_path(company)
       expect(company.brand_name).to eq(new_attributes[:brand_name])
       expect(company.corporate_name).to eq(new_attributes[:corporate_name])
-      expect(company.registration_number).to eq(new_attributes[:registration_number])
+      expect(company.registration_number).to eq(new_attributes[:registration_number].tr('^0-9', ''))
       expect(company.address).to eq(new_attributes[:address])
       expect(company.phone_number).to eq(new_attributes[:phone_number])
       expect(company.email).to eq(new_attributes[:email])
@@ -36,11 +36,10 @@ describe 'Usuário altera informações de uma empresa', type: :request do
 
   context 'sem sucesso' do
     it 'enquanto gerente' do
-      company = create(:company)
-      create(:manager, company:)
-      manager = create(:manager_user)
-      create(:employee_profile, :manager, user: manager)
-
+      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
+      company = FactoryBot.create(:company)
+      ManagerEmails.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
+      manager = User.create(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
       company.active = false
       company.save!
 
@@ -52,10 +51,10 @@ describe 'Usuário altera informações de uma empresa', type: :request do
     end
 
     it 'enquanto funcionário' do
-      company = create(:company)
-      department = create(:department, company:)
-      position = create(:position, department:)
-      create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
+      company = FactoryBot.create(:company)
+      department = FactoryBot.create(:department, company:)
+      position = FactoryBot.create(:position, department:)
+      FactoryBot.create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
       employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
 
       login_as employee

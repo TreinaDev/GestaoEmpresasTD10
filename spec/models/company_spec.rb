@@ -16,6 +16,14 @@ RSpec.describe Company, type: :model do
       expect(company.errors[:brand_name]).to include('não pode ficar em branco')
       expect(company.errors[:logo]).to include('não pode ficar em branco')
     end
+  end
+
+  describe '#registration_number' do
+    it 'está formatado' do
+      create(:company, registration_number: '00.394.460/0058-87', active: true)
+
+      expect(Company.last.registration_number).to eq '00394460005887'
+    end
 
     it 'inválido quando CNPJ já existe' do
       create(:company, registration_number: '00.394.460/0058-87')
@@ -24,6 +32,14 @@ RSpec.describe Company, type: :model do
       expect(other_company).not_to be_valid
       expect(other_company.errors[:registration_number].size).to eq 1
       expect(other_company.errors[:registration_number]).to include 'já está em uso'
+    end
+  end
+
+  describe '#active' do
+    it 'é true por padrão' do
+      company = create(:company)
+
+      expect(company.active).to be true
     end
   end
 end

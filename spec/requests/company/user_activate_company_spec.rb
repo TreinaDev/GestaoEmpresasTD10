@@ -15,11 +15,11 @@ describe 'Usuário para ativar empresa', type: :request do
     end
 
     it 'e falha enquanto gerente' do
+      admin = User.create!(email: 'admin@punti.com', password: '123456', cpf: '02324252481')
       company = create(:company)
-      create(:manager, company:)
-      manager = create(:manager_user)
-      create(:employee_profile, :manager, user: manager)
-
+      create(:manager_emails, email: 'joaozinho@campuscode.com.br', created_by: admin, company:)
+      manager = create(:user, email: 'joaozinho@campuscode.com.br', role: :manager, password: '123456',
+                              cpf: '51959723030')
       company.active = false
       company.save!
 

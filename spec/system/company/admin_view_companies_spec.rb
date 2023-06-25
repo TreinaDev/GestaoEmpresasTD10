@@ -42,7 +42,7 @@ feature 'Usuário visualiza empresas ativas' do
 
   context 'enquanto gerente' do
     scenario 'sem sucesso' do
-      create(:manager)
+      create(:manager_emails)
       manager = create(:manager_user)
       create(:employee_profile, :manager, user: manager)
 
