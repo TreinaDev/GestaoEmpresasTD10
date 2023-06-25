@@ -16,7 +16,7 @@ feature 'Usuário cadastra perfil de funcionário' do
       fill_in 'Nome Social', with: 'João'
       fill_in 'E-mail', with: 'joao@campuscode.com.br'
       fill_in 'Data de Nascimento', with: '01/01/1980'
-      fill_in 'CPF', with: '196.506.670-40'
+      fill_in 'CPF', with: '19650667040'
       fill_in 'RG', with: '408493057'
       fill_in 'Telefone', with: '11 99999-9999'
       fill_in 'Endereço', with: 'Rua do Avesso, 50'
