@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :departments, only: %i(index new create show update edit) do
       resources :employee_profiles, only: %i(new create show edit update) do
         post :create_card, on: :collection
+        get :new_manager, on: :collection
+        post :create_manager, on: :collection
       end
       resources :positions, only: %i(new create show edit update)
     end

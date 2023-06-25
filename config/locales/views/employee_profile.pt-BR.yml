@@ -2,3 +2,7 @@ pt-BR:
   employee_profiles:
     form:
       save: Salvar
+    new:
+      save: Salvar
+    new_manager:
+      save: Salvar

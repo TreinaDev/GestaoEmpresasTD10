@@ -5,6 +5,7 @@ feature 'Manager cria departamento' do
     company = create(:company, brand_name: 'Apple', domain: 'apple.com')
     create(:manager_emails, email: 'user@apple.com', company:)
     new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    create(:employee_profile, :manager, user: new_user)
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('COD123')
 
     login_as(new_user)
@@ -21,11 +22,12 @@ feature 'Manager cria departamento' do
   end
 
   scenario 'Com dados incompletos' do
-    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
-    create(:manager_emails, email: 'user@apple.com', company:)
-    new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    company = create(:company)
+    create(:manager_emails, company:)
+    manager = create(:manager_user)
+    create(:employee_profile, :manager, user: manager)
 
-    login_as(new_user)
+    login_as(manager)
     visit new_company_department_path(company.id)
 
     fill_in 'Nome',	with: ''

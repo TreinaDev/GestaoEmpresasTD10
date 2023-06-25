@@ -17,10 +17,10 @@ describe 'Usuário desativa empresa', type: :request do
 
   context 'enquanto gerente' do
     it 'sem sucesso' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: true)
-      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      company = create(:company)
+      create(:manager_emails, company:)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       put deactivate_company_path(company)
