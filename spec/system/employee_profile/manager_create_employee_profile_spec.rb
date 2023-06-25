@@ -77,7 +77,7 @@ feature 'Usuário cadastra perfil de funcionário' do
     scenario 'e não vê cargo de gerente na lista' do
       admin = create(:admin_user)
       company = create(:company)
-      create(:manager, created_by: admin, company:)
+      create(:manager_emails, created_by: admin, company:)
       manager = create(:manager_user)
       department = create(:department, company:)
       create(:position, department_id: department.id, name: 'Gerente', code: 'GER000')

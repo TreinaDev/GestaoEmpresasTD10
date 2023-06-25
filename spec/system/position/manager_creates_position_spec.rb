@@ -5,7 +5,7 @@ feature 'Gerente cria cargo' do
     admin_user = create(:admin_user)
     company = create(:company)
     department = create(:department, company:)
-    admin_user = create(:admin_user)
+
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:, code: 'DIR001')

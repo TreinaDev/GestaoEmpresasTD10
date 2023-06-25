@@ -3,10 +3,10 @@ require 'rails_helper'
 describe 'Usuário acessa página de cadastro de perfil de funcionários', type: :request do
   it 'enquanto gerente com sucesso' do
     company = create(:company)
-    create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
-    user_manager = create(:user, email: 'manager@campuscode.com.br', cpf: '59812249087')
-    department = create(:department, company:)
-    create(:employee_profile, :manager, user: manager)
+    create(:manager_emails, company:)
+    manager = create(:manager_user)
+    department = create(:department)
+    create(:employee_profile, :manager, user: manager, department:)
 
     login_as manager
     get new_company_department_employee_profile_path(company_id: company.id, department_id: department.id)

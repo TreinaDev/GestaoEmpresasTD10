@@ -34,7 +34,7 @@ feature 'visitante se cadastra' do
     company = FactoryBot.create(:company)
     department = FactoryBot.create(:department, company:)
     position = FactoryBot.create(:position, department:)
-    FactoryBot.create(:employee_profile, position:, department:, email: 'bruno@gmail.com', cpf: '44429533768')
+    FactoryBot.create(:employee_profile, position:, department:, email: 'bruno@microsoft.com', cpf: '44429533768')
 
     visit root_path
 
@@ -51,10 +51,10 @@ feature 'visitante se cadastra' do
   end
 
   scenario 'e tem role de manager' do
-    admin = create(:user, email: 'admin@punti.com')
-    company = create(:company, :with_department)
-
-    manager = create(:manager_emails, company:, created_by: admin, email: 'bruno@microsoft.com')
+    company = create(:company)
+    department = create(:department, company:)
+    create(:position, department:)
+    manager = create(:manager_emails, company:, email: 'bruno@microsoft.com')
 
     visit root_path
 

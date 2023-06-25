@@ -37,7 +37,6 @@ feature 'Usuário atualiza status' do
       manager = create(:manager_user)
       create(:employee_profile, :manager, user: manager)
       company = create(:company)
-      
 
       login_as manager
       visit company_path(company)

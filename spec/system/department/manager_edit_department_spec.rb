@@ -46,7 +46,7 @@ feature 'Manager edita departamento' do
 
   scenario 'e o botão de editar está bloqueado, pois é o derpartamento padrão de Recursos Humanos' do
     company = create(:company, brand_name: 'Apple')
-    create(:manager, company:)
+    create(:manager_emails, company:)
     new_user = create(:manager_user)
     department = create(:department, company:)
     create(:employee_profile, :manager, department:, user: new_user)

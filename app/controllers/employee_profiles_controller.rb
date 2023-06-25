@@ -13,7 +13,7 @@ class EmployeeProfilesController < ApplicationController
 
   def new_manager
     @employee_profile = EmployeeProfile.new
-    @manager = Manager.find_by(email: current_user.email)
+    @manager = ManagerEmails.find_by(email: current_user.email)
   end
 
   def create_manager
@@ -21,7 +21,7 @@ class EmployeeProfilesController < ApplicationController
 
     flash.now[:alert] = t('.failure')
 
-    @manager = Manager.find_by(email: current_user.email)
+    @manager = ManagerEmails.find_by(email: current_user.email)
     render :new_manager
   end
 

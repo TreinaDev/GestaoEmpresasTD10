@@ -55,7 +55,7 @@ describe 'Edição de Departamento', type: :request do
     it 'e não tem permissão' do
       company = create(:company)
       admin_user = create(:admin_user)
-      create(:manager, created_by: admin_user, company:)
+      create(:manager_emails, created_by: admin_user, company:)
 
       manager = create(:manager_user)
       department = create(:department, company:)

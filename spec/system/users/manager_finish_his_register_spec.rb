@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'Manager é redirecionado após acessar a aplicação' do
+feature 'Manager é redirecionado ao acessar a aplicação' do
   scenario 'após fazer o primeiro cadastro' do
     admin = create(:admin_user)
     company = create(:company, :with_department)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
 
     visit new_user_registration_path
     fill_in 'E-mail', with: 'manager@microsoft.com'
@@ -21,8 +21,10 @@ feature 'Manager é redirecionado após acessar a aplicação' do
 
   scenario 'após fazer login, sem perfil' do
     admin = create(:admin_user)
-    company = create(:company, :with_department)
-    create(:manager, created_by: admin, company:)
+    company = create(:company)
+    department = create(:department, company:)
+    create(:position, name: 'Gerente', department:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
 
     login_as manager
@@ -36,7 +38,7 @@ feature 'Manager é redirecionado após acessar a aplicação' do
     admin = create(:admin_user)
     company = create(:company, :with_department)
     create(:position, name: 'Gerente', department: Department.first)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user, cpf: '36666153090', email: 'manager@microsoft.com')
 
     login_as manager
@@ -55,7 +57,7 @@ feature 'Manager é redirecionado após acessar a aplicação' do
     company = create(:company, :with_department)
     create(:position, name: 'Gerente', department: Department.first)
 
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
 
     login_as manager
@@ -79,7 +81,7 @@ feature 'Manager é redirecionado após acessar a aplicação' do
     admin = create(:admin_user)
     company = create(:company, :with_department)
     create(:position, name: 'Gerente', department: Department.first)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
     login_as manager
 
@@ -94,7 +96,7 @@ feature 'Manager é redirecionado após acessar a aplicação' do
     admin = create(:admin_user)
     company = create(:company, :with_department)
     create(:position, name: 'Gerente', department: Department.first)
-    create(:manager, created_by: admin, company:)
+    create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user, cpf: '36666153090', email: 'manager@microsoft.com')
 
     login_as manager

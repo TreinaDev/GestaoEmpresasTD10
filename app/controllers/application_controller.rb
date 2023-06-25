@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_finish_register
-    manager = Manager.find_by(email: current_user.email)
+    manager = ManagerEmails.find_by(email: current_user.email)
 
     department = Department.where(name: 'Departamento de RH').where(company_id: manager.company_id).first
     redirect_to new_manager_company_department_employee_profiles_path(company_id: manager.company.id,
