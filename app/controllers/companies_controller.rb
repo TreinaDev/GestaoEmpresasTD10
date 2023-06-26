@@ -1,12 +1,13 @@
 class CompaniesController < ApplicationController
   before_action :require_admin, except: %i[show]
-  before_action :set_company, only: %i[show edit update activate deactivate]
+  before_action :set_company, only: %i[show edit update activate deactivate manager]
 
-  def index
-  end
+  def index; end
 
-  def show
-    @company = Company.find(params[:id])
+  def show; end
+
+  def manager
+    @users = User.manager
     @manager = ManagerEmails.new
     used_emails = User.manager.all.pluck('email')
     @emails = ManagerEmails.active.where(company: @company).where.not(email: used_emails)

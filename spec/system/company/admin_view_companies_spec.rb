@@ -4,25 +4,25 @@ feature 'Usuário visualiza empresas ativas' do
   context 'enquanto admin' do
     scenario 'com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      FactoryBot.create(:company, brand_name: 'Apple', domain: 'apple.com', active: true)
-      FactoryBot.create(:company, brand_name: 'Microsoft', registration_number: '12.345.678/0002-95',
-                                  domain: 'microsoft.com', active: true)
-      FactoryBot.create(:company, brand_name: 'IBM', registration_number: '12.345.678/0003-95',
-                                  domain: 'ibm.com', active: false)
+      create(:company, brand_name: 'Apple', domain: 'apple.com', active: true, corporate_name: 'Apple LTDA')
+      create(:company, brand_name: 'Microsoft', registration_number: '12.345.678/0002-95', domain: 'microsoft.com',
+                       active: true, corporate_name: 'Microsoft Corporation')
+      create(:company, brand_name: 'IBM', corporate_name: 'IBM Corporation', registration_number: '12.345.678/0003-95',
+                       domain: 'ibm.com', active: false)
 
       login_as admin
       visit root_path
-      click_on 'Empresas'
+      click_on 'Empresas Ativas'
 
-      expect(current_path).to eq companies_path
+      expect(current_path).to eq root_path
       expect(page).to have_content 'Apple'
-      expect(page).to have_content 'apple.com'
+      expect(page).to have_content 'Apple LTDA'
       expect(page).to have_css('img[alt="Apple"]')
       expect(page).to have_content 'Microsoft'
-      expect(page).to have_content 'microsoft.com'
+      expect(page).to have_content 'Microsoft Corporation'
       expect(page).to have_css('img[alt="Microsoft"]')
       expect(page).not_to have_content 'IBM'
-      expect(page).not_to have_content 'ibm.com'
+      expect(page).not_to have_content 'IBM Corporation'
       expect(page).not_to have_css('img[alt="IBM"]')
     end
 

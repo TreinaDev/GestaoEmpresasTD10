@@ -12,10 +12,14 @@ feature 'Admin bloqueia manager' do
 
     login_as admin
     visit root_path
-    click_on 'Gerentes Cadastrados'
+    click_on 'Empresas Ativas'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
+    click_on 'Gerentes'
     find("#block_user_#{manager.id}").click
 
-    expect(current_path).to eq users_path
+    expect(current_path).to eq manager_company_path(company)
     expect(page).to have_button 'Desbloquear Gerente'
     expect(manager.employee_profile.status).to eq 'blocked'
     expect(page).to have_content 'Usuário Bloqueado'
@@ -53,10 +57,14 @@ context 'usuário já bloqueado' do
 
     login_as admin
     visit root_path
-    click_on 'Gerentes Cadastrados'
+    click_on 'Empresas Ativas'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
+    click_on 'Gerentes'
     find("#unblock_user_#{manager.id}").click
 
-    expect(current_path).to eq users_path
+    expect(current_path).to eq manager_company_path(company)
     expect(page).to have_button 'Bloquear Gerente'
     expect(manager.employee_profile.status).to eq 'unblocked'
     expect(page).to have_content 'Usuário Desbloqueado'
@@ -74,7 +82,11 @@ context 'usuário já bloqueado' do
 
     login_as admin
     visit root_path
-    click_on 'Gerentes Cadastrados'
+    click_on 'Empresas Ativas'
+    within('#company1') do
+      click_on 'Ver Detalhes'
+    end
+    click_on 'Gerentes'
     find("#unblock_user_#{manager.id}").click
 
     expect(page).to have_content 'Não foi possível desbloquear o usuário'

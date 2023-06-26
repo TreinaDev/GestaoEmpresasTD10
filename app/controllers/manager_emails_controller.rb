@@ -4,19 +4,25 @@ class ManagerEmailsController < ApplicationController
 
   def create
     if @manager.save
-      redirect_to company_path(@company), notice: t('controllers.managers.create.success')
+      redirect_to manager_company_path(@company), notice: t('controllers.managers.create.success')
     else
-      @emails = ManagerEmails.active.where(company: @company)
+      manager_variables
       flash.now[:notice] = t('controllers.managers.create.failed')
-      render 'companies/show', status: :unprocessable_entity
+      render 'companies/manager', status: :unprocessable_entity
     end
+  end
+
+  def manager_variables
+    @users = User.manager
+    used_emails = User.manager.all.pluck('email')
+    @emails = ManagerEmails.active.where(company: @company).where.not(email: used_emails)
   end
 
   def destroy
     @manager = ManagerEmails.find(params[:id])
     @company = @manager.company
     @manager.canceled!
-    redirect_to company_path(@company), notice: t('controllers.managers.destroy.success')
+    redirect_to manager_company_path(@company), notice: t('controllers.managers.destroy.success')
   end
 
   private
@@ -31,7 +37,7 @@ class ManagerEmailsController < ApplicationController
     return unless @manager.email.present? && ManagerEmails.where(email: @manager.email).canceled.any?
 
     @manager.active!
-    redirect_to company_path(@company),
+    redirect_to manager_company_path(@company),
                 notice: t('controllers.managers.create.reactivated')
   end
 

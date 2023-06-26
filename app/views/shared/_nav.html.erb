@@ -2,7 +2,7 @@
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container">
           <div class="container-fluid d-flex">
-            <%= link_to "Gestão de empresas", root_path, class: 'navbar-brand' %>
+            <%= link_to "Gestão de empresas", root_path, class: 'navbar-brand', id:'navbar-logo' %>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,7 +16,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                       <li>
-                        <%= link_to 'Empresas', root_path, class:'dropdown-item' %>
+                        <%= link_to 'Empresas Ativas', root_path, class:'dropdown-item' %>
                       </li>
                        <li>
                         <%= link_to 'Empresas Inativas', inactives_companies_path, class:'dropdown-item' %>
@@ -27,11 +27,6 @@
                       
                     </ul>
                   </li>
-
-                  <li class="nav-item" >
-                    <%= link_to 'Gerentes Cadastrados', users_path, class:'nav-link'  %>
-                  </li>
-                  
                 <% end %>
 
 

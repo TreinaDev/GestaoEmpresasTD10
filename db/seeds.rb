@@ -10,8 +10,8 @@ Company.create!(brand_name: 'Apple', corporate_name: 'Apple LTDA',
                 address: 'Rua California, 3000', phone_number: '11 99999-9999',
                 email: 'company@apple.com',
                 domain: 'apple.com',
-                logo: { io: Rails.root.join('spec/support/images/logo.png').open,
-                        filename: 'logo.png', content_type: 'image/png' },
+                logo: { io: Rails.root.join('spec/support/images/apple.png').open,
+                        filename: 'apple.png', content_type: 'image/png' },
                 active: true)
 
 Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH001',
@@ -23,8 +23,8 @@ Company.create!(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation'
                 address: 'Rua do Vale, 1000', phone_number: '11 99999-9999',
                 email: 'company@microsoft.com',
                 domain: 'microsoft.com',
-                logo: { io: Rails.root.join('spec/support/images/logo.png').open,
-                        filename: 'logo.png', content_type: 'image/png' },
+                logo: { io: Rails.root.join('spec/support/images/microsoft.jpg').open,
+                        filename: 'microsoft.jpg', content_type: 'image/jpg' },
                 active: true)
 
 Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH002',

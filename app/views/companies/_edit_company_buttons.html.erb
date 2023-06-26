@@ -3,11 +3,16 @@
     <i class="bi bi-pencil-square d-inline"></i> Editar
   <% end %>
 
+  <%= link_to manager_company_path(@company), class: 'btn btn-primary text-white' do %>
+    <i class="bi bi-person-badge d-inline"></i> Gerentes
+  <% end %>
+
   <% if @company.active %>
     <%= button_to deactivate_company_path(@company), method: :put, form: { class: 'd-inline' }, class: 'btn btn-danger' do %>
       <i class="ms-auto bi bi-x-lg"></i> Desativar
     <% end %>
   <% end %>
+  
 
   <% if !@company.active %>
     <%= button_to activate_company_path(@company), method: :put, form: { class: 'd-inline m-1' }, class: 'btn btn-success' do %>

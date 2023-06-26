@@ -19,16 +19,16 @@ class User < ApplicationRecord
   after_create :update_employee, if: -> { employee? }
 
   def description
-    if self.admin?
+    if employee_profile.nil?
       "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
     else
-      if self.employee_profile
-        "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{self.employee_profile.social_name.present? ? self.employee_profile.social_name : self.employee_profile.name}"
-      else
-        "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
-      end
+      description_employee
     end
+  end
 
+  def description_employee
+    "#{User.human_attribute_name(:roles, count: 'other')
+    .fetch(role.to_sym).upcase} - #{employee_profile.social_name.presence || employee_profile.name}"
   end
 
   def block!
