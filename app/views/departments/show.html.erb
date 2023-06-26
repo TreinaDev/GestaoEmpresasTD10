@@ -7,12 +7,12 @@
     <br>
     <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), id: 'btn_edit', class: (@department.name == 'Departamento de RH' ? 'btn btn-primary disabled' : 'btn btn-primary') if @department.present? %>
   </div>
-  <div>
+  <div id = "employees">
     Funcionários:
     <% @department.employee_profiles.each do |employee|%>
       <%= link_to employee.name, company_department_employee_profile_path(company_id: @department.company.id,
                                           department_id: @department.id, id: employee.id)%>
-      <div id = <%= employee.id %>>
+      <div id = <%= employee.id %> > 
         <% if !employee.card_status %>
           <%= button_to 'Solicitar Cartão', create_card_company_department_employee_profiles_path(company_id: @department.company_id, 
                                                                                                   department_id: @department.id, card: {cpf: employee.cpf, company_card_type_id: employee.position.card_type_id }),
