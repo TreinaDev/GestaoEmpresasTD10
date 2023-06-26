@@ -61,7 +61,7 @@ feature 'Manager é redirecionado ao acessar a aplicação' do
     manager = create(:manager_user)
 
     login_as manager
-    visit root_path
+    visit users_path
 
     fill_in 'Nome Completo', with: 'João da Silva'
     fill_in 'Nome Social', with: 'João'
@@ -73,7 +73,7 @@ feature 'Manager é redirecionado ao acessar a aplicação' do
     fill_in 'Data de Admissão', with: '12/10/2020'
     click_on 'Salvar'
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq company_path(company)
     expect(page).to have_content 'Perfil de Gerente atualizado com sucesso'
   end
 

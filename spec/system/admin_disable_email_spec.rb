@@ -27,9 +27,13 @@ feature 'administrador desativa email do gerente' do
   scenario 'e não lista quando o email pre-cadastrado já foi usado' do
     user = create(:admin_user, email: 'admin@punti.com')
     company = create(:company, domain: 'gmail.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
     ManagerEmails.create!(email: 'zezinho@gmail.com', created_by: user, company:)
     ManagerEmails.create!(email: 'mariazinha@gmail.com', created_by: user, company:)
-    create(:user, email: 'mariazinha@gmail.com', cpf: '80431871000')
+    manager = create(:user, email: 'mariazinha@gmail.com', cpf: '80431871000')
+    create(:employee_profile, :manager, email: 'mariazinha@gmail.com', department:, position:,
+                                        user: manager)
 
     login_as(user)
     visit root_path

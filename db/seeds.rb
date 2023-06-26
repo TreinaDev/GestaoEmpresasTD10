@@ -53,7 +53,6 @@ ManagerEmails.create!(email: 'manager@apple.com', created_by: User.first, compan
 ManagerEmails.create!(email: 'manager@microsoft.com', created_by: User.first,
                       company_id: Company.find_by(brand_name: 'Microsoft').id)
 
-
 Department.create!(company_id: Company.first.id, name: 'RH', code: 'D34B5A',
                    description: 'Departamento de Recursos Humanos')
 Department.create!(company_id: Company.first.id, name: 'Financeiro', code: 'CBA321',
@@ -63,7 +62,6 @@ Department.create!(company_id: Company.first.id, name: 'Marketing', code: 'ABC12
 
 Position.create!(department_id: Department.first.id, name: 'Gerente de RH', description: 'Gerente de RH',
                  card_type_id: 1, code: 'OIU584')
-
 
 # Company.create!(brand_name: 'Apple', corporate_name: 'Apple LTDA',
 #         registration_number: '12.345.678/0001-95',
@@ -107,7 +105,6 @@ Position.create!(department_id: Department.first.id, name: 'Gerente de RH', desc
 
 # User.create!(email: 'admin@punti.com', password: 'password', cpf: '71056473029')
 # User.create!(email: 'otheradmin@punti.com', password: 'password', cpf: '43302699026')
-
 
 # Department.create!(company_id: Company.first.id, name: 'RH', code: 'D34B5A',
 #            description: 'Departamento de Recursos Humanos')

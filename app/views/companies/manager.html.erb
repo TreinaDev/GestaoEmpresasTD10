@@ -64,9 +64,9 @@
                 <td>
                   <div class ='action-buttons'>
                     <% unless user.blocked? %>
-                      <%= button_to 'Bloquear Gerente', block_user_path(user), method: :patch, id: dom_id(user, 'block'), class: 'btn btn-success' %>
+                      <%= button_to 'Bloquear Gerente', block_user_path(user), method: :patch, id: dom_id(user, 'block'), class: 'btn btn-success ms-3 mt-1' %>
                     <% else %>
-                      <%= button_to 'Desbloquear Gerente', unblock_user_path(user), method: :patch, id: dom_id(user, 'unblock'), class: 'btn btn-danger' %>
+                      <%= button_to 'Desbloquear Gerente', unblock_user_path(user), method: :patch, id: dom_id(user, 'unblock'), class: 'btn btn-danger ms-3 mt-1' %>
                     <% end %>
                   </div>
                 </td>
@@ -78,4 +78,5 @@
   </div>
 </div>
 
-<%= link_to 'Voltar', company_path(@company), class: 'btn btn-warning'%>
+
+<%= link_to 'Voltar', company_path(@company), class: 'btn btn-primary mt-3'%>

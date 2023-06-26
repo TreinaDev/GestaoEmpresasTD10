@@ -27,6 +27,10 @@
                       
                     </ul>
                   </li>
+                <% elsif current_user.employee_profile %>
+                    <li class="nav-item" >
+                        <%= link_to current_user.employee_profile.department.company.brand_name , company_path(current_user.employee_profile.department.company), class:'nav-link'  %>
+                      </li>
                 <% end %>
 
 

@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
   def show; end
 
   def manager
-    @users = User.manager
+    @users = User.manager.joins(employee_profile: { department: :company }).where(companies: { id: @company.id })
     @manager = ManagerEmails.new
     used_emails = User.manager.all.pluck('email')
     @emails = ManagerEmails.active.where(company: @company).where.not(email: used_emails)
@@ -24,7 +24,7 @@ class CompaniesController < ApplicationController
 
     if @company.save
       department = @company.departments.create!(name: 'Departamento de RH', description: 'Recursos Humanos')
-      department.positions.create!(name: 'Gerente', description: 'Gerente Geral')
+      department.positions.create!(name: 'Gerente', description: 'Gerente Geral', card_type_id: 1)
 
       return redirect_to @company, notice: t('.success')
     end

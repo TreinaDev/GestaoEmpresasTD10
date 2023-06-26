@@ -7,6 +7,7 @@ pt-BR:
       go_back: Voltar
       new_employee: Cadastrar funcionário
       new_position: Cadastrar cargo
+      see_positions: Ver cargos
     new:
       return: Voltar
     edit:

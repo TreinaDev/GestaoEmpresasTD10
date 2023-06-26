@@ -106,7 +106,7 @@ context 'visitante tenta acessar' do
     login_as manager
     visit users_path
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq company_path(company)
     expect(page).to have_content 'Usuário sem permissão para executar essa ação'
   end
 end

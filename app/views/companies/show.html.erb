@@ -32,6 +32,14 @@
         </div>
         <% if current_user.admin? %>
           <%= render 'edit_company_buttons'%>
+        <% elsif current_user.manager? %>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            
+            <%= link_to company_departments_path(@company), class: 'btn btn-primary text-white mx-auto' do %>
+              <i class="bi bi-person-badge d-inline"></i> Departamentos
+            <% end %>
+
+          </div>
         <% end %>
       </div>
     </div>

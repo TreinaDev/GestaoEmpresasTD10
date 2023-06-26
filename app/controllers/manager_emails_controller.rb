@@ -13,7 +13,7 @@ class ManagerEmailsController < ApplicationController
   end
 
   def manager_variables
-    @users = User.manager
+    @users = User.manager.joins(employee_profile: { department: :company }).where(companies: { id: @company.id })
     used_emails = User.manager.all.pluck('email')
     @emails = ManagerEmails.active.where(company: @company).where.not(email: used_emails)
   end

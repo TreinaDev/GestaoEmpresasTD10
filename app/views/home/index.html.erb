@@ -2,7 +2,9 @@
   <div class="d-flex flex-wrap justify-content-center" >
     <% @active_companies.each do |company| %>
       <div class="card m-3 w-20" style="width: 18rem;" id="company<%=company.id%>">
-        <img src="<%= url_for(company.logo) %>"class="card-img-top fixed-height" alt= <%= company.brand_name %> >
+        <div style="background-color: #000; height: 150px; width: 100%;" class="d-flex">
+        <img src="<%= url_for(company.logo) %>"class="img-fluid" alt= <%= company.brand_name %> >
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= company.brand_name %></h5>
           <p class="card-text mt-0"><%= company.corporate_name %></p>
