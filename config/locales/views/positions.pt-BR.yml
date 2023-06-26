@@ -4,3 +4,7 @@ pt-BR:
       save: Salvar
     edit:
       save: Salvar
+    show:
+      edit: Editar cargo
+      new_employee: Cadastrar funcionário
+      list_positions: Ver cargos

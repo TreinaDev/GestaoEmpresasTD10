@@ -11,6 +11,7 @@ pt-BR:
         code: Código
         card_type_id: Tipo de cartão
         department: Departamento
+        company: Empresa
     errors:
       models:
         position:
