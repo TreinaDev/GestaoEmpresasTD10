@@ -1,7 +1,27 @@
-<div class = "row">
-  <div class = "col-12">
-    <% @departments.each do |d|%>
-      <%= link_to d.name, company_department_path(company_id: d.company_id, id: d.id)%>
-    <%end%>
-  </div>
+<div class="text-center w-100 mt-2 fs-1">
+  <p>Departamentos da empresa <%= @company.brand_name %> </p>
 </div>
+
+<% if @departments.any? %>
+  <div class="d-flex flex-wrap justify-content-center" >
+    <% @departments.each do |department| %>
+      <div class="card m-3 w-20" style="width: 18rem;" id="department<%=department.id%>">
+        <div class="card-body">
+          <h5 class="card-title"><%= department.name %></h5>
+          <p class="card-text m-1"><%= department.description %></p>
+          <p class="card-text m-1">Funcionários no departamento: <%= department.employee_profiles.count %> </p>
+        </div>
+        <div class="card-footer">
+          <a href="<%= company_department_path(company_id: department.company_id, id: department.id) %>" class="btn w-100 btn-primary mt-2">
+              <i class="bi bi-eye"></i>
+              Ver departamento
+          </a>
+        </div>
+      </div>
+    <% end %>
+<% else %>
+    <div class="alert">
+      <p>Nenhuma empresa ativa</p>
+    </div>
+  </div>
+<% end %>

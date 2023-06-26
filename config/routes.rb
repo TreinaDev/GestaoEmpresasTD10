@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         get :new_fired, on: :collection
         post :fired, on: :collection
       end
-      resources :positions, only: %i(new create show edit update)
+      resources :positions, only: %i(index new create show edit update)
     end
     get 'inactives', on: :collection
     put :activate, on: :member

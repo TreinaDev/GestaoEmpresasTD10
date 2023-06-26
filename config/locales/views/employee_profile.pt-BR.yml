@@ -8,6 +8,7 @@ pt-BR:
     new_fired:
       save: Salvar
       dismissal_date: Data de Demissão
+      fired: Desligar
     new:
       save: Salvar
     new_manager:
