@@ -97,7 +97,7 @@ feature 'Desligamento de funcionário' do
       login_as user_employee
       visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq company_path(company)
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
   end

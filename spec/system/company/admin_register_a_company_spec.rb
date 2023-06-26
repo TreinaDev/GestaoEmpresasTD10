@@ -75,14 +75,18 @@ feature 'Registro de uma empresa' do
 
   context 'Com erro de permissão' do
     scenario 'Logado como gerente' do
-      create(:manager_emails)
-      manager = create(:manager_user)
-      create(:employee_profile, :manager, user: manager)
+      admin = create(:user, email: 'user@punti.com')
+      company = create(:company, domain: 'gmail.com')
+      create(:manager_emails, created_by: admin, company:, email: 'joaozinho@gmail.com')
+      manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
+      department = create(:department, company:)
+      position = create(:position, department:)
+      create(:employee_profile, :manager, status: 'unblocked', department:, user: manager, position:)
 
       login_as manager
       visit new_company_path
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq company_path(company)
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
 
@@ -100,7 +104,7 @@ feature 'Registro de uma empresa' do
       login_as employee_user
       visit new_company_path
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq company_path(company)
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
   end

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get 'inactives', on: :collection
     put :activate, on: :member
     put :deactivate, on: :member
+    get :manager, on: :member
   end
 
   namespace :api do

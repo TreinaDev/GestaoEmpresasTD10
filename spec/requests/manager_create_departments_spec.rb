@@ -55,6 +55,7 @@ describe 'Criação de Departamento', type: :request do
       }
 
       follow_redirect!
+      follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
@@ -75,6 +76,7 @@ describe 'Criação de Departamento', type: :request do
           name: 'A'
         }
       }
+      follow_redirect!
       follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'

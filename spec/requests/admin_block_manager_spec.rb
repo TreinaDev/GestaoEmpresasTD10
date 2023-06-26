@@ -16,6 +16,7 @@ describe 'Bloqueio de manager', type: :request do
       get users_path
 
       follow_redirect!
+      follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
@@ -36,6 +37,7 @@ describe 'Bloqueio de manager', type: :request do
       login_as employee
       get users_path
 
+      follow_redirect!
       follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'

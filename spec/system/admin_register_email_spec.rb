@@ -17,10 +17,11 @@ feature 'administrator registra email do gerente da empresa' do
     login_as(user)
 
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
 
     expect(page).to have_field 'Cadastrar email'
     expect(page).to have_button 'Cadastrar'
@@ -32,14 +33,15 @@ feature 'administrator registra email do gerente da empresa' do
     login_as(user)
 
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
     fill_in 'Cadastrar email', with: 'usuario123@campuscode.com.br'
     click_on 'Cadastrar'
 
-    expect(current_path).to eq company_path(company)
+    expect(current_path).to eq manager_company_path(company)
     expect(page).to have_content 'Email cadastrado com sucesso'
     expect(page).to have_content 'Campus Code'
   end
@@ -50,10 +52,11 @@ feature 'administrator registra email do gerente da empresa' do
     login_as(user)
 
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
     fill_in 'Cadastrar email', with: 'usuario123@outlook.com'
     click_on 'Cadastrar'
 
@@ -68,10 +71,11 @@ feature 'administrator registra email do gerente da empresa' do
     login_as(user)
 
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
     fill_in 'Cadastrar email', with: 'usuário@@gmail.com'
     click_on 'Cadastrar'
 
@@ -87,10 +91,11 @@ feature 'administrator registra email do gerente da empresa' do
 
     login_as(admin)
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
     fill_in 'Cadastrar email', with: 'zezinho@campuscode.com.br'
     click_on 'Cadastrar'
 
@@ -105,14 +110,15 @@ feature 'administrator registra email do gerente da empresa' do
 
     login_as(admin_user)
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company1') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
     fill_in 'Cadastrar email', with: 'manager@microsoft.com'
     click_on 'Cadastrar'
 
-    expect(current_path).to eq company_path(company)
+    expect(current_path).to eq manager_company_path(company)
     expect(page).not_to have_content 'Email cadastrado com sucesso'
     expect(page).to have_content 'Email reativado'
   end
@@ -124,10 +130,11 @@ feature 'administrator registra email do gerente da empresa' do
 
     login_as(admin)
     visit root_path
-    click_on 'Empresas'
+    click_on 'Empresas Ativas'
     within('#company2') do
       click_on 'Ver Detalhes'
     end
+    click_on 'Gerentes'
     fill_in 'Cadastrar email', with: 'zezinho@gmail.com'
     click_on 'Cadastrar'
 

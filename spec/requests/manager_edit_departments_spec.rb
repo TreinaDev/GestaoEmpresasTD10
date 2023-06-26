@@ -43,6 +43,7 @@ describe 'Edição de Departamento', type: :request do
       get edit_company_department_path(company.id, department.id)
 
       follow_redirect!
+      follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
     end
@@ -60,6 +61,7 @@ describe 'Edição de Departamento', type: :request do
 
       login_as manager
       get edit_company_department_path(second_company.id, second_department.id)
+      follow_redirect!
       follow_redirect!
 
       expect(response.body).to include 'Usuário sem permissão para executar essa ação'
