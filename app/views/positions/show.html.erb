@@ -11,7 +11,7 @@
 
     <%= link_to t('.edit'), edit_company_department_position_path(@department.company_id, @department.id), id: 'btn_edit', class: (@position.name == 'Gerente' ? 'btn btn-primary disabled' : 'btn btn-warning text-white bold') if @department.present? do%>
     <% end %>
-    <%= link_to t('.new_employee'), new_company_department_position_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_edit', class:'btn btn-primary'%>
+    <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_edit', class:'btn btn-primary'%>
     <%= link_to t('.list_positions'), company_department_positions_path(company_id: @department.company_id), id: 'btn_edit', class:'btn btn-primary'%>
   </div>
 </div>
@@ -27,9 +27,9 @@
         <th scope="col">Ações</th>
       </tr>
     <thead>
-    <tbody>
+    <tbody id="employees">
       <% @position.employee_profiles.each do |employee| %>
-        <tr>
+        <tr id="employee[<%= employee.id%>]">
           <td class="align-baseline"><%= employee.name %></td>
           <td class="align-baseline"><%= format_cpf(employee.cpf) %></td>
           <td class="align-baseline"><%= employee.email %></td>

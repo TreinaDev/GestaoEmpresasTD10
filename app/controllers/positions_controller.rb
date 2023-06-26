@@ -8,9 +8,8 @@ class PositionsController < ApplicationController
   before_action :set_card_types, only: %i[new edit create update]
 
   def index
-    @positions = Position.where( department_id: params[:department_id])
+    @positions = Position.where(department_id: params[:department_id])
   end
-
 
   def show; end
 

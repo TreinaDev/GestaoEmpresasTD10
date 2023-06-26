@@ -16,11 +16,14 @@ feature 'Gerente vai para index do departamento' do
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
-    click_on 'RH'
+
+    within('#department1') do
+      click_on 'Ver departamento'
+    end
 
     expect(current_path).to eq company_department_path(company_id: company.id, id: department.id)
     expect(page).to have_content 'Nome: Departamento de RH'
-    expect(page).to have_content 'Funcionários: Roberto Carlos Nascimento'
+    expect(page).to have_content 'Roberto Carlos Nascimento'
     expect(page).to have_button 'Solicitar Cartão'
   end
 
@@ -45,14 +48,17 @@ feature 'Gerente vai para index do departamento' do
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
 
-    click_on 'Departamento de RH'
-    within('div#1') do
+    within('#department1') do
+      click_on 'Ver departamento'
+    end
+
+    within('#employee\[1\]') do
       click_on 'Solicitar Cartão'
     end
 
     expect(current_path).to eq company_department_path(company_id: company.id, id: department.id)
-    within('div#1') do
-      expect(page).to_not have_button('Solicitar Cartão')
+    within('#employee\[1\]') do
+      expect(page).not_to have_button('Solicitar Cartão')
     end
     expect(page).to have_content 'Cartão solicitado com sucesso'
     expect(fake_response.body).to eq 'Cartão cadastrado com sucesso'
@@ -78,13 +84,17 @@ feature 'Gerente vai para index do departamento' do
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
-    click_on 'Departamento de RH'
-    within('div#1') do
+
+    within('#department1') do
+      click_on 'Ver departamento'
+    end
+
+    within('#employee\[1\]') do
       click_on 'Solicitar Cartão'
     end
 
     expect(current_path).to eq company_department_path(company_id: company.id, id: department.id)
-    within('div#1') do
+    within('#employee\[1\]') do
       expect(page).to have_button 'Solicitar Cartão'
     end
     expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
@@ -109,13 +119,17 @@ feature 'Gerente vai para index do departamento' do
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
-    click_on 'Departamento de RH'
-    within('div#1') do
+
+    within('#department1') do
+      click_on 'Ver departamento'
+    end
+
+    within('#employee\[1\]') do
       click_on 'Solicitar Cartão'
     end
 
     expect(current_path).to eq company_department_path(company_id: company.id, id: department.id)
-    within('div#1') do
+    within('#employee\[1\]') do
       expect(page).to have_button 'Solicitar Cartão'
     end
     expect(page).to have_content 'Cartão não solicitado, verifique informações'

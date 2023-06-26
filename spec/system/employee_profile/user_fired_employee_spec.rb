@@ -19,7 +19,7 @@ feature 'Desligamento de funcionário' do
       click_on 'Desligar funcionário'
 
       fill_in 'Data de Demissão', with: date
-      click_on 'Salvar'
+      click_on 'Desligar'
 
       expect(page).to have_content "Data de Demissão: #{date.strftime('%d/%m/%Y')}"
       expect(EmployeeProfile.first.status).to eq 'fired'
@@ -42,7 +42,7 @@ feature 'Desligamento de funcionário' do
       click_on 'Desligar funcionário'
 
       fill_in 'Data de Demissão', with: date
-      click_on 'Salvar'
+      click_on 'Desligar'
 
       expect(page).to have_content 'Erro ao tentar desligar funcionário'
       expect(EmployeeProfile.first.status).to eq 'unblocked'
