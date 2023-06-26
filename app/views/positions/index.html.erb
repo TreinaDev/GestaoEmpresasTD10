@@ -1,0 +1,30 @@
+<div class="text-center w-100 mt-2">
+  <p class="fs-1"><%= @department.name %> </p>
+  <p class="fs-3 m-0">Lista de cargos</p>
+</div>
+
+<% if @positions.any? %>
+  <div class="d-flex flex-wrap justify-content-center" >
+    <% @positions.each do |position| %>
+      <div class="card m-3 w-20" style="width: 18rem;" id="position<%=position.id%>">
+        <div class="card-body">
+          <h5 class="card-title"><%= position.name %></h5>
+          <p class="card-text m-1"><%= position.description %></p>
+          <p class="card-text m-1">Funcionários no cargo: <%= position.employee_profiles.count %> </p>
+        </div>
+        <div class="card-footer">
+          <a href="<%= company_department_position_path(company_id: @company.id, department_id: @department.id, id: position.id) %>" class="btn w-100 btn-primary mt-2">
+              <i class="bi bi-eye"></i>
+              Ver cargo
+          </a>
+        </div>
+      </div>
+    <% end %>
+<% else %>
+    <div class="alert">
+      <p>Nenhuma cargo neste departamento.</p>
+    </div>
+  </div>
+<% end %>
+
+
