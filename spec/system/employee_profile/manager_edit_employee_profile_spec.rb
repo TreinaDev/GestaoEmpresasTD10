@@ -3,36 +3,48 @@ require 'rails_helper'
 feature 'Usuário edita perfil de funcionário' do
   context 'enquanto gerente' do
     scenario 'com sucesso' do
-      admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      admin = create(:admin_user)
       company = create(:company)
-      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = create(:user, email: 'manager@campuscode.com.br', cpf: '14101674027')
+      create(:manager_emails, created_by: admin, company:)
+      manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
+                                                              marital_status: 1, department:, position:)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 
       fill_in 'Nome Completo', with: 'João da Silva'
+      fill_in 'Nome Social', with: 'Jojo'
+      fill_in 'CPF', with: '88316175088'
+      fill_in 'RG', with: '444903574'
+      fill_in 'Endereço', with: 'Rua guanabara, 51'
+      fill_in 'Telefone', with: '81982343354'
+      fill_in 'Data de Nascimento', with: '20/05/2000'
       select 'Casado', from: 'Estado Civil'
       click_on 'Salvar'
 
       expect(page).to have_content('Perfil de Funcionário atualizado com sucesso')
       expect(page).to have_content('Nome Completo: João da Silva')
+      expect(page).to have_content('Nome Social: Jojo')
+      expect(page).to have_content('CPF: 883.161.750-88')
+      expect(page).to have_content('RG: 444903574')
+      expect(page).to have_content('Endereço: Rua guanabara, 51')
+      expect(page).to have_content('Telefone: 819823433')
+      expect(page).to have_content('Data de Nascimento: 20/05/2000')
       expect(page).to have_content('Estado Civil: Casado(a)')
     end
 
     scenario 'sem sucesso' do
-      admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      admin = create(:admin_user)
       company = create(:company)
-      create(:manager_emails, email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = create(:user, email: 'manager@campuscode.com.br', role: 1, cpf: '14101674027')
+      create(:manager_emails, created_by: admin, company:)
+      manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
+                                                              marital_status: 1, department:, position:)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
@@ -61,12 +73,12 @@ feature 'Usuário edita perfil de funcionário' do
   end
   context 'enquanto admin' do
     scenario 'não altera dados do funcionario' do
-      admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+      admin = create(:admin_user)
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
+      employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
+                                                              marital_status: 1, department:, position:)
 
       login_as admin
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
@@ -80,9 +92,9 @@ feature 'Usuário edita perfil de funcionário' do
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
-      employee_profile = create(:employee_profile, name: 'Roberto Carlos Nascimento', marital_status: 1, department:,
-                                                   position:)
-      employee = create(:employee_user, cpf: employee_profile.cpf)
+      employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
+                                                              marital_status: 1, department:, position:)
+      employee = create(:employee_user, :employee, cpf: employee_profile.cpf)
 
       login_as employee
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)

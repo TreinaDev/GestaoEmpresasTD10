@@ -38,14 +38,9 @@ describe 'Criação de Departamento', type: :request do
   context 'funcionário tenta criar departamento' do
     it 'e não tem permissão' do
       company = create(:company)
-      department = create(:department, company:)
-      position = create(:position, department:)
-      employee_data = create(:employee_profile, position:, department:)
-      employee_user = User.create!(
-        email: employee_data.email,
-        cpf: employee_data.cpf,
-        password: '123456'
-      )
+      create(:manager_emails, company:)
+      create(:employee_profile, :employee)
+      employee_user = create(:employee_user)
 
       login_as employee_user
       post company_departments_path(company.id), params: {
@@ -62,10 +57,9 @@ describe 'Criação de Departamento', type: :request do
 
   context 'Manager tenta criar departamento de outra empresa' do
     it 'e não tem permissão' do
-      company = create(:company)
-      admin_user = create(:admin_user)
-      create(:manager_emails, created_by: admin_user, company:, email: 'manager@campuscode.com.br')
-      manager = create(:manager_user, email: 'manager@campuscode.com.br')
+      create(:manager_emails)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
       second_company = create(:company, brand_name: 'Apple', domain: 'apple.com.br',
                                         registration_number: '10394460005884')
 

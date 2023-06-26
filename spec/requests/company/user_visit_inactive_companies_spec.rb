@@ -14,10 +14,9 @@ describe 'Usuário visita tela de empresas inativas', type: :request do
 
   context 'enquanto gerente' do
     it 'sem sucesso' do
-      admin = create(:admin_user)
-      company = create(:company, domain: 'apple.com')
-      create(:manager_emails, email: 'manager@apple.com', created_by: admin, company:)
-      manager = create(:manager_user, email: 'manager@apple.com')
+      create(:manager_emails)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
 
       login_as manager
       get inactives_companies_path

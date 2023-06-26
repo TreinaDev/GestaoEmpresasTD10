@@ -19,6 +19,10 @@ Rails.application.routes.draw do
         post :create_card, on: :collection
         patch :deactivate_card, on: :member
         patch :activate_card, on: :member
+        get :new_manager, on: :collection
+        post :create_manager, on: :collection
+        get :new_fired, on: :collection
+        post :fired, on: :collection
       end
       resources :positions, only: %i(new create show edit update)
     end
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :companies, only: %i[show index]
+      resources :employee_profiles, only: %i(index)
     end
   end
 end

@@ -4,7 +4,7 @@ feature 'Usuário atualiza status' do
   context 'enquanto admin' do
     scenario 'para ativo com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: false)
+      company = create(:company, active: false)
 
       login_as admin
       visit company_path(company)
@@ -18,7 +18,7 @@ feature 'Usuário atualiza status' do
 
     scenario 'para inativo com sucesso' do
       admin = User.create!(email: 'manoel@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: true)
+      company = create(:company, active: true)
 
       login_as admin
       visit company_path(company)
@@ -33,10 +33,10 @@ feature 'Usuário atualiza status' do
 
   context 'enquanto gerente' do
     scenario 'sem sucesso por não ver botão de desativar' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company, active: true)
-      ManagerEmails.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      create(:manager_emails)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
+      company = create(:company)
 
       login_as manager
       visit company_path(company)
@@ -45,10 +45,11 @@ feature 'Usuário atualiza status' do
     end
 
     scenario 'sem sucesso por não ver botão de ativar' do
-      admin = User.create!(email: 'admin@punti.com', role: :admin, password: '123456', cpf: '02324252481')
-      company = FactoryBot.create(:company)
-      ManagerEmails.create!(email: 'manager@campuscode.com.br', created_by: admin, company:)
-      manager = User.create!(email: 'manager@campuscode.com.br', role: :manager, password: '123456', cpf: '51959723030')
+      create(:manager_emails)
+      company = create(:company)
+      manager = create(:manager_user)
+      create(:employee_profile, :manager, user: manager)
+
       company.active = false
       company.save!
 

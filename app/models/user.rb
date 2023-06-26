@@ -3,8 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   before_validation :assign_role
-  before_validation :assign_role
-  before_validation :assign_role
+  before_validation :clean_cpf
   after_create :update_employee, if: -> { employee? }
 
   validates :cpf, presence: true
@@ -15,7 +14,10 @@ class User < ApplicationRecord
   enum role: { admin: 0, manager: 1, employee: 2 }, _default: :employee
 
   has_one :employee_profile, dependent: nil
+  has_one :department, through: :employee_profile
+
   after_create :update_employee, if: -> { employee? }
+
   def description
     "#{User.human_attribute_name(:roles, count: 'other').fetch(role.to_sym).upcase} - #{email}"
   end
@@ -42,6 +44,10 @@ class User < ApplicationRecord
 
   def inactive_message
     blocked? ? :blocked : super
+  end
+
+  def clean_cpf
+    cpf&.gsub!(/\D/, '')
   end
 
   private
