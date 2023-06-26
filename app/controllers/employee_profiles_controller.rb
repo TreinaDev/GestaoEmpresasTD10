@@ -1,15 +1,12 @@
-require 'pry'
 class EmployeeProfilesController < ApplicationController
-  before_action :set_employee_profile, only: %i[show edit update]
+  before_action :set_employee_profile, only: %i[show edit update deactivate_card activate_card]
   before_action :set_department_and_company
   before_action :require_manager
+  before_action :set_card, only: %i(show activate_card deactivate_card)
   before_action :manager_belongs_to_company?
   before_action :company_is_active?, only: %i[new create]
 
-  def show
-    @card = GetCardApi.show(@employee_profile.cpf)
-    @card = nil if @card == 500
-  end
+  def show; end
 
   def new
     @employee_profile = EmployeeProfile.new
@@ -41,8 +38,6 @@ class EmployeeProfilesController < ApplicationController
   end
 
   def deactivate_card
-    @employee_profile = EmployeeProfile.find_by(id: params[:id])
-    @card = GetCardApi.show(@employee_profile.cpf)
     response = GetCardApi.deactivate(@card.id)
 
     return redirect_to [@company, @department], notice: t('.unavailable') if response == 500
@@ -56,8 +51,6 @@ class EmployeeProfilesController < ApplicationController
   end
 
   def activate_card
-    @employee_profile = EmployeeProfile.find_by(id: params[:id])
-    @card = GetCardApi.show(@employee_profile.cpf)
     response = GetCardApi.activate(@card.id)
 
     return redirect_to [@company, @department], notice: t('.unavailable') if response == 500
@@ -103,5 +96,10 @@ class EmployeeProfilesController < ApplicationController
                                              :address, :birth_date, :phone_number,
                                              :admission_date, :dismissal_date, :marital_status,
                                              :status, :position_id, :user_id)
+  end
+
+  def set_card
+    @card = GetCardApi.show(@employee_profile.cpf)
+    @card = nil if @card == 500
   end
 end
