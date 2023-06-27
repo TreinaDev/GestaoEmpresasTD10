@@ -41,7 +41,7 @@ class CompaniesController < ApplicationController
     if @company.update(company_params)
       redirect_to @company, notice: t('.success')
     else
-      flash.now[:notice] = 'Não foi possível atualizar dados da empresa'
+      flash.now[:notice] = t('.failure')
       render :edit
     end
   end

@@ -1,5 +1,7 @@
 pt-BR:
   employee_profiles:
+    show:
+      unavailable: Sistema indisponível no momento, por favor tente mais tarde
     update:
       success: Perfil de Funcionário atualizado com sucesso
       failure: Perfil de Funcionário não atualizado
@@ -12,6 +14,14 @@ pt-BR:
     create_card:
       success: Cartão solicitado com sucesso
       failure: Cartão não solicitado, verifique informações
+      unavailable: Sistema indisponível no momento, por favor tente mais tarde
+    deactivate_card:
+      success: Cartão bloqueado com sucesso
+      failure: Cartão não bloqueado.
+      unavailable: Sistema indisponível no momento, por favor tente mais tarde
+    activate_card:
+      success: Cartão desbloqueado com sucesso
+      failure: Não foi possível desbloquear o cartão
       unavailable: Sistema indisponível no momento, por favor tente mais tarde
     fired:
       already_fired: Funcionário já desligado

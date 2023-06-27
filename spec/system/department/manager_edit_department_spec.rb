@@ -13,7 +13,9 @@ feature 'Manager edita departamento' do
 
     login_as new_user
     visit company_department_path(company.id, department.id)
-    click_on 'Editar'
+    within('div#options') do
+      click_on 'Editar'
+    end
 
     fill_in 'Nome',	with: 'Jurídico'
     fill_in 'Descrição',	with: 'O departamento jurídico'
@@ -34,7 +36,9 @@ feature 'Manager edita departamento' do
 
     login_as new_user
     visit company_department_path(company.id, department.id)
-    click_on 'Editar'
+    within('div#options') do
+      click_on 'Editar'
+    end
 
     fill_in 'Nome',	with: 'Jurídico'
     fill_in 'Descrição',	with: ''

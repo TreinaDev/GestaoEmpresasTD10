@@ -2,6 +2,8 @@ pt-BR:
   employee_profiles:
     form:
       save: Salvar
+    unavailable: Sistema indisponível no momento, por favor tente mais tarde
+    no_card: Você não possui cartão, fale com o setor de RH
     show:
       edit: Editar
       fired_employee: Desligar funcionário
