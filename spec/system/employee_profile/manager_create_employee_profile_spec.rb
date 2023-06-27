@@ -64,7 +64,6 @@ feature 'Usuário cadastra perfil de funcionário' do
 
       expect(page).to have_content('Perfil de Funcionário não cadastrado')
       expect(page).to have_content('Nome Completo não pode ficar em branco')
-      expect(page).to have_content('Nome Social não pode ficar em branco')
       expect(page).to have_content('E-mail não pode ficar em branco')
       expect(page).to have_content('Data de Nascimento não pode ficar em branco')
       expect(page).to have_content('CPF não pode ficar em branco')

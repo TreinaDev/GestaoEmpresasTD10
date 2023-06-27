@@ -7,3 +7,5 @@ pt-BR:
     update:
       success: Cargo editado com sucesso
       failure: Cargo não editado
+    form:
+      save: 'Salvar'

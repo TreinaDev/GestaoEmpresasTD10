@@ -85,7 +85,7 @@ feature 'Gerente cria cargo' do
       login_as(manager_user)
       visit new_company_department_position_path(company_id: company.id, department_id: department.id)
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq company_path(company)
       expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
       expect(Position.count).to eq 1
     end

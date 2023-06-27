@@ -1,9 +1,9 @@
-<h1>Visualização da empresa <%= @company.brand_name %></h1>
-<% if admin? %>
+<% if current_user.admin? || current_user.employee_profile.department.company == @company %>
   
   <div class="row">
     <div class="d-md-none d-lg-block col-lg-3">
     </div>
+    
     <div class="col-md-12 col-lg-6">
       <div class="card my-4">
         <% if @company.logo.present? %>
@@ -30,75 +30,22 @@
             </p>
           </div>
         </div>
-        <div class="card-footer d-flex justify-content-between  align-items-center">
-          <% if current_user.admin? %>
-            <%= link_to edit_company_path(@company), class: 'btn btn-warning text-white' do %>
-              <i class="bi bi-pencil-square d-inline"></i> Editar
+        <% if current_user.admin? %>
+          <%= render 'edit_company_buttons'%>
+        <% elsif current_user.manager? %>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            
+            <%= link_to company_departments_path(@company), class: 'btn btn-primary text-white mx-auto' do %>
+              <i class="bi bi-person-badge d-inline"></i> Departamentos
             <% end %>
 
-            <% if @company.active %>
-              <%= button_to deactivate_company_path(@company), method: :put, form: { class: 'd-inline' }, class: 'btn btn-danger' do %>
-                <i class="ms-auto bi bi-x-lg"></i> Desativar
-              <% end %>
-            <% end %>
-
-            <% if !@company.active %>
-              <%= button_to activate_company_path(@company), method: :put, form: { class: 'd-inline m-1' }, class: 'btn btn-success' do %>
-                <i class="ms-auto bi bi-check-lg"></i> Ativar
-              <% end %>
-            <% end %>
-
-          <% end %>
-        </div>
-      </div>
-      <div id="cadEmail" class="border border-1 p-3">
-      <h4>Cadastrar email</h4>
-        <% if @manager.errors.any? %>
-          <h2>Verifique os erros abaixo:</h2>
-          <ul>
-            <% @manager.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        <% end %>
-        <%= form_with model:@manager, url:manager_emails_path do |f| %>
-          <%= f.hidden_field :company_id, :value => @company.id%>
-          <div class="input-group mb-3">
-            <%= f.text_field :email, placeholder: 'Cadastrar email', class:'form-control' %>
-            <%= f.submit 'Cadastrar', class:'btn btn-success' %>
-          </div>
-        <% end %>
-        <% if  @emails.present? %>
-          <table class="table table-striped table-bordered">
-            <thead class="text-center">
-              <tr>
-                <th scope="col">Email</th>
-                <th scope="col">Ações</th>
-              </tr>
-              <thead>
-                <tbody>
-                  <% @emails.each do |email| %>
-                    <tr>
-                      <td class="align-baseline"><%= email.email %></td>
-                      <td class="d-flex justify-content-around">
-                        <%= button_to manager_email_path(email.id), {method: :delete, id:"delete#{email.id}", form: { class: 'd-inline m-0' }, class:'btn btn-danger d-inline'} do %>
-                          <i class="bi bi-trash"></i>
-                        <% end %>
-                        <button class="btn btn-primary d-inline">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            <% end %>
           </div>
         <% end %>
       </div>
     </div>
+
     <div class="d-md-none d-lg-block col-lg-3">
     </div>
-
-    <div class="col-sm-12 col-md-5">
-      
+  </div>
+  
+<% end %>

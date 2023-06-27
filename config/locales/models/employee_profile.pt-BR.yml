@@ -20,6 +20,7 @@ pt-BR:
         dismissal_date: Data de Demissão
         department_id: Departamento
         position_id: Cargo
+        company_id: Empresa
     enum:
       employee_profile:
         status:

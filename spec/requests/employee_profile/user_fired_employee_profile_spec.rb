@@ -79,6 +79,7 @@ describe 'Usuário tenta desligar funcionário', type: :request do
     }
 
     follow_redirect!
+    follow_redirect!
 
     expect(response).to have_http_status(:ok)
     expect(response.body).to include 'Usuário sem permissão para executar essa ação'

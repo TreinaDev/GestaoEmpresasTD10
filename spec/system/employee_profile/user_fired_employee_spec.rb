@@ -19,7 +19,7 @@ feature 'Desligamento de funcionário' do
       click_on 'Desligar funcionário'
 
       fill_in 'Data de Demissão', with: date
-      click_on 'Salvar'
+      click_on 'Desligar'
 
       expect(page).to have_content "Data de Demissão: #{date.strftime('%d/%m/%Y')}"
       expect(EmployeeProfile.first.status).to eq 'fired'
@@ -42,7 +42,7 @@ feature 'Desligamento de funcionário' do
       click_on 'Desligar funcionário'
 
       fill_in 'Data de Demissão', with: date
-      click_on 'Salvar'
+      click_on 'Desligar'
 
       expect(page).to have_content 'Erro ao tentar desligar funcionário'
       expect(EmployeeProfile.first.status).to eq 'unblocked'
@@ -97,7 +97,7 @@ feature 'Desligamento de funcionário' do
       login_as user_employee
       visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq company_path(company)
       expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     end
   end
