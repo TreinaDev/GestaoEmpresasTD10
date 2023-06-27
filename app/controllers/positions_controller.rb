@@ -5,7 +5,7 @@ class PositionsController < ApplicationController
   before_action :status_api
   before_action :set_company_and_department, only: %i[index show new edit create update]
   before_action :set_position, only: %i[show edit update]
-  before_action :set_card_types, only: %i[new edit create update]
+  before_action :set_card_types, only: %i[show new edit create update]
 
   def index
     @positions = Position.where(department_id: params[:department_id])

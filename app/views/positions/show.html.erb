@@ -25,6 +25,7 @@
         <th scope="col">CPF</th>
         <th scope="col">Email</th>
         <th scope="col">Cargo</th>
+        <th scope="col">Status</th>
         <th scope="col">Ações</th>
       </tr>
     <thead>
@@ -35,6 +36,11 @@
           <td class="align-baseline"><%= format_cpf(employee.cpf) %></td>
           <td class="align-baseline"><%= employee.email %></td>
           <td class="align-baseline"><%= employee.position.name %></td>
+          <td class="align-baseline text-center ">
+            <div class="alert p-1 m-0 <%= employee.unblocked? ? 'alert-success' : 'alert-danger' %>">
+              <%= t(employee.status) %>
+            </div>
+          </td>
           <td class="d-flex justify-content-around">
             <%= button_to create_card_company_department_employee_profiles_path(company_id: @department.company_id, department_id: @department.id, card: { cpf: employee.cpf, company_card_type_id: employee.position.card_type_id }),
               method: :post, id: "delete#{employee.id}", class: 'btn btn-primary d-inline' do %>
@@ -45,10 +51,10 @@
             <%= link_to company_department_employee_profile_path(
               company_id: @department.company.id,
               department_id: @department.id,
-              employee_id: employee.id
+              id: employee.id
             ),
             class: 'btn btn-primary d-inline', method: :get do %>
-              Ver funcionário
+              Detalhes
               <i class="bi bi-eye"></i>
             <% end %>
 

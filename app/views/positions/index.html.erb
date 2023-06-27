@@ -1,6 +1,11 @@
 <div class="text-center w-100 mt-2">
   <p class="fs-1"><%= @department.name %> </p>
-  <p class="fs-3 m-0">Lista de cargos</p>
+  <div class="d-flex align-items-center mb-2 justify-content-center">
+    <%= link_to company_department_path(company_id: @company.id, id: @department.id), class: "btn btn-primary btn-sm d-inline  py-0 px-2 me-3", style:'font-size:20px;' do %>
+      <i class="bi bi-arrow-left"></i>
+    <% end %>
+    <p class="fs-3 m-0 d-inline">Lista de cargos</p>
+  </div>
 </div>
 
 <% if @positions.any? %>
