@@ -24,11 +24,11 @@ class ApplicationController < ActionController::Base
   end
 
   def manager_belongs_to_company?
-    return unless current_user.manager?
+    return false unless current_user.manager?
 
     company_id = params[:company_id]
     manager = ManagerEmails.find_by(email: current_user.email)
-    return if manager.company_id == company_id.to_i
+    return false if manager.company_id == company_id.to_i
 
     redirect_to root_path, alert: t('forbidden')
   end
@@ -47,5 +47,9 @@ class ApplicationController < ActionController::Base
     department = Department.where(name: 'Departamento de RH').where(company_id: manager.company_id).first
     redirect_to new_manager_company_department_employee_profiles_path(company_id: manager.company.id,
                                                                       department_id: department.id)
+  end
+
+  def status_api
+    redirect_to root_path, alert: t('api_down') if GetCardType.status == 500
   end
 end

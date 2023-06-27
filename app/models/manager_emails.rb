@@ -36,7 +36,7 @@ class ManagerEmails < ApplicationRecord
   end
 
   def company_active?
-    return if email.present? && company.present? && company.active
+    return false if email.present? && company.present? && company.active
 
     errors.add(:company, 'não está ativa')
   end

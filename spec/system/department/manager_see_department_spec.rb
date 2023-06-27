@@ -31,7 +31,7 @@ feature 'Manager vê um departamento em específico' do
     second_department = create(:department, name: 'Cozinha', description: 'Alimentos', company:)
     position = create(:position, department_id: department.id)
     second_position = create(:position, department_id: department.id, name: 'Programador')
-    create(:employee_profile, :employee, user: manager, position: second_position, department:)
+    create(:employee_profile, :employee, user: manager, position: second_position, department:, cpf: '16576262027')
     create(:employee_profile, :employee, user: manager, position:, department: second_department,
                                          name: 'Roberval', cpf: '09602079029')
 
@@ -39,10 +39,12 @@ feature 'Manager vê um departamento em específico' do
     visit company_department_path(company, department)
 
     expect(page).to have_content 'Roberto Carlos Nascimento'
-    expect(page).to have_content 'employee@microsoft.com'
+    expect(page).to have_content 'Roberto Carlos Nascimento'
+    expect(page).to have_content 'Ativo'
+    expect(page).to have_content '165.762.620-27'
     expect(page).to have_content 'Programador'
     expect(page).not_to have_content 'Roberval'
-    expect(page).not_to have_content '09602079029'
+    expect(page).not_to have_content '096.020.790-29'
   end
 
   scenario 'E não há funcionários no departamento' do

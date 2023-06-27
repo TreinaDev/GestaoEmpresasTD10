@@ -34,7 +34,7 @@ class ManagerEmailsController < ApplicationController
   end
 
   def email_exists_canceled?
-    return unless @manager.email.present? && ManagerEmails.where(email: @manager.email).canceled.any?
+    return false unless @manager.email.present? && ManagerEmails.where(email: @manager.email).canceled.any?
 
     @manager.active!
     redirect_to manager_company_path(@company),

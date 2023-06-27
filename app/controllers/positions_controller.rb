@@ -51,10 +51,6 @@ class PositionsController < ApplicationController
     @card_types = GetCardType.all(@company.registration_number)
   end
 
-  def status_api
-    redirect_to root_path, alert: t('api_down') if GetCardType.status == 500
-  end
-
   def position_params
     params.require(:position).permit(:name, :description, :card_type_id)
   end
