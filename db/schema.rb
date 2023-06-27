@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_214303) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_27_191741) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -127,6 +127,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_214303) do
     t.index ["department_id"], name: "index_positions_on_department_id"
   end
 
+  create_table "recharge_histories", force: :cascade do |t|
+    t.integer "value"
+    t.date "recharge_date"
+    t.integer "created_by_id", null: false
+    t.integer "employee_profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_recharge_histories_on_created_by_id"
+    t.index ["employee_profile_id"], name: "index_recharge_histories_on_employee_profile_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -150,4 +161,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_214303) do
   add_foreign_key "employee_profiles", "users"
   add_foreign_key "manager_emails", "users", column: "created_by_id"
   add_foreign_key "positions", "departments"
+  add_foreign_key "recharge_histories", "employee_profiles"
+  add_foreign_key "recharge_histories", "users", column: "created_by_id"
 end

@@ -1,0 +1,13 @@
+<%= form_with url: company_recharge_histories_path, method: :post, local: true do |form| %>
+  <div class="field">
+    <%= form.label :cpf %>
+    <%= form.text_field :cpf %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value %>
+  </div>
+  
+  <%= form.submit 'Enviar' %>
+<% end %>

@@ -30,4 +30,5 @@ class GetCardApi
   rescue Faraday::ConnectionFailed
     500
   end
+
 end

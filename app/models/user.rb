@@ -15,8 +15,7 @@ class User < ApplicationRecord
 
   has_one :employee_profile, dependent: nil
   has_one :department, through: :employee_profile
-
-  after_create :update_employee, if: -> { employee? }
+  has_many :recharge_histories, dependent: :nullify, foreign_key: 'created_by', inverse_of: :creator
 
   def description
     if employee_profile.nil?
