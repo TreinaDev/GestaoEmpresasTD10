@@ -36,7 +36,7 @@ class EmployeeProfilesController < EmployeeCardApiController
   private
 
   def company_is_active?
-    return if @company.active
+    return false if @company.active
 
     redirect_to root_path, alert: t('inactive_company')
   end
