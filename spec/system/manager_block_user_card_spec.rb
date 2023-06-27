@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 feature 'Gerente acessa perfil do funcionário' do
   scenario 'e bloqueia cartão de funcionário' do
@@ -17,7 +18,7 @@ feature 'Gerente acessa perfil do funcionário' do
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee.cpf}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/90900938005').and_return(fake_response)
 
     json_data2 = '{}'
     fake_response2 = double('faraday_response', status: 200, body: json_data2)
@@ -25,11 +26,13 @@ feature 'Gerente acessa perfil do funcionário' do
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
-    click_on 'RH'
-    within('div#employees') do
-      click_on 'Roberto Carlos Nascimento'
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
     end
-    click_on 'Bloquear Cartão'
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Bloquear Cartão'
+    end
 
     expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
                                                                         department_id: department.id,
@@ -61,9 +64,13 @@ feature 'Gerente acessa perfil do funcionário' do
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
-    click_on 'RH'
-    click_on 'Roberto Carlos Nascimento'
-    click_on 'Desbloquear Cartão'
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Desbloquear Cartão'
+    end
 
     expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
                                                                         department_id: department.id,
@@ -91,8 +98,10 @@ feature 'Gerente acessa perfil do funcionário' do
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
-    click_on 'RH'
-    click_on 'Roberto Carlos Nascimento'
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
 
     expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
                                                                         department_id: department.id,

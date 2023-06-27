@@ -5,29 +5,14 @@
     <p class="card-text"> <%= Department.human_attribute_name('code') %>: <%= @department.code %></p>
     <p class="card-text"><%= Department.human_attribute_name('company') %>: <%= @department.company.brand_name %></p>
     <br>
-    <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), id: 'btn_edit', class: (@department.name == 'Departamento de RH' ? 'btn btn-primary disabled' : 'btn btn-primary') if @department.present? %>
   </div>
-  <div id = "employees">
-    Funcionários:
-    <% @department.employee_profiles.each do |employee|%>
-      <%= link_to employee.name, company_department_employee_profile_path(company_id: @department.company.id,
-                                          department_id: @department.id, id: employee.id)%>
-      <div id = <%= employee.id %> > 
-        <% if !employee.card_status %>
-          <%= button_to 'Solicitar Cartão', create_card_company_department_employee_profiles_path(company_id: @department.company_id, 
-                                                                                                  department_id: @department.id, card: {cpf: employee.cpf, company_card_type_id: employee.position.card_type_id }),
-                                                                                                  method: :post%>
-        <%end%>
-      </div>
-    <%end%>
-    <div class="d-flex w-100 gap-1">
-      <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), id: 'btn_edit', class: (@department.name == 'Departamento de RH' ? 'btn btn-primary disabled' : 'btn btn-warning text-white bold') if @department.present? do%>
-      <% end %>
-      <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_employee', class:'btn btn-primary'%>
-      <%= link_to t('.new_position'), new_company_department_position_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_position', class:'btn btn-primary'%>
-      <%= link_to t('.see_positions'), company_department_positions_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_position', class:'btn btn-primary'%>
-      <%= link_to t('.go_back'), company_departments_path(company_id: @department.company_id), id: 'btn_go_to_departments', class:'btn btn-primary ms-auto mr-2'%>
-    </div>
+  <div class="d-flex w-100 gap-1" id="options">
+    <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), id: 'btn_edit', class: (@department.name == 'Departamento de RH' ? 'btn btn-primary disabled' : 'btn btn-warning text-white bold') if @department.present? do%>
+    <% end %>
+    <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_employee', class:'btn btn-primary'%>
+    <%= link_to t('.new_position'), new_company_department_position_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_position', class:'btn btn-primary'%>
+    <%= link_to t('.see_positions'), company_department_positions_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_position', class:'btn btn-primary'%>
+    <%= link_to t('.go_back'), company_departments_path(company_id: @department.company_id), id: 'btn_go_to_departments', class:'btn btn-primary ms-auto mr-2'%>
   </div>
 </div>
 
@@ -63,9 +48,9 @@
             <%= link_to company_department_employee_profile_path(
               company_id: @department.company.id,
               department_id: @department.id,
-              employee_id: employee.id
+              id: employee.id
             ),
-            class: 'btn btn-primary d-inline', method: :get do %>
+            class: 'btn btn-primary d-inline',id: "employee#{employee.id}", method: :get do %>
               Ver funcionário
               <i class="bi bi-eye"></i>
             <% end %>
