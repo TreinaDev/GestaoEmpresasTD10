@@ -5,8 +5,15 @@ pt-BR:
     unavailable: Sistema indisponível no momento, por favor tente mais tarde
     no_card: Você não possui cartão, fale com o setor de RH
     show:
+      no_employee_card: Funcionário não possui cartão
       edit: Editar
       fired_employee: Desligar funcionário
+      card_info: Informações do Cartão
+      recharge_link: Histórico de recarga
+      block_card: Bloquear Cartão
+      unblock_card: Desbloquear Cartão
+      company_info: Informações Empresariais
+      profile: Perfil
     new_fired:
       save: Salvar
       dismissal_date: Data de Demissão
@@ -15,3 +22,10 @@ pt-BR:
       save: Salvar
     new_manager:
       save: Salvar
+    recharge_history:
+      recharge: Recarga
+      date: Data
+      title_recharge: Histórico de recarga
+      employee: Funcionário
+
+

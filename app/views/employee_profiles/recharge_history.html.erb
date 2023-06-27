@@ -1,0 +1,7 @@
+<h1><%= t('.title_recharge')%></h1>
+<strong><%= t('.employee')%>:</strong> <%= @employee_profile.name%>
+
+<% @recharges.each do |recharge| %>
+  <p><%= t('.recharge')%>: <%= number_to_currency(recharge.value) %></p>
+  <p><%= t('.date')%>: <%= l(recharge.recharge_date) %></p>
+<% end %>
