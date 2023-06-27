@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index] do
     get :profile, on: :collection
+
     member do
       patch :block
       patch :unblock
@@ -16,18 +17,26 @@ Rails.application.routes.draw do
   resources :companies, only: %i( new create show edit update index) do
     resources :departments, only: %i(index new create show update edit) do
       resources :employee_profiles, only: %i(new create show edit update) do
-        post :create_card, on: :collection
-        get :new_manager, on: :collection
-        post :create_manager, on: :collection
-        get :new_fired, on: :collection
-        post :fired, on: :collection
+        collection do
+          post :create_card
+          get :new_manager
+          post :create_manager
+          get :new_fired
+          post :fired
+        end
       end
       resources :positions, only: %i(index new create show edit update)
     end
-    get 'inactives', on: :collection
-    put :activate, on: :member
-    put :deactivate, on: :member
-    get :manager, on: :member
+    collection do
+      get :inactives
+      get :search
+    end
+
+    member do
+      put :activate
+      put :deactivate
+      get :manager
+    end
   end
 
   namespace :api do

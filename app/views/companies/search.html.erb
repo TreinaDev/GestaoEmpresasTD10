@@ -1,0 +1,17 @@
+<% if @employee_profiles.present? %>
+<h2> Resultados da pesquisa: </h2> 
+<ul>
+<% @employee_profiles.each do |employee_profile| %>
+<li>
+<h3><%= link_to @employee_profile.cpf, company_department_employee_profile_path(empoloyee_profile.department.company_id, employee_profile.department_id, employee_profile), class: "btn-btn-primary" %></h3>
+  <p> Nome do Funcionário: </p>
+  <p><%= employee_profile.name %></p>´
+  </li>
+  <% end %>
+</ul>
+<% else %>
+<p> Nenhum resultado encontrado </p>
+<% end %>
+
+
+

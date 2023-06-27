@@ -11,6 +11,10 @@ class Company < ApplicationRecord
 
   private
 
+  # def search_employee(query)
+  #  (:employee_profiles).where("cpf LIKE ?", "%#{query}%")
+  # end
+
   def clean_registration_number
     registration_number&.gsub!(/\D/, '')
   end

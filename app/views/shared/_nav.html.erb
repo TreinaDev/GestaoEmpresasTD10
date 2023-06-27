@@ -9,7 +9,6 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
               <ul class="navbar-nav d-flex w-100">
                 <% if current_user.admin? %>
-
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Empresas
@@ -24,7 +23,6 @@
                       <li class="nav-item" >
                         <%= link_to 'Cadastrar Empresa', new_company_path, class:'dropdown-item'  %>
                       </li>
-                      
                     </ul>
                   </li>
                 <% elsif current_user.employee_profile %>
@@ -32,6 +30,33 @@
                         <%= link_to current_user.employee_profile.department.company.brand_name , company_path(current_user.employee_profile.department.company), class:'nav-link'  %>
                       </li>
                 <% end %>
+                
+
+
+ <%
+=begin%>
+ <form class="d-flex ms-auto" action="<%=search_companies_path%>" method="get">
+                          <%= text_field_tag :q, nil, placeholder: "Pesquisar", class: "form-control me-2" %>
+                          <%= button_tag type: 'submit', class: "btn btn-primary btn-sm me-4" do %>
+                            Buscar
+                        <% end %>   
+<%
+=end%>
+
+
+
+
+
+
+ <%= form_with(url: search_companies_path, method: :get, class: 'ml-auto') do |form| %>
+  <div class="form-group">
+    <%= form.text_field :search, class: 'form-control', placeholder: "Pesquisar:" %>
+  </div>
+  <%= form.submit 'Buscar', class: "btn btn-primary btn-bus" %>
+<% end %>  
+
+
+
 
 
                   <li class="nav-item dropdown ms-auto">
