@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 feature 'Gerente acessa perfil do funcionário' do
   scenario 'e bloqueia cartão de funcionário' do
