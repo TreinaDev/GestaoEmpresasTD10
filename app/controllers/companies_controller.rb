@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :require_admin, except: %i[show search]
   before_action :set_company, only: %i[show edit update activate deactivate manager]
+  before_action :require_manager, only: %i[search]
 
   def index; end
 
@@ -56,18 +57,15 @@ class CompaniesController < ApplicationController
     redirect_to company_path(@company)
   end
 
-   def search
-     @employee_profiles = EmployeeProfile.joins(:department)
-                                          .where(departments: {company_id: current_user.department.company.id})
-                                          .where("cpf LIKE :search", 
-                                                 search: "%#{params[:search]}%")
-   end
+  def search
+    company_id = current_user.department.company.id
+    search_term = "%#{params[:search]}%"
 
-  # def search
-  #   @employees = Company.search_employee(params[:q]).distinct
-  #   render :index
-  # end
-  
+    @employee_profiles = EmployeeProfile.joins(:department)
+                                         .where(departments: { company_id: company_id })
+                                         .where("cpf LIKE :search OR employee_profiles.name LIKE :search", search: search_term)
+  end
+
   private
 
   def set_company
