@@ -15,7 +15,7 @@ RSpec.describe RechargeHistory, type: :model do
                                            status: 'unblocked', email: "funcionario@#{company.domain}",
                                            cpf: '90900938005',
                                            card_status: true)
-      recharge = RechargeHistory.new(value: nil, recharge_date: Date.today, employee_profile: employee)
+      recharge = RechargeHistory.new(value: nil, recharge_date: Time.zone.today, employee_profile: employee)
 
       expect(recharge.valid?).to eq false
     end
