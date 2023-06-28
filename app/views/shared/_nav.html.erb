@@ -1,60 +1,67 @@
 <% if user_signed_in? %>
-      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div class="container">
-          <div class="container-fluid d-flex">
-            <%= link_to "Gestão de empresas", root_path, class: 'navbar-brand', id:'navbar-logo' %>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-              <ul class="navbar-nav d-flex w-100">
-                <% if current_user.admin? %>
-
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Empresas
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                      <li>
-                        <%= link_to 'Empresas Ativas', root_path, class:'dropdown-item' %>
-                      </li>
-                       <li>
-                        <%= link_to 'Empresas Inativas', inactives_companies_path, class:'dropdown-item' %>
-                      </li>
-                      <li class="nav-item" >
-                        <%= link_to 'Cadastrar Empresa', new_company_path, class:'dropdown-item'  %>
-                      </li>
-                      
-                    </ul>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+      <div class="container-fluid d-flex">
+        <%= link_to "Gestão de empresas", root_path, class: 'navbar-brand', id:'navbar-logo' %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav d-flex w-100">
+            <% if current_user.admin? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Empresas
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                  <li>
+                    <%= link_to 'Empresas Ativas', root_path, class:'dropdown-item' %>
                   </li>
-                <% elsif current_user.employee_profile %>
-                    <li class="nav-item" >
-                        <%= link_to current_user.employee_profile.department.company.brand_name , company_path(current_user.employee_profile.department.company), class:'nav-link'  %>
-                      </li>
+                  <li>
+                    <%= link_to 'Empresas Inativas', inactives_companies_path, class:'dropdown-item' %>
+                  </li>
+                  <li class="nav-item" >
+                    <%= link_to 'Cadastrar Empresa', new_company_path, class:'dropdown-item'  %>
+                  </li>
+                </ul>
+              </li>
+            <% elsif current_user.employee_profile %>
+                <li class="nav-item" >
+                  <%= link_to current_user.employee_profile.department.company.brand_name , company_path(current_user.employee_profile.department.company), class:'nav-link'  %>
+                </li>
+            <% end %>
+
+            <% if current_user.manager? %>
+              <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
+                <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar Funcionário" %>
+                <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
+                  <i class="bi bi-search"></i> 
                 <% end %>
+              <% end %>
+              <li class="nav-item dropdown ms-1">
+            <% else %>
+              <li class="nav-item dropdown ms-auto">
+            <% end %>
 
-
-                  <li class="nav-item dropdown ms-auto">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <%= current_user.description%>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                      <% unless current_user.admin? %>
-                        <li>
-                          <%= link_to profile_users_path, class: 'dropdown-item' do %>
-                            <i class="bi bi-person-circle"></i> Perfil
-                          <% end %>
-                        </li>
-                      <% end %>
-                      <li class="nav-item" >
-                        <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn dropdown-item' %>
-                      </li>
-                    </ul>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= current_user.description %>
+                </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <% unless current_user.admin? %>
+                  <li>
+                    <%= link_to profile_users_path, class: 'dropdown-item' do %>
+                      <i class="bi bi-person-circle"></i> Perfil
+                    <% end %>
                   </li>
-                
+                <% end %>
+                <li class="nav-item" >
+                  <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn dropdown-item' %>
+                </li>
               </ul>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-      </nav>
-    <%end%>
+      </div>
+    </div>
+  </nav>
+<% end %>
