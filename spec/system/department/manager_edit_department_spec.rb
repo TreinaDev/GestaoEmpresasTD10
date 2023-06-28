@@ -11,6 +11,12 @@ feature 'Manager edita departamento' do
     position = create(:position, department:)
     create(:employee_profile, :manager, position:, department:, user: new_user)
 
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+
     login_as new_user
     visit company_department_path(company.id, department.id)
     within('div#options') do
@@ -32,7 +38,14 @@ feature 'Manager edita departamento' do
     create(:manager_emails, company:)
     new_user = create(:manager_user)
     department = create(:department, company:, name: 'Compras')
-    create(:employee_profile, :manager, department:, user: new_user)
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, user: new_user, position:)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as new_user
     visit company_department_path(company.id, department.id)
@@ -53,7 +66,14 @@ feature 'Manager edita departamento' do
     create(:manager_emails, company:)
     new_user = create(:manager_user)
     department = create(:department, company:)
-    create(:employee_profile, :manager, department:, user: new_user)
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, user: new_user, position:)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as new_user
     visit company_department_path(company.id, department.id)

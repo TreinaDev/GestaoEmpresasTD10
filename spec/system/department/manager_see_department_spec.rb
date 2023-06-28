@@ -9,6 +9,12 @@ feature 'Manager vê um departamento em específico' do
     create(:employee_profile, :manager, user: manager)
     department = create(:department, name: 'Juridico', description: 'Setor de Processos', company:)
 
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
     login_as manager
     visit company_department_path(company, department)
 
@@ -35,6 +41,12 @@ feature 'Manager vê um departamento em específico' do
     create(:employee_profile, :employee, user: manager, position:, department: second_department,
                                          name: 'Roberval', cpf: '09602079029')
 
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
     login_as manager
     visit company_department_path(company, department)
 
@@ -54,6 +66,12 @@ feature 'Manager vê um departamento em específico' do
     manager = create(:manager_user)
     create(:employee_profile, :manager, user: manager)
     department = create(:department, name: 'Juridico', description: 'Setor de Processos', company:)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as manager
     visit company_department_path(company, department)

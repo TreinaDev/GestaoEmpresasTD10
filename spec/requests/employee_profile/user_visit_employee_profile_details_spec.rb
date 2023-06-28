@@ -11,6 +11,14 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
     position = create(:position, department_id: department.id)
     employee = create(:employee_profile, :employee, department_id: department.id, position_id: position.id)
 
+    fake_response = double('faraday_response', status: 200, body: '{}')
+    Rails.root.join('spec/support/json/card_types.json').read
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+
+    json_data = Rails.root.join('spec/support/json/cards2.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee.cpf}").and_return(fake_response)
+
     login_as user_manager
     get company_department_employee_profile_path(company_id: company.id, department_id: department.id, id: employee.id)
 

@@ -1,4 +1,4 @@
-<div class="card mt-2">
+<div class="card mt-2 shadow-sm bg-body rounded">
   <div class="card-body">
     <h2 class="card-title"> <%= Department.human_attribute_name('name') %>: <%=  @department.name %></h2>
     <p class="card-text"><%= Department.human_attribute_name('description') %>: <%= @department.description %></p>
@@ -6,7 +6,7 @@
     <p class="card-text"><%= Department.human_attribute_name('company') %>: <%= @department.company.brand_name %></p>
     <br>
   </div>
-  <div class="d-flex w-100 gap-1" id="options">
+  <div class="d-flex w-100 gap-1 p-2" id="options">
     <%= link_to t('.edit'), edit_company_department_path(@department.company_id, @department.id), id: 'btn_edit', class: (@department.name == 'Departamento de RH' ? 'btn btn-primary disabled' : 'btn btn-warning text-white bold') if @department.present? do%>
     <% end %>
     <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_employee', class:'btn btn-primary'%>
@@ -27,7 +27,7 @@
         <th scope="col">Cartão</th>
         <th scope="col">Cargo</th>
         <th scope="col">Status</th>
-        <th scope="col">Ações</th>
+        <th scope="col"></th>
       </tr>
     <thead>
     <tbody>
@@ -35,7 +35,10 @@
         <tr id="employee[<%= employee.id%>]">
           <td class="align-baseline"><%= employee.name %></td>
           <td class="align-baseline"><%= format_cpf(employee.cpf) %></td>
-          <td class="align-baseline">Cartão black</td>
+          <td class="align-baseline">
+            <img width="60px" class="mx-1" src="<%=@position_cards[employee.position.id][1] %>" >
+            <%= @position_cards[employee.position.id][0] %>
+          </td>
           <td class="align-baseline"><%= employee.position.name %></td>
           <td class="align-baseline text-center">
             <div class="alert p-1 m-0 <%= employee.unblocked? ? 'alert-success' : 'alert-danger' %>">

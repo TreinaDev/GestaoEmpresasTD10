@@ -3,7 +3,7 @@ class EmployeeCardApiController < ApplicationController
   before_action :set_card, only: %i[show deactivate_card activate_card new_fired fired]
   before_action :set_department_and_company
   before_action :require_manager
-  before_action :status_api, only: %i[show, edit]
+  before_action :status_api, only: %i[show edit]
 
   def show; end
 
@@ -88,5 +88,4 @@ class EmployeeCardApiController < ApplicationController
     @department = Department.find_by(id: params[:department_id])
     @company = Company.find_by(id: params[:company_id])
   end
-  
 end

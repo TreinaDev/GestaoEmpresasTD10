@@ -12,6 +12,14 @@ feature 'Usuário edita perfil de funcionário' do
       employee_profile = create(:employee_profile, :employee,
                                 name: 'Roberto Carlos Nascimento', marital_status: 1, department:, position:)
 
+      json_data = Rails.root.join('spec/support/json/cards2.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_profile.cpf}").and_return(fake_response)
+
+      json_data = Rails.root.join('spec/support/json/card_types.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 
@@ -33,6 +41,15 @@ feature 'Usuário edita perfil de funcionário' do
       position = create(:position, department_id: department.id)
       employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
                                                               marital_status: 1, department:, position:)
+
+      json_data = Rails.root.join('spec/support/json/cards2.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_profile.cpf}").and_return(fake_response)
+
+      json_data = Rails.root.join('spec/support/json/card_types.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      company.registration_number.tr('^0-9', '')
+      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
