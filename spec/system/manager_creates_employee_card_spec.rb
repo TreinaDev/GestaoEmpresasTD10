@@ -15,7 +15,6 @@ feature 'Gerente vai para index do departamento' do
     create(:user, email: "funcionario@#{company.domain}", password: 'password', cpf: '90900938005')
 
     fake_response = double('faraday_response', status: 200, body: '{}')
-    Rails.root.join('spec/support/json/card_types.json').read
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)

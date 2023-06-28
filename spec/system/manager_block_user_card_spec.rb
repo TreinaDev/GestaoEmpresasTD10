@@ -23,10 +23,14 @@ feature 'Gerente acessa perfil do funcionário' do
     fake_response2 = double('faraday_response', status: 200, body: json_data2)
     allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{JSON.parse(fake_response.body)['id']}/deactivate").and_return(fake_response2)
 
-    Rails.root.join('spec/support/json/card_types.json').read
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response2)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
@@ -66,10 +70,14 @@ feature 'Gerente acessa perfil do funcionário' do
     fake_response2 = double('faraday_response', status: 200, body: json_data2)
     allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{JSON.parse(fake_response.body)['id']}/activate").and_return(fake_response2)
 
-    Rails.root.join('spec/support/json/card_types.json').read
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response2)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)

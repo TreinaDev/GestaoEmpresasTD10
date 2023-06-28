@@ -1,0 +1,11 @@
+pt-BR:
+  shared:
+    profile:
+      info:
+        edit: Editar
+        fired_employee: Desligar funcionário
+      card:
+        block_card: Bloquear Cartão
+        unblock_card: Desbloquear Cartão
+        card: Cartão
+        unavailable: Sistema indisponível no momento, por favor tente mais tarde

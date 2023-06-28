@@ -20,6 +20,11 @@ feature 'Usuário edita perfil de funcionário' do
       fake_response = double('faraday_response', status: 200, body: json_data)
       allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
+      json_data = Rails.root.join('spec/support/json/card_types.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      cnpj = company.registration_number.tr('^0-9', '')
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
       login_as manager
       visit edit_company_department_employee_profile_path(company.id, department.id, employee_profile.id)
 

@@ -5,7 +5,9 @@ class EmployeeCardApiController < ApplicationController
   before_action :require_manager
   before_action :status_api, only: %i[show edit]
 
-  def show; end
+  def show
+    get_card_with_logo(@employee_profile)
+  end
 
   def edit; end
 
