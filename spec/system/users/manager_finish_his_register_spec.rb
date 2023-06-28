@@ -133,7 +133,7 @@ feature 'Manager é redirecionado ao acessar a aplicação' do
     click_on 'Salvar'
 
     expect(current_path).to eq create_manager_company_department_employee_profiles_path(company_id: company.id,
-                                                                                   department_id: 1)
+                                                                                        department_id: 1)
     expect(page).to have_content 'Não foi possível atualizar perfil de Gerente'
   end
 end

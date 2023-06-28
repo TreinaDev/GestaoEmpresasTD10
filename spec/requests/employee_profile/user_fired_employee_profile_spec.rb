@@ -98,11 +98,12 @@ describe 'Usuário tenta desligar funcionário', type: :request do
                                                             position:, status: 'fired')
 
     login_as manager
-    post fired_company_department_employee_profiles_path(company_id: company.id, department_id: department.id, id: employee_profile.id)
+    post fired_company_department_employee_profiles_path(company_id: company.id, department_id: department.id,
+                                                         id: employee_profile.id)
 
     expect(response).to redirect_to company_department_employee_profile_path(company_id: company.id,
-                                                                      department_id: department.id,
-                                                                      id: employee_profile.id)
+                                                                             department_id: department.id,
+                                                                             id: employee_profile.id)
     expect(flash[:alert]).to eq 'Funcionário já desligado'
   end
 end

@@ -71,9 +71,9 @@ feature 'Gerente vai para index do departamento' do
     create(:manager_emails, created_by: admin_user, company:, email: "funcionario@#{company.domain}")
     manager_user = create(:manager_user, email: "funcionario@#{company.domain}")
     position = create(:position, department:)
-    employee_profile = create(:employee_profile, position:, department_id: position.department.id,
-                                                 status: 'unblocked', email: "funcionario@#{company.domain}",
-                                                 cpf: '90900938005', user: manager_user)
+    create(:employee_profile, position:, department_id: position.department.id,
+                              status: 'unblocked', email: "funcionario@#{company.domain}",
+                              cpf: '90900938005', user: manager_user)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)

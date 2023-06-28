@@ -119,9 +119,9 @@ feature 'Gerente acessa perfil do funcionário' do
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
-                                          status: 'unblocked', email: "funcionario@#{company.domain}",
-                                          cpf: '90900938005',
-                                          card_status: true)
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -142,8 +142,8 @@ feature 'Gerente acessa perfil do funcionário' do
     end
 
     expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
-                                                            department_id: department.id,
-                                                            id: employee.id)
+                                                                        department_id: department.id,
+                                                                        id: employee.id)
     expect(page).to have_content 'Cartão não bloqueado'
     expect(fake_response2.status).to eq 400
   end
@@ -196,9 +196,9 @@ feature 'Gerente acessa perfil do funcionário' do
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
-                                          status: 'unblocked', email: "funcionario@#{company.domain}",
-                                          cpf: '90900938005',
-                                          card_status: true)
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -215,7 +215,7 @@ feature 'Gerente acessa perfil do funcionário' do
     end
 
     expect(current_path).to eq company_department_path(company_id: company.id,
-                                                            id: department.id)
+                                                       id: department.id)
     expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
   end
 
@@ -267,9 +267,9 @@ feature 'Gerente acessa perfil do funcionário' do
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
-                                          status: 'unblocked', email: "funcionario@#{company.domain}",
-                                          cpf: '90900938005',
-                                          card_status: true)
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
 
     json_data = Rails.root.join('spec/support/json/cards2.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -286,7 +286,7 @@ feature 'Gerente acessa perfil do funcionário' do
     end
 
     expect(current_path).to eq company_department_path(company_id: company.id,
-                                                            id: department.id)
+                                                       id: department.id)
     expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
   end
 end
