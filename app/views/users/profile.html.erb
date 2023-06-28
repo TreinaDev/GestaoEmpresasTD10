@@ -4,8 +4,8 @@
     Perfil
   </div>
   <div class="card-body">
-    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('name') %>: <%=  @employee_profile.name %></>
-    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>: <%= @employee_profile.social_name %></p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('name') %>: <%=  @employee_profile.name.titleize %></>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>: <%= @employee_profile.social_name.titleize %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('email') %>: <%= @employee_profile.email %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('birth_date') %>: <%= @employee_profile.birth_date.strftime('%d/%m/%Y') %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('cpf') %>: <%= @employee_profile.cpf %></p>

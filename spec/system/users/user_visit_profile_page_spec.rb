@@ -6,7 +6,7 @@ feature 'visitante acessa página de perfil' do
     department = create(:department, company:)
     position = create(:position, department:)
 
-    employee_data = create(:employee_profile, :employee, department:, position:, email: 'funcionario@empresa.com',
+    employee_data = create(:employee_profile, :employee, department:, position:, email: 'funcionario@microsoft.com',
                                                          cpf: '69142235219', card_status: true)
 
     employee_user = User.create!(email: employee_data.email, cpf: employee_data.cpf, password: '123456')
@@ -21,14 +21,14 @@ feature 'visitante acessa página de perfil' do
 
     expect(page).to have_content('Roberto Carlos Nascimento')
     expect(page).to have_content('Nome Social: Roberto Carlos')
-    expect(page).to have_content('E-mail: funcionario@empresa.com')
-    expect(page).to have_content('Data de Nascimento: 06/06/2023')
+    expect(page).to have_content('E-mail: funcionario@microsoft.com')
+    expect(page).to have_content('Data de Nascimento: 28/06/2004')
     expect(page).to have_content('CPF: 69142235219')
     expect(page).to have_content('RG: 12345678901')
     expect(page).to have_content('Telefone: 1199776655')
     expect(page).to have_content('Endereço: Rua do funcionário, 1200')
     expect(page).to have_content('Estado Civil: Solteiro(a)')
-    expect(page).to have_content('Data de Admissão: 06/06/2023')
+    expect(page).to have_content('Data de Admissão: 28/06/2022')
     expect(page).to have_content("Departamento: #{department.name}")
     expect(page).to have_content("Cargo: #{position.name}")
     within('div#user_card') do

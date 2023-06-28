@@ -33,7 +33,7 @@ feature 'Manager vê um departamento em específico' do
     second_position = create(:position, department_id: department.id, name: 'Programador')
     create(:employee_profile, :employee, user: manager, position: second_position, department:)
     create(:employee_profile, :employee, user: manager, position:, department: second_department,
-                                         name: 'Roberval', cpf: '09602079029')
+                                         name: 'Roberval Silva', cpf: '09602079029')
 
     login_as manager
     visit company_department_path(company, department)

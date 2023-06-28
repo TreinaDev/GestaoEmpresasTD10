@@ -56,18 +56,17 @@ feature 'Manager é redirecionado ao acessar a aplicação' do
     admin = create(:admin_user)
     company = create(:company, :with_department)
     create(:position, name: 'Gerente', department: Department.first)
-
     create(:manager_emails, created_by: admin, company:)
-    manager = create(:manager_user)
+    manager = create(:manager_user, cpf: '36666153090', email: 'manager@microsoft.com')
 
     login_as manager
     visit users_path
 
     fill_in 'Nome Completo', with: 'João da Silva'
     fill_in 'Nome Social', with: 'João'
-    fill_in 'Data de Nascimento', with: '01/01/1980'
+    fill_in 'Data de Nascimento', with: '01/01/1990'
     fill_in 'RG', with: '408493057'
-    fill_in 'Telefone', with: '11 99999-9999'
+    fill_in 'Telefone', with: '11999999999'
     fill_in 'Endereço', with: 'Rua do Avesso, 50'
     select 'Casado', from: 'Estado Civil'
     fill_in 'Data de Admissão', with: '12/10/2020'

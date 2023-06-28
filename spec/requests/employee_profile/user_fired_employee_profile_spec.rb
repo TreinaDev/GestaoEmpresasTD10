@@ -59,9 +59,10 @@ describe 'Usuário tenta desligar funcionário', type: :request do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
-    employee = create(:employee_profile, email: 'email@gmail.com', cpf: '10323973060', department_id: department.id,
+    employee = create(:employee_profile, email: 'employee@microsoft.com',
+                                         cpf: '10323973060', department_id: department.id,
                                          position_id: position.id)
-    employee_user = create(:employee_user, email: 'email@gmail.com', cpf: '10323973060')
+    employee_user = create(:employee_user, email: 'employee@microsoft.com', cpf: '10323973060')
     employee.user = employee_user
     employee.save!
 
