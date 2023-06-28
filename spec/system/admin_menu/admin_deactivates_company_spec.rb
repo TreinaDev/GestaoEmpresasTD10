@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Admin desativa empresa' do
-  scenario 'e todos os funcionários são marcados como inatavos' do
+  scenario 'e todos os funcionários são marcados como inativos' do
     company = create(:company)
     department = create(:department, company:)
     admin_user = create(:admin_user)
@@ -42,7 +42,7 @@ feature 'Admin desativa empresa' do
     expect(company.active).to eq false
   end
 
-  scenario 'empresa ja está desativa e é reativa pelo admin e funcionários são marcados como unblocked' do
+  scenario 'admin reativa empresa e todos os funcionários são marcados como unblocked' do
     company = create(:company)
     department = create(:department, company:)
     admin_user = create(:admin_user)
