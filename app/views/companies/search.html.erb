@@ -19,7 +19,7 @@
           <td class="align-baseline"><%= employee_profile.cpf %> </td>
           <td class="align-baseline"><%= employee_profile.position.name %></td>
           <td class="align-baseline"><%= employee_profile.department.name %></td>
-          <td class="align-baseline"><%= employee_profile.status %></td>
+          <td class="align-baseline"><%= t(employee_profile.status) %></td>
         </tr>
       <% end %>
     </tbody>

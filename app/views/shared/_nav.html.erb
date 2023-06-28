@@ -17,7 +17,7 @@
                   <li>
                     <%= link_to 'Empresas Ativas', root_path, class:'dropdown-item' %>
                   </li>
-                    <li>
+                  <li>
                     <%= link_to 'Empresas Inativas', inactives_companies_path, class:'dropdown-item' %>
                   </li>
                   <li class="nav-item" >
@@ -31,17 +31,21 @@
                 </li>
             <% end %>
 
-            <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
-              <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar" %>
-              <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
-                <i class="bi bi-search"></i> 
+            <% if current_user.manager? %>
+              <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
+                <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar" %>
+                <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
+                  <i class="bi bi-search"></i> 
+                <% end %>
               <% end %>
+              <li class="nav-item dropdown ms-1">
+            <% else %>
+              <li class="nav-item dropdown ms-auto">
             <% end %>
-          
-            <li class="nav-item dropdown ms-1">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <%= current_user.description%>
-              </a>
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= current_user.description %>
+                </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                 <% unless current_user.admin? %>
                   <li>
