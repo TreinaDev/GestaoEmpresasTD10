@@ -32,12 +32,30 @@
             <% end %>
 
             <% if current_user.manager? %>
+              <li class="dropdown dropend nav-item">
+                  <a class="dropdown-item dropdown-toggle nav-link" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Multilevel Action 1</a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu1">
+                      <li><a class="dropdown-item" href="#">Departamentos</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li class="dropdown dropend">
+                          <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Multilevel Action 2</a>
+                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu2">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
               <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
                 <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar Funcionário" %>
                 <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
                   <i class="bi bi-search"></i> 
                 <% end %>
               <% end %>
+
+
               <li class="nav-item dropdown ms-1">
             <% else %>
               <li class="nav-item dropdown ms-auto">
@@ -65,3 +83,20 @@
     </div>
   </nav>
 <% end %>
+
+
+
+<script>
+let dropdowns = document.querySelectorAll('.dropdown-toggle')
+dropdowns.forEach((dd)=>{
+    dd.addEventListener('click', function (e) {
+        var el = this.nextElementSibling
+        el.style.display = el.style.display==='block'?'none':'block'
+    })
+})
+</script>
+
+
+<style>
+.dropdown-hover-all .dropdown-menu, .dropdown-hover > .dropdown-menu.dropend { margin-left:-1px !important }
+</style>
