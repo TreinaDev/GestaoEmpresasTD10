@@ -12,13 +12,12 @@ RSpec.describe RechargeHistory, type: :model do
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
       employee = create(:employee_profile, position:, department_id: position.department.id,
-                                            status: 'unblocked', email: "funcionario@#{company.domain}",
-                                            cpf: '90900938005',
-                                            card_status: true)
+                                           status: 'unblocked', email: "funcionario@#{company.domain}",
+                                           cpf: '90900938005',
+                                           card_status: true)
       recharge = RechargeHistory.new(value: nil, recharge_date: Date.today, employee_profile: employee)
 
       expect(recharge.valid?).to eq false
-
     end
 
     it 'recharge_date deve ser obrigatório' do
@@ -31,9 +30,9 @@ RSpec.describe RechargeHistory, type: :model do
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
       employee = create(:employee_profile, position:, department_id: position.department.id,
-                                            status: 'unblocked', email: "funcionario@#{company.domain}",
-                                            cpf: '90900938005',
-                                            card_status: true)
+                                           status: 'unblocked', email: "funcionario@#{company.domain}",
+                                           cpf: '90900938005',
+                                           card_status: true)
       recharge = RechargeHistory.new(value: 100.00, recharge_date: nil, employee_profile: employee)
 
       expect(recharge.valid?).to eq false
