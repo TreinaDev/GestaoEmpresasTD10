@@ -47,12 +47,13 @@ class CompaniesController < ApplicationController
   end
 
   def activate
-    @company.update(active: true)
+    @company.active_employee if @company.update(active: true)
     redirect_to company_path(@company)
   end
 
   def deactivate
-    @company.update(active: false)
+    @company.block_employee if @company.update(active: false)
+
     redirect_to company_path(@company)
   end
 
