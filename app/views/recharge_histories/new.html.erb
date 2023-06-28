@@ -1,13 +1,30 @@
-<%= form_with url: company_recharge_histories_path, method: :post, data: { turbo: false } do |form| %>
-  <div class="field">
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
-  </div>
-  
-  <div class="field">
-    <%= form.label :value %>
-    <%= form.text_field :value %>
-  </div>
-  
-  <%= form.submit 'Enviar' %>
+<% if @employee.present? %>
+  <strong>Confirmar Recarga</strong><br>
+  Nome: <strong><%= @employee.name %></strong><br>
+  Cargo: <strong><%= @employee.position.name %></strong><br>
+  Departamento: <strong><%= @employee.department.name %></strong><br>
+  CPF: <strong><%= format_cpf(@employee.cpf) %></strong><br>
+  Valor: <strong>R$ <%= @value %>,00</strong><br><br>
+  <%# LEMBRAR DE ARRUMAR FORMATAÇÃO %>
+
+  <%= form_with url: company_recharge_histories_path, method: :post, data: { turbo: false } do |form| %>
+    <%= form.hidden_field :cpf, value: @employee.cpf %>
+    <%= form.hidden_field :value, value: @value %>
+    <%= form.submit 'Recarregar' %>
+  <% end %>
+
+<% else %>
+  <%= form_with url: new_company_recharge_history_path, method: :get, data: { turbo: false } do |form| %>
+    <div class="field">
+      <%#= form.label :cpf %>
+      <%= form.text_field :cpf, placeholder: 'CPF do funcionário' %>
+    </div>
+    
+    <div class="field">
+      <%#= form.label :value %>
+      <%= form.text_field :value, placeholder: 'Valor em R$' %>
+    </div>
+    
+    <%= form.submit 'Buscar' %>
+  <% end %>
 <% end %>

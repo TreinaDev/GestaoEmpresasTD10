@@ -1,6 +1,37 @@
 require 'rails_helper'
 
-feature 'Manager faz uma recarga ao cartão' do 
+feature 'Manager faz uma recarga ao cartão' do
+  scenario 'mas confirma os dados primeiro' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    login_as manager_user
+    visit new_company_recharge_history_path(company_id: company.id)
+
+    fill_in 'cpf',	with: '909.009.380-05'
+    fill_in 'value',	with: '400'
+    click_button 'Buscar'
+
+    expect(page).to have_content 'Confirmar Recarga'
+    expect(page).to have_content "Nome: #{employee.name}"
+    expect(page).to have_content "Cargo: #{employee.position.name}"
+    expect(page).to have_content "Departamento: #{employee.department.name}"
+    expect(page).to have_content 'CPF: 909.009.380-05'
+    expect(page).to have_content 'Valor: R$ 400,00'
+    expect(page).to have_content "Nome: #{employee.name}"
+    expect(RechargeHistory.count).to eq 0
+  end
+
   scenario 'com sucesso' do
     company = create(:company)
     department = create(:department, company:)
@@ -26,11 +57,13 @@ feature 'Manager faz uma recarga ao cartão' do
     login_as manager_user  
     visit new_company_recharge_history_path(company_id: company.id)
 
-    fill_in 'Cpf',	with: '90900938005'
-    fill_in 'Value',	with: '400'
-    click_button 'Enviar'
+    fill_in 'cpf',	with: '909.009.38-005'
+    fill_in 'value',	with: '400'
+    click_button 'Buscar'
+    click_button 'Recarregar'
 
     expect(page).to have_content 'Recarga efetuada com sucesso'
+    expect(RechargeHistory.last.value).to eq 400
   end
 
   scenario 'com CPF não encontrado na empresa do Manager' do

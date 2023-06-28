@@ -1,25 +1,29 @@
 class RechargeHistoriesController < ApplicationController
   before_action :require_manager
   before_action :manager_belongs_to_company?
-  before_action :find_employee_and_validate_cpf, only: [:create]
+  before_action :find_employee_and_validate_cpf, only: %i[new create]
 
   def new; end
 
   def create
-    request = { recharge: [{ value: params[:value].to_i, cpf: params[:cpf] }] }
+    return redirect_to new_company_recharge_history_path, alert: 'Valor inválido' unless @value.positive?
 
+    request = { recharge: [{ value: @value, cpf: @cpf }] }
     response = PatchRechargeApi.new(request).send
     create_recharge_history if response.status == 200
 
-    handle_response(response)
-    render :new
+    flash_message(response)
+    redirect_to new_company_recharge_history_path
   end
 
   private
 
   def find_employee_and_validate_cpf
-    @employee = EmployeeProfile.find_by(cpf: params[:cpf])
+    return if params[:cpf].blank?
 
+    @cpf = params[:cpf].gsub(/\D/, '')
+    @value = params[:value].to_i
+    @employee = EmployeeProfile.find_by(cpf: @cpf)
     if @employee.nil? || @employee.department.company.id.to_s != params[:company_id]
       flash[:alert] = I18n.t('recharge_histories.cpf_not_found', cpf: params[:cpf])
       redirect_to new_company_recharge_history_path
@@ -32,16 +36,16 @@ class RechargeHistoriesController < ApplicationController
     end
   end
 
-  def handle_response(response)
+  def flash_message(response)
     status = response.status
     body = JSON.parse(response.body) unless status == 500
 
     if status == 500
-      flash.now[:alert] = t('.failure_response')
+      flash[:alert] = t('.failure_response')
     elsif status == 200
-      flash.now[:notice] = body.first['message']
+      flash[:notice] = body.first['message']
     else
-      flash.now[:alert] = body['errors'] || t('.unknown_error')
+      flash[:alert] = body['errors'] || t('.unknown_error')
     end
   end
 
