@@ -32,18 +32,22 @@
             <% end %>
 
             <% if current_user.manager? %>
+           
               <li class="dropdown dropend nav-item">
-                  <a class="dropdown-item dropdown-toggle nav-link" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Multilevel Action 1</a>
+                  <a class="dropdown-item dropdown-toggle nav-link" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Departamentos</a>
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu1">
-                      <li><a class="dropdown-item" href="#">Departamentos</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li>
+                        <%= link_to 'Cadastrar departamento', new_company_department_path(current_user.employee_profile.department.company), class:'dropdown-item' %>
+                      </li>
+                      <li>
+                        <%= link_to 'Lista de departamentos', company_departments_path(current_user.employee_profile.department.company), class:'dropdown-item' %>
+                      </li>
                       <li class="dropdown dropend">
-                          <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Multilevel Action 2</a>
+                          <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar funcionário</a>
                           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu2">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                              <li><a class="dropdown-item" href="#">Departamento de RH</a></li>
+                              <li><a class="dropdown-item" href="#">Departamento de TI</a></li>
+                              <li><a class="dropdown-item" href="#">Departamento de Segurança</a></li>
                           </ul>
                       </li>
                   </ul>
