@@ -16,7 +16,7 @@ feature 'Manager procura na barra de pesquisa' do
 
     login_as manager
     visit root_path
-    fill_in 'Pesquisar', with: '40690463804'
+    fill_in 'Pesquisar Funcionário', with: '40690463804'
     within('nav') do
       find('.search-button').click
     end
@@ -44,7 +44,7 @@ feature 'Manager procura na barra de pesquisa' do
 
     login_as manager
     visit root_path
-    fill_in 'Pesquisar', with: 'Je'
+    fill_in 'Pesquisar Funcionário', with: 'Je'
     within('nav') do
       find('.search-button').click
     end
@@ -73,7 +73,7 @@ feature 'Manager procura na barra de pesquisa' do
 
     login_as manager
     visit root_path
-    fill_in 'Pesquisar', with: '*'
+    fill_in 'Pesquisar Funcionário', with: '*'
     within('nav') do
       find('.search-button').click
     end
@@ -98,15 +98,15 @@ feature 'Manager procura na barra de pesquisa' do
     second_company = create(:company, brand_name: 'Empresa',
                                       email: 'contato@empresa.com', domain: 'empresa.com')
     create(:manager_emails, email: 'manager@empresa.com', created_by: admin, company: second_company)
-    second_manager = create(:manager_user, email: 'manager@empresa.com', cpf: '36187478100')
+    create(:manager_user, email: 'manager@empresa.com', cpf: '36187478100')
     second_department = create(:department, company_id: second_company.id)
-    second_position = create(:position, department_id: second_department.id)
+    create(:position, department_id: second_department.id)
     create(:employee_profile, :employee, cpf: '86750205380', name: 'Jerome Jerome', department: second_department)
     create(:employee_user, email: 'user@empresa.com', cpf: '86750205380')
 
     login_as manager
     visit root_path
-    fill_in 'Pesquisar', with: 'Je'
+    fill_in 'Pesquisar Funcionário', with: 'Je'
     within('nav') do
       find('.search-button').click
     end
@@ -141,6 +141,6 @@ feature 'employee' do
     login_as employee_user
     visit root_path
 
-    expect(page).not_to have_field 'Pesquisar'
+    expect(page).not_to have_field 'Pesquisar Funcionário'
   end
 end
