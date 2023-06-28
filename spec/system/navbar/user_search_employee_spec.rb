@@ -101,7 +101,8 @@ feature 'Manager procura na barra de pesquisa' do
     create(:manager_user, email: 'manager@empresa.com', cpf: '36187478100')
     second_department = create(:department, company_id: second_company.id)
     create(:position, department_id: second_department.id)
-    create(:employee_profile, :employee, cpf: '86750205380', name: 'Jerome Jerome', department: second_department)
+    create(:employee_profile, :employee, cpf: '86750205380', name: 'Jerome Jerome', department: second_department,
+                                         email: 'user@empresa.com')
     create(:employee_user, email: 'user@empresa.com', cpf: '86750205380')
 
     login_as manager
