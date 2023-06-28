@@ -84,4 +84,25 @@ describe 'Usuário tenta desligar funcionário', type: :request do
     expect(response).to have_http_status(:ok)
     expect(response.body).to include 'Usuário sem permissão para executar essa ação'
   end
+
+  it 'e falha pois funcionário ja esta desligado' do
+    admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
+    company = create(:company)
+
+    create(:manager_emails, created_by: admin, company:)
+    manager = create(:manager_user, cpf: '14101674027')
+    department = create(:department, company:)
+    position = create(:position, department_id: department.id)
+    employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento', marital_status: 1,
+                                                            dismissal_date: 1.day.from_now, department:,
+                                                            position:, status: 'fired')
+
+    login_as manager
+    post fired_company_department_employee_profiles_path(company_id: company.id, department_id: department.id, id: employee_profile.id)
+
+    expect(response).to redirect_to company_department_employee_profile_path(company_id: company.id,
+                                                                      department_id: department.id,
+                                                                      id: employee_profile.id)
+    expect(flash[:alert]).to eq 'Funcionário já desligado'
+  end
 end

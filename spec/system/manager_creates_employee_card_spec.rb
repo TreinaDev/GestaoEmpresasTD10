@@ -74,13 +74,6 @@ feature 'Gerente vai para index do departamento' do
     employee_profile = create(:employee_profile, position:, department_id: position.department.id,
                                                  status: 'unblocked', email: "funcionario@#{company.domain}",
                                                  cpf: '90900938005', user: manager_user)
-    json_data = '{}'
-    fake_response = double('faraday_response', status: 500, body: json_data)
-    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/cards',
-                                          { card: { company_card_type_id: position.card_type_id.to_s,
-                                                    cpf: employee_profile.cpf } }.to_json,
-                                          'Content-Type' => 'application/json')
-                                    .and_return(fake_response.status)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
