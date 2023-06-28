@@ -1,6 +1,6 @@
 class GetCardApi
   API_BASE_URL = 'http://localhost:4000/api/v1/'.freeze
-  attr_reader :cpf, :number, :points, :status, :name
+  attr_reader :id, :cpf, :number, :points, :status, :name
 
   def initialize(attributes = {})
     @id = attributes['id']
@@ -14,6 +14,20 @@ class GetCardApi
     response = Faraday.get("#{API_BASE_URL}cards/#{cpf}")
     GetCardApi.new(JSON.parse(response.body)) if response.status == 200
   rescue Faraday::ConnectionFailed
-    nil
+    500
+  end
+
+  def self.deactivate(id)
+    response = Faraday.patch("#{API_BASE_URL}cards/#{id}/deactivate")
+    return response.status if response.status == 200
+  rescue Faraday::ConnectionFailed
+    500
+  end
+
+  def self.activate(id)
+    response = Faraday.patch("#{API_BASE_URL}cards/#{id}/activate")
+    return response.status if response.status == 200
+  rescue Faraday::ConnectionFailed
+    500
   end
 end

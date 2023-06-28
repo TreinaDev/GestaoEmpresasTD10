@@ -11,7 +11,6 @@ class Company < ApplicationRecord
 
   private
 
-
   def clean_registration_number
     registration_number&.gsub!(/\D/, '')
   end

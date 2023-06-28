@@ -2,6 +2,7 @@ pt-BR:
   companies:
     update:
       success: Empresa atualizada com sucesso
+      failure: Não foi possível atualizar dados da empresa
     create:
       success: Empresa cadastrada com sucesso
       failure: Empresa não cadastrada

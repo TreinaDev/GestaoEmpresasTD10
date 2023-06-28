@@ -10,9 +10,9 @@ feature 'Manager procura na barra de pesquisa' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, position:, department_id: position.department.id,
                                         user: manager)
-    employee = create(:employee_profile, :employee, cpf: '40690463804', department:)
-    employee_user = create(:employee_user, cpf: '40690463804')
-    other_employee = create(:employee_profile, :employee, cpf: '72859417940')
+    create(:employee_profile, :employee, cpf: '40690463804', department:)
+    create(:employee_user, cpf: '40690463804')
+    create(:employee_profile, :employee, cpf: '72859417940')
 
     login_as manager
     visit root_path
@@ -36,11 +36,11 @@ feature 'Manager procura na barra de pesquisa' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, position:, department_id: position.department.id,
                                         user: manager)
-    employee = create(:employee_profile, :employee, cpf: '40690463804', name: 'Jennifer Lopez', department:)
-    employee_user = create(:employee_user, cpf: '40690463804')
-    other_employee = create(:employee_profile, :employee, cpf: '21151751235', name: 'Jessica Alba', 
-                            department:, status: 'blocked')
-    other_employee_user = create(:employee_user, cpf: '21151751235', email: 'jessica@microsoft.com')
+    create(:employee_profile, :employee, cpf: '40690463804', name: 'Jennifer Lopez', department:)
+    create(:employee_user, cpf: '40690463804')
+    create(:employee_profile, :employee, cpf: '21151751235', name: 'Jessica Alba',
+                                         department:, status: 'blocked')
+    create(:employee_user, cpf: '21151751235', email: 'jessica@microsoft.com')
 
     login_as manager
     visit root_path
@@ -70,7 +70,7 @@ feature 'Manager procura na barra de pesquisa' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, position:, department_id: position.department.id,
                                         user: manager)
- 
+
     login_as manager
     visit root_path
     fill_in 'Pesquisar', with: '*'
@@ -92,7 +92,7 @@ feature 'employee' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, position:, department_id: position.department.id,
                                         user: manager)
-    employee = create(:employee_profile, :employee, cpf: '40690463804', department:)
+    create(:employee_profile, :employee, cpf: '40690463804', department:)
     employee_user = create(:employee_user, cpf: '40690463804')
 
     login_as employee_user

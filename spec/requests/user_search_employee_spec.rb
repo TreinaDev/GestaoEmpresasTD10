@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe "user não consegue acessar rota de search" do
-  it "como admin" do
+describe 'user não consegue acessar rota de search' do
+  it 'como admin' do
     admin = create(:admin_user)
     company = create(:company)
     create(:manager_emails, created_by: admin, company:)
@@ -16,7 +16,7 @@ describe "user não consegue acessar rota de search" do
     expect(response).to redirect_to root_path
   end
 
-  it "como funcionário" do
+  it 'como funcionário' do
     admin = create(:admin_user)
     company = create(:company)
     create(:manager_emails, created_by: admin, company:)

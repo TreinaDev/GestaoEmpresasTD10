@@ -42,7 +42,7 @@ class CompaniesController < ApplicationController
     if @company.update(company_params)
       redirect_to @company, notice: t('.success')
     else
-      flash.now[:notice] = 'Não foi possível atualizar dados da empresa'
+      flash.now[:notice] = t('.failure')
       render :edit
     end
   end
@@ -62,8 +62,9 @@ class CompaniesController < ApplicationController
     search_term = "%#{params[:search]}%"
 
     @employee_profiles = EmployeeProfile.joins(:department)
-                                         .where(departments: { company_id: company_id })
-                                         .where("cpf LIKE :search OR employee_profiles.name LIKE :search", search: search_term)
+                                        .where(departments: { company_id: })
+                                        .where('cpf LIKE :search OR employee_profiles.name LIKE
+                                        :search', search: search_term)
   end
 
   private

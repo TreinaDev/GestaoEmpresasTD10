@@ -24,6 +24,10 @@ Rails.application.routes.draw do
           get :new_fired
           post :fired
         end
+        member do 
+          patch :deactivate_card
+          patch :activate_card
+        end
       end
       resources :positions, only: %i(index new create show edit update)
     end

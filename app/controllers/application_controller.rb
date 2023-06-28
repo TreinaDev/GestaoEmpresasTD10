@@ -24,11 +24,11 @@ class ApplicationController < ActionController::Base
   end
 
   def manager_belongs_to_company?
-    return unless current_user.manager?
+    return false unless current_user.manager?
 
     company_id = params[:company_id]
     manager = ManagerEmails.find_by(email: current_user.email)
-    return if manager.company_id == company_id.to_i
+    return false if manager.company_id == company_id.to_i
 
     redirect_to root_path, alert: t('forbidden')
   end
