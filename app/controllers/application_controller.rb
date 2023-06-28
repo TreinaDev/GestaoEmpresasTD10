@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permited_parameters, if: :devise_controller?
   before_action :authenticate_user!
   before_action :profile_check, unless: :devise_controller?
+  rescue_from Faraday::ConnectionFailed, with: :internal_server_error
 
   protected
 
@@ -34,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def profile_check
-    return if params[:controller] == 'employee_profiles' && params[:action] == 'new'
+    # return if params[:controller] == 'employee_profiles' && params[:action] == 'new'
 
     return unless current_user.manager? && !current_user.employee_profile
 
@@ -48,4 +49,9 @@ class ApplicationController < ActionController::Base
     redirect_to new_manager_company_department_employee_profiles_path(company_id: manager.company.id,
                                                                       department_id: department.id)
   end
+
+  def internal_server_error
+    render status: :internal_server_error, json: { errors: I18n.t('errors.internal_server_error') }
+  end
+
 end

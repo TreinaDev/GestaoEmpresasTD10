@@ -10,7 +10,7 @@ FactoryBot.define do
     status { 'unblocked' }
     birth_date { '2023-06-06' }
     admission_date { '2023-06-06' }
-    dismissal_date { 1.day.from_now }
+    dismissal_date { nil }
     marital_status { 1 }
     department
     user { nil }

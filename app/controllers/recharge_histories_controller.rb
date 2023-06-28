@@ -1,7 +1,7 @@
 class RechargeHistoriesController < ApplicationController
   before_action :require_manager
+  before_action :manager_belongs_to_company?
   before_action :find_employee_and_validate_cpf, only: [:create]
-  # before_action manager belongs to company
 
   def new; end
 
@@ -9,8 +9,9 @@ class RechargeHistoriesController < ApplicationController
     request = { recharge: [{ value: params[:value].to_i, cpf: params[:cpf] }] }
 
     response = PatchRechargeApi.new(request).send
-    handle_response(response)
+    create_recharge_history if response.status == 200
 
+    handle_response(response)
     render :new
   end
 
@@ -26,19 +27,19 @@ class RechargeHistoriesController < ApplicationController
   end
 
   def handle_response(response)
-    status = response[:status]
-    body = response[:body]
-  
+    # status = response[:status]
+    # body = response[:body]
+    status = response.status
+    body = response.body
+
     if status == 500
       flash.now[:alert] = 'ERRO de conexão'
     elsif status == 200
-      create_recharge_history
       flash.now[:notice] = body['message'] || 'SUCESSO'
     else
       flash.now[:alert] = body['errors'] || 'ERRO desconhecido'
     end
   end
-  
 
   def create_recharge_history
     historico = RechargeHistory.new(
