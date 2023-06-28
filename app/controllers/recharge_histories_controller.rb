@@ -21,23 +21,27 @@ class RechargeHistoriesController < ApplicationController
     @employee = EmployeeProfile.find_by(cpf: params[:cpf])
 
     if @employee.nil? || @employee.department.company.id.to_s != params[:company_id]
-      flash[:alert] = "CPF não encontrado: #{params[:cpf]}"
-      redirect_to new_recharge_history_path
+      flash[:alert] = I18n.t('recharge_histories.cpf_not_found', cpf: params[:cpf])
+      redirect_to new_company_recharge_history_path
+    elsif !@employee.card_status
+      flash[:alert] = I18n.t('recharge_histories.card_not_requested', cpf: params[:cpf])
+      redirect_to new_company_recharge_history_path
+    elsif !@employee.unblocked?
+      flash[:alert] = I18n.t('recharge_histories.incorrect_status', status: t(".#{@employee.status}"))
+      redirect_to new_company_recharge_history_path
     end
   end
 
   def handle_response(response)
-    # status = response[:status]
-    # body = response[:body]
     status = response.status
-    body = response.body
+    body = JSON.parse(response.body) unless status == 500
 
     if status == 500
-      flash.now[:alert] = 'ERRO de conexão'
+      flash.now[:alert] = t('.failure_response')
     elsif status == 200
-      flash.now[:notice] = body['message'] || 'SUCESSO'
+      flash.now[:notice] = body.first['message']
     else
-      flash.now[:alert] = body['errors'] || 'ERRO desconhecido'
+      flash.now[:alert] = body['errors'] || t('.unknown_error')
     end
   end
 
@@ -45,7 +49,7 @@ class RechargeHistoriesController < ApplicationController
     historico = RechargeHistory.new(
       value: params[:value],
       employee_profile: @employee,
-      created_by_id: current_user.id,
+      creator: current_user,
       recharge_date: Date.today
     )
     historico.save
