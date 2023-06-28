@@ -34,7 +34,7 @@ feature 'Gerente vê histórico de recargas do funcionário' do
     expect(page).to have_content "Data: #{I18n.l(first_recharge.recharge_date)}"
   end
 
-  scenario 'Com sucesso' do
+  scenario 'Sem sucesso' do
     admin = create(:admin_user)
     company = create(:company)
     create(:manager_emails, created_by: admin, company:)

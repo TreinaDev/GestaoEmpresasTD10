@@ -27,5 +27,7 @@ pt-BR:
       date: Data
       title_recharge: Histórico de recarga
       employee: Funcionário
+      cpf: CPF
+      email: Email
 
 
