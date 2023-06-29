@@ -7,7 +7,7 @@
       <%= format_name(@employee_profile.name) %>
     </p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>:
-      <%= @employee_profile.social_name.titleize %>
+      <%= format_name(@employee_profile.social_name) %>
     </p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('email') %>:
       <%= @employee_profile.email %>
