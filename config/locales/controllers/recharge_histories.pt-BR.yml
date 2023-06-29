@@ -3,9 +3,10 @@ pt-BR:
     cpf_not_found: "CPF não encontrado: %{cpf}"
     card_not_requested: "Cartão não solicitado para esse CPF: %{cpf}"
     incorrect_status: "Funcionário com status incorreto: %{status}"
+    invalid_value: "Valor inválido: %{value}"
     blocked: Bloqueado
     fired: Demitido
     create:
-      failure_response: ERRO de conexão
-      unknown_error: ERRO desconhecid
+      failure_response: Erro de conexão
+      unknown_error: Erro desconhecido
       cpf_not_found: CPF não encontrado

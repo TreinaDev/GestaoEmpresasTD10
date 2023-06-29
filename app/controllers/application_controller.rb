@@ -35,8 +35,6 @@ class ApplicationController < ActionController::Base
   end
 
   def profile_check
-    # return if params[:controller] == 'employee_profiles' && params[:action] == 'new'
-
     return unless current_user.manager? && !current_user.employee_profile
 
     redirect_to_finish_register
@@ -53,5 +51,4 @@ class ApplicationController < ActionController::Base
   def internal_server_error
     render status: :internal_server_error, json: { errors: I18n.t('errors.internal_server_error') }
   end
-
 end

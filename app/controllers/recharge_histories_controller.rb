@@ -1,64 +1,52 @@
 class RechargeHistoriesController < ApplicationController
   before_action :require_manager
   before_action :manager_belongs_to_company?
-  before_action :find_employee_and_validate_cpf, only: %i[new create]
+  before_action :set_employee_profile, only: %i[new create]
+  before_action :validate_employee, only: %i[new create]
 
   def new; end
 
   def create
-    request = { recharge: [{ value: @value, cpf: @cpf }] }
+    request = { recharge: [{ value: params[:value].to_f, cpf: @employee.cpf }] }
     response = PatchRechargeApi.new(request).send
-    body = JSON.parse(response.body)
-    create_recharge_history if body.first['errors'].nil?
-
     flash_message(response)
+    create_recharge_history if @body.first['errors'].nil?
+
     redirect_to new_company_recharge_history_path
   end
 
   private
 
-  def find_employee_and_validate_cpf
-    return if params[:cpf].blank?
-
-    @cpf = params[:cpf].gsub(/\D/, '')
-    @value = params[:value].to_f if params[:value].present?
-    @employee = EmployeeProfile.find_by(cpf: @cpf)
-
-    redirect_with_error(t('.cpf_not_found', cpf: params[:cpf])) if employee_not_found?
-    redirect_with_error(t('.card_not_requested', cpf: params[:cpf])) if card_not_requested?
-    redirect_with_error(t('.incorrect_status', status: t(".#{@employee.status}"))) if incorrect_status?
-    redirect_with_error('Valor inválido') if invalid_value?
+  def set_employee_profile
+    @cpf = params[:cpf]&.gsub(/\D/, '')
+    @employee = EmployeeProfile.joins(:department)
+                               .where(departments: { company_id: params[:company_id] })
+                               .find_by(cpf: @cpf)
   end
 
-  def employee_not_found?
-    @employee.nil? || @employee.department.company.id.to_s != params[:company_id]
+  def validate_employee
+    return if params[:value].blank?
+
+    @value = params[:value].to_f
+    message = find_invalidities
+    redirect_to new_company_recharge_history_path, alert: message if message
   end
 
-  def card_not_requested?
-    !@employee.card_status
-  end
-
-  def incorrect_status?
-    !@employee.unblocked?
-  end
-
-  def invalid_value?
-    params[:value].present? & !params[:value].to_f.positive?
-  end
-
-  def redirect_with_error(message)
-    flash[:alert] = message
-    redirect_to new_company_recharge_history_path
+  def find_invalidities
+    return t('.cpf_not_found', cpf: @cpf) if @employee.nil?
+    return t('.card_not_requested', cpf: @cpf) unless @employee.card_status
+    return t('.incorrect_status', status: t(".#{@employee.status}")) unless @employee.unblocked?
+    return t('.invalid_value', value: params[:value]) unless params[:value].to_f.positive?
   end
 
   def flash_message(response)
     status = response.status
-    body = JSON.parse(response.body)
+    @body = JSON.parse(response.body)
 
-    if body.first['errors'].present?
-      flash[:alert] = body.first['errors']
+    if @body.first['errors'].present?
+      flash[:alert] = @body.first['errors']
     elsif status == 200
-      flash[:notice] = body.first['message']
+      flash[:notice] = @body.first['message']
     end
   end
 

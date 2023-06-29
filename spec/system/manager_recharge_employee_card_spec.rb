@@ -41,20 +41,20 @@ feature 'Manager faz uma recarga ao cartão' do
     position = create(:position, department:)
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
-    employee = create(:employee_profile, position:, department_id: position.department.id,                                    
-                                         status: 'unblocked', email: "funcionario@#{company.domain}",
-                                         cpf: '90900938005',
-                                         card_status: true)
+    create(:employee_profile, position:, department_id: position.department.id,
+                              status: 'unblocked', email: "funcionario@#{company.domain}",
+                              cpf: '90900938005',
+                              card_status: true)
 
-    request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }                                     
+    request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }
     fake_response = double('faraday_response', status: 200, body: '[{"message":"Recarga efetuada com sucesso"}]')
     allow(Faraday).to receive(:patch)
       .with('http://localhost:4000/api/v1/cards/recharge',
-        request.to_json,
-        'Content-Type' => 'application/json')
-      .and_return(fake_response)  
+            request.to_json,
+            'Content-Type' => 'application/json')
+      .and_return(fake_response)
 
-    login_as manager_user  
+    login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
 
     fill_in 'cpf',	with: '909.009.38-005'
@@ -75,10 +75,10 @@ feature 'Manager faz uma recarga ao cartão' do
     position = create(:position, department:)
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
-    employee = create(:employee_profile, position:, department_id: position.department.id,
-                                         status: 'unblocked', email: "funcionario@#{company.domain}",
-                                         cpf: '90900938005',
-                                         card_status: true)
+    create(:employee_profile, position:, department_id: position.department.id,
+                              status: 'unblocked', email: "funcionario@#{company.domain}",
+                              cpf: '90900938005',
+                              card_status: true)
 
     login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
@@ -100,21 +100,19 @@ feature 'Manager faz uma recarga ao cartão' do
     position = create(:position, department:)
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
-    employee = create(:employee_profile, position:, department_id: position.department.id,                                    
-                                         status: 'unblocked', email: "funcionario@#{company.domain}",
-                                         cpf: '90900938005',
-                                         card_status: true)
+    create(:employee_profile, position:, department_id: position.department.id,
+                              status: 'unblocked', email: "funcionario@#{company.domain}",
+                              cpf: '90900938005',
+                              card_status: true)
 
-    company2 = create(:company,                                     
-      brand_name: 'Outra empresa', corporate_name: 'OE SA', registration_number: '12345678901234',
-      email: 'contato@oe.com', domain: 'oe.com'
-    )  
+    company2 = create(:company,
+                      brand_name: 'Outra empresa', corporate_name: 'OE SA', registration_number: '12345678901234',
+                      email: 'contato@oe.com', domain: 'oe.com')
     department2 = create(:department, company: company2)
     position2 = create(:position, code: 'BAC132', department: department2)
     employee2 = create(:employee_profile,
-      department: department2, position: position2, user: nil, name: 'Funcionario2', card_status: true,
-      social_name: 'Func2', email: "funcionario2@#{company2.domain}", cpf: '30448522500'
-    )  
+                       department: department2, position: position2, user: nil, name: 'Funcionario2', card_status: true,
+                       social_name: 'Func2', email: "funcionario2@#{company2.domain}", cpf: '30448522500')
 
     login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
@@ -136,17 +134,16 @@ feature 'Manager faz uma recarga ao cartão' do
     position = create(:position, department:)
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
-    employee = create(:employee_profile, position:, department_id: position.department.id,
-                                         status: 'unblocked', email: "funcionario@#{company.domain}",
-                                         cpf: '90900938005',
-                                         card_status: true)
+    create(:employee_profile, position:, department_id: position.department.id,
+                              status: 'unblocked', email: "funcionario@#{company.domain}",
+                              cpf: '90900938005',
+                              card_status: true)
 
     request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }
-    # fake_response = double('faraday_response', status: 500, body: '{}')
     allow(Faraday).to receive(:patch)
       .with('http://localhost:4000/api/v1/cards/recharge',
-        request.to_json,
-        'Content-Type' => 'application/json')
+            request.to_json,
+            'Content-Type' => 'application/json')
       .and_raise(Faraday::ConnectionFailed.new('connection failed'))
 
     login_as manager_user
@@ -170,10 +167,10 @@ feature 'Manager faz uma recarga ao cartão' do
       position = create(:position, department:)
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
-      employee = create(:employee_profile, position:, department_id: position.department.id,
-                                           status: 'blocked', email: "funcionario@#{company.domain}",
-                                           cpf: '90900938005',
-                                           card_status: true)
+      create(:employee_profile, position:, department_id: position.department.id,
+                                status: 'blocked', email: "funcionario@#{company.domain}",
+                                cpf: '90900938005',
+                                card_status: true)
 
       login_as manager_user
       visit new_company_recharge_history_path(company_id: company.id)
@@ -194,10 +191,10 @@ feature 'Manager faz uma recarga ao cartão' do
       position = create(:position, department:)
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
-      employee = create(:employee_profile, position:, department_id: position.department.id,
-                                           status: 'fired', email: "funcionario@#{company.domain}",
-                                           cpf: '90900938005',
-                                           card_status: true)
+      create(:employee_profile, position:, department_id: position.department.id,
+                                status: 'fired', email: "funcionario@#{company.domain}",
+                                cpf: '90900938005',
+                                card_status: true)
 
       login_as manager_user
       visit new_company_recharge_history_path(company_id: company.id)
@@ -218,10 +215,10 @@ feature 'Manager faz uma recarga ao cartão' do
       position = create(:position, department:)
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
-      employee = create(:employee_profile, position:, department_id: position.department.id,
-                                           status: 'unblocked', email: "funcionario@#{company.domain}",
-                                           cpf: '90900938005',
-                                           card_status: false)
+      create(:employee_profile, position:, department_id: position.department.id,
+                                status: 'unblocked', email: "funcionario@#{company.domain}",
+                                cpf: '90900938005',
+                                card_status: false)
 
       login_as manager_user
       visit new_company_recharge_history_path(company_id: company.id)
@@ -231,6 +228,39 @@ feature 'Manager faz uma recarga ao cartão' do
       click_button 'Buscar'
 
       expect(page).to have_content 'Cartão não solicitado para esse CPF: 90900938005'
+    end
+
+    scenario 'com cartão bloqueado' do
+      company = create(:company)
+      department = create(:department, company:)
+      admin_user = create(:admin_user)
+      create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+      manager_user = create(:manager_user, email: "nome@#{company.domain}")
+      position = create(:position, department:)
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+                                          social_name: 'arthur arthur')
+      create(:employee_profile, position:, department_id: position.department.id,
+                                status: 'unblocked', email: "funcionario@#{company.domain}",
+                                cpf: '90900938005',
+                                card_status: true)
+
+      request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }
+      fake_response = double('faraday_response', status: 200, body: '[{"errors":"Cartão não encontrado ou inativo"}]')
+      allow(Faraday).to receive(:patch)
+        .with('http://localhost:4000/api/v1/cards/recharge',
+              request.to_json,
+              'Content-Type' => 'application/json')
+        .and_return(fake_response)
+
+      login_as manager_user
+      visit new_company_recharge_history_path(company_id: company.id)
+
+      fill_in 'cpf',	with: '909.009.38-005'
+      fill_in 'value',	with: '400'
+      click_button 'Buscar'
+      click_button 'Recarregar'
+
+      expect(page).to have_content 'Cartão não encontrado ou inativo'
     end
   end
 
@@ -256,9 +286,8 @@ feature 'Manager faz uma recarga ao cartão' do
                                           social_name: 'arthur arthur')
 
       company2 = create(:company,
-        brand_name: 'Outra empresa', corporate_name: 'OE SA', registration_number: '12345678901234',
-        email: 'contato@oe.com', domain: 'oe.com'
-      )
+                        brand_name: 'Outra empresa', corporate_name: 'OE SA', registration_number: '12345678901234',
+                        email: 'contato@oe.com', domain: 'oe.com')
 
       login_as manager_user
       visit new_company_recharge_history_path(company_id: company2.id)
@@ -276,9 +305,9 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
       employee = create(:employee_profile, position:, department_id: position.department.id,
-                                          status: 'unblocked', email: "funcionario@#{company.domain}",
-                                          cpf: '90900938005',
-                                          card_status: true)
+                                           status: 'unblocked', email: "funcionario@#{company.domain}",
+                                           cpf: '90900938005',
+                                           card_status: true)
       employee_user = create(:user, cpf: employee.cpf, email: employee.email)
 
       login_as employee_user
