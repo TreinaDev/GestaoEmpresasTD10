@@ -23,7 +23,7 @@ feature 'Manager procura na barra de pesquisa' do
 
     expect(current_path).to eq search_companies_path
     expect(page).to have_content 'CPF'
-    expect(page).to have_content '40690463804'
+    expect(page).to have_content '406.904.638-04'
     expect(page).not_to have_content '72859417940'
   end
 

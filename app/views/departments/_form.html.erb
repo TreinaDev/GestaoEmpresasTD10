@@ -1,5 +1,5 @@
 <div class="card mt-2 shadow-sm p-3 mb-5 bg-body rounded">
-  <h4>Novo Departamento</h4> 
+  <h4> <%= title %> - <%= @company.brand_name %></h4>
   <div class="card-body">
     <% if @department.errors.present? %>
       <%= render "shared/errors", errors: @department.errors %>
@@ -13,7 +13,12 @@
         <%= f.label :description, class: 'form-label' %>
         <%= f.text_area :description, class: 'form-control'%>
       </div>
-      <%= f.submit t('.save'), class:'btn btn-success'%>
+      <div class="d-flex w-100">
+        <%= button_tag( class: 'btn btn-success ps-2') do %>
+          <i class="bi bi-check-lg"></i> <%= t('.save') %> 
+        <% end %>
+        <%= link_to(t('.return'), company_departments_path , class: 'btn btn-primary ms-auto') %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,21 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <h1><%= t('.title_recharge')%></h1>
+  </div>
+  <div class="card-body">
+    <p class="card-text m-1"><strong><%= t('.employee')%>:</strong> <%= @employee_profile.name%></p>
+    <p class="card-text m-1"><strong><%= t('.cpf')%>:</strong> <%= @employee_profile.cpf%></p>
+    <p class="card-text m-1 mb-3"><strong><%= t('.email')%>:</strong> <%= @employee_profile.email%></p>
+
+    <table class="table mb-0 table-striped">
+      <tbody>
+        <% @recharges.each do |recharge| %>
+          <tr>
+            <td class="card-text m-1"><strong><%= t('.recharge')%>:</strong> <%= number_to_currency(recharge.value) %></td>
+            <td class="card-text m-1"><strong><%= t('.date')%>:</strong> <%= l(recharge.recharge_date) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

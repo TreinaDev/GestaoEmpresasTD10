@@ -14,6 +14,11 @@ feature 'Gerente vai para index do departamento' do
 
     create(:user, email: "funcionario@#{company.domain}", password: 'password', cpf: '90900938005')
 
+    fake_response = double('faraday_response', status: 200, body: '{}')
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
 
@@ -45,6 +50,12 @@ feature 'Gerente vai para index do departamento' do
                                           'Content-Type' => 'application/json')
                                     .and_return(fake_response)
 
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response2)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
 
@@ -74,6 +85,12 @@ feature 'Gerente vai para index do departamento' do
     create(:employee_profile, position:, department_id: position.department.id,
                               status: 'unblocked', email: "funcionario@#{company.domain}",
                               cpf: '90900938005', user: manager_user)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response2)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
@@ -109,6 +126,12 @@ feature 'Gerente vai para index do departamento' do
                                                     cpf: employee_profile.cpf } }.to_json,
                                           'Content-Type' => 'application/json')
                                     .and_return(fake_response)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response2)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
 
     login_as(manager_user)
     visit company_departments_path(company_id: company.id)
