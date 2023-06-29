@@ -9,7 +9,7 @@
         </li>
         <li class="dropdown dropend">
             <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar funcionário</a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu2">
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu2" id="dropdownDepartments">
                 <% current_user.employee_profile.department.company.departments.each do |department| %>
                   <%= link_to department.name, new_company_department_employee_profile_path(company_id: department.company_id, department_id: department.id), id: 'btn_new_employee', class:'btn dropdown-item'%>
                 <% end %>

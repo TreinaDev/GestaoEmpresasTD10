@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_admin, except: :profile
   before_action :find_user, only: %i[block unblock]
   before_action :status_api, only: %i[profile]
-  
+
   def index; end
 
   def profile

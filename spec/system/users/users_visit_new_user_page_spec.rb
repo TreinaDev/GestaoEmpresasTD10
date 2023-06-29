@@ -64,7 +64,6 @@ feature 'visitante se cadastra' do
     fill_in 'CPF', with: '44429533768'
     fill_in 'Confirme sua senha',	with: 'password'
     click_on 'Criar conta'
-    
 
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     expect(page).to have_content 'GERENTE'

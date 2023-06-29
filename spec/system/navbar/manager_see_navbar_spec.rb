@@ -28,16 +28,22 @@ feature 'manager entra no sistema' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     create(:employee_profile, :manager, department:, position:, user: manager_user)
+    create(:department, name: 'Departamento de TI', company:)
+    create(:department, name: 'Departamento de Segurança', company:)
 
     login_as(manager_user)
     visit root_path
 
     within('nav') do
-      expect(page).to have_link "#{company.brand_name}"
+      expect(page).to have_link company.brand_name.to_s
       expect(page).to have_link 'Departamentos'
       expect(page).to have_link 'Cadastrar departamento'
       expect(page).to have_link 'Lista de departamentos'
-      expect(page).to have_link 'Departamento de RH'
+      within('#dropdownDepartments') do
+        expect(page).to have_link 'Departamento de RH'
+        expect(page).to have_link 'Departamento de TI'
+        expect(page).to have_link 'Departamento de Segurança'
+      end
     end
   end
 end
