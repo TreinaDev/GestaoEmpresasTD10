@@ -10,6 +10,20 @@ feature 'Usuário cadastra perfil de funcionário' do
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
 
+      fake_response = double('faraday_response', status: 200, body: '{}')
+      cnpj = company.registration_number.tr('^0-9', '')
+      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
+      json_data = Rails.root.join('spec/support/json/cards2.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/19650667040').and_return(fake_response)
+
+      json_data = Rails.root.join('spec/support/json/card_types.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      cnpj = company.registration_number.tr('^0-9', '')
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
       login_as manager
       visit new_company_department_employee_profile_path(company.id, department.id)
       fill_in 'Nome Completo', with: 'João da Silva'

@@ -5,7 +5,7 @@ class PositionsController < ApplicationController
   before_action :status_api
   before_action :set_company_and_department, only: %i[index show new edit create update]
   before_action :set_position, only: %i[show edit update]
-  before_action :set_card_types, only: %i[new edit create update]
+  before_action :set_card_types, only: %i[show new edit create update]
 
   def index
     @positions = Position.where(department_id: params[:department_id])
@@ -49,10 +49,6 @@ class PositionsController < ApplicationController
 
   def set_card_types
     @card_types = GetCardType.all(@company.registration_number)
-  end
-
-  def status_api
-    redirect_to root_path, alert: t('api_down') if GetCardType.status == 500
   end
 
   def position_params

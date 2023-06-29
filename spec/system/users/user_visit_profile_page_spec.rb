@@ -15,6 +15,11 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_user.cpf}").and_return(fake_response)
 
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
     login_as employee_user
 
     visit profile_users_path
@@ -54,6 +59,11 @@ feature 'visitante acessa página de perfil' do
     fake_status = double('faraday_status', status: 500, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_user.cpf}").and_return(fake_status)
 
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+
     login_as employee_user
 
     visit profile_users_path
@@ -77,6 +87,15 @@ feature 'visitante acessa página de perfil' do
       cpf: employee_data.cpf,
       password: '123456'
     )
+
+    json_data = '{}'
+    fake_status = double('faraday_status', status: 500, body: json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee_user.cpf}").and_return(fake_status)
+
+    json_data = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     login_as employee_user
 

@@ -9,59 +9,20 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav d-flex w-100">
             <% if current_user.admin? %>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Empresas
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                  <li>
-                    <%= link_to 'Empresas Ativas', root_path, class:'dropdown-item' %>
-                  </li>
-                  <li>
-                    <%= link_to 'Empresas Inativas', inactives_companies_path, class:'dropdown-item' %>
-                  </li>
-                  <li class="nav-item" >
-                    <%= link_to 'Cadastrar Empresa', new_company_path, class:'dropdown-item'  %>
-                  </li>
-                </ul>
+              <%= render('shared/nav/admin_options') %>
+            <% elsif current_user.employee_profile.present? %>
+              <li class="nav-item" >
+                <%= link_to current_user.employee_profile.company.brand_name , company_path(current_user.employee_profile.company), class:'nav-link'  %>
               </li>
-            <% elsif current_user.employee_profile %>
-                <li class="nav-item" >
-                  <%= link_to current_user.employee_profile.department.company.brand_name , company_path(current_user.employee_profile.department.company), class:'nav-link'  %>
-                </li>
-            <% end %>
-
-            <% if current_user.manager? %>
-              <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
-                <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar Funcionário" %>
-                <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
-                  <i class="bi bi-search"></i> 
-                <% end %>
+              <% if current_user.manager? %>
+                <%= render('shared/nav/manager_options')%>
+                <%= render('shared/nav/manager_search_bar')%>
               <% end %>
-              <li class="nav-item dropdown ms-1">
-            <% else %>
-              <li class="nav-item dropdown ms-auto">
             <% end %>
-
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <%= current_user.description %>
-                </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                <% unless current_user.admin? %>
-                  <li>
-                    <%= link_to profile_users_path, class: 'dropdown-item' do %>
-                      <i class="bi bi-person-circle"></i> Perfil
-                    <% end %>
-                  </li>
-                <% end %>
-                <li class="nav-item" >
-                  <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn dropdown-item' %>
-                </li>
-              </ul>
-            </li>
+            <%= render('shared/nav/user_menu_dropdown')%>
           </ul>
         </div>
       </div>
     </div>
   </nav>
-<% end %>
+<%end%>

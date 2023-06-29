@@ -1,0 +1,56 @@
+<div class="card mt-3 ">
+  <div class="card-header" style="background-color: #ddd">
+    Perfil
+  </div>
+  <div class="card-body">
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('name') %>:
+      <%= format_name(@employee_profile.name) %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>:
+      <%= format_name(@employee_profile.social_name) %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('email') %>:
+      <%= @employee_profile.email %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('birth_date') %>:
+      <%= @employee_profile.birth_date.strftime('%d/%m/%Y') %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('cpf') %>:
+      <%= format_cpf(@employee_profile.cpf) %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('rg') %>:
+      <%= @employee_profile.rg %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('address') %>:
+      <%= @employee_profile.address %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('phone_number') %>:
+      <%= format_number(@employee_profile.phone_number) %>
+    </p>
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('marital_status') %>:
+      <%= t("activerecord.enum.employee_profile.marital_status.#{@employee_profile.marital_status}") %>
+    </p>
+    <div>
+      <% if current_user.manager? && @employee_profile.user != current_user %>
+        <%= link_to t('.edit'),
+            edit_company_department_employee_profile_path(
+              @employee_profile.department.company_id,
+              @employee_profile.department.id,
+              @employee_profile
+            ),
+            class: 'btn btn-warning text-white'
+        %>
+        <% unless @employee_profile.fired? %>
+          <%= link_to t('.fired_employee'),
+            new_fired_company_department_employee_profiles_path(
+              @employee_profile.department.company_id,
+              @employee_profile.department.id,
+              id: @employee_profile.id
+            ),
+            class: 'btn btn-danger'
+          %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
