@@ -4,9 +4,6 @@ pt-BR:
       save: Salvar
     unavailable: Sistema indisponível no momento, por favor tente mais tarde
     no_card: Você não possui cartão, fale com o setor de RH
-    show:
-      edit: Editar
-      fired_employee: Desligar funcionário
     new_fired:
       save: Salvar
       dismissal_date: Data de Demissão
