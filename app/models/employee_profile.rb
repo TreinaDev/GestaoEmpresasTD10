@@ -4,6 +4,7 @@ class EmployeeProfile < ApplicationRecord
   belongs_to :position
 
   before_validation :format_phone_number
+  before_validation :clean_cpf
 
   validates :name, :cpf, :rg, :address, :email, :phone_number, :status, :birth_date, :admission_date,
             :marital_status, presence: true
@@ -28,6 +29,10 @@ class EmployeeProfile < ApplicationRecord
 
   def format_phone_number
     phone_number&.gsub!(/\D/, '')
+  end
+
+  def clean_cpf
+    cpf&.gsub!(/\D/, '')
   end
 
   def name?
