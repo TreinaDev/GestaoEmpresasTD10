@@ -7,6 +7,7 @@ pt-BR:
     show:
       edit: Editar
       fired_employee: Desligar funcionário
+      new_recharge: Recarregar cartão
     new_fired:
       save: Salvar
       dismissal_date: Data de Demissão

@@ -6,8 +6,6 @@ class RechargeHistoriesController < ApplicationController
   def new; end
 
   def create
-    return redirect_to new_company_recharge_history_path, alert: 'Valor inválido' unless @value.positive?
-
     request = { recharge: [{ value: @value, cpf: @cpf }] }
     response = PatchRechargeApi.new(request).send
     create_recharge_history if response.status == 200
@@ -22,7 +20,7 @@ class RechargeHistoriesController < ApplicationController
     return if params[:cpf].blank?
 
     @cpf = params[:cpf].gsub(/\D/, '')
-    @value = params[:value].to_i
+    @value = params[:value].to_f if params[:value].present?
     @employee = EmployeeProfile.find_by(cpf: @cpf)
     if @employee.nil? || @employee.department.company.id.to_s != params[:company_id]
       flash[:alert] = I18n.t('recharge_histories.cpf_not_found', cpf: params[:cpf])
@@ -32,6 +30,9 @@ class RechargeHistoriesController < ApplicationController
       redirect_to new_company_recharge_history_path
     elsif !@employee.unblocked?
       flash[:alert] = I18n.t('recharge_histories.incorrect_status', status: t(".#{@employee.status}"))
+      redirect_to new_company_recharge_history_path
+    elsif !params[:value].to_f.positive?
+      flash[:alert] = 'Valor inválido'
       redirect_to new_company_recharge_history_path
     end
   end

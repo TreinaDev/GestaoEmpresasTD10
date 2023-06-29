@@ -46,7 +46,7 @@ feature 'Manager faz uma recarga ao cartão' do
                                          cpf: '90900938005',
                                          card_status: true)
 
-    request = { recharge: [{ value: 400, cpf: '90900938005' }] }                                     
+    request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }                                     
     fake_response = double('faraday_response', status: 200, body: '[{"message":"Recarga efetuada com sucesso"}]')
     allow(Faraday).to receive(:patch)
       .with('http://localhost:4000/api/v1/cards/recharge',
@@ -64,6 +64,31 @@ feature 'Manager faz uma recarga ao cartão' do
 
     expect(page).to have_content 'Recarga efetuada com sucesso'
     expect(RechargeHistory.last.value).to eq 400
+  end
+
+  scenario 'com valor inválido' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    login_as manager_user
+    visit new_company_recharge_history_path(company_id: company.id)
+
+    fill_in 'cpf',	with: '909.009.38-005'
+    fill_in 'value',	with: '-100'
+    click_button 'Buscar'
+
+    expect(page).to have_content 'Valor inválido'
+    expect(RechargeHistory.count).to eq 0
   end
 
   scenario 'com CPF não encontrado na empresa do Manager' do
@@ -94,9 +119,9 @@ feature 'Manager faz uma recarga ao cartão' do
     login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
 
-    fill_in 'Cpf',	with: '30448522500'
-    fill_in 'Value',	with: '400'
-    click_button 'Enviar'
+    fill_in 'cpf',	with: '30448522500'
+    fill_in 'value',	with: '400'
+    click_button 'Buscar'
 
     expect(employee2.cpf).to eq '30448522500'
     expect(page).to have_content 'CPF não encontrado: 30448522500'
@@ -116,7 +141,7 @@ feature 'Manager faz uma recarga ao cartão' do
                                          cpf: '90900938005',
                                          card_status: true)
 
-    request = { recharge: [{ value: 400, cpf: '90900938005' }] }
+    request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }
     fake_response = double('faraday_response', status: 500, body: '{}')
     allow(Faraday).to receive(:patch)
       .with('http://localhost:4000/api/v1/cards/recharge',
@@ -127,9 +152,10 @@ feature 'Manager faz uma recarga ao cartão' do
     login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
 
-    fill_in 'Cpf',	with: '90900938005'
-    fill_in 'Value',	with: '400'
-    click_button 'Enviar'
+    fill_in 'cpf',	with: '90900938005'
+    fill_in 'value',	with: '400'
+    click_button 'Buscar'
+    click_button 'Recarregar'
 
     expect(page).to have_content 'ERRO de conexão'
   end
@@ -144,18 +170,18 @@ feature 'Manager faz uma recarga ao cartão' do
       position = create(:position, department:)
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
-      employee = create(:employee_profile, position:, department_id: position.department.id,                                    
+      employee = create(:employee_profile, position:, department_id: position.department.id,
                                            status: 'blocked', email: "funcionario@#{company.domain}",
                                            cpf: '90900938005',
                                            card_status: true)
-  
-      login_as manager_user                                     
+
+      login_as manager_user
       visit new_company_recharge_history_path(company_id: company.id)
-  
-      fill_in 'Cpf',	with: '90900938005'
-      fill_in 'Value',	with: '400'
-      click_button 'Enviar'
-  
+
+      fill_in 'cpf',	with: '90900938005'
+      fill_in 'value',	with: '400'
+      click_button 'Buscar'
+
       expect(page).to have_content 'Funcionário com status incorreto: Bloqueado'
     end
 
@@ -168,18 +194,18 @@ feature 'Manager faz uma recarga ao cartão' do
       position = create(:position, department:)
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
-      employee = create(:employee_profile, position:, department_id: position.department.id,                                    
+      employee = create(:employee_profile, position:, department_id: position.department.id,
                                            status: 'fired', email: "funcionario@#{company.domain}",
                                            cpf: '90900938005',
                                            card_status: true)
-  
-      login_as manager_user                                     
+
+      login_as manager_user
       visit new_company_recharge_history_path(company_id: company.id)
-  
-      fill_in 'Cpf',	with: '90900938005'
-      fill_in 'Value',	with: '400'
-      click_button 'Enviar'
-  
+
+      fill_in 'cpf',	with: '90900938005'
+      fill_in 'value',	with: '400'
+      click_button 'Buscar'
+
       expect(page).to have_content 'Funcionário com status incorreto: Demitido'
     end
 
@@ -192,18 +218,18 @@ feature 'Manager faz uma recarga ao cartão' do
       position = create(:position, department:)
       create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                           social_name: 'arthur arthur')
-      employee = create(:employee_profile, position:, department_id: position.department.id,                                    
+      employee = create(:employee_profile, position:, department_id: position.department.id,
                                            status: 'unblocked', email: "funcionario@#{company.domain}",
                                            cpf: '90900938005',
                                            card_status: false)
-  
-      login_as manager_user                                     
+
+      login_as manager_user
       visit new_company_recharge_history_path(company_id: company.id)
-  
-      fill_in 'Cpf',	with: '90900938005'
-      fill_in 'Value',	with: '400'
-      click_button 'Enviar'
-  
+
+      fill_in 'cpf',	with: '90900938005'
+      fill_in 'value',	with: '400'
+      click_button 'Buscar'
+
       expect(page).to have_content 'Cartão não solicitado para esse CPF: 90900938005'
     end
   end
