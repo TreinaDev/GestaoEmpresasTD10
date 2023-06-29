@@ -8,7 +8,8 @@ class RechargeHistoriesController < ApplicationController
   def create
     request = { recharge: [{ value: @value, cpf: @cpf }] }
     response = PatchRechargeApi.new(request).send
-    create_recharge_history if response.status == 200
+    body = JSON.parse(response.body)
+    create_recharge_history if body.first['errors'].nil?
 
     flash_message(response)
     redirect_to new_company_recharge_history_path
@@ -22,31 +23,42 @@ class RechargeHistoriesController < ApplicationController
     @cpf = params[:cpf].gsub(/\D/, '')
     @value = params[:value].to_f if params[:value].present?
     @employee = EmployeeProfile.find_by(cpf: @cpf)
-    if @employee.nil? || @employee.department.company.id.to_s != params[:company_id]
-      flash[:alert] = I18n.t('recharge_histories.cpf_not_found', cpf: params[:cpf])
-      redirect_to new_company_recharge_history_path
-    elsif !@employee.card_status
-      flash[:alert] = I18n.t('recharge_histories.card_not_requested', cpf: params[:cpf])
-      redirect_to new_company_recharge_history_path
-    elsif !@employee.unblocked?
-      flash[:alert] = I18n.t('recharge_histories.incorrect_status', status: t(".#{@employee.status}"))
-      redirect_to new_company_recharge_history_path
-    elsif params[:value].present? & !params[:value].to_f.positive?
-      flash[:alert] = 'Valor inválido'
-      redirect_to new_company_recharge_history_path
-    end
+
+    redirect_with_error(t('.cpf_not_found', cpf: params[:cpf])) if employee_not_found?
+    redirect_with_error(t('.card_not_requested', cpf: params[:cpf])) if card_not_requested?
+    redirect_with_error(t('.incorrect_status', status: t(".#{@employee.status}"))) if incorrect_status?
+    redirect_with_error('Valor inválido') if invalid_value?
+  end
+
+  def employee_not_found?
+    @employee.nil? || @employee.department.company.id.to_s != params[:company_id]
+  end
+
+  def card_not_requested?
+    !@employee.card_status
+  end
+
+  def incorrect_status?
+    !@employee.unblocked?
+  end
+
+  def invalid_value?
+    params[:value].present? & !params[:value].to_f.positive?
+  end
+
+  def redirect_with_error(message)
+    flash[:alert] = message
+    redirect_to new_company_recharge_history_path
   end
 
   def flash_message(response)
     status = response.status
-    body = JSON.parse(response.body) unless status == 500
+    body = JSON.parse(response.body)
 
-    if status == 500
-      flash[:alert] = t('.failure_response')
+    if body.first['errors'].present?
+      flash[:alert] = body.first['errors']
     elsif status == 200
       flash[:notice] = body.first['message']
-    else
-      flash[:alert] = body['errors'] || t('.unknown_error')
     end
   end
 
@@ -55,7 +67,7 @@ class RechargeHistoriesController < ApplicationController
       value: params[:value],
       employee_profile: @employee,
       creator: current_user,
-      recharge_date: Date.today
+      recharge_date: Time.zone.today
     )
     historico.save
   end

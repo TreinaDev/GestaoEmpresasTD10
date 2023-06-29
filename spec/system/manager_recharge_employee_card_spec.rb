@@ -142,12 +142,12 @@ feature 'Manager faz uma recarga ao cartão' do
                                          card_status: true)
 
     request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }
-    fake_response = double('faraday_response', status: 500, body: '{}')
+    # fake_response = double('faraday_response', status: 500, body: '{}')
     allow(Faraday).to receive(:patch)
       .with('http://localhost:4000/api/v1/cards/recharge',
         request.to_json,
         'Content-Type' => 'application/json')
-      .and_return(fake_response)
+      .and_raise(Faraday::ConnectionFailed.new('connection failed'))
 
     login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
@@ -157,7 +157,7 @@ feature 'Manager faz uma recarga ao cartão' do
     click_button 'Buscar'
     click_button 'Recarregar'
 
-    expect(page).to have_content 'ERRO de conexão'
+    expect(page).to have_content 'Erro interno do Servidor'
   end
 
   context 'de funcionário sem permissão para recarga' do
