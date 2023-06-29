@@ -3,12 +3,15 @@ class DepartmentsController < ApplicationController
   before_action :set_company, only: %i[index show new edit create update]
   before_action :require_manager, only: %i[new create edit update]
   before_action :manager_belongs_to_company?
+  before_action :status_api, only: %i[show]
 
   def index
     @departments = Department.where(company_id: params[:company_id])
   end
 
-  def show; end
+  def show
+    find_by_positions
+  end
 
   def new
     @department = Department.new
@@ -47,5 +50,18 @@ class DepartmentsController < ApplicationController
 
   def set_company
     @company = Company.find(params[:company_id])
+  end
+
+  def find_by_positions
+    @position_cards = []
+
+    @department.positions.each do |position|
+      card = GetCardType.find(position.card_type_id, @company.registration_number)
+      @position_cards[position.id] = if card
+                                       [card.name, card.icon]
+                                     else
+                                       ['Cartão Indisponível', '']
+                                     end
+    end
   end
 end

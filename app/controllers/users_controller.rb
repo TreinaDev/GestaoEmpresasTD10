@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
   before_action :require_admin, except: :profile
   before_action :find_user, only: %i[block unblock]
-
+  before_action :status_api, only: %i[profile]
+  
   def index; end
 
   def profile
     return redirect_to root_path, alert: t('forbidden') if current_user.admin?
 
     @employee_profile = EmployeeProfile.find_by(email: current_user.email)
-    @card = GetCardApi.show(@employee_profile.cpf)
+    get_card_with_logo(@employee_profile)
   end
 
   def block

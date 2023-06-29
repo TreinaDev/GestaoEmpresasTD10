@@ -36,7 +36,11 @@
           <div class="card-footer d-flex justify-content-between align-items-center">
             
             <%= link_to company_departments_path(@company), class: 'btn btn-primary text-white mx-auto' do %>
-              <i class="bi bi-person-badge d-inline"></i> Departamentos
+              <i class="bi bi-buildings d-inline"></i> Departamentos
+            <% end %>
+
+            <%= link_to new_company_department_path(current_user.employee_profile.company), class: 'btn btn-primary text-white mx-auto' do %>
+              <i class="bi bi-plus-lg"></i> Cadastrar departamento
             <% end %>
 
           </div>
