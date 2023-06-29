@@ -33,25 +33,8 @@
 
             <% if current_user.manager? %>
            
-              <li class="dropdown dropend nav-item">
-                  <a class="dropdown-item dropdown-toggle nav-link" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Departamentos</a>
-                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu1">
-                      <li>
-                        <%= link_to 'Cadastrar departamento', new_company_department_path(current_user.employee_profile.department.company), class:'dropdown-item' %>
-                      </li>
-                      <li>
-                        <%= link_to 'Lista de departamentos', company_departments_path(current_user.employee_profile.department.company), class:'dropdown-item' %>
-                      </li>
-                      <li class="dropdown dropend">
-                          <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar funcionário</a>
-                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu2">
-                              <li><a class="dropdown-item" href="#">Departamento de RH</a></li>
-                              <li><a class="dropdown-item" href="#">Departamento de TI</a></li>
-                              <li><a class="dropdown-item" href="#">Departamento de Segurança</a></li>
-                          </ul>
-                      </li>
-                  </ul>
-              </li>
+              <%= render('shared/nav/manager_options') %>
+
               <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
                 <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar Funcionário" %>
                 <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
@@ -87,20 +70,3 @@
     </div>
   </nav>
 <% end %>
-
-
-
-<script>
-let dropdowns = document.querySelectorAll('.dropdown-toggle')
-dropdowns.forEach((dd)=>{
-    dd.addEventListener('click', function (e) {
-        var el = this.nextElementSibling
-        el.style.display = el.style.display==='block'?'none':'block'
-    })
-})
-</script>
-
-
-<style>
-.dropdown-hover-all .dropdown-menu, .dropdown-hover > .dropdown-menu.dropend { margin-left:-1px !important }
-</style>
