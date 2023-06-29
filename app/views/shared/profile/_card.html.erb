@@ -1,0 +1,64 @@
+
+<div class="card my-3">
+ <div class="card-header">
+    Informações do Cartão
+  </div>
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="<%= @card_icon %>" class="img-fluid rounded-start p-2" alt="...">
+    </div>
+    <div class="col-md-8">
+      
+      <div class="card-body" id="user_card">
+        <%if @employee_profile.card_status%>
+          <%if @card.present?%>
+            <h3><%= t('.card')%> <%=@card.name%></h3>
+            <p class="m-1"><%= t('get_card_api.attributes.number')%>: <%=@card.number%></p>
+            <p class="m-1"><%= t('get_card_api.attributes.points')%>: <%=@card.points%></p>
+            <p class="m-1"><%= t('.status')%>: <%=t("get_card_api.attributes.status.#{@card.status}")%></p>
+
+            <%= link_to 'Histórico de recarga', recharge_history_company_department_employee_profile_path(company_id: @employee_profile.department.company.id,
+                                                                          department_id: @employee_profile.department.id,
+                                                                          id: @employee_profile.id)%>
+
+            <div id="recharge_card" style="margin: 10px;">
+              <%if @employee_profile.card_status & @card.present? & @employee_profile.unblocked? %>
+                <%= link_to t('.new_recharge'), new_company_recharge_history_path(company_id: @employee_profile.department.company_id, cpf: @employee_profile.cpf), id: 'btn_new_recharge', class:'btn btn-primary'%>
+              <% end %>
+            </div>
+            <div style="margin: 10px;">
+              <% if current_user.manager? && @employee_profile.user != current_user %>
+                <%if @card&.status == 'active'%>
+                  <%= button_to deactivate_card_company_department_employee_profile_path(company_id: @company.id,
+                                                                            department_id: @department.id,
+                                                                            id: @employee_profile.id),
+                                                                            method: :patch,
+                                                                            class:'btn btn-danger' do %>
+                    <i class="bi bi-x-lg"></i>
+                    <%= t('.block_card')%>
+                  <% end %>
+                <%else%>
+                  <%= button_to t('.unblock_card'),
+                    activate_card_company_department_employee_profile_path(company_id: @company.id,
+                                                                          department_id: @department.id,
+                                                                          id: @employee_profile.id),
+                                                                          method: :patch,
+                                                                          class:'btn btn-danger text-white'%>
+                <%end%>
+              <% end %>
+            </div>
+          <%else%>
+            <%= t('.unavailable')%>
+          <%end%>
+        <%else%>
+            <% if current_user != @employee_profile.user %>
+              <%= t('.no_employee_card')%>
+            <% else %>
+              <%= t('.no_card') %>
+            <% end %>
+        <%end%>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -12,7 +12,8 @@ class RechargeHistoriesController < ApplicationController
     flash_message(response)
     create_recharge_history if @body.first['errors'].nil?
 
-    redirect_to new_company_recharge_history_path
+    redirect_to recharge_history_company_department_employee_profile_path(@employee.department.company,
+                                                                          @employee.department, @employee)
   end
 
   private

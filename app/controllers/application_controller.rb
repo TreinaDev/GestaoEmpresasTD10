@@ -51,4 +51,13 @@ class ApplicationController < ActionController::Base
   def internal_server_error
     render status: :internal_server_error, json: { errors: I18n.t('errors.internal_server_error') }
   end
+
+  def status_api
+    redirect_to root_path, alert: t('api_down') if GetCardType.status == 500
+  end
+
+  def get_card_with_logo(employee)
+    @card = GetCardApi.show(employee.cpf)
+    @card_icon = GetCardType.find(employee.position.card_type_id, employee.department.company.registration_number).icon
+  end
 end

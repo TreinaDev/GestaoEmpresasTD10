@@ -2,6 +2,8 @@ pt-BR:
   departments:
     form:
       save: Salvar
+      return: Voltar
+      title: Novo Departamento
     show:
       edit: Editar Departamento
       go_back: Voltar
