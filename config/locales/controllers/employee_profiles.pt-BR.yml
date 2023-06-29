@@ -26,3 +26,5 @@ pt-BR:
     fired:
       already_fired: Funcionário já desligado
       failure: Erro ao tentar desligar funcionário
+    recharge_history:
+      no_card: Este funcionário não possui cartão

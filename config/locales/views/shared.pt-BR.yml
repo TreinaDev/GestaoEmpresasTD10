@@ -9,3 +9,5 @@ pt-BR:
         unblock_card: Desbloquear Cartão
         card: Cartão
         unavailable: Sistema indisponível no momento, por favor tente mais tarde
+        no_card: Você não possui cartão, fale com o setor de RH
+        no_employee_card: Funcionário não possui cartão
