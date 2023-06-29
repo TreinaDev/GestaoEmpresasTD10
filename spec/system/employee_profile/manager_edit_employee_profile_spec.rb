@@ -48,7 +48,7 @@ feature 'Usuário edita perfil de funcionário' do
       expect(page).to have_content('CPF: 883.161.750-88')
       expect(page).to have_content('RG: 444903574')
       expect(page).to have_content('Endereço: Rua guanabara, 51')
-      expect(page).to have_content('Telefone: 819823433')
+      expect(page).to have_content('Telefone: (81) 98234-3354')
       expect(page).to have_content('Data de Nascimento: 20/05/2000')
       expect(page).to have_content('Estado Civil: Casado(a)')
     end

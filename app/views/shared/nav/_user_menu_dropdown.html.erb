@@ -1,6 +1,6 @@
 <li class="nav-item dropdown <%= current_user.manager? ? '': 'ms-auto'%>">
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <%= current_user.description%>
+    <%= current_user.description %>
   </a>
   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
     <% unless current_user.admin? %>

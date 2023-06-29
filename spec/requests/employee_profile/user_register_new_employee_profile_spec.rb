@@ -13,15 +13,15 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
     login_as user_manager
 
     new_attributes = {
-      name: 'Novo nome',
+      name: 'Novo Nome',
       social_name: 'Nova nome social ',
       cpf: '59812249087',
       rg: '12345678',
       address: 'Rua Apple, 1',
-      phone_number: '22 88888-8888',
-      email: 'novoemail@campuscode.com.br',
-      birth_date: '01-01-1990',
-      admission_date: '01-01-2020',
+      phone_number: '22888888888',
+      email: 'novoemail@microsoft.com',
+      birth_date: '01/01/2000',
+      admission_date: '01/01/2018',
       marital_status: 'single',
       department_id: department.id,
       position_id: position.id
@@ -40,8 +40,8 @@ describe 'Usuário cadastra perfil de funcionário', type: :request do
     expect(EmployeeProfile.last.rg).to eq(new_attributes[:rg])
     expect(EmployeeProfile.last.address).to eq(new_attributes[:address])
     expect(EmployeeProfile.last.phone_number).to eq(new_attributes[:phone_number])
-    expect(EmployeeProfile.last.birth_date.strftime('%d-%m-%Y')).to eq(new_attributes[:birth_date])
-    expect(EmployeeProfile.last.admission_date.strftime('%d-%m-%Y')).to eq(new_attributes[:admission_date])
+    expect(EmployeeProfile.last.birth_date.strftime('%d/%m/%Y')).to eq(new_attributes[:birth_date])
+    expect(EmployeeProfile.last.admission_date.strftime('%d/%m/%Y')).to eq(new_attributes[:admission_date])
     expect(EmployeeProfile.last.marital_status).to eq(new_attributes[:marital_status])
     expect(EmployeeProfile.last.department_id).to eq(new_attributes[:department_id])
     expect(EmployeeProfile.last.position_id).to eq(new_attributes[:position_id])
