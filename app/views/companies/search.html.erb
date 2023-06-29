@@ -1,0 +1,39 @@
+<% if @employee_profiles.present? %>
+  <h2 class="mt-2">Resultados da pesquisa:</h2>
+  <table class="table table-striped table-bordered rounded mt-2">
+    <thead class="text-center">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Cargo</th>
+        <th scope="col">Departamento</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <% @employee_profiles.each do |employee_profile| %>
+        <tr>
+          <td class="align-baseline text-start">
+            <%= link_to employee_profile.name, company_department_employee_profile_path(employee_profile.department.company.id, employee_profile.department.id, employee_profile), class:'ms-2' %>
+          </td>
+          <td class="align-baseline"><%= format_cpf(employee_profile.cpf) %> </td>
+          <td class="align-baseline"><%= employee_profile.position.name %></td>
+          <td class="align-baseline"><%= employee_profile.department.name %></td>
+          <td class="align-baseline text-center ">
+            <div class="alert p-1 m-0 <%= employee_profile.unblocked? ? 'alert-success' : 'alert-danger' %>">
+              <%= t(employee_profile.status) %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Nenhum resultado encontrado</p>
+<% end %>
+
+
+
+
+
+

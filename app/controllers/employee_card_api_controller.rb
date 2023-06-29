@@ -4,8 +4,11 @@ class EmployeeCardApiController < ApplicationController
   before_action :set_card, only: %i[show deactivate_card activate_card new_fired fired]
   before_action :set_department_and_company
   before_action :require_manager
+  before_action :status_api, only: %i[show edit]
 
-  def show; end
+  def show
+    get_card_with_logo(@employee_profile)
+  end
 
   def edit; end
 
