@@ -32,16 +32,13 @@
             <% end %>
 
             <% if current_user.manager? %>
-           
               <%= render('shared/nav/manager_options') %>
-
               <%= form_with(url: search_companies_path, method: :get, class: 'd-flex ms-auto') do |form| %>
                 <%= form.text_field :search, class: 'form-control me-2', placeholder: "Pesquisar Funcionário" %>
                 <%= form.button type: 'submit', class: "btn btn-outline-light btn-sm me-4 search-button" do %>
                   <i class="bi bi-search"></i> 
                 <% end %>
               <% end %>
-
 
               <li class="nav-item dropdown ms-1">
             <% else %>
@@ -70,3 +67,7 @@
     </div>
   </nav>
 <% end %>
+
+<style>
+.dropdown-hover-all .dropdown-menu, .dropdown-hover > .dropdown-menu.dropend { margin-left:-1px !important }
+</style>
