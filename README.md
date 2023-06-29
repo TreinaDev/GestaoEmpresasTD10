@@ -42,41 +42,41 @@
 
 ## Funcionalidades
 
-:white_check_mark: Cadastro de Administrador via email com domínio **punti.com**
+:heavy_check_mark: Cadastro de Administrador via email com domínio **punti.com**
 
 Administrador:
-  - :white_check_mark: Cadastro de *Empresas*
-  - :white_check_mark: Pre-Cadastro de *Gerentes* em *Empresas*
-  - :white_check_mark: Remove de pre-cadastro *Gerentes*
-  - :white_check_mark: Bloqueio de *Gerente* e/ou *Empresas*
-  - :white_check_mark: Desbloqueio de *Gerente* e/ou *Empresas*
-  - :white_check_mark: Ver lista de *Empresas*
+  - :heavy_check_mark: Cadastro de *Empresas*
+  - :heavy_check_mark: Pre-Cadastro de *Gerentes* em *Empresas*
+  - :heavy_check_mark: Remove de pre-cadastro *Gerentes*
+  - :heavy_check_mark: Bloqueio de *Gerente* e/ou *Empresas*
+  - :heavy_check_mark: Desbloqueio de *Gerente* e/ou *Empresas*
+  - :heavy_check_mark: Ver lista de *Empresas*
 
 Gerente:
-  - :white_check_mark: Completa seus dados cadastrais(*employee_profile*)
-  - :white_check_mark: Cadastro de *Departamentos*
-  - :white_check_mark: Editação de *Departamentos*
-  - :white_check_mark: Ver *Departamentos*
-  - :white_check_mark: Cadastro de *Cargos*
-  - :white_check_mark: Editação de *Cargos*
-  - :white_check_mark: Ver *Cargos*
-  - :white_check_mark: Pre-Cadastro do *Funcionários*
-  - :white_check_mark: Ver *Funcionários*
-  - :white_check_mark: Faz busca por(**nome ou cpf**) os *Funcionários*
-  - :white_check_mark: Edita informações do *Funcionário*
-  - :white_check_mark: Bloqueio do *Funcionário*
-  - :white_check_mark: Desligamento do *Funcionário*
-  - :white_check_mark: Solicitação de *Cartão* para o *Funcionário*
-  - :white_check_mark: Bloqueio de *Cartão* do *Funcionário*
-  - :white_check_mark: Solicita recarga no *Cartão* do *Funcionário*
-  - :white_check_mark: Ver histórico de recargas do *Cartão* do *Funcionário*
+  - :heavy_check_mark: Completa seus dados cadastrais(*employee_profile*)
+  - :heavy_check_mark: Cadastro de *Departamentos*
+  - :heavy_check_mark: Editação de *Departamentos*
+  - :heavy_check_mark: Ver *Departamentos*
+  - :heavy_check_mark: Cadastro de *Cargos*
+  - :heavy_check_mark: Editação de *Cargos*
+  - :heavy_check_mark: Ver *Cargos*
+  - :heavy_check_mark: Pre-Cadastro do *Funcionários*
+  - :heavy_check_mark: Ver *Funcionários*
+  - :heavy_check_mark: Faz busca por(**nome ou cpf**) os *Funcionários*
+  - :heavy_check_mark: Edita informações do *Funcionário*
+  - :heavy_check_mark: Bloqueio do *Funcionário*
+  - :heavy_check_mark: Desligamento do *Funcionário*
+  - :heavy_check_mark: Solicitação de *Cartão* para o *Funcionário*
+  - :heavy_check_mark: Bloqueio de *Cartão* do *Funcionário*
+  - :heavy_check_mark: Solicita recarga no *Cartão* do *Funcionário*
+  - :heavy_check_mark: Ver histórico de recargas do *Cartão* do *Funcionário*
 
 Funcionário:
-  - :white_check_mark: Ver seus dados
-  - :white_check_mark: Ver dados do seu *Cartão*
-  - :white_check_mark: Ver *Pontos* do seu *Cartão*
-  - :white_check_mark: Ver dados de sua *Empresa*
-  - :white_check_mark: Ver histórico de recargas em seu *Cartão*
+  - :heavy_check_mark: Ver seus dados
+  - :heavy_check_mark: Ver dados do seu *Cartão*
+  - :heavy_check_mark: Ver *Pontos* do seu *Cartão*
+  - :heavy_check_mark: Ver dados de sua *Empresa*
+  - :heavy_check_mark: Ver histórico de recargas em seu *Cartão*
 
 ## Pré-requisitos
 
