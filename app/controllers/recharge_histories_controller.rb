@@ -31,7 +31,7 @@ class RechargeHistoriesController < ApplicationController
     elsif !@employee.unblocked?
       flash[:alert] = I18n.t('recharge_histories.incorrect_status', status: t(".#{@employee.status}"))
       redirect_to new_company_recharge_history_path
-    elsif !params[:value].to_f.positive?
+    elsif params[:value].present? & !params[:value].to_f.positive?
       flash[:alert] = 'Valor inválido'
       redirect_to new_company_recharge_history_path
     end

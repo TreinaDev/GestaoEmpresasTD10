@@ -52,9 +52,14 @@
               id: employee.id
             ),
             class: 'btn btn-primary d-inline',id: "employee#{employee.id}", method: :get do %>
-              Ver funcionário
+              Detalhes
               <i class="bi bi-eye"></i>
             <% end %>
+
+            <% show_recharge = (employee.card_status & employee.unblocked?) ? true : false %>
+            <%= link_to t('.new_recharge'), new_company_recharge_history_path(company_id: @department.company_id, cpf: employee.cpf),
+                        method: :get, id: "get#{employee.id}", class: (show_recharge ? 'btn btn-primary' : 'btn btn-primary disabled'),
+                        disabled: show_recharge ? false : true %>
 
           </td>
         </tr>
