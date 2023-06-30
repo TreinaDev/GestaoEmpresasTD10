@@ -9,7 +9,7 @@
     <p class="card-text"><%= Position.human_attribute_name('company') %>: <%= @position.department.company.brand_name %></p>
     
 
-    <%= link_to t('.edit'), edit_company_department_position_path(@department.company_id, @department.id), id: 'btn_edit', class: (@position.name == 'Gerente' ? 'btn btn-primary disabled' : 'btn btn-warning text-white bold') if @department.present? do%>
+    <%= link_to t('.edit'), edit_company_department_position_path(@department.company_id, @department.id), id: 'btn_edit', class: 'btn btn-warning text-white bold' if @department.present? do%>
     <% end %>
     <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_edit', class:'btn btn-primary'%>
     <%= link_to t('.list_positions'), company_department_positions_path(company_id: @department.company_id), id: 'btn_edit', class:'btn btn-primary'%>

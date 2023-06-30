@@ -4,9 +4,11 @@
     Informações do Cartão
   </div>
   <div class="row g-0">
-    <div class="col-md-4">
-      <img src="<%= @card_icon %>" class="img-fluid rounded-start p-2" alt="...">
-    </div>
+      <% unless @card_icon.nil?%>
+        <div class="col-md-4">
+          <img src="<%= @card_icon %>" class="img-fluid rounded-start p-2">
+        </div>
+      <% end %>
     <div class="col-md-8">
       <div class="card-body" id="user_card">
         <%if @employee_profile.card_status%>

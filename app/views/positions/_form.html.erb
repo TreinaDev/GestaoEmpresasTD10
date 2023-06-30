@@ -5,10 +5,10 @@
     <% end %>
     <h4 class="card-title">Novo Cargo</h4>
     <%= form_with(model: [@company, @department, @position], data: { turbo: false }) do |f| %>
-      <div class="mb-3">
-        <%= f.label :name, class: 'form-label' %>
-        <%= f.text_field :name, class: 'form-control'%>
-      </div>
+        <div class="mb-3">
+          <%= f.label :name, class: 'form-label' %>
+          <%= f.text_field :name, class: 'form-control', disabled: (@position.name == 'Gerente') %>
+        </div>
       <div class="mb-3">
         <%= f.label :description, class: 'form-label' %>
         <%= f.text_field :description, class: 'form-control'%>
@@ -16,7 +16,7 @@
       <div class="mb-3">
         <%= f.label :card_type_id, class: 'form-label' %>
         <div class="col-lg-4 col-md-12">
-          <%= f.select :card_type_id, @card_types.collect { |p| [p.name, p.id] }, { prompt: 'Não selecionado' }, class: 'form-select' %>
+          <%= f.select :card_type_id, @card_types.collect { |p| [p.name, p.id] }, { prompt: 'Não selecionado' }, { class: 'form-select', disabled: @position.employee_profiles.any? } %>
         </div>
       </div>
       <%= f.submit t('.save'), class:'btn btn-success'%>
