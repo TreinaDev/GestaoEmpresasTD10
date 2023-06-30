@@ -5,6 +5,7 @@ pt-BR:
         edit: Editar
         fired_employee: Desligar funcionário
       card:
+        title: Informações do Cartão
         block_card: Bloquear Cartão
         unblock_card: Desbloquear Cartão
         card: Cartão

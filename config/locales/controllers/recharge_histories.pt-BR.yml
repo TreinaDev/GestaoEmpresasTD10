@@ -6,6 +6,8 @@ pt-BR:
     invalid_value: "Valor inválido: %{value}"
     blocked: Bloqueado
     fired: Demitido
+    index:
+      employee_not_found: Funcionário não encontrado
     create:
       failure_response: Erro de conexão
       unknown_error: Erro desconhecido

@@ -1,28 +1,28 @@
 <div class="text-center w-100 mt-2 fs-1">
-  <p>Recarga de cartão</p>
+  <p><%= t('.title') %></p>
 </div>
 
 <% if @employee.present? & @value %>
   <div class="card justify-content-center">
     <div class="card-header">
-      Confirmar Recarga
+      <%= t('.confirm') %>
     </div>
     <div class="card-body">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <strong>Nome:</strong> <%= @employee.name %>
+          <strong><%= EmployeeProfile.human_attribute_name('name') %>:</strong> <%= @employee.name %>
         </li>
         <li class="list-group-item">
-          <strong>Cargo:</strong> <%= @employee.position.name %>
+          <strong><%= Position.model_name.human %>:</strong> <%= @employee.position.name %>
         </li>
         <li class="list-group-item">
-          <strong>Departamento:</strong> <%= @employee.department.name %>
+          <strong><%= Department.model_name.human %>:</strong> <%= @employee.department.name %>
         </li>
         <li class="list-group-item">
-          <strong>CPF:</strong> <%= format_cpf(@employee.cpf) %>
+          <strong><%= EmployeeProfile.human_attribute_name('cpf') %>:</strong> <%= format_cpf(@employee.cpf) %>
         </li>
         <li class="list-group-item">
-          <strong>Valor:</strong> <%= number_to_currency(@value) %>
+          <strong><%= RechargeHistory.human_attribute_name('value') %>:</strong> <%= number_to_currency(@value) %>
         </li>
       </ul>
     </div>
@@ -30,26 +30,26 @@
       <%= form_with url: company_recharge_histories_path, method: :post, data: { turbo: false } do |form| %>
         <%= form.hidden_field :cpf, value: @employee.cpf %>
         <%= form.hidden_field :value, value: @value %>
-        <%= form.submit 'Recarregar', class: "btn btn-primary" %>
+        <%= form.submit t('.recharge'), class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
 <% else %>
   <div class="card justify-content-center">
     <div class="card-header">
-      Buscar Funcionário <span style="color: grey; font-style: italic;">(Todos os campos obrigatórios)</span>
+      <%= t('.search_employee') %> <span style="color: grey; font-style: italic;">(<%= t('.all_fileds_required') %>)</span>
     </div>
     <div class="card-body">
       <%= form_with url: new_company_recharge_history_path, method: :get, data: { turbo: false } do |form| %>
         <div class="field mb-3">
-          <%= form.text_field :cpf, value: params[:cpf], class: "form-control", placeholder: 'CPF do funcionário' %>
+          <%= form.text_field :cpf, value: params[:cpf], class: "form-control", placeholder: t('.placeholder_cpf') %>
         </div>
         
         <div class="field mb-3">
-          <%= form.text_field :value, class: "form-control", placeholder: 'Valor em R$' %>
+          <%= form.text_field :value, class: "form-control", placeholder: t('.placeholder_value') %>
         </div>
         
-        <%= form.submit 'Buscar', class: "btn btn-primary" %>
+        <%= form.submit t('.search'), class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>

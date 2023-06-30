@@ -23,16 +23,15 @@ feature 'Manager faz uma recarga ao cartão' do
     click_button 'Buscar'
 
     expect(page).to have_content 'Confirmar Recarga'
-    expect(page).to have_content "Nome: #{employee.name}"
+    expect(page).to have_content "Nome Completo: #{employee.name}"
     expect(page).to have_content "Cargo: #{employee.position.name}"
     expect(page).to have_content "Departamento: #{employee.department.name}"
     expect(page).to have_content 'CPF: 909.009.380-05'
     expect(page).to have_content 'Valor: R$ 400,00'
-    expect(page).to have_content "Nome: #{employee.name}"
     expect(RechargeHistory.count).to eq 0
   end
 
-  scenario 'com sucesso' do
+  scenario 'com sucesso e visualiza histórico' do
     company = create(:company)
     department = create(:department, company:)
     admin_user = create(:admin_user)
@@ -41,10 +40,10 @@ feature 'Manager faz uma recarga ao cartão' do
     position = create(:position, department:)
     create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
                                         social_name: 'arthur arthur')
-    create(:employee_profile, position:, department_id: position.department.id,
-                              status: 'unblocked', email: "funcionario@#{company.domain}",
-                              cpf: '90900938005',
-                              card_status: true)
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
 
     request = { recharge: [{ value: 400.0, cpf: '90900938005' }] }
     fake_response = double('faraday_response', status: 200, body: '[{"message":"Recarga efetuada com sucesso"}]')
@@ -63,7 +62,14 @@ feature 'Manager faz uma recarga ao cartão' do
     click_button 'Recarregar'
 
     expect(page).to have_content 'Recarga efetuada com sucesso'
+    expect(page).to have_content 'Histórico de recarga'
+    expect(page).to have_content "Funcionário: #{employee.name}"
+    expect(page).to have_content 'CPF: 909.009.380-05'
+    expect(page).to have_content "Email: #{employee.email}"
+    expect(page).to have_content 'R$ 400,00'
     expect(RechargeHistory.last.value).to eq 400
+    expect(page).to have_content manager_user.email
+    expect(page).to have_content I18n.l(RechargeHistory.last.created_at, format: :short)
   end
 
   scenario 'com valor inválido' do

@@ -4,16 +4,22 @@ class RechargeHistoriesController < ApplicationController
   before_action :set_employee_profile, only: %i[new create]
   before_action :validate_employee, only: %i[new create]
 
+  def index
+    @employee = EmployeeProfile.find_by(id: params[:employee])
+    return redirect_to search_companies_path, alert: t('.employee_not_found') if @employee.nil?
+
+    @recharges = RechargeHistory.where(employee_profile_id: @employee.id).order(created_at: 'desc')
+  end
+
   def new; end
 
   def create
-    request = { recharge: [{ value: params[:value].to_f, cpf: @employee.cpf }] }
+    request = { recharge: [{ value: @value, cpf: @employee.cpf }] }
     response = PatchRechargeApi.new(request).send
     flash_message(response)
     create_recharge_history if @body.first['errors'].nil?
 
-    redirect_to recharge_history_company_department_employee_profile_path(@employee.department.company,
-                                                                          @employee.department, @employee)
+    redirect_to company_recharge_histories_path(@employee.department.company, params: { employee: @employee })
   end
 
   private
@@ -37,7 +43,7 @@ class RechargeHistoriesController < ApplicationController
     return t('.cpf_not_found', cpf: @cpf) if @employee.nil?
     return t('.card_not_requested', cpf: @cpf) unless @employee.card_status
     return t('.incorrect_status', status: t(".#{@employee.status}")) unless @employee.unblocked?
-    return t('.invalid_value', value: params[:value]) unless params[:value].to_f.positive?
+    return t('.invalid_value', value: @value) unless @value.to_f.positive?
   end
 
   def flash_message(response)
@@ -52,12 +58,11 @@ class RechargeHistoriesController < ApplicationController
   end
 
   def create_recharge_history
-    historico = RechargeHistory.new(
+    @history = RechargeHistory.new(
       value: params[:value],
       employee_profile: @employee,
-      creator: current_user,
-      recharge_date: Time.zone.today
+      creator: current_user
     )
-    historico.save
+    @history.save
   end
 end
