@@ -95,7 +95,6 @@ EmployeeProfile.create!(name: 'Gerente Apple', cpf: '86899364247', rg: '86899364
                         marital_status: 'married', department_id: Department.first.id,
                         position_id: Position.first.id, card_status: false, user_id: User.last.id)
 
-
 # Segunda empresa
 Company.create!(brand_name: 'Microsoft', corporate_name: 'Microsoft Corporation',
                 registration_number: '12.345.678/0002-95',
@@ -203,7 +202,8 @@ Company.create!(brand_name: 'Campus Code', corporate_name: 'Campus Code LTDA',
 
 rh_campuscode = Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH003',
                                    description: 'Recursos Humanos')
-manager_campuscode = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER003', description: 'Gerente do RH')
+manager_campuscode = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER003',
+                                      description: 'Gerente do RH')
 Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH003', description: 'Estagiário RH')
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '62106308396', rg: '62106308392',
                         address: 'Rua do funcionário da Campus', email: 'funcionário@campuscode.com',
@@ -392,7 +392,8 @@ Company.create!(brand_name: 'Brainn', corporate_name: 'Brainn.CO LTDA',
 
 rh_brainn = Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH005',
                                description: 'Recursos Humanos')
-manager_brainn = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER005', description: 'Gerente do RH')
+manager_brainn = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER005',
+                                  description: 'Gerente do RH')
 Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH005', description: 'Estagiário RH')
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '33965530046', rg: '33965530000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionário@brainn.com',
@@ -486,7 +487,8 @@ Company.create!(brand_name: 'Vindi', corporate_name: 'Vindi Pagamentos LTDA',
 
 rh_vindi = Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH006',
                               description: 'Recursos Humanos')
-manager_vindi = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER006', description: 'Gerente do RH')
+manager_vindi = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER006',
+                                 description: 'Gerente do RH')
 Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH006', description: 'Estagiário RH')
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '86274187057', rg: '862741870',
                         address: 'Rua do funcionário da Vindi', email: 'funcionário@vindi.com',
