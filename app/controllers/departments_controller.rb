@@ -19,6 +19,9 @@ class DepartmentsController < ApplicationController
 
   def edit
     @department = @company.departments.find(params[:id])
+    if @department.name == 'Departamento de RH'
+      redirect_to root_path, alert: t('.error')
+    end
   end
 
   def create

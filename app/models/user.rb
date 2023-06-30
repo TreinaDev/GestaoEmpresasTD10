@@ -28,7 +28,7 @@ class User < ApplicationRecord
 
   def description_employee
     "#{User.human_attribute_name(:roles, count: 'other')
-    .fetch(role.to_sym).upcase} - #{employee_profile.social_name.presence.titleize || employee_profile.name.titleize}"
+    .fetch(role.to_sym).upcase} - #{employee_profile.social_name&.titleize || employee_profile.name.titleize}"
   end
 
   def block!
