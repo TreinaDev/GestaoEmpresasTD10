@@ -380,7 +380,7 @@ EmployeeProfile.create!(name: 'Gerente Rebase', cpf: '62822359016', rg: '6282235
                         marital_status: 'married', department_id: rh_rebase.id,
                         position_id: manager_rebase.id, card_status: false, user_id: User.last.id)
 
-# Quinta empresa
+# Quinta empresa.
 Company.create!(brand_name: 'Brainn', corporate_name: 'Brainn.CO LTDA',
                 registration_number: '12.345.678/0005-95',
                 address: 'Rua da Brainn, 6000', phone_number: '11 99999-5555',
