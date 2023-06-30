@@ -20,7 +20,7 @@ feature 'manager entra no sistema' do
     end
   end
 
-  scenario 'e vê os items de manager ' do
+  scenario 'e vê os itens de manager ' do
     company = create(:company)
     department = create(:department, company:)
     position = create(:position, department:)
