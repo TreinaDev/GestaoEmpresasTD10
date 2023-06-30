@@ -19,4 +19,31 @@ feature 'manager entra no sistema' do
       expect(page).to have_button 'Sair'
     end
   end
+
+  scenario 'e vê os itens de manager ' do
+    company = create(:company)
+    department = create(:department, company:)
+    position = create(:position, department:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    create(:employee_profile, :manager, department:, position:, user: manager_user)
+    create(:department, name: 'Departamento de TI', company:)
+    create(:department, name: 'Departamento de Segurança', company:)
+
+    login_as(manager_user)
+    visit root_path
+
+    within('nav') do
+      expect(page).to have_link company.brand_name.to_s
+      expect(page).to have_link 'Departamentos'
+      expect(page).to have_link 'Cadastrar departamento'
+      expect(page).to have_link 'Lista de departamentos'
+      within('#dropdownDepartments') do
+        expect(page).to have_link 'Departamento de RH'
+        expect(page).to have_link 'Departamento de TI'
+        expect(page).to have_link 'Departamento de Segurança'
+      end
+    end
+  end
 end

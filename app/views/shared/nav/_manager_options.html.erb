@@ -1,13 +1,19 @@
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle hover-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Departamentos
-  </a>
-  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-    <li>
-      <%= link_to 'Cadastrar departamento', new_company_department_path(current_user.employee_profile.company), class:'dropdown-item hover-link' %>
-    </li>
-    <li>
-      <%= link_to 'Lista de departamentos', company_departments_path(current_user.employee_profile.company), class:'dropdown-item hover-link' %>
-    </li>
-  </ul>                    
+<li class="dropdown dropend nav-item">
+    <a class="dropdown-item dropdown-toggle nav-link" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Departamentos</a>
+    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu1">
+        <li>
+          <%= link_to 'Cadastrar departamento', new_company_department_path(current_user.employee_profile.department.company), class:'dropdown-item' %>
+        </li>
+        <li>
+          <%= link_to 'Lista de departamentos', company_departments_path(current_user.employee_profile.department.company), class:'dropdown-item' %>
+        </li>
+        <li class="dropdown dropend">
+            <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar funcionário</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="multilevelDropdownMenu2" id="dropdownDepartments">
+                <% current_user.employee_profile.department.company.departments.each do |department| %>
+                  <%= link_to department.name, new_company_department_employee_profile_path(company_id: department.company_id, department_id: department.id), id: 'btn_new_employee', class:'btn dropdown-item'%>
+                <% end %>
+            </ul>
+        </li>
+    </ul>
 </li>

@@ -9,7 +9,7 @@ feature 'visitante acessa página de perfil' do
     employee_data = create(:employee_profile, :employee, department:, position:, email: 'funcionario@microsoft.com',
                                                          cpf: '69142235219', card_status: true)
 
-    employee_user = User.create!(email: employee_data.email, cpf: employee_data.cpf, password: '123456')
+    employee_user = create(:employee_user, email: employee_data.email, cpf: employee_data.cpf)
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -19,6 +19,7 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee_user
 
@@ -63,6 +64,7 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee_user
 
@@ -96,6 +98,7 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee_user
 
