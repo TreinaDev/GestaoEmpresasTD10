@@ -1,0 +1,39 @@
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1px;
+}
+
+.footer.fixed-bottom {
+  margin-top: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+
+.contact-color {
+  color: #b49250;
+}
+
+.btn-floating {
+  color: #fff;
+}
+
+.btn-floating:hover {
+  color: #b49250 !important;
+}
+
+.text-white:hover {
+  color: #b49250;
+}
+
+.hover-link {
+  color: #fff;
+}
+
+.hover-link:hover {
+  color: #b49250;
+}

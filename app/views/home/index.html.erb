@@ -3,7 +3,7 @@
     <% @active_companies.each do |company| %>
       <div class="card m-3 w-20" style="width: 18rem;" id="company<%=company.id%>">
         <div style="background-color: #000; height: 150px; width: 100%;" class="d-flex">
-        <img src="<%= url_for(company.logo) %>"class="img-fluid" alt= <%= company.brand_name %> >
+          <img src="<%= url_for(company.logo) %>"class="img-fluid" alt= <%= company.brand_name %> >
         </div>
         <div class="card-body", id="cpn<%="#{company.id}"%>">
           <h5 class="card-title"><%= company.brand_name %></h5>
@@ -12,6 +12,7 @@
         </div>
       </div>
     <% end %>
+  </div>
 <% else %>
     <div class="alert">
       <p>Nenhuma empresa ativa</p>

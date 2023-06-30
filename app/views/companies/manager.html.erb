@@ -3,7 +3,7 @@
     <h2><%= @company.brand_name %></h2>
   </div>
   <div class="col-sm-6 mt-2">
-    <div id="cadEmail" class="border border-1 p-3">
+    <div id="cadEmail" class="border border-1 p-3 rounded-top">
     <h4>Cadastro prévio de e-mails:</h4>
     <% if @manager.errors.any? %>
       <h2>Verifique os erros abaixo:</h2>
@@ -49,7 +49,7 @@
     <% end %>
   </div>
   <div class="col-sm-6 mt-2">
-    <div id="cadEmail" class="border border-1 p-3">
+    <div id="cadEmail" class="border border-1 p-3 rounded">
       <table>
         <thead>
           <h4> Gerentes Ativos: </h4>
@@ -78,5 +78,6 @@
   </div>
 </div>
 
-
-<%= link_to 'Voltar', company_path(@company), class: 'btn btn-primary mt-3'%>
+<div class="col-3">
+  <%= link_to 'Voltar', company_path(@company), class: 'btn btn-primary mt-3'%>
+</div>
