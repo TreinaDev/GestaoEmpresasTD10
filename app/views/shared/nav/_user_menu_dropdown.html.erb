@@ -1,17 +1,17 @@
 <li class="nav-item dropdown <%= current_user.manager? ? '': 'ms-auto'%>">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a class="nav-link dropdown-toggle hover-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <%= current_user.description %>
   </a>
   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
     <% unless current_user.admin? %>
       <li>
-        <%= link_to profile_users_path, class: 'dropdown-item' do %>
-          <i class="bi bi-person-circle"></i> Perfil
+        <%= link_to profile_users_path, class: 'dropdown-item hover-link' do %>
+          <i class="bi bi-person-circle hover-link"></i> Perfil
         <% end %>
       </li>
     <% end %>
     <li class="nav-item" >
-      <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn dropdown-item' %>
+      <%= button_to "Sair", destroy_user_session_path, method: :delete, class:'btn dropdown-item hover-link' %>
     </li>
   </ul>
 </li>
