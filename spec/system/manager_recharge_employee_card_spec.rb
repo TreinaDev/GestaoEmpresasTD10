@@ -8,7 +8,7 @@ feature 'Manager faz uma recarga ao cartão' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
                                          status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -38,7 +38,7 @@ feature 'Manager faz uma recarga ao cartão' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
                                          status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -79,7 +79,7 @@ feature 'Manager faz uma recarga ao cartão' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                         social_name: 'arthur arthur')
     create(:employee_profile, position:, department_id: position.department.id,
                               status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -104,7 +104,7 @@ feature 'Manager faz uma recarga ao cartão' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                         social_name: 'arthur arthur')
     create(:employee_profile, position:, department_id: position.department.id,
                               status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -117,7 +117,7 @@ feature 'Manager faz uma recarga ao cartão' do
     department2 = create(:department, company: company2)
     position2 = create(:position, code: 'BAC132', department: department2)
     employee2 = create(:employee_profile,
-                       department: department2, position: position2, user: nil, name: 'Funcionario2', card_status: true,
+                       department: department2, position: position2, user: nil, name: 'Func dois', card_status: true,
                        social_name: 'Func2', email: "funcionario2@#{company2.domain}", cpf: '30448522500')
 
     login_as manager_user
@@ -138,7 +138,7 @@ feature 'Manager faz uma recarga ao cartão' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                         social_name: 'arthur arthur')
     create(:employee_profile, position:, department_id: position.department.id,
                               status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -171,7 +171,7 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       position = create(:position, department:)
-      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                           social_name: 'arthur arthur')
       create(:employee_profile, position:, department_id: position.department.id,
                                 status: 'blocked', email: "funcionario@#{company.domain}",
@@ -195,7 +195,7 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       position = create(:position, department:)
-      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                           social_name: 'arthur arthur')
       create(:employee_profile, position:, department_id: position.department.id,
                                 status: 'fired', email: "funcionario@#{company.domain}",
@@ -219,7 +219,7 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       position = create(:position, department:)
-      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                           social_name: 'arthur arthur')
       create(:employee_profile, position:, department_id: position.department.id,
                                 status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -243,7 +243,7 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       position = create(:position, department:)
-      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                           social_name: 'arthur arthur')
       create(:employee_profile, position:, department_id: position.department.id,
                                 status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -288,7 +288,7 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       position = create(:position, department:)
-      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                           social_name: 'arthur arthur')
 
       company2 = create(:company,
@@ -308,7 +308,7 @@ feature 'Manager faz uma recarga ao cartão' do
       create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
       manager_user = create(:manager_user, email: "nome@#{company.domain}")
       position = create(:position, department:)
-      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+      create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur arthur',
                                           social_name: 'arthur arthur')
       employee = create(:employee_profile, position:, department_id: position.department.id,
                                            status: 'unblocked', email: "funcionario@#{company.domain}",
