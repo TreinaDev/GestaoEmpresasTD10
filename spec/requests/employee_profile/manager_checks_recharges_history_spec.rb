@@ -8,7 +8,7 @@ describe 'Gerente tenta ver historico de recarga de funcionário sem cartão' do
     manager = create(:manager_user)
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
-    create(:employee_profile, :manager, name: 'Vanessa',
+    create(:employee_profile, :manager, name: 'Vanessa Camargo',
                                         marital_status: 1, department:, position:)
     employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
                                                             marital_status: 1, department:, position:)

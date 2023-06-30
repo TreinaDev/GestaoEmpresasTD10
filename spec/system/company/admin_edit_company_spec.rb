@@ -74,8 +74,8 @@ feature 'Usuário edita empresa' do
       company = create(:company)
       department = create(:department, company:)
       position = create(:position, department:)
-      create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
-      employee = User.create!(email: 'employee@apple.com', password: '123456', cpf: '02324252481')
+      create(:employee_profile, position:, department:, email: 'employee@microsoft.com', cpf: '02324252481')
+      employee = User.create!(email: 'employee@microsoft.com', password: '123456', cpf: '02324252481')
 
       login_as employee
       visit edit_company_path(company)

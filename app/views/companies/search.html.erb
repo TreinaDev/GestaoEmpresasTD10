@@ -14,7 +14,7 @@
       <% @employee_profiles.each do |employee_profile| %>
         <tr>
           <td class="align-baseline text-start">
-            <%= link_to employee_profile.name, company_department_employee_profile_path(employee_profile.department.company.id, employee_profile.department.id, employee_profile), class:'ms-2' %>
+            <%= link_to format_name(employee_profile.name), company_department_employee_profile_path(employee_profile.department.company.id, employee_profile.department.id, employee_profile), class:'ms-2' %>
           </td>
           <td class="align-baseline"><%= format_cpf(employee_profile.cpf) %> </td>
           <td class="align-baseline"><%= employee_profile.position.name %></td>
@@ -29,7 +29,9 @@
     </tbody>
   </table>
 <% else %>
+<div class="alert alert-warning mt-4">
   <p>Nenhum resultado encontrado</p>
+</div>
 <% end %>
 
 

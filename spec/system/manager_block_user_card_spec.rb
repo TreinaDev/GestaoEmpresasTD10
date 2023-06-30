@@ -8,7 +8,7 @@ feature 'Gerente acessa perfil do funcionário' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
                                          status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -55,7 +55,7 @@ feature 'Gerente acessa perfil do funcionário' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
                                         social_name: 'arthur arthur')
     employee = create(:employee_profile, position:, department_id: position.department.id,
                                          status: 'unblocked', email: "funcionario@#{company.domain}",
@@ -102,7 +102,7 @@ feature 'Gerente acessa perfil do funcionário' do
     create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
     manager_user = create(:manager_user, email: "nome@#{company.domain}")
     position = create(:position, department:)
-    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur',
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
                                         social_name: 'arthur arthur')
     create(:employee_profile, position:, department_id: position.department.id,
                               status: 'unblocked', email: "funcionario@#{company.domain}",

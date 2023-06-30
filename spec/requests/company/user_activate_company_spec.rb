@@ -36,8 +36,8 @@ describe 'Usuário para ativar empresa', type: :request do
       company = create(:company, active: false)
       department = create(:department, company:)
       position = create(:position, department:)
-      create(:employee_profile, position:, department:, email: 'employee@apple.com', cpf: '02324252481')
-      employee = create(:user, email: 'employee@apple.com', password: '123456', cpf: '02324252481')
+      create(:employee_profile, position:, department:, email: 'employee@microsoft.com', cpf: '02324252481')
+      employee = create(:user, email: 'employee@microsoft.com', password: '123456', cpf: '02324252481')
 
       login_as employee
       put activate_company_path(company)

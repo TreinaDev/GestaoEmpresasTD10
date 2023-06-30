@@ -81,7 +81,8 @@ feature 'Registro de uma empresa' do
       manager = create(:user, email: 'joaozinho@gmail.com', cpf: '44429533768')
       department = create(:department, company:)
       position = create(:position, department:)
-      create(:employee_profile, :manager, status: 'unblocked', department:, user: manager, position:)
+      create(:employee_profile, :manager, status: 'unblocked', department:, user: manager, position:,
+                                          email: 'joaozinho@gmail.com')
 
       login_as manager
       visit new_company_path

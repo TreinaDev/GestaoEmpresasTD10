@@ -45,7 +45,8 @@ feature 'Usuário edita perfil de funcionário' do
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
       employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
-                                                              marital_status: 1, department:, position:)
+                                                              email: 'email@campuscode.com.br', marital_status: 1,
+                                                              department:, position:)
 
       json_data = Rails.root.join('spec/support/json/cards2.json').read
       fake_response = double('faraday_response', status: 200, body: json_data)

@@ -9,12 +9,12 @@ feature 'Registro de funcionário' do
       :employee_profile,
       position:,
       department:,
-      email: 'funcionario@empresa.com',
+      email: 'funcionario@microsoft.com',
       cpf: '69142235219'
     )
 
     visit new_user_registration_path
-    fill_in 'E-mail', with: 'funcionario@empresa.com'
+    fill_in 'E-mail', with: 'funcionario@microsoft.com'
     fill_in 'Senha', with: 'password'
     fill_in 'Confirme sua senha', with: 'password'
     fill_in 'CPF', with: '69142235219'
@@ -34,12 +34,12 @@ feature 'Registro de funcionário' do
       :employee_profile,
       position:,
       department:,
-      email: 'funcionario@empresa.com',
+      email: 'funcionario@microsoft.com',
       cpf: '69142235219'
     )
 
     visit new_user_registration_path
-    fill_in 'E-mail', with: 'funcionario@empresa.com'
+    fill_in 'E-mail', with: 'funcionario@microsoft.com'
     fill_in 'Senha', with: 'password'
     fill_in 'Confirme sua senha', with: 'password'
     fill_in 'CPF', with: '66614254901'
