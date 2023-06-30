@@ -1,11 +1,11 @@
 class RechargeHistoriesController < ApplicationController
-  before_action :require_manager
-  before_action :manager_belongs_to_company?
+  before_action :require_manager, except: :index
+  before_action :manager_belongs_to_company?, except: :index
   before_action :set_employee_profile, only: %i[new create]
   before_action :validate_employee, only: %i[new create]
+  before_action :authorized_employee, only: %i[index]
 
   def index
-    @employee = EmployeeProfile.find_by(id: params[:employee])
     return redirect_to search_companies_path, alert: t('.employee_not_found') if @employee.nil?
 
     @recharges = RechargeHistory.where(employee_profile_id: @employee.id).order(created_at: 'desc')
@@ -64,5 +64,17 @@ class RechargeHistoriesController < ApplicationController
       creator: current_user
     )
     @history.save
+  end
+
+  def authorized_employee
+    return redirect_to root_path, alert: t('forbidden') if current_user.admin?
+
+    @employee = EmployeeProfile.joins(:department)
+                               .where(departments: { company_id: params[:company_id] })
+                               .find_by(id: params[:employee])
+
+    manager_belongs_to_company? if current_user.manager?
+
+    redirect_to root_path, alert: t('forbidden') unless (current_user.id == @employee.user_id) || current_user.manager?
   end
 end
