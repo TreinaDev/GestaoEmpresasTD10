@@ -1,4 +1,4 @@
-class RechargeHistoriesController < ApplicationController
+class MultipleRechargeController < RechargeHistoriesController
   before_action :require_manager, except: :index
   before_action :manager_belongs_to_company?, except: :index
   before_action :set_employee_profile_with_cpf, only: %i[new create]
@@ -63,7 +63,7 @@ class RechargeHistoriesController < ApplicationController
       employee_profile: @employee,
       creator: current_user
     )
-    @history.save
+    flash[:alert] = 'Contate um Admin. Erro ao salvar histórico de recarga' unless @history.save
   end
 
   def authorize_user
