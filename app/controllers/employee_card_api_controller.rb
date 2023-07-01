@@ -3,7 +3,8 @@ class EmployeeCardApiController < ApplicationController
                 only: %i[edit update show deactivate_card activate_card new_fired fired]
   before_action :set_card, only: %i[show deactivate_card activate_card new_fired fired]
   before_action :set_department_and_company
-  before_action :require_manager, except: %i[recharge_history]
+  before_action :require_manager,
+                only: %i[show edit update create_card deactivate_card new_fired fired new_manager create_manager new create]
   before_action :status_api, only: %i[show edit]
 
   def show

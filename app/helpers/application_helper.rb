@@ -13,6 +13,7 @@ module ApplicationHelper
 
   def format_name(name)
     return current_user.email if name.nil?
+
     lowercase_words = %w[de da do das dos]
     titleized_name = name&.split(' ')&.map do |word|
       if lowercase_words.include?(word.downcase)
