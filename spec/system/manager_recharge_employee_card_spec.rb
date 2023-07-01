@@ -160,7 +160,7 @@ feature 'Manager faz uma recarga ao cartão' do
     click_button 'Buscar'
     click_button 'Recarregar'
 
-    expect(page).to have_content 'Erro interno do Servidor'
+    expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
   end
 
   context 'de funcionário sem permissão para recarga' do

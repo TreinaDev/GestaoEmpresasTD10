@@ -24,6 +24,11 @@ class EmployeeProfile < ApplicationRecord
   enum status: { unblocked: 0, blocked: 5, fired: 10 }, _default: :unblocked
   enum marital_status: { single: 1, married: 4, widower: 8, divorced: 10 }
 
+  def value
+    card_type = GetCardType.find(self.position.card_type_id, self.department.company.registration_number)
+    card_type ? card_type.start_points : 0
+  end
+
   private
 
   def dismissal_is_present?

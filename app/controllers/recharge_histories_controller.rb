@@ -4,6 +4,7 @@ class RechargeHistoriesController < ApplicationController
   before_action :set_employee_profile_with_cpf, only: %i[new create]
   before_action :validate_employee, only: %i[new create]
   before_action :authorize_user, only: %i[index]
+  before_action :valid_employees, only: %i[create_multiple]
 
   def index
     return redirect_to search_companies_path, alert: t('.employee_not_found') if @employee.nil?
@@ -22,7 +23,38 @@ class RechargeHistoriesController < ApplicationController
     redirect_to company_recharge_histories_path(@employee.department.company, params: { employee: @employee })
   end
 
+  def create_multiple
+    return redirect_to root_path, alert: 'Nenhum funcionário válido para recarga' if @valid_employees.empty?
+
+    @value = 50
+    # message = []
+    # n = 0
+    @valid_employees.each do |valid_employee|
+      request = { recharge: [{ value: @value, cpf: valid_employee.cpf }] }
+      response = PatchRechargeApi.new(request).send
+      body = JSON.parse(response.body)
+      create_multiple_recharge(valid_employee) if body.first['errors'].nil?
+      # message[n] << (body.first['message'] || body.first['errors'])
+      # n += 1
+    end
+  end
+
   private
+
+  def create_multiple_recharge(valid_employee)
+    @history = RechargeHistory.new(
+      value: @value,
+      employee_profile: valid_employee,
+      creator: current_user
+    )
+    flash[:alert] = 'Contate um Admin. Erro ao salvar histórico de recarga' unless @history.save
+  end
+
+  def valid_employees
+    @valid_employees = EmployeeProfile.joins(:department)
+                                      .where(departments: { company_id: params[:company_id] })
+                                      .where(card_status: true).where(status: :unblocked)
+  end
 
   def set_employee_profile_with_cpf
     @cpf = params[:cpf]&.gsub(/\D/, '')

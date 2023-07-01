@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permited_parameters, if: :devise_controller?
   before_action :authenticate_user!
   before_action :profile_check, unless: :devise_controller?
-  rescue_from Faraday::ConnectionFailed, with: :internal_server_error
+  rescue_from Faraday::ConnectionFailed, with: :external_server_error
 
   protected
 
@@ -48,8 +48,8 @@ class ApplicationController < ActionController::Base
                                                                       department_id: department.id)
   end
 
-  def internal_server_error
-    render status: :internal_server_error, json: { errors: I18n.t('errors.internal_server_error') }
+  def external_server_error
+    redirect_to root_path, alert: t('api_down')
   end
 
   def status_api
