@@ -6,4 +6,6 @@ pt-BR:
     update:
       success: Departamento atualizado com sucesso!
       error: Não foi possível atualizar departamento!
+    edit:
+      error: O Departamento de RH não pode ser editado!
 

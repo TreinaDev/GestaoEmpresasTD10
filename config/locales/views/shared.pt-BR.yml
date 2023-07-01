@@ -5,9 +5,11 @@ pt-BR:
         edit: Editar
         fired_employee: Desligar funcionário
       card:
+        title: Informações do Cartão
         block_card: Bloquear Cartão
         unblock_card: Desbloquear Cartão
         card: Cartão
         unavailable: Sistema indisponível no momento, por favor tente mais tarde
         no_card: Você não possui cartão, fale com o setor de RH
         no_employee_card: Funcionário não possui cartão
+        new_recharge: Recarregar cartão

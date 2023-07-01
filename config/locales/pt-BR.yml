@@ -1,6 +1,7 @@
 pt-BR:
   forbidden: Usuário sem permissão para executar essa ação
   inactive_company: Empresa inativa
+  external_server_error: Sistema indisponível. Falha de conexão com servidor externo
   errors:
     internal_server_error: Erro interno do Servidor
     not_found: Página não encontrada

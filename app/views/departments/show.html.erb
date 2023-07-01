@@ -12,6 +12,7 @@
     <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_employee', class:'btn btn-primary'%>
     <%= link_to t('.new_position'), new_company_department_position_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_position', class:'btn btn-primary'%>
     <%= link_to t('.see_positions'), company_department_positions_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_new_position', class:'btn btn-primary'%>
+    <%= link_to t('.new_recharge'), new_company_recharge_history_path(company_id: @department.company_id), id: 'btn_new_recharge', class:'btn btn-primary'%>
     <%= link_to t('.go_back'), company_departments_path(company_id: @department.company_id), id: 'btn_go_to_departments', class:'btn btn-primary ms-auto mr-2'%>
   </div>
 </div>
@@ -68,6 +69,11 @@
               Detalhes
               <i class="bi bi-eye"></i>
             <% end %>
+
+            <% show_recharge = (employee.card_status & employee.unblocked?) ? true : false %>
+            <%= link_to t('.new_recharge'), new_company_recharge_history_path(company_id: @department.company_id, cpf: employee.cpf),
+                        method: :get, id: "get#{employee.id}", class: (show_recharge ? 'btn btn-primary' : 'btn btn-primary disabled'),
+                        disabled: show_recharge ? false : true %>
 
           </td>
         </tr>

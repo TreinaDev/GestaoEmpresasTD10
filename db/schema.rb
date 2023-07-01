@@ -131,10 +131,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_145432) do
 
   create_table "recharge_histories", force: :cascade do |t|
     t.float "value"
-    t.date "recharge_date"
+    t.integer "created_by_id", null: false
     t.integer "employee_profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_recharge_histories_on_created_by_id"
     t.index ["employee_profile_id"], name: "index_recharge_histories_on_employee_profile_id"
   end
 
@@ -162,4 +163,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_145432) do
   add_foreign_key "manager_emails", "users", column: "created_by_id"
   add_foreign_key "positions", "departments"
   add_foreign_key "recharge_histories", "employee_profiles"
+  add_foreign_key "recharge_histories", "users", column: "created_by_id"
 end

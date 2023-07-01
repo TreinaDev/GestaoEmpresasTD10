@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      recharge_history:
+        one: Histórico de Recarga
+        other: Históricos de Recarga
+    attributes:
+      recharge_history:
+        value: Valor
+        creator: Responsável
+        created_at: Data
+
+

@@ -10,13 +10,13 @@ feature 'Gerente vê histórico de recargas do funcionário' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, name: 'Vanessa Camargo',
                                         marital_status: 1, department:,
-                                        position:)
+                                        position:, user: manager)
     employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
                                                             marital_status: 1, department:, position:,
                                                             card_status: true)
-    first_recharge = RechargeHistory.create(value: 500, recharge_date: Time.zone.today, employee_profile:)
-    RechargeHistory.create(value: 600, recharge_date: Time.zone.today, employee_profile:)
-    RechargeHistory.create(value: 700, recharge_date: Time.zone.today, employee_profile:)
+    recharge1 = RechargeHistory.create(value: 500, employee_profile:, creator: manager)
+    RechargeHistory.create(value: 600, employee_profile:, creator: manager)
+    RechargeHistory.create(value: 700, employee_profile:, creator: manager)
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -30,15 +30,14 @@ feature 'Gerente vê histórico de recargas do funcionário' do
 
     login_as(manager)
     visit company_department_employee_profile_path(company.id, department.id, employee_profile.id)
-
-    click_on 'Histórico de recarga'
+    click_on 'Histórico de Recarga'
 
     expect(page).to have_content 'Histórico de recarga'
     expect(page).to have_content 'Funcionário: Roberto Carlos Nascimento'
-    expect(page).to have_content 'Recarga: R$ 500,00'
-    expect(page).to have_content 'Recarga: R$ 600,00'
-    expect(page).to have_content 'Recarga: R$ 700,00'
-    expect(page).to have_content "Data: #{I18n.l(first_recharge.recharge_date)}"
+    expect(page).to have_content 'R$ 500,00'
+    expect(page).to have_content 'R$ 600,00'
+    expect(page).to have_content 'R$ 700,00'
+    expect(page).to have_content I18n.l(recharge1.created_at, format: :short)
   end
 
   scenario 'Sem sucesso' do
