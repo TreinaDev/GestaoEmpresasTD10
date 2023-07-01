@@ -43,7 +43,7 @@ RSpec.describe EmployeeProfile, type: :model do
       create(:employee_profile, :manager, email: 'manager@microsoft.com', department:, position:,
                                           user: manager)
       employee_profile = build(:employee_profile, email: 'manager@microsoft.com', cpf: '61486566049',
-                                                department_id: department.id, position_id: position.id)
+                                                  department_id: department.id, position_id: position.id)
 
       expect(employee_profile).not_to be_valid
       expect(employee_profile.errors[:email]).to include('já está em uso')
