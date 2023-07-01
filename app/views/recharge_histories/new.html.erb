@@ -1,0 +1,56 @@
+<div class="text-center w-100 mt-2 fs-1">
+  <p><%= t('.title') %></p>
+</div>
+
+<% if @employee.present? & @value %>
+  <div class="card justify-content-center">
+    <div class="card-header">
+      <%= t('.confirm') %>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong><%= EmployeeProfile.human_attribute_name('name') %>:</strong> <%= @employee.name %>
+        </li>
+        <li class="list-group-item">
+          <strong><%= Position.model_name.human %>:</strong> <%= @employee.position.name %>
+        </li>
+        <li class="list-group-item">
+          <strong><%= Department.model_name.human %>:</strong> <%= @employee.department.name %>
+        </li>
+        <li class="list-group-item">
+          <strong><%= EmployeeProfile.human_attribute_name('cpf') %>:</strong> <%= format_cpf(@employee.cpf) %>
+        </li>
+        <li class="list-group-item">
+          <strong><%= RechargeHistory.human_attribute_name('value') %>:</strong> <%= number_to_currency(@value) %>
+        </li>
+      </ul>
+    </div>
+    <div class="card-footer">
+      <%= form_with url: company_recharge_histories_path, method: :post, data: { turbo: false } do |form| %>
+        <%= form.hidden_field :cpf, value: @employee.cpf %>
+        <%= form.hidden_field :value, value: @value %>
+        <%= form.submit t('.recharge'), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="card justify-content-center">
+    <div class="card-header">
+      <%= t('.search_employee') %> <span style="color: grey; font-style: italic;">(<%= t('.all_fileds_required') %>)</span>
+    </div>
+    <div class="card-body">
+      <%= form_with url: new_company_recharge_history_path, method: :get, data: { turbo: false } do |form| %>
+        <div class="field mb-3">
+          <%= form.text_field :cpf, value: params[:cpf], class: "form-control", placeholder: t('.placeholder_cpf') %>
+        </div>
+        
+        <div class="field mb-3">
+          <%= form.text_field :value, class: "form-control", placeholder: t('.placeholder_value') %>
+        </div>
+        
+        <%= form.submit t('.search'), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

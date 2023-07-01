@@ -3,9 +3,11 @@ class EmployeeProfile < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :position
 
+  has_many :recharge_histories, dependent: :nullify, inverse_of: :employee_profile
+  has_one :company, through: :department
+
   before_validation :format_phone_number
   before_validation :clean_cpf
-  has_one :company, through: :department
 
   validates :name, :cpf, :rg, :address, :email, :phone_number, :status, :birth_date, :admission_date,
             :marital_status, presence: true

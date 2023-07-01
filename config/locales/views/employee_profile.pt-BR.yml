@@ -9,6 +9,7 @@ pt-BR:
       no_employee_card: Funcionário não possui cartão
       edit: Editar
       fired_employee: Desligar funcionário
+      new_recharge: Recarregar cartão
       card_info: Informações do Cartão
       recharge_link: Histórico de recarga
       block_card: Bloquear Cartão
@@ -30,5 +31,6 @@ pt-BR:
       employee: Funcionário
       cpf: CPF
       email: Email
+      creator: Responsável
 
 
