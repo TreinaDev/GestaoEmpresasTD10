@@ -9,7 +9,7 @@
 
   <% if @company.active %>
     <%= button_to deactivate_company_path(@company), method: :put, form: { class: 'd-inline' }, class: 'btn btn-danger' do %>
-      <i class="ms-auto bi bi-x-lg"></i> Desativar
+      <i class="ms-auto bi bi-x-circle"></i> Desativar
     <% end %>
   <% end %>
   
