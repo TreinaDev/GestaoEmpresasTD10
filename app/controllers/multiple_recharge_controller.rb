@@ -22,6 +22,20 @@ class MultipleRechargeController < RechargeHistoriesController
     redirect_to company_recharge_histories_path(@employee.department.company, params: { employee: @employee })
   end
 
+  def create_multiple
+    @value = 100
+    # message = []
+    # n = 0
+    valid_employees.each do |@employee|
+      request = { recharge: [{ value: @value, cpf: @employee.cpf }] }
+      response = PatchRechargeApi.new(request).send
+      body = JSON.parse(response.body)
+      create_recharge_history if body.first['errors'].nil?
+      # message[n] << (body.first['message'] || body.first['errors'])
+      # n += 1
+    end
+  end
+
   private
 
   def set_employee_profile_with_cpf
@@ -59,7 +73,7 @@ class MultipleRechargeController < RechargeHistoriesController
 
   def create_recharge_history
     @history = RechargeHistory.new(
-      value: params[:value],
+      value: @value,
       employee_profile: @employee,
       creator: current_user
     )
@@ -79,5 +93,11 @@ class MultipleRechargeController < RechargeHistoriesController
     @employee = EmployeeProfile.joins(:department)
                                .where(departments: { company_id: params[:company_id] })
                                .find_by(id: params[:employee])
+  end
+
+  def valid_employees
+    valid_employees = EmployeeProfile.joins(:department)
+                                     .where(departments: { company_id: params[:company_id] })
+                                     .where(card_status: true).where(status: :unblocked)
   end
 end
