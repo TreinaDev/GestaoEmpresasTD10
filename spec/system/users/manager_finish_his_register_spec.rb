@@ -109,4 +109,30 @@ feature 'Manager é redirecionado ao acessar a aplicação' do
     expect(current_path).to eq new_manager_company_department_employee_profiles_path(company_id: company.id,
                                                                                      department_id: 1)
   end
+
+  scenario 'e preenche o formulário com dados incompletos' do
+    admin = create(:admin_user)
+    company = create(:company, :with_department)
+    create(:position, name: 'Gerente', department: Department.first)
+
+    create(:manager_emails, created_by: admin, company:)
+    manager = create(:manager_user)
+
+    login_as manager
+    visit users_path
+
+    fill_in 'Nome Completo', with: ''
+    fill_in 'Nome Social', with: 'João'
+    fill_in 'Data de Nascimento', with: '01/01/1980'
+    fill_in 'RG', with: ''
+    fill_in 'Telefone', with: '11 99999-9999'
+    fill_in 'Endereço', with: 'Rua do Avesso, 50'
+    select 'Casado', from: 'Estado Civil'
+    fill_in 'Data de Admissão', with: '12/10/2020'
+    click_on 'Salvar'
+
+    expect(current_path).to eq create_manager_company_department_employee_profiles_path(company_id: company.id,
+                                                                                        department_id: 1)
+    expect(page).to have_content 'Não foi possível atualizar perfil de Gerente'
+  end
 end

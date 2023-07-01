@@ -122,4 +122,230 @@ feature 'Gerente acessa perfil do funcionário' do
     expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
     expect(page).to_not have_button 'Bloquear Cartão'
   end
+
+  scenario 'e servidor retonar status 400 quando tenta desativar' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    json_data1 = '{}'
+    fake_response1 = double('faraday_response', status: 200, body: json_data1)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response1)
+
+    json_data2 = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data2)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data3 = Rails.root.join('spec/support/json/cards.json').read
+    fake_response3 = double('faraday_response', status: 200, body: json_data3)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/90900938005').and_return(fake_response3)
+
+    json_data4 = '{}'
+    fake_response4 = double('faraday_response', status: 400, body: json_data4)
+    allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{JSON.parse(fake_response3.body)['id']}/deactivate").and_return(fake_response4)
+
+    login_as(manager_user)
+    visit company_departments_path(company_id: company.id)
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Bloquear Cartão'
+    end
+
+    expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
+                                                                        department_id: department.id,
+                                                                        id: employee.id)
+    expect(page).to have_content 'Cartão não bloqueado'
+    expect(fake_response4.status).to eq 400
+  end
+
+  scenario 'e o servidor retorna error 400 quando tenta reativar' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    json_data1 = '{}'
+    fake_response1 = double('faraday_response', status: 200, body: json_data1)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response1)
+
+    json_data2 = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data2)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data3 = Rails.root.join('spec/support/json/cards2.json').read
+    fake_response3 = double('faraday_response', status: 200, body: json_data3)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee.cpf}").and_return(fake_response3)
+
+    json_data4 = '{}'
+    fake_response4 = double('faraday_response', status: 400, body: json_data4)
+    allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{JSON.parse(fake_response3.body)['id']}/activate").and_return(fake_response4)
+
+    login_as(manager_user)
+    visit company_departments_path(company_id: company.id)
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Desbloquear Cartão'
+    end
+
+    expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
+                                                                        department_id: department.id,
+                                                                        id: employee.id)
+    expect(page).to have_content 'Não foi possível desbloquear o cartão'
+  end
+
+  scenario 'e servidor está indisponivel na hora de desativar' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    json_data1 = '{}'
+    fake_response1 = double('faraday_response', status: 200, body: json_data1)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response1)
+
+    json_data2 = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data2)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data3 = Rails.root.join('spec/support/json/cards.json').read
+    fake_response3 = double('faraday_response', status: 200, body: json_data3)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/90900938005').and_return(fake_response3)
+
+    login_as(manager_user)
+    visit company_departments_path(company_id: company.id)
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Bloquear Cartão'
+    end
+
+    expect(current_path).to eq company_department_path(company_id: company.id,
+                                                       id: department.id)
+    expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+  end
+
+  scenario 'e o servidor retorna error 400 quando tenta reativar' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    json_data1 = '{}'
+    fake_response1 = double('faraday_response', status: 200, body: json_data1)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response1)
+
+    json_data2 = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data2)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data3 = Rails.root.join('spec/support/json/cards2.json').read
+    fake_response3 = double('faraday_response', status: 200, body: json_data3)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{employee.cpf}").and_return(fake_response3)
+
+    json_data4 = '{}'
+    fake_response4 = double('faraday_response', status: 400, body: json_data4)
+    allow(Faraday).to receive(:patch).with("http://localhost:4000/api/v1/cards/#{JSON.parse(fake_response3.body)['id']}/activate").and_return(fake_response4)
+
+    login_as(manager_user)
+    visit company_departments_path(company_id: company.id)
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Desbloquear Cartão'
+    end
+
+    expect(current_path).to eq company_department_employee_profile_path(company_id: company.id,
+                                                                        department_id: department.id,
+                                                                        id: employee.id)
+    expect(page).to have_content 'Não foi possível desbloquear o cartão'
+  end
+
+  scenario 'e servidor está indisponivel na hora de ativar' do
+    company = create(:company)
+    department = create(:department, company:)
+    admin_user = create(:admin_user)
+    create(:manager_emails, created_by: admin_user, company:, email: "nome@#{company.domain}")
+    manager_user = create(:manager_user, email: "nome@#{company.domain}")
+    position = create(:position, department:)
+    create(:employee_profile, :manager, department:, position:, user: manager_user, name: 'arthur silva',
+                                        social_name: 'arthur arthur')
+    employee = create(:employee_profile, position:, department_id: position.department.id,
+                                         status: 'unblocked', email: "funcionario@#{company.domain}",
+                                         cpf: '90900938005',
+                                         card_status: true)
+
+    json_data1 = '{}'
+    fake_response1 = double('faraday_response', status: 200, body: json_data1)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response1)
+
+    json_data2 = Rails.root.join('spec/support/json/card_types.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data2)
+    cnpj = company.registration_number.tr('^0-9', '')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response2)
+
+    json_data3 = Rails.root.join('spec/support/json/cards2.json').read
+    fake_response3 = double('faraday_response', status: 200, body: json_data3)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/90900938005').and_return(fake_response3)
+
+    login_as(manager_user)
+    visit company_departments_path(company_id: company.id)
+    within("div#department#{department.id}") do
+      click_on 'Ver departamento'
+    end
+    page.find("#employee#{employee.id}").click
+    within('div#user_card') do
+      click_on 'Desbloquear Cartão'
+    end
+
+    expect(current_path).to eq company_department_path(company_id: company.id,
+                                                       id: department.id)
+    expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+  end
 end
