@@ -3,8 +3,8 @@
     Informações Empresariais
   </div>
   <div class="card-body">
-    
-    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('company_id') %>: <%= @employee_profile.department.company.brand_name %></p>
+
+    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('company_id') %>: <%= format_name(@employee_profile.department.company.brand_name) %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('department_id') %>: <%= @employee_profile.department.name %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('position_id') %>: <%= @employee_profile.position.name %></p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('status') %>: <%= t("activerecord.enum.employee_profile.status.#{@employee_profile.status}") %></p>

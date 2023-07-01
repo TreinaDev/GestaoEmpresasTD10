@@ -1,9 +1,9 @@
 class EmployeeCardApiController < ApplicationController
   before_action :set_employee_profile,
-                only: %i[edit update show deactivate_card activate_card new_fired fired recharge_history]
+                only: %i[edit update show deactivate_card activate_card new_fired fired]
   before_action :set_card, only: %i[show deactivate_card activate_card new_fired fired]
   before_action :set_department_and_company
-  before_action :require_manager
+  before_action :require_manager, except: %i[recharge_history]
   before_action :status_api, only: %i[show edit]
 
   def show
@@ -75,15 +75,6 @@ class EmployeeCardApiController < ApplicationController
 
     flash.now[:alert] = t('.failure')
     render 'new_fired'
-  end
-
-  def recharge_history
-    unless @employee_profile.card_status
-      return redirect_to [@company, @department, @employee_profile],
-                         notice: t('.no_card')
-    end
-
-    @recharges = RechargeHistory.where(employee_profile_id: @employee_profile.id)
   end
 
   private

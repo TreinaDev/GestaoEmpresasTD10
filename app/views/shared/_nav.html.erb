@@ -2,7 +2,9 @@
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container">
       <div class="container-fluid d-flex">
-        <%= link_to "Gestão de empresas", root_path, class: 'navbar-brand', id:'navbar-logo' %>
+        <%= link_to root_path, class: 'navbar-brand', id: 'navbar-logo' do %>
+          <%= image_tag 'new_logo_ge.png', alt: 'Logo da empresa', size: '90x40' %>
+        <% end %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,7 +14,7 @@
               <%= render('shared/nav/admin_options') %>
             <% elsif current_user.employee_profile.present? %>
               <li class="nav-item" >
-                <%= link_to current_user.employee_profile.company.brand_name , company_path(current_user.employee_profile.company), class:'nav-link'  %>
+                <%= link_to current_user.employee_profile.company.brand_name , company_path(current_user.employee_profile.company), class:'nav-link hover-link' %>
               </li>
               <% if current_user.manager? %>
                 <%= render('shared/nav/manager_options')%>
@@ -25,4 +27,5 @@
       </div>
     </div>
   </nav>
-<%end%>
+<% end %>
+

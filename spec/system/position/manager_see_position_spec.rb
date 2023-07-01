@@ -53,7 +53,7 @@ feature 'Manager vê um cargo específico' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     create(:employee_profile, :employee, user: manager, position: second_position, department:)
-    create(:employee_profile, :employee, user: manager, position:, department:, name: 'joaozinho',
+    create(:employee_profile, :employee, user: manager, position:, department:, name: 'joaozinho silva',
                                          cpf: '09602079029')
 
     login_as manager
@@ -85,7 +85,7 @@ feature 'Manager vê um cargo específico' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
 
     second_position = create(:position, department_id: department.id, name: 'Programador')
-    create(:employee_profile, :employee, user: manager, position:, department:, name: 'joaozinho',
+    create(:employee_profile, :employee, user: manager, position:, department:, name: 'joaozinho silva',
                                          cpf: '09602079029')
 
     login_as manager

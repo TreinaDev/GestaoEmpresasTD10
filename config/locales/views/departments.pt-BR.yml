@@ -10,6 +10,7 @@ pt-BR:
       new_employee: Cadastrar funcionário
       new_position: Cadastrar cargo
       see_positions: Ver cargos
+      new_recharge: Recarregar cartão
     new:
       return: Voltar
     edit:

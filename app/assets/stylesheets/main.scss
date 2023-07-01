@@ -1,0 +1,15 @@
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+}
+
+.btn-warning {
+  background-color: #b49250;
+  border-style: none;
+}
+
+.btn-warning:hover{
+  background-color: darken(#b49250, 10%);
+}

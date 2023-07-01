@@ -4,10 +4,10 @@
   </div>
   <div class="card-body">
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('name') %>:
-      <%=  @employee_profile.name %>
+      <%= format_name(@employee_profile.name) %>
     </p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>:
-      <%= @employee_profile.social_name %>
+      <%= format_name(@employee_profile.social_name) %>
     </p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('email') %>:
       <%= @employee_profile.email %>
@@ -25,7 +25,7 @@
       <%= @employee_profile.address %>
     </p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('phone_number') %>:
-      <%= @employee_profile.phone_number %>
+      <%= format_number(@employee_profile.phone_number) %>
     </p>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('marital_status') %>:
       <%= t("activerecord.enum.employee_profile.marital_status.#{@employee_profile.marital_status}") %>

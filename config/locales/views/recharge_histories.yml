@@ -1,0 +1,20 @@
+pt-BR:
+  recharge_histories:
+    new:
+      title: Recarga de cartão
+      search: Buscar
+      search_employee: Buscar Funcionário
+      all_fileds_required: Todos os campos obrigatórios
+      placeholder_cpf: CPF do funcionário
+      placeholder_value: Valor em R$
+      recharge: Recarregar
+      confirm: Confirmar Recarga
+    index:
+      recharge: Recarga
+      date: Data
+      title_recharge: Histórico de recarga
+      empty: Nenhuma recarga realizada
+      employee: Funcionário
+      cpf: CPF
+      email: Email
+      creator: Responsável

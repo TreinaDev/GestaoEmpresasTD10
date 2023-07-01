@@ -13,7 +13,7 @@ feature 'Admin desativa empresa' do
                                          status: 'unblocked', email: "funcionario@#{company.domain}",
                                          cpf: '90900938005', card_status: true)
     create(:employee_profile, :employee, position:, department_id: position.department.id,
-                                         name: 'Josephina', status: 'unblocked',
+                                         name: 'Josephina Silva', status: 'unblocked',
                                          email: "funcionario2@#{company.domain}", cpf: '91401225063',
                                          card_status: false)
 
@@ -54,7 +54,7 @@ feature 'Admin desativa empresa' do
                                          status: 'unblocked', email: "funcionario@#{company.domain}",
                                          cpf: '90900938005')
     create(:employee_profile, :employee, position:, department_id: position.department.id,
-                                         name: 'Josephina', status: 'unblocked',
+                                         name: 'Josephina Silva', status: 'unblocked',
                                          email: "funcionario2@#{company.domain}", cpf: '91401225063')
     company.update(active: false)
     company.reload

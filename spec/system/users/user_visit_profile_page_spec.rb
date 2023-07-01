@@ -6,10 +6,10 @@ feature 'visitante acessa página de perfil' do
     department = create(:department, company:)
     position = create(:position, department:)
 
-    employee_data = create(:employee_profile, :employee, department:, position:, email: 'funcionario@empresa.com',
+    employee_data = create(:employee_profile, :employee, department:, position:, email: 'funcionario@microsoft.com',
                                                          cpf: '69142235219', card_status: true)
 
-    employee_user = User.create!(email: employee_data.email, cpf: employee_data.cpf, password: '123456')
+    employee_user = create(:employee_user, email: employee_data.email, cpf: employee_data.cpf)
 
     json_data = Rails.root.join('spec/support/json/cards.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
@@ -19,6 +19,7 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee_user
 
@@ -26,14 +27,14 @@ feature 'visitante acessa página de perfil' do
 
     expect(page).to have_content('Roberto Carlos Nascimento')
     expect(page).to have_content('Nome Social: Roberto Carlos')
-    expect(page).to have_content('E-mail: funcionario@empresa.com')
-    expect(page).to have_content('Data de Nascimento: 06/06/2023')
+    expect(page).to have_content('E-mail: funcionario@microsoft.com')
+    expect(page).to have_content("Data de Nascimento: #{employee_data.birth_date.strftime('%d/%m/%Y')}")
     expect(page).to have_content('CPF: 691.422.352-19')
-    expect(page).to have_content('RG: 12345678901')
-    expect(page).to have_content('Telefone: 1199776655')
+    expect(page).to have_content("RG: #{employee_data.rg}")
+    expect(page).to have_content('Telefone: (11) 99776-6555')
     expect(page).to have_content('Endereço: Rua do funcionário, 1200')
     expect(page).to have_content('Estado Civil: Solteiro(a)')
-    expect(page).to have_content('Data de Admissão: 06/06/2023')
+    expect(page).to have_content("Data de Admissão: #{employee_data.admission_date.strftime('%d/%m/%Y')}")
     expect(page).to have_content("Departamento: #{department.name}")
     expect(page).to have_content("Cargo: #{position.name}")
     within('div#user_card') do
@@ -63,6 +64,7 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee_user
 
@@ -96,6 +98,7 @@ feature 'visitante acessa página de perfil' do
     fake_response = double('faraday_response', status: 200, body: json_data)
     cnpj = company.registration_number.tr('^0-9', '')
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/company_card_types?cnpj=#{cnpj}").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee_user
 

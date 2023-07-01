@@ -3,3 +3,10 @@
   color: white;
   align-items: baseline;
 }
+
+.dropdown-hover-all .dropdown-menu, .dropdown-hover > .dropdown-menu.dropend {
+  margin-left:-1px !important;
+}
+.hover-link:hover {
+  color: #b49250;
+}
