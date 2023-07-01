@@ -8,6 +8,8 @@ class RechargeHistoriesController < ApplicationController
   def index
     return redirect_to search_companies_path, alert: t('.employee_not_found') if @employee.nil?
 
+    @company_id = params[:company_id]
+    @employee_id = params[:employee_id]
     @recharges = RechargeHistory.where(employee_profile_id: @employee.id).order(created_at: 'desc')
   end
 
@@ -69,12 +71,22 @@ class RechargeHistoriesController < ApplicationController
   def authorized_employee
     return redirect_to root_path, alert: t('forbidden') if current_user.admin?
 
-    @employee = EmployeeProfile.joins(:department)
-                               .where(departments: { company_id: params[:company_id] })
-                               .find_by(id: params[:employee])
+    find_user
 
     manager_belongs_to_company? if current_user.manager?
 
-    redirect_to root_path, alert: t('forbidden') unless (current_user.id == @employee.user_id) || current_user.manager?
+    redirect_to root_path, alert: t('forbidden') unless check_user
+  end
+
+  def find_user
+    employee_id = params[:employee]
+    company = params[:company_id]
+    @employee = EmployeeProfile.joins(:department)
+                               .where(departments: { company_id: company })
+                               .find_by(id: employee_id)
+  end
+
+  def check_user
+    current_user.id == @employee.user_id || current_user.manager?
   end
 end
