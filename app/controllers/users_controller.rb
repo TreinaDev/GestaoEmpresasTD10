@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def profile
     return redirect_to root_path, alert: t('forbidden') if current_user.admin?
 
-    @employee_profile = EmployeeProfile.find_by(email: current_user.email)
+    @employee_profile = EmployeeProfile.find(current_user.employee_profile.id)
     get_card_with_logo(@employee_profile)
   end
 

@@ -39,7 +39,8 @@ feature 'Manager vê um departamento em específico' do
     second_position = create(:position, department_id: department.id, name: 'Programador')
     create(:employee_profile, :employee, user: manager, position: second_position, department:, cpf: '16576262027')
     create(:employee_profile, :employee, user: manager, position:, department: second_department,
-                                         name: 'Roberval Silva', cpf: '09602079029')
+                                         name: 'Roberval Silva', cpf: '09602079029',
+                                         email: "secondemployee@#{company.domain}")
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)

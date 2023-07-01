@@ -34,6 +34,21 @@ RSpec.describe EmployeeProfile, type: :model do
       expect(employee_profile.errors[:cpf]).to include('já está em uso')
     end
 
+    it 'inválido quando email já estiver em uso' do
+      company = create(:company)
+      department = create(:department, company_id: company.id)
+      position = create(:position, department_id: department.id)
+      create(:manager_emails, company:)
+      manager = create(:manager_user, email: 'manager@microsoft.com')
+      create(:employee_profile, :manager, email: 'manager@microsoft.com', department:, position:,
+                                          user: manager)
+      employee_profile = build(:employee_profile, email: 'manager@microsoft.com', cpf: '61486566049',
+                                                department_id: department.id, position_id: position.id)
+
+      expect(employee_profile).not_to be_valid
+      expect(employee_profile.errors[:email]).to include('já está em uso')
+    end
+
     it 'inválido quando RG já está em uso' do
       company = create(:company)
       department = create(:department, company_id: company.id)

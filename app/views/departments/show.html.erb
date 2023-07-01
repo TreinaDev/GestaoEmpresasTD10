@@ -36,7 +36,9 @@
           <td class="align-baseline"><%= employee.name %></td>
           <td class="align-baseline"><%= format_cpf(employee.cpf) %></td>
           <td class="align-baseline">
-            <img width="60px" class="mx-1" src="<%=@position_cards[employee.position.id][1] %>" >
+            <% if employee.card_status %>
+              <img width="60px" class="mx-1" src="<%=@position_cards[employee.position.id][1] %>" >
+            <% end %>
             <%= @position_cards[employee.position.id][0] %>
           </td>
           <td class="align-baseline"><%= employee.position.name %></td>

@@ -54,7 +54,7 @@ feature 'Manager vê um cargo específico' do
 
     create(:employee_profile, :employee, user: manager, position: second_position, department:)
     create(:employee_profile, :employee, user: manager, position:, department:, name: 'joaozinho silva',
-                                         cpf: '09602079029')
+                                         cpf: '09602079029', email: "secondemployee@#{company.domain}")
 
     login_as manager
     visit company_department_position_path(company, department, second_position)

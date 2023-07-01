@@ -6,10 +6,12 @@
   <div class="row g-0">
       <% unless @card_icon.nil?%>
         <div class="col-md-4">
+          <h4 class="ms-3 mt-1">Cartão do cargo:</h4>
           <img src="<%= @card_icon %>" class="img-fluid rounded-start p-2">
         </div>
       <% end %>
     <div class="col-md-8">
+      <h4 class="ms-3 mt-1">Seu cartão:</h4>
       <div class="card-body" id="user_card">
         <%if @employee_profile.card_status%>
           <%if @card.present?%>
