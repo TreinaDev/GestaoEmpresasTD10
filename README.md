@@ -393,3 +393,35 @@ Para ver a cobertura de teste e só abrir o arquivo index ou executar um http se
 :white_square_button: Envio de email para confirmar cadastro do administrado do sistema.
 
 :white_square_button: Listagem de todos funcionários de um empresa com paginação.
+
+:white_square_button: Uma recarga deve ser validada por outro manager.
+
+:white_square_button: Tabela de níveis de benefício para os cargos.
+
+:white_square_button: Paginação para o histórico de recargas.
+
+:white_square_button: Paginação na busca.
+
+:white_square_button: Gravar o status do cartão para reduzir a quantidade de consultas na API.
+
+:white_square_button: Sistema de busca para o administrador.
+
+:white_square_button: Permitir que o usuário troque o email de acesso ao sistema.
+
+:white_square_button: Envio de email para confirmar cadastro do administrado do sistema.
+
+:white_square_button: Listagem de todos funcionários de um empresa com paginação.
+
+:white_square_button: Uma recarga deve ser validada por outro manager.
+
+:white_square_button: Tabela de níveis de benefício para os cargos.
+
+:white_square_button: Paginação para o histórico de recargas.
+
+:white_square_button: Paginação na busca.
+
+:white_square_button: Gravar o status do cartão para reduzir a quantidade de consultas na API.
+
+:white_square_button: Validações para a criação de empresa.
+
+
