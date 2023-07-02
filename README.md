@@ -161,67 +161,67 @@ Acesse a aplicação em seu navegador através do endereço http://localhost:300
 
 | E-mail                 | password |
 | ---------------------- | -------- |
-| funcionário@apple.com  | password |
-| funcionário2@apple.com | password |
-| funcionário3@apple.com | password |
-| funcionário4@apple.com | password |
-| funcionário5@apple.com | password |
-| funcionário6@apple.com | password |
+| funcionario@apple.com  | password |
+| funcionario2@apple.com | password |
+| funcionario3@apple.com | password |
+| funcionario4@apple.com | password |
+| funcionario5@apple.com | password |
+| funcionario6@apple.com | password |
 
 ### Microsoft
 
 | E-mail                     | password |
 | -------------------------- | -------- |
-| funcionário@microsoft.com  | password |
-| funcionário2@microsoft.com | password |
-| funcionário3@microsoft.com | password |
-| funcionário4@microsoft.com | password |
-| funcionário5@microsoft.com | password |
-| funcionário6@microsoft.com | password |
+| funcionario@microsoft.com  | password |
+| funcionario2@microsoft.com | password |
+| funcionario3@microsoft.com | password |
+| funcionario4@microsoft.com | password |
+| funcionario5@microsoft.com | password |
+| funcionario6@microsoft.com | password |
 
 ### Campus Code
 
 | E-mail                      | password |
 | --------------------------- | -------- |
-| funcionário@campuscode.com  | password |
-| funcionário2@campuscode.com | password |
-| funcionário3@campuscode.com | password |
-| funcionário4@campuscode.com | password |
-| funcionário5@campuscode.com | password |
-| funcionário6@campuscode.com | password |
+| funcionario@campuscode.com  | password |
+| funcionario2@campuscode.com | password |
+| funcionario3@campuscode.com | password |
+| funcionario4@campuscode.com | password |
+| funcionario5@campuscode.com | password |
+| funcionario6@campuscode.com | password |
 
 ### Rebase
 
 | E-mail                  | password |
 | ----------------------- | -------- |
-| funcionário@rebase.com  | password |
-| funcionário2@rebase.com | password |
-| funcionário3@rebase.com | password |
-| funcionário4@rebase.com | password |
-| funcionário5@rebase.com | password |
-| funcionário6@rebase.com | password |
+| funcionario@rebase.com  | password |
+| funcionario2@rebase.com | password |
+| funcionario3@rebase.com | password |
+| funcionario4@rebase.com | password |
+| funcionario5@rebase.com | password |
+| funcionario6@rebase.com | password |
 
 ### Brainn
 
 | E-mail                  | password |
 | ----------------------- | -------- |
-| funcionário@brainn.com  | password |
-| funcionário2@brainn.com | password |
-| funcionário3@brainn.com | password |
-| funcionário4@brainn.com | password |
-| funcionário5@brainn.com | password |
-| funcionário6@brainn.com | password |
+| funcionario@brainn.com  | password |
+| funcionario2@brainn.com | password |
+| funcionario3@brainn.com | password |
+| funcionario4@brainn.com | password |
+| funcionario5@brainn.com | password |
+| funcionario6@brainn.com | password |
 
 ### Vindi
 
 | E-mail                 | password |
 | ---------------------- | -------- |
-| funcionário@vindi.com  | password |
-| funcionário2@vindi.com | password |
-| funcionário3@vindi.com | password |
-| funcionário4@vindi.com | password |
-| funcionário5@vindi.com | password |
-| funcionário6@vindi.com | password |
+| funcionario@vindi.com  | password |
+| funcionario2@vindi.com | password |
+| funcionario3@vindi.com | password |
+| funcionario4@vindi.com | password |
+| funcionario5@vindi.com | password |
+| funcionario6@vindi.com | password |
 
 </details>
 
