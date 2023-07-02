@@ -1,22 +1,22 @@
 <div class="card mt-3">
   <div class="card-header">
-    <h2 class="mb-0"><%= 'HISTORICO GERAL DE RECARGAS' %></h2>
+    <h2 class="mb-0"><%= t('.title') %></h2>
   </div>
   <div class="card-body">
 
 
     <div class="table-responsive">
       <% if @recharge_history.empty? %>
-        <p style="text-align: center;"><strong><%= 'HISTORICO VAZIO' %></strong></p>
+        <p style="text-align: center;"><strong><%= t('.empty') %></strong></p>
       <% else %>
         <table class="table mb-0 table-striped table-hover">
           <thead>
             <tr>
-              <th><%= 'DATA' %></th>
-              <th><%= 'VALOR' %></th>
-              <th><%= 'FUNCIONARIO' %></th>
-              <th><%= 'CPF' %></th>
-              <th><%= 'RESPONSAVEL' %></th>
+              <th><%= t('.date') %></th>
+              <th><%= t('.value') %></th>
+              <th><%= t('.employee') %></th>
+              <th><%= t('.cpf') %></th>
+              <th><%= t('.creator') %></th>
             </tr>
           </thead>
           <tbody>

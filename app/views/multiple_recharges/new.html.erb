@@ -1,21 +1,21 @@
 <div class="card mt-3">
   <div class="card-header">
-    <h2 class="mb-0"><%= 'Recarregar todos os cartões' %></h2>
-    <span style="color: grey; font-style: italic;"> (<%= @valid_employees.count %> funcionários válidos)</span>
+    <h2 class="mb-0"><%= t('.title') %></h2>
+    <span style="color: grey; font-style: italic;"> (<%= @valid_employees.count %> <%= t('.valid_employees') %>)</span>
   </div>
   <div class="card-body">
 
     <div class="table-responsive">
       <% if @valid_employees.empty? %>
-        <p style="text-align: center;"><strong><%= 'Nenhum funcionário apto a receber recarga' %></strong></p>
+        <p style="text-align: center;"><strong><%= t('.no_employee') %></strong></p>
       <% else %>
         <table class="table mb-0 table-striped table-hover">
           <thead>
             <tr>
-              <th><%= 'Valor Padrão' %></th>
-              <th><%= 'Nome' %></th>
-              <th><%= 'Email' %></th>
-              <th><%= 'Departamento - Cargo' %></th>
+              <th><%= t('.standard_value') %></th>
+              <th><%= t('.name') %></th>
+              <th><%= t('.email') %></th>
+              <th><%= t('.department_position') %></th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +38,7 @@
 
   </div>
     <div style="margin: 10px">
-      <%= button_to 'Confirmar',
+      <%= button_to t('.confirm'),
                     company_multiple_recharges_path,
                     class: "btn btn-primary", data: { turbo: false } %>
     </div>
