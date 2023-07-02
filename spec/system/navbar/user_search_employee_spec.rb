@@ -10,9 +10,9 @@ feature 'Manager procura na barra de pesquisa' do
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, position:, department_id: position.department.id,
                                         user: manager)
-    create(:employee_profile, :employee, cpf: '40690463804', department:)
+    create(:employee_profile, :employee, cpf: '40690463804', department:, email: "secondemployee@#{company.domain}")
     create(:employee_user, cpf: '40690463804')
-    create(:employee_profile, :employee, cpf: '72859417940')
+    create(:employee_profile, :employee, cpf: '72859417940', email: "thirdemployee@#{company.domain}")
 
     login_as manager
     visit root_path
@@ -39,7 +39,7 @@ feature 'Manager procura na barra de pesquisa' do
     create(:employee_profile, :employee, cpf: '40690463804', name: 'Jennifer Lopez', department:)
     create(:employee_user, cpf: '40690463804')
     create(:employee_profile, :employee, cpf: '21151751235', name: 'Jessica Alba',
-                                         department:, status: 'blocked')
+                                         department:, status: 'blocked', email: "secondemployee@#{company.domain}")
     create(:employee_user, cpf: '21151751235', email: 'jessica@microsoft.com')
 
     login_as manager
@@ -93,7 +93,7 @@ feature 'Manager procura na barra de pesquisa' do
     create(:employee_profile, :employee, cpf: '40690463804', name: 'Jennifer Lopez', department:)
     create(:employee_user, cpf: '40690463804')
     create(:employee_profile, :employee, cpf: '21151751235', name: 'Jessica Alba',
-                                         department:, status: 'blocked')
+                                         department:, status: 'blocked', email: "secondemployee@#{company.domain}")
     create(:employee_user, cpf: '21151751235', email: 'jessica@microsoft.com')
     second_company = create(:company, brand_name: 'Empresa',
                                       email: 'contato@empresa.com', domain: 'empresa.com')

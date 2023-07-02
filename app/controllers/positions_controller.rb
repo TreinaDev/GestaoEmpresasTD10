@@ -40,6 +40,8 @@ class PositionsController < ApplicationController
   def set_position
     @position = Position.find(params[:id])
     @card_type = GetCardType.find(@position.card_type_id, @company.registration_number)
+
+    can_access_position
   end
 
   def set_company_and_department
@@ -53,5 +55,12 @@ class PositionsController < ApplicationController
 
   def position_params
     params.require(:position).permit(:name, :description, :card_type_id)
+  end
+
+  def can_access_position
+    return if current_user.employee_profile.company.id == @position.company.id
+
+    flash[:alert] = t('forbidden')
+    redirect_to root_path
   end
 end

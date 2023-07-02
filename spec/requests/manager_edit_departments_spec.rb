@@ -51,16 +51,20 @@ describe 'Edição de Departamento', type: :request do
 
   context 'Manager tenta editar departamento de outra empresa' do
     it 'e não tem permissão' do
-      company = create(:company)
-      create(:manager_emails, company:)
-      manager = create(:manager_user)
-      create(:employee_profile, :manager, user: manager)
+      company = create(:company, brand_name: 'Apple', domain: 'apple.com')
+      department = create(:department, company:)
+      position = create(:position, department:)
+      create(:manager_emails, email: 'user@apple.com', company:)
+      manager = create(:user, email: 'user@apple.com', cpf: '59684958471')
+      create(:employee_profile, :manager, user: manager, department:, position:, email: "employee@#{company.domain}")
       second_company = create(:company, brand_name: 'Apple', domain: 'apple.com.br',
                                         registration_number: '10394460005884')
+      create(:position, department:)
       second_department = create(:department, company: second_company)
 
       login_as manager
       get edit_company_department_path(second_company.id, second_department.id)
+
       follow_redirect!
       follow_redirect!
 

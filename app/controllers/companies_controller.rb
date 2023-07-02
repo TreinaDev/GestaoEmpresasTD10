@@ -72,6 +72,12 @@ class CompaniesController < ApplicationController
 
   def set_company
     @company = Company.find(params[:id])
+
+    return if current_user.admin?
+    return if current_user.employee_profile.company.id == @company.id
+
+    flash[:alert] = t('forbidden')
+    redirect_to root_path
   end
 
   def company_params

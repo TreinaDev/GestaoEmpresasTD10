@@ -13,6 +13,7 @@ class EmployeeProfile < ApplicationRecord
             :marital_status, presence: true
   validates :cpf, uniqueness: true
   validates :rg, uniqueness: true
+  validates :email, uniqueness: true
   validates :dismissal_date, comparison: { greater_than: Time.zone.today }, if: :dismissal_is_present?
   validates :phone_number, length: { is: 11 }
 

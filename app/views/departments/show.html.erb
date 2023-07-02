@@ -37,7 +37,9 @@
           <td class="align-baseline"><%= employee.name %></td>
           <td class="align-baseline"><%= format_cpf(employee.cpf) %></td>
           <td class="align-baseline">
-            <img width="60px" class="mx-1" src="<%=@position_cards[employee.position.id][1] %>" >
+            <% if employee.card_status %>
+              <img width="60px" class="mx-1" src="<%=@position_cards[employee.position.id][1] %>" >
+            <% end %>
             <%= @position_cards[employee.position.id][0] %>
           </td>
           <td class="align-baseline"><%= employee.position.name %></td>
@@ -49,7 +51,10 @@
           <td class="d-flex justify-content-around">
             <%= button_to create_card_company_department_employee_profiles_path(
                             company_id: @department.company_id, department_id: @department.id, card: { cpf: employee.cpf, company_card_type_id: employee.position.card_type_id }),
-                          method: :post, id: "post#{employee.id}", class: (employee.card_status ? 'btn btn-primary disabled' : 'btn btn-primary'),
+                          method: :post, id: "post#{employee.id}", class: (
+                            employee.card_status || @position_cards[employee.position.id][1].blank? ?
+                              'btn btn-primary disabled' : 'btn btn-primary'
+                            ),
                           disabled: employee.card_status ? true : false do %>
               Solicitar Cartão
             <% end %>

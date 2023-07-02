@@ -12,9 +12,9 @@ describe 'Employee Profiles API' do
       create(:employee_profile, :employee, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
                                            department: department2, position: position2)
       create(:employee_profile, :employee, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:,
-                                           position:)
+                                           position:, email: "secondemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:,
-                                           position:)
+                                           position:, email: "thirdemployee@#{company.domain}")
 
       get '/api/v1/employee_profiles'
       json_response = response.parsed_body
@@ -45,9 +45,9 @@ describe 'Employee Profiles API' do
       create(:employee_profile, :employee,  name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
                                             department: department2, position: position2)
       create(:employee_profile, :employee, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:,
-                                           position:)
+                                           position:, email: "secondemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:,
-                                           position:)
+                                           position:, email: "thirdemployee@#{company.domain}")
 
       get '/api/v1/employee_profiles?cpf=66353795092'
       json_response = response.parsed_body
@@ -77,11 +77,11 @@ describe 'Employee Profiles API' do
       create(:employee_profile, :employee, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
                                            department: department2, position: position2)
       create(:employee_profile, :employee, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:,
-                                           position:)
+                                           position:, email: "secondemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:,
-                                           position:)
+                                           position:, email: "thirdemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Lady Gaga', cpf: '12146825618', status: 'unblocked', department:,
-                                           position:)
+                                           position:, email: "fourthemployee@#{company.domain}")
 
       get '/api/v1/employee_profiles?status=unblocked'
       json_response = response.parsed_body
@@ -122,9 +122,9 @@ describe 'Employee Profiles API' do
       create(:employee_profile, :employee, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
                                            department: department2, position: position2)
       create(:employee_profile, :employee, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:,
-                                           position:)
+                                           position:, email: "secondemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:,
-                                           position:)
+                                           position:, email: "thirdemployee@#{company.domain}")
 
       get '/api/v1/employee_profiles?cpf=66353795999'
       json_response = response.parsed_body
@@ -153,11 +153,11 @@ describe 'Employee Profiles API' do
       create(:employee_profile, :employee, name: 'Whitney Houston', cpf: '69142235219', status: 'unblocked',
                                            department: department2, position: position2)
       create(:employee_profile, :employee, name: 'Beyonce Knowles', cpf: '66353795092', status: 'blocked', department:,
-                                           position:)
+                                           position:, email: "secondemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Michael Jackson', cpf: '12117237045', status: 'fired', department:,
-                                           position:)
+                                           position:, email: "thirdemployee@#{company.domain}")
       create(:employee_profile, :employee, name: 'Lady Gaga', cpf: '12146825618', status: 'unblocked', department:,
-                                           position:)
+                                           position:, email: "fourthemployee@#{company.domain}")
 
       get '/api/v1/employee_profiles?status=unblock'
       json_response = response.parsed_body
