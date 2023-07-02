@@ -13,6 +13,7 @@
     <% end %>
     <%= link_to t('.new_employee'), new_company_department_employee_profile_path(company_id: @department.company_id, department_id: @department.id), id: 'btn_edit', class:'btn btn-primary'%>
     <%= link_to t('.list_positions'), company_department_positions_path(company_id: @department.company_id), id: 'btn_edit', class:'btn btn-primary'%>
+    <%= link_to t('.see_department'), company_department_path(company_id: @department.company_id, id: @department.id), id: 'btn_edit', class:'btn btn-primary'%>
   </div>
 </div>
 
@@ -67,5 +68,3 @@
 <% else %>
   <h3 class="mt-3">Não há funcionários nesta posição até o momento.</h3>
 <% end %>
-
-

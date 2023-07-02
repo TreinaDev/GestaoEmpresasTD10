@@ -58,6 +58,6 @@ class ApplicationController < ActionController::Base
 
   def get_card_with_logo(employee)
     @card = GetCardApi.show(employee.cpf)
-    @card_icon = GetCardType.find(employee.position.card_type_id, employee.department.company.registration_number)&.icon
+    @card_icon = @card&.icon
   end
 end

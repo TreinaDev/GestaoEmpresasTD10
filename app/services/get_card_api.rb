@@ -1,6 +1,6 @@
 class GetCardApi
   API_BASE_URL = 'http://localhost:4000/api/v1/'.freeze
-  attr_reader :id, :cpf, :number, :points, :status, :name
+  attr_reader :id, :cpf, :number, :points, :status, :name, :icon
 
   def initialize(attributes = {})
     @id = attributes['id']
@@ -8,6 +8,7 @@ class GetCardApi
     @number = attributes['number']
     @points = attributes['points']
     @status = attributes['status'].downcase
+    @icon = attributes['icon']
   end
 
   def self.show(cpf)
