@@ -3,9 +3,11 @@ require 'rails_helper'
 feature 'Manager cria departamento' do
   scenario 'Com sucesso' do
     company = create(:company, brand_name: 'Apple', domain: 'apple.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
     create(:manager_emails, email: 'user@apple.com', company:)
     new_user = create(:user, email: 'user@apple.com', cpf: '59684958471')
-    create(:employee_profile, :manager, user: new_user)
+    create(:employee_profile, :manager, user: new_user, department:, position:, email: "employee@#{company.domain}")
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('COD123')
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
@@ -26,10 +28,12 @@ feature 'Manager cria departamento' do
   end
 
   scenario 'Com dados incompletos' do
-    company = create(:company)
-    create(:manager_emails, company:)
-    manager = create(:manager_user)
-    create(:employee_profile, :manager, user: manager)
+    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:manager_emails, email: 'user@apple.com', company:)
+    manager = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    create(:employee_profile, :manager, user: manager, department:, position:, email: "employee@#{company.domain}")
 
     login_as(manager)
     visit new_company_department_path(company.id)

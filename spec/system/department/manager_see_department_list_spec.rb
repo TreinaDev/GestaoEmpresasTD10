@@ -2,11 +2,12 @@ require 'rails_helper'
 
 feature 'Manager vê lista de departamentos' do
   scenario 'Com sucesso' do
-    admin = create(:admin_user)
-    company = create(:company)
-    create(:manager_emails, created_by: admin, company:)
-    manager = create(:manager_user)
-    create(:employee_profile, :manager, user: manager)
+    company = create(:company, brand_name: 'Apple', domain: 'apple.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:manager_emails, email: 'user@apple.com', company:)
+    manager = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    create(:employee_profile, :manager, user: manager, department:, position:, email: "employee@#{company.domain}")
     create(:department, company:)
     create(:department, name: 'Cozinha', company:)
     create(:department, name: 'Jurídico', company:)

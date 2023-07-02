@@ -6,7 +6,7 @@ feature 'Manager vê um cargo específico' do
     company = create(:company)
     create(:manager_emails, created_by: admin, company:)
     manager = create(:manager_user)
-    create(:employee_profile, :manager, user: manager)
+    create(:employee_profile, :manager, user: manager, company:)
     department = create(:department, company:)
     create(:position, department_id: department.id)
 

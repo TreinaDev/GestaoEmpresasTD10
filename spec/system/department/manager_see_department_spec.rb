@@ -2,11 +2,12 @@ require 'rails_helper'
 
 feature 'Manager vê um departamento em específico' do
   scenario 'Com sucesso' do
-    admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
-    company = create(:company, :with_department)
-    create(:manager_emails, created_by: admin, company:)
-    manager = create(:manager_user)
-    create(:employee_profile, :manager, user: manager)
+    company = create(:company, brand_name: 'Campus Code', domain: 'apple.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:manager_emails, email: 'user@apple.com', company:)
+    manager = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    create(:employee_profile, :manager, user: manager, department:, position:, email: "employee@#{company.domain}")
     department = create(:department, name: 'Juridico', description: 'Setor de Processos', company:)
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
@@ -61,11 +62,12 @@ feature 'Manager vê um departamento em específico' do
   end
 
   scenario 'E não há funcionários no departamento' do
-    admin = create(:user, cpf: '57049003050', email: 'admin@punti.com')
-    company = create(:company, :with_department)
-    create(:manager_emails, created_by: admin, company:)
-    manager = create(:manager_user)
-    create(:employee_profile, :manager, user: manager)
+    company = create(:company, brand_name: 'Campus Code', domain: 'apple.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:manager_emails, email: 'user@apple.com', company:)
+    manager = create(:user, email: 'user@apple.com', cpf: '59684958471')
+    create(:employee_profile, :manager, user: manager, department:, position:, email: "employee@#{company.domain}")
     department = create(:department, name: 'Juridico', description: 'Setor de Processos', company:)
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read

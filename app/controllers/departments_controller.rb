@@ -1,7 +1,7 @@
 class DepartmentsController < ApplicationController
+  before_action :require_manager
   before_action :set_department, only: %i[show edit update]
   before_action :set_company, only: %i[index show new edit create update]
-  before_action :require_manager, only: %i[new create edit update]
   before_action :manager_belongs_to_company?
   before_action :status_api, only: %i[show]
 
@@ -49,10 +49,20 @@ class DepartmentsController < ApplicationController
 
   def set_department
     @department = Department.find(params[:id])
+
+    return if current_user.employee_profile.company.id == @department.company.id
+
+    flash[:alert] = t('forbidden')
+    redirect_to root_path
   end
 
   def set_company
     @company = Company.find(params[:company_id])
+
+    return if current_user.employee_profile.company.id == @company.id
+
+    flash[:alert] = t('forbidden')
+    redirect_to root_path
   end
 
   def find_by_positions

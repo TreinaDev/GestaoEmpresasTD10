@@ -28,17 +28,18 @@
             <% end %>
             
 
-            <div id="recharge_card" style="margin: 10px 0;">
-              <%if @employee_profile.card_status & @card.present? & @employee_profile.unblocked? %>
-                <%= link_to t('.new_recharge'),
-                            new_company_recharge_history_path(
-                              company_id: @employee_profile.department.company_id,
-                              cpf: @employee_profile.cpf),
-                            id: 'btn_new_recharge', class:'btn btn-primary'%>
-              <% end %>
-            </div>
+            
             <div style="margin: 10px 0;">
               <% if current_user.manager? && @employee_profile.user != current_user %>
+                <div id="recharge_card" style="margin: 10px 0;">
+                  <%if @employee_profile.card_status & @card.present? & @employee_profile.unblocked? %>
+                    <%= link_to t('.new_recharge'),
+                                new_company_recharge_history_path(
+                                  company_id: @employee_profile.department.company_id,
+                                  cpf: @employee_profile.cpf),
+                                id: 'btn_new_recharge', class:'btn btn-primary'%>
+                  <% end %>
+                </div>
                 <%if @card&.status == 'active'%>
                   <%= button_to deactivate_card_company_department_employee_profile_path(company_id: @company.id,
                                                                             department_id: @department.id,
