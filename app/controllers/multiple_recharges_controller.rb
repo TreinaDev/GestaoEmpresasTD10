@@ -1,7 +1,7 @@
 class MultipleRechargesController < ApplicationController
   before_action :require_manager
   before_action :manager_belongs_to_company?
-  before_action :set_valid_employees
+  before_action :set_valid_employees, only: %i[new create]
 
   def index
     if session[:recent_recharge_ids]
@@ -24,7 +24,7 @@ class MultipleRechargesController < ApplicationController
       register_recharges(valid_employee) if body.first['errors'].nil?
     end
 
-    redirect_to company_multiple_recharges_path, notice: "#{@count} Recargas adicionadas ao histórico"
+    redirect_to company_multiple_recharges_path, notice: "#{@count} Recargas adicionadas ao histórico\nAtualize para visualizar histórico completo"
   end
 
   private
@@ -44,6 +44,8 @@ class MultipleRechargesController < ApplicationController
     @valid_employees = EmployeeProfile.joins(:department)
                                       .where(departments: { company_id: params[:company_id] })
                                       .where(card_status: true).where(status: :unblocked)
+                                      .select do |employee|
+                                        GetCardApi.show(employee.cpf).status == "active"
+                                      end
   end
-
 end

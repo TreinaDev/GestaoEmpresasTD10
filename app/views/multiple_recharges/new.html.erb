@@ -12,7 +12,6 @@
         <table class="table mb-0 table-striped table-hover">
           <thead>
             <tr>
-              <th><%= 'CARTÂO' %></th>
               <th><%= 'Valor Padrão' %></th>
               <th><%= 'Nome' %></th>
               <th><%= 'Email' %></th>
@@ -22,7 +21,6 @@
           <tbody>
             <% @valid_employees.each do |valid_employee| %>
               <tr>
-                <td><%= GetCardApi.show(valid_employee.cpf).status %></td>
                 <td><%= number_to_currency(valid_employee.value) %></td>
                 <td><%= link_to valid_employee.name,
                                 company_department_employee_profile_path(
