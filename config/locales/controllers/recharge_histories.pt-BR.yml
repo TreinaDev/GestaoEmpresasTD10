@@ -12,3 +12,5 @@ pt-BR:
       failure_response: Erro de conexão
       unknown_error: Erro desconhecido
       cpf_not_found: CPF não encontrado
+      create_recharge_history:
+        active_record_error: Contate um Admin. Erro ao salvar histórico de recarga
