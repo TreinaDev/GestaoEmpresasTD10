@@ -1,16 +1,14 @@
 class RechargeHistoriesController < ApplicationController
   before_action :require_manager, except: :index
   before_action :manager_belongs_to_company?, except: :index
-  before_action :set_employee_profile, only: %i[new create]
+  before_action :set_employee_profile_with_cpf, only: %i[new create]
   before_action :validate_employee, only: %i[new create]
-  before_action :authorized_employee, only: %i[index]
+  before_action :authorize_user, only: %i[index]
 
   def index
     return redirect_to search_companies_path, alert: t('.employee_not_found') if @employee.nil?
 
-    @company_id = params[:company_id]
-    @employee_id = params[:employee_id]
-    @recharges = RechargeHistory.where(employee_profile_id: @employee.id).order(created_at: 'desc')
+    @recharges = RechargeHistory.where(employee_profile: @employee).order(created_at: 'desc')
   end
 
   def new; end
@@ -26,7 +24,7 @@ class RechargeHistoriesController < ApplicationController
 
   private
 
-  def set_employee_profile
+  def set_employee_profile_with_cpf
     @cpf = params[:cpf]&.gsub(/\D/, '')
     @employee = EmployeeProfile.joins(:department)
                                .where(departments: { company_id: params[:company_id] })
@@ -65,28 +63,21 @@ class RechargeHistoriesController < ApplicationController
       employee_profile: @employee,
       creator: current_user
     )
-    @history.save
+    flash[:alert] = t('.active_record_error') unless @history.save
   end
 
-  def authorized_employee
+  def authorize_user
     return redirect_to root_path, alert: t('forbidden') if current_user.admin?
 
-    find_user
+    set_employee_profile_with_id
+    return manager_belongs_to_company? if current_user.manager?
 
-    manager_belongs_to_company? if current_user.manager?
-
-    redirect_to root_path, alert: t('forbidden') unless check_user
+    redirect_to root_path, alert: t('forbidden') unless current_user.id == @employee.user_id
   end
 
-  def find_user
-    employee_id = params[:employee]
-    company = params[:company_id]
+  def set_employee_profile_with_id
     @employee = EmployeeProfile.joins(:department)
-                               .where(departments: { company_id: company })
-                               .find_by(id: employee_id)
-  end
-
-  def check_user
-    current_user.id == @employee.user_id || current_user.manager?
+                               .where(departments: { company_id: params[:company_id] })
+                               .find_by(id: params[:employee])
   end
 end

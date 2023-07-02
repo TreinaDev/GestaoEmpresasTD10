@@ -37,7 +37,7 @@
 <% else %>
   <div class="card justify-content-center">
     <div class="card-header">
-      <%= t('.search_employee') %> <span style="color: grey; font-style: italic;">(<%= t('.all_fileds_required') %>)</span>
+      <%= t('.single_recharge') %> <span style="color: grey; font-style: italic;">(<%= t('.all_fileds_required') %>)</span>
     </div>
     <div class="card-body">
       <%= form_with url: new_company_recharge_history_path, method: :get, data: { turbo: false } do |form| %>
@@ -49,8 +49,16 @@
           <%= form.text_field :value, class: "form-control", placeholder: t('.placeholder_value') %>
         </div>
         
-        <%= form.submit t('.search'), class: "btn btn-primary" %>
+        <%= form.submit t('.create_single_recharge'), class: "btn btn-primary" %>
       <% end %>
     </div>
+
+
   </div>
+  <br>
+    <div>
+      <%= link_to t('.multiple_recharge'),
+                    new_company_multiple_recharge_path,
+                    class: "btn btn-primary", data: { turbo: false } %>
+    </div>
 <% end %>

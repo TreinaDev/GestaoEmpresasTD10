@@ -1,0 +1,7 @@
+pt-BR:
+  multiple_recharges:
+    create:
+      no_valid_employee: Nenhum funcionário válido para recarga
+      history_updated: "%{count} Recargas adicionadas ao histórico. Atualize para visualizar histórico completo."
+      register_recharges:
+        active_record_error: Contate um Admin. Erro ao salvar histórico de recarga

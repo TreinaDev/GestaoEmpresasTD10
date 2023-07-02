@@ -2,8 +2,9 @@ pt-BR:
   recharge_histories:
     new:
       title: Recarga de cartão
-      search: Buscar
-      search_employee: Buscar Funcionário
+      create_single_recharge: Criar recarga
+      single_recharge: Recarga individual
+      multiple_recharge: Recarregar todos os cartões
       all_fileds_required: Todos os campos obrigatórios
       placeholder_cpf: CPF do funcionário
       placeholder_value: Valor em R$

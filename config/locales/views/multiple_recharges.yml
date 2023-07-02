@@ -1,0 +1,20 @@
+pt-BR:
+  multiple_recharges:
+    new:
+      title: Recarregar todos os cartões
+      valid_employees: funcionários válidos
+      no_employee: Nenhum funcionário apto a receber recarga
+      standard_value: Valor Padrão
+      name: Nome
+      email: E-mail
+      department_position: Departamento - Cargo
+      confirm: Confirmar
+      go_back: Voltar
+    index:
+      title: Histórico Geral de Recargas
+      empty: Histórico Vazio
+      date: Data
+      value: Valor
+      employee: Funcionário
+      cpf: CPF
+      creator: Responsável

@@ -1,0 +1,37 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <h2 class="mb-0"><%= t('.title') %></h2>
+  </div>
+  <div class="card-body">
+
+
+    <div class="table-responsive">
+      <% if @recharge_history.empty? %>
+        <p style="text-align: center;"><strong><%= t('.empty') %></strong></p>
+      <% else %>
+        <table class="table mb-0 table-striped table-hover">
+          <thead>
+            <tr>
+              <th><%= t('.date') %></th>
+              <th><%= t('.value') %></th>
+              <th><%= t('.employee') %></th>
+              <th><%= t('.cpf') %></th>
+              <th><%= t('.creator') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recharge_history.each do |recharge| %>
+              <tr>
+                <td><%= l(recharge.created_at, format: :short) %></td>
+                <td><%= number_to_currency(recharge.value) %></td>
+                <td><%= recharge.employee_profile.name %></td>
+                <td><%= format_cpf(recharge.employee_profile.cpf) %></td>
+                <td><%= recharge.creator.email %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div><br>

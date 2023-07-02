@@ -1,0 +1,53 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <h2 class="mb-0"><%= t('.title') %></h2>
+    <span style="color: grey; font-style: italic;"> (<%= @valid_employees.count %> <%= t('.valid_employees') %>)</span>
+  </div>
+  <div class="card-body">
+
+    <div class="table-responsive">
+      <% if @valid_employees.empty? %>
+        <p style="text-align: center;"><strong><%= t('.no_employee') %></strong></p>
+      <% else %>
+        <table class="table mb-0 table-striped table-hover">
+          <thead>
+            <tr>
+              <th><%= t('.standard_value') %></th>
+              <th><%= t('.name') %></th>
+              <th><%= t('.email') %></th>
+              <th><%= t('.department_position') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @valid_employees.each do |valid_employee| %>
+              <tr>
+                <td><%= number_to_currency(valid_employee.value) %></td>
+                <td><%= link_to valid_employee.name,
+                                company_department_employee_profile_path(
+                                  valid_employee.company,
+                                  valid_employee.department,
+                                  valid_employee) %></td>
+                <td><%= valid_employee.email %></td>
+                <td><%= valid_employee.department.name %> - <%= valid_employee.position.name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+
+  </div>
+    <div style="margin: 10px">
+      <% if @valid_employees.any? %>
+        <%= button_to t('.confirm'),
+                      company_multiple_recharges_path,
+                      class: "btn btn-primary", data: { turbo: false }, form:{class:'d-inline'} %>
+      <% end %>
+      <%= link_to company_path(current_user.employee_profile.company),
+                    class: "btn btn-primary d-inline-block", data: { turbo: false } do %>
+        <%= t('.go_back') %>
+
+      <% end %>
+    </div>
+
+</div>
