@@ -26,8 +26,7 @@ class EmployeeProfile < ApplicationRecord
   enum marital_status: { single: 1, married: 4, widower: 8, divorced: 10 }
 
   def value
-    card_type = GetCardType.find(position.card_type_id, department.company.registration_number)
-    card_type ? card_type.start_points.to_f : 0
+    position.standard_recharge
   end
 
   private
