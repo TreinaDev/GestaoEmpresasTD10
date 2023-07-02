@@ -1,10 +1,10 @@
 class EmployeeCardApiController < ApplicationController
+  before_action :require_manager
+  before_action :status_api, only: %i[show edit]
   before_action :set_employee_profile,
                 only: %i[edit update show deactivate_card activate_card new_fired fired]
   before_action :set_card, only: %i[show deactivate_card activate_card new_fired fired]
   before_action :set_department_and_company
-  before_action :require_manager
-  before_action :status_api, only: %i[show edit]
 
   def show
     get_card_with_logo(@employee_profile)
@@ -81,6 +81,7 @@ class EmployeeCardApiController < ApplicationController
 
   def set_employee_profile
     @employee_profile = EmployeeProfile.find(params[:id])
+    check_manager_company
   end
 
   def set_card
@@ -90,5 +91,12 @@ class EmployeeCardApiController < ApplicationController
   def set_department_and_company
     @department = Department.find_by(id: params[:department_id])
     @company = Company.find_by(id: params[:company_id])
+  end
+
+  def check_manager_company
+    return if current_user.employee_profile.company.id == @employee_profile.company.id
+
+    flash[:alert] = t('forbidden')
+    redirect_to root_path
   end
 end

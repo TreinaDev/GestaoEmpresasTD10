@@ -9,6 +9,8 @@ feature 'Usuário cadastra perfil de funcionário' do
       manager = create(:manager_user)
       department = create(:department, company:)
       position = create(:position, department_id: department.id)
+      create(:employee_profile, :manager, name: 'Roberto Carlos Nascimento',
+                                          department:, position:, user: manager)
 
       fake_response = double('faraday_response', status: 200, body: '{}')
       cnpj = company.registration_number.tr('^0-9', '')

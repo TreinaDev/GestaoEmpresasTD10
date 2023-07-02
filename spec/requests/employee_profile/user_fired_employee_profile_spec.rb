@@ -2,13 +2,14 @@ require 'rails_helper'
 
 describe 'Usuário tenta desligar funcionário', type: :request do
   it 'enquanto gerente com sucesso' do
-    admin = create(:user, email: 'admin@punti.com')
     company = create(:company)
-    create(:manager_emails, created_by: admin, company:)
+    create(:manager_emails, company:)
     user_manager = create(:manager_user)
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
-    employee = create(:employee_profile, :manager, department_id: department.id, position_id: position.id)
+    create(:employee_profile, :manager, department_id: department.id, position_id: position.id, user: user_manager,
+                                        cpf: '00189363002', email: user_manager.email)
+    employee = create(:employee_profile, :employee, department_id: department.id, position_id: position.id)
     date = 1.day.from_now
 
     fake_response = double('faraday_response', status: 200, body: '{}')
@@ -106,6 +107,8 @@ describe 'Usuário tenta desligar funcionário', type: :request do
     manager = create(:manager_user, cpf: '14101674027')
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
+    create(:employee_profile, :manager, name: 'Roberto Carlos Nascimento',
+                                        department:, position:, user: manager)
     employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento', marital_status: 1,
                                                             dismissal_date: 1.day.from_now, department:,
                                                             position:, status: 'fired')

@@ -9,6 +9,7 @@ pt-BR:
       email: E-mail
       department_position: Departamento - Cargo
       confirm: Confirmar
+      go_back: Voltar
     index:
       title: Histórico Geral de Recargas
       empty: Histórico Vazio

@@ -38,9 +38,16 @@
 
   </div>
     <div style="margin: 10px">
-      <%= button_to t('.confirm'),
-                    company_multiple_recharges_path,
-                    class: "btn btn-primary", data: { turbo: false } %>
+      <% if @valid_employees.any? %>
+        <%= button_to t('.confirm'),
+                      company_multiple_recharges_path,
+                      class: "btn btn-primary", data: { turbo: false }, form:{class:'d-inline'} %>
+      <% end %>
+      <%= link_to company_path(current_user.employee_profile.company),
+                    class: "btn btn-primary d-inline-block", data: { turbo: false } do %>
+        <%= t('.go_back') %>
+
+      <% end %>
     </div>
 
 </div>
