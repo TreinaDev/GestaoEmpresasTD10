@@ -15,12 +15,8 @@ Rails.application.routes.draw do
   resources :manager_emails, only: %i(create destroy)
 
   resources :companies, only: %i( new create show edit update index) do
-    resources :multiple_recharges # only ...
-    resources :recharge_histories, only: %i(new create index) # do
-    #   collection do
-    #     post :create_multiple
-    #   end
-    # end
+    resources :multiple_recharges, only: %i(index new create)
+    resources :recharge_histories, only: %i(index new create)
     resources :departments, only: %i(index new create show update edit) do
       resources :employee_profiles, only: %i(new create show edit update) do
         collection do

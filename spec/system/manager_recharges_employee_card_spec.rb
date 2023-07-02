@@ -20,7 +20,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
     fill_in 'cpf',	with: '909.009.380-05'
     fill_in 'value',	with: '400'
-    click_button 'Buscar'
+    click_button 'Criar recarga'
 
     expect(page).to have_content 'Confirmar Recarga'
     expect(page).to have_content "Nome Completo: #{employee.name}"
@@ -58,7 +58,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
     fill_in 'cpf',	with: '909.009.38-005'
     fill_in 'value',	with: '400'
-    click_button 'Buscar'
+    click_button 'Criar recarga'
     click_button 'Recarregar'
 
     expect(page).to have_content 'Recarga efetuada com sucesso'
@@ -91,7 +91,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
     fill_in 'cpf',	with: '909.009.38-005'
     fill_in 'value',	with: '-100'
-    click_button 'Buscar'
+    click_button 'Criar recarga'
 
     expect(page).to have_content 'Valor inválido'
     expect(RechargeHistory.count).to eq 0
@@ -125,7 +125,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
     fill_in 'cpf',	with: '30448522500'
     fill_in 'value',	with: '400'
-    click_button 'Buscar'
+    click_button 'Criar recarga'
 
     expect(employee2.cpf).to eq '30448522500'
     expect(page).to have_content 'CPF não encontrado: 30448522500'
@@ -157,7 +157,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
     fill_in 'cpf',	with: '90900938005'
     fill_in 'value',	with: '400'
-    click_button 'Buscar'
+    click_button 'Criar recarga'
     click_button 'Recarregar'
 
     expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
@@ -183,7 +183,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
       fill_in 'cpf',	with: '90900938005'
       fill_in 'value',	with: '400'
-      click_button 'Buscar'
+      click_button 'Criar recarga'
 
       expect(page).to have_content 'Funcionário com status incorreto: Bloqueado'
     end
@@ -207,7 +207,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
       fill_in 'cpf',	with: '90900938005'
       fill_in 'value',	with: '400'
-      click_button 'Buscar'
+      click_button 'Criar recarga'
 
       expect(page).to have_content 'Funcionário com status incorreto: Demitido'
     end
@@ -231,7 +231,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
       fill_in 'cpf',	with: '90900938005'
       fill_in 'value',	with: '400'
-      click_button 'Buscar'
+      click_button 'Criar recarga'
 
       expect(page).to have_content 'Cartão não solicitado para esse CPF: 90900938005'
     end
@@ -263,7 +263,7 @@ feature 'Manager faz uma recarga ao cartão' do
 
       fill_in 'cpf',	with: '909.009.38-005'
       fill_in 'value',	with: '400'
-      click_button 'Buscar'
+      click_button 'Criar recarga'
       click_button 'Recarregar'
 
       expect(page).to have_content 'Cartão não encontrado ou inativo'

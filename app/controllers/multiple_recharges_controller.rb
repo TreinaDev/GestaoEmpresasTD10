@@ -15,19 +15,20 @@ class MultipleRechargesController < ApplicationController
   def new; end
 
   def create
-    return redirect_to root_path, alert: 'Nenhum funcionário válido para recarga' if @valid_employees.empty?
+    return redirect_to root_path, alert: t('.no_valid_employee') if @valid_employees.empty?
 
     @count = 0
-    @valid_employees.each do |valid_employee|
-      request = { recharge: [{ value: valid_employee.value, cpf: valid_employee.cpf }] }
-      body = JSON.parse(PatchRechargeApi.new(request).send.body)
-      register_recharges(valid_employee) if body.first['errors'].nil?
-    end
-
-    redirect_to company_multiple_recharges_path, notice: "#{@count} Recargas adicionadas ao histórico\nAtualize para visualizar histórico completo"
+    @valid_employees.each { |valid_employee| attempt_recharge(valid_employee) }
+    redirect_to company_multiple_recharges_path, notice: t('.history_updated', count: @count)
   end
 
   private
+
+  def attempt_recharge(valid_employee)
+    request = { recharge: [{ value: valid_employee.value, cpf: valid_employee.cpf }] }
+    body = JSON.parse(PatchRechargeApi.new(request).send.body)
+    register_recharges(valid_employee) if body.first['errors'].nil?
+  end
 
   def register_recharges(valid_employee)
     history = RechargeHistory.new(value: valid_employee.value, employee_profile: valid_employee, creator: current_user)
@@ -36,7 +37,7 @@ class MultipleRechargesController < ApplicationController
       session[:recent_recharge_ids] << history.id
       @count += 1
     else
-      flash[:alert] = 'Contate um Admin. Erro ao salvar histórico de recarga'
+      flash[:alert] = t('.active_record_error')
     end
   end
 
@@ -45,7 +46,7 @@ class MultipleRechargesController < ApplicationController
                                       .where(departments: { company_id: params[:company_id] })
                                       .where(card_status: true).where(status: :unblocked)
                                       .select do |employee|
-                                        GetCardApi.show(employee.cpf).status == "active"
+                                        GetCardApi.show(employee.cpf).status == 'active'
                                       end
   end
 end
