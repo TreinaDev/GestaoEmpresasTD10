@@ -393,5 +393,3 @@ Para ver a cobertura de teste e só abrir o arquivo index ou executar um http se
 :white_square_button: Envio de email para confirmar cadastro do administrado do sistema.
 
 :white_square_button: Listagem de todos funcionários de um empresa com paginação.
-
-:white_square_button: Não bloquear gerente se este e o único gerente disponível
