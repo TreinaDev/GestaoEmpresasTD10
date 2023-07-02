@@ -3,7 +3,6 @@ class EmployeeProfilesController < EmployeeCardApiController
   before_action :company_is_active?, only: %i[new create]
   before_action :set_employee_profile_data, only: %i[create_manager]
   before_action :set_position_and_department_for_employee, only: %i[create_manager]
-  # before_action :require_manager
   skip_before_action :profile_check
 
   def new_manager
