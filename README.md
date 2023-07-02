@@ -424,4 +424,10 @@ Para ver a cobertura de teste e só abrir o arquivo index ou executar um http se
 
 :white_square_button: Validações para a criação de empresa.
 
+:white_square_button: Ajustes de responsividade.
 
+:white_square_button: Aprimorar responsvidade da aplicação.
+
+:white_square_button: Implementação de Jobs para criação de departamento e cargo automáticos da criação da empresa.
+
+:white_square_button: Implementação de Jobs para recargas gerais da empresa.
