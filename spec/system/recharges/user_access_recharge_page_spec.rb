@@ -63,4 +63,35 @@ feature 'Usuário não acessa página de recarga de cartão' do
     expect(page).to have_content 'Usuário sem permissão para executar essa ação'
     expect(current_path).to eq company_path(company)
   end
+
+  scenario 'com API fora do ar' do
+    company = create(:company, domain: 'empresa1.com')
+    department = create(:department, company:)
+    position = create(:position, department:)
+    create(:manager_emails, company:, email: 'manager@empresa1.com')
+    manager_user = create(:manager_user, email: 'manager@empresa1.com', cpf: '69142235219')
+    create(
+      :employee_profile,
+      department:,
+      position:,
+      email: 'manager@empresa1.com',
+      cpf: '69142235219',
+      status: 'unblocked',
+      user: manager_user,
+      name: 'Nome Gerente',
+      social_name: 'Nome Gerente',
+      card_status: true
+    )
+
+    allow(Faraday).to receive(:get)
+      .with('http://localhost:4000/api/v1/')
+      .and_raise(Faraday::ConnectionFailed)
+
+    login_as manager_user
+    visit new_company_recharge_history_path(company_id: company.id)
+    click_on 'Recarregar todos os cartões'
+
+    expect(page).to have_content 'Sistema indisponível no momento, por favor tente mais tarde'
+    expect(current_path).to eq company_path(company)
+  end
 end

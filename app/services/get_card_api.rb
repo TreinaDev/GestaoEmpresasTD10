@@ -30,4 +30,8 @@ class GetCardApi
   rescue Faraday::ConnectionFailed
     500
   end
+
+  def self.status
+    Faraday.get(API_BASE_URL)
+  end
 end

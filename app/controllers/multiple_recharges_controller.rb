@@ -42,6 +42,7 @@ class MultipleRechargesController < ApplicationController
   end
 
   def set_valid_employees
+    GetCardApi.status
     @valid_employees = EmployeeProfile.joins(:department)
                                       .where(departments: { company_id: params[:company_id] })
                                       .where(card_status: true).where(status: :unblocked)

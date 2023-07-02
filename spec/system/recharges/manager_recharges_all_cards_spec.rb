@@ -93,6 +93,10 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
     )
 
     allow(Faraday).to receive(:get)
+      .with('http://localhost:4000/api/v1/')
+      .and_return(200)
+
+    allow(Faraday).to receive(:get)
       .with("http://localhost:4000/api/v1/cards/#{manager.cpf}")
       .and_return(get_card_api_response)
 
@@ -239,6 +243,10 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
     request1 = { recharge: [{ value: 100.0, cpf: '69142235219' }] }
     request2 = { recharge: [{ value: 100.0, cpf: '15703243017' }] }
     request3 = { recharge: [{ value: 100.0, cpf: '29963810926' }] }
+
+    allow(Faraday).to receive(:get)
+      .with('http://localhost:4000/api/v1/')
+      .and_return(200)
 
     allow(Faraday).to receive(:get)
       .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
