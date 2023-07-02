@@ -48,9 +48,9 @@ feature 'Gerente vê histórico de recargas do funcionário' do
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
     create(:employee_profile, :manager, name: 'Vanessa Camargo',
-                                        marital_status: 1, department:, position:)
+                                        user: manager, department:, position:)
     employee_profile = create(:employee_profile, :employee, name: 'Roberto Carlos Nascimento',
-                                                            marital_status: 1, department:, position:)
+                                                            department:, position:)
 
     json_data = Rails.root.join('spec/support/json/card_types.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)

@@ -6,9 +6,10 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
     company = create(:company)
     create(:manager_emails, company:)
     user_manager = create(:manager_user)
-
     department = create(:department, company:)
     position = create(:position, department_id: department.id)
+    create(:employee_profile, :manager, name: 'Roberto Carlos Nascimento',
+                                        department:, position:, user: user_manager)
     employee = create(:employee_profile, :employee, department_id: department.id, position_id: position.id)
 
     fake_response = double('faraday_response', status: 200, body: '{}')
@@ -39,6 +40,11 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
     employee = create(:employee_profile, :employee, department_id: department.id, position_id: position.id)
     create(:employee_user)
 
+    json_data = Rails.root.join('spec/support/json/cards.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/29963810926').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
+
     login_as admin
     get company_department_employee_profile_path(company_id: company.id, department_id: department.id, id: employee.id)
 
@@ -53,6 +59,11 @@ describe 'Usuário acessa página de detalhes de perfil de funcionários', type:
     position = create(:position, department:)
     create(:employee_profile, :employee, position:, department:, cpf: '02324252481')
     employee = create(:user, cpf: '02324252481', email: 'employee@campuscode.com.br')
+
+    json_data = Rails.root.join('spec/support/json/cards.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/02324252481').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/company_card_types').and_return(fake_response)
 
     login_as employee
     get company_department_employee_profile_path(company_id: company.id, department_id: department.id, id: employee.id)
