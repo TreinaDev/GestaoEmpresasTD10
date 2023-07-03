@@ -25,13 +25,14 @@ class MultipleRechargesController < ApplicationController
   private
 
   def attempt_recharge(valid_employee)
-    request = { recharge: [{ value: valid_employee.value, cpf: valid_employee.cpf }] }
+    request = { recharge: [{ value: valid_employee.position.standard_recharge, cpf: valid_employee.cpf }] }
     body = JSON.parse(PatchRechargeApi.new(request).send.body)
     register_recharges(valid_employee) if body.first['errors'].nil?
   end
 
   def register_recharges(valid_employee)
-    history = RechargeHistory.new(value: valid_employee.value, employee_profile: valid_employee, creator: current_user)
+    history = RechargeHistory.new(value: valid_employee.position.standard_recharge, employee_profile: valid_employee,
+                                  creator: current_user)
     if history.save
       session[:recent_recharge_ids] ||= []
       session[:recent_recharge_ids] << history.id

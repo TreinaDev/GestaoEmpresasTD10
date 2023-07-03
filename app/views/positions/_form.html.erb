@@ -14,6 +14,10 @@
         <%= f.text_field :description, class: 'form-control'%>
       </div>
       <div class="mb-3">
+        <%= f.label :standard_recharge, class: 'form-label' %> (R$)
+        <%= f.number_field :standard_recharge, class: 'form-control'%>
+      </div>
+      <div class="mb-3">
         <%= f.label :card_type_id, class: 'form-label' %>
         <div class="col-lg-4 col-md-12">
           <%= f.select :card_type_id, @card_types.collect { |p| [p.name, p.id] }, { prompt: 'Não selecionado' }, { class: 'form-select', disabled: @position.employee_profiles.where(card_status: true).any? } %>

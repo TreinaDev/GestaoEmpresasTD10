@@ -21,7 +21,7 @@
           <tbody>
             <% @valid_employees.each do |valid_employee| %>
               <tr>
-                <td><%= number_to_currency(valid_employee.value) %></td>
+                <td><%= number_to_currency(valid_employee.position.standard_recharge) %></td>
                 <td><%= link_to valid_employee.name,
                                 company_department_employee_profile_path(
                                   valid_employee.company,
@@ -43,7 +43,7 @@
                       company_multiple_recharges_path,
                       class: "btn btn-primary", data: { turbo: false }, form:{class:'d-inline'} %>
       <% end %>
-      <%= link_to company_path(current_user.employee_profile.company),
+      <%= link_to new_company_recharge_history_path(company_id: params[:company_id]),
                     class: "btn btn-primary d-inline-block", data: { turbo: false } do %>
         <%= t('.go_back') %>
 

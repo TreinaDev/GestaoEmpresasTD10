@@ -5,6 +5,7 @@ class Position < ApplicationRecord
   has_one :company, through: :department
   validates :name, :description, :code, presence: true
   validates :code, uniqueness: true, format: { with: /\A[A-Z]{3}\d{3}\z/, message: :invalid_format }
+  validates :standard_recharge, numericality: { greater_than_or_equal_to: 0 }
 
   private
 

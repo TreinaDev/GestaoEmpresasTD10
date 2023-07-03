@@ -14,8 +14,10 @@ Company.create!(brand_name: 'Apple', corporate_name: 'Apple LTDA',
 
 Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH001',
                    description: 'Recursos Humanos')
-Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER001', description: 'Gerente do RH')
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH001', description: 'Estagiário RH')
+Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER001', description: 'Gerente do RH',
+                 standard_recharge: 200)
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH001', description: 'Estagiário RH',
+                 standard_recharge: 100)
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '86121830301', rg: '86121830302',
                         address: 'Rua do funcionário da apple', email: 'funcionario@apple.com',
                         phone_number: '41998989898', status: 'unblocked', birth_date: '10/01/2000',
@@ -25,7 +27,7 @@ EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '86121830301', rg: '
 User.create!(email: 'funcionario@apple.com', password: 'password', cpf: '86121830301')
 
 Department.create!(company_id: Company.last.id, name: 'Financeiro', code: 'FIN001', description: 'Setor Financeiro')
-Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM001',
+Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM001', standard_recharge: 200,
                  description: 'Administrador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '09414728686', rg: '09414728685',
                         address: 'Rua do funcionário da apple', email: 'funcionario2@apple.com',
@@ -35,7 +37,7 @@ EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '09414728686', rg: '0
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@apple.com', password: 'password', cpf: '09414728686')
 
-Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES001',
+Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES001', standard_recharge: 150,
                  description: 'Tesoureiro no departamento do financeiro')
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '73092985192', rg: '73092985193',
                         address: 'Rua do funcionário da apple', email: 'funcionario3@apple.com',
@@ -45,7 +47,7 @@ EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '73092985192', rg: '
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@apple.com', password: 'password', cpf: '73092985192')
 
-Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON001',
+Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON001', standard_recharge: 100,
                  description: 'Contador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '97804623259', rg: '97804623258',
                         address: 'Rua do funcionário da apple', email: 'funcionario4@apple.com',
@@ -56,7 +58,7 @@ EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '97804623259', rg: '97
 User.create!(email: 'funcionario4@apple.com', password: 'password', cpf: '97804623259')
 
 Department.create!(company_id: Company.last.id, name: 'Jurídico', code: 'JUR001', description: 'Setor Jurídico')
-Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV001',
+Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV001', standard_recharge: 200,
                  description: 'Advogado no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '45405837946', rg: '45405837945',
                         address: 'Rua do funcionário da apple', email: 'funcionario5@apple.com',
@@ -66,7 +68,7 @@ EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '45405837946', rg: '45
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@apple.com', password: 'password', cpf: '45405837946')
 
-Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC001',
+Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC001', standard_recharge: 150,
                  description: 'Secretário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '43557512444', rg: '43557512445',
                         address: 'Rua do funcionário da apple', email: 'funcionario6@apple.com',
@@ -76,7 +78,7 @@ EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '43557512444', rg: '435
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario6@apple.com', password: 'password', cpf: '43557512444')
 
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU001',
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU001', standard_recharge: 100,
                  description: 'Estagiário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sétimo Funcionário', cpf: '37467825544', rg: '37467825545',
                         address: 'Rua do funcionário da apple', email: 'funcionario7@apple.com',
@@ -109,7 +111,8 @@ rh_microsoft = Department.create!(company_id: Company.last.id, name: 'Departamen
                                   description: 'Recursos Humanos')
 manager_microsoft = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER002',
                                      description: 'Gerente do RH')
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH002', description: 'Estagiário RH')
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH002', description: 'Estagiário RH',
+                 standard_recharge: 100)
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '25710896098', rg: '25710896000',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario@microsoft.com',
                         phone_number: '41998989898', status: 'blocked', birth_date: '10/01/2000',
@@ -120,7 +123,7 @@ User.create!(email: 'funcionario@microsoft.com', password: 'password', cpf: '257
 
 Department.create!(company_id: Company.last.id, name: 'Financeiro', code: 'FIN002',
                    description: 'Setor Financeiro')
-Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM002',
+Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM002', standard_recharge: 200,
                  description: 'Administrador do departamento financeiro')
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '26257310520', rg: '26257310524',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario2@microsoft.com',
@@ -130,7 +133,7 @@ EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '26257310520', rg: '2
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@microsoft.com', password: 'password', cpf: '26257310520')
 
-Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES002',
+Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES002', standard_recharge: 150,
                  description: 'Tesoureiro no departamento do financeiro')
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '45653732621', rg: '45653732622',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario3@microsoft.com',
@@ -140,7 +143,7 @@ EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '45653732621', rg: '
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@microsoft.com', password: 'password', cpf: '45653732621')
 
-Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON002',
+Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON002', standard_recharge: 100,
                  description: 'Contador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '82415259152', rg: '82415259154',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario4@microsoft.com',
@@ -151,7 +154,7 @@ EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '82415259152', rg: '82
 User.create!(email: 'funcionario4@microsoft.com', password: 'password', cpf: '82415259152')
 
 Department.create!(company_id: Company.last.id, name: 'Jurídico', code: 'JUR002', description: 'Setor Jurídico')
-Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV002',
+Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV002', standard_recharge: 200,
                  description: 'Advogado no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '32451153423', rg: '32451153424',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario5@microsoft.com',
@@ -161,7 +164,7 @@ EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '32451153423', rg: '32
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@microsoft.com', password: 'password', cpf: '32451153423')
 
-Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC002',
+Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC002', standard_recharge: 150,
                  description: 'Secretário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '62205375482', rg: '62205375483',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario6@microsoft.com',
@@ -171,7 +174,7 @@ EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '62205375482', rg: '622
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario6@microsoft.com', password: 'password', cpf: '62205375482')
 
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU002',
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU002', standard_recharge: 100,
                  description: 'Estagiário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sétimo Funcionário', cpf: '09813732750', rg: '09813732751',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario7@microsoft.com',
@@ -204,7 +207,8 @@ rh_campuscode = Department.create!(company_id: Company.last.id, name: 'Departame
                                    description: 'Recursos Humanos')
 manager_campuscode = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER003',
                                       description: 'Gerente do RH')
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH003', description: 'Estagiário RH')
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH003', description: 'Estagiário RH',
+                 standard_recharge: 100)
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '62106308396', rg: '62106308392',
                         address: 'Rua do funcionário da Campus', email: 'funcionario@campuscode.com',
                         phone_number: '41998989898', status: 'fired', birth_date: '10/01/2000',
@@ -215,7 +219,7 @@ User.create!(email: 'funcionario@campuscode.com', password: 'password', cpf: '62
 
 Department.create!(company_id: Company.last.id, name: 'Financeiro', code: 'FIN003',
                    description: 'Setor Financeiro')
-Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM003',
+Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM003', standard_recharge: 200,
                  description: 'Administrador do departamento financeiro')
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '13326203535', rg: '13326203534',
                         address: 'Rua do funcionário da Campus', email: 'funcionario2@campuscode.com',
@@ -225,7 +229,7 @@ EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '13326203535', rg: '1
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@campuscode.com', password: 'password', cpf: '13326203535')
 
-Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES003',
+Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES003', standard_recharge: 150,
                  description: 'Tesoureiro no departamento do financeiro')
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '50651819504', rg: '50651819502',
                         address: 'Rua do funcionário da Campus', email: 'funcionario3@campuscode.com',
@@ -235,7 +239,7 @@ EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '50651819504', rg: '
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@campuscode.com', password: 'password', cpf: '50651819504')
 
-Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON003',
+Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON003', standard_recharge: 100,
                  description: 'Contador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '13512160662', rg: '13512160661',
                         address: 'Rua do funcionário da Campus', email: 'funcionario4@campuscode.com',
@@ -246,7 +250,7 @@ EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '13512160662', rg: '13
 User.create!(email: 'funcionario4@campuscode.com', password: 'password', cpf: '13512160662')
 
 Department.create!(company_id: Company.last.id, name: 'Jurídico', code: 'JUR003', description: 'Setor Jurídico')
-Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV003',
+Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV003', standard_recharge: 200,
                  description: 'Advogado no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '76941583444', rg: '76941583443',
                         address: 'Rua do funcionário da Campus', email: 'funcionario5@campuscode.com',
@@ -256,7 +260,7 @@ EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '76941583444', rg: '76
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@campuscode.com', password: 'password', cpf: '76941583444')
 
-Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC003',
+Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC003', standard_recharge: 150,
                  description: 'Secretário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '75426591113', rg: '75426591112',
                         address: 'Rua do funcionário da Campus', email: 'funcionario6@campuscode.com',
@@ -266,7 +270,7 @@ EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '75426591113', rg: '754
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario6@campuscode.com', password: 'password', cpf: '75426591113')
 
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU003',
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU003', standard_recharge: 100,
                  description: 'Estagiário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sétimo Funcionário', cpf: '35137643831', rg: '35137643832',
                         address: 'Rua do funcionário da Campus', email: 'funcionario7@campuscode.com',
@@ -299,7 +303,8 @@ rh_rebase = Department.create!(company_id: Company.last.id, name: 'Departamento 
                                description: 'Recursos Humanos')
 manager_rebase = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER004',
                                   description: 'Gerente do RH')
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH004', description: 'Estagiário RH')
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH004', description: 'Estagiário RH',
+                 standard_recharge: 100)
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '04416905050', rg: '04416905000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario@rebase.com',
                         phone_number: '41998989898', status: 'blocked', birth_date: '10/01/2000',
@@ -310,7 +315,7 @@ User.create!(email: 'funcionario@rebase.com', password: 'password', cpf: '044169
 
 Department.create!(company_id: Company.last.id, name: 'Financeiro', code: 'FIN004',
                    description: 'Setor Financeiro')
-Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM004',
+Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM004', standard_recharge: 200,
                  description: 'Administrador do departamento financeiro')
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '18554008049', rg: '18554008000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario2@rebase.com',
@@ -320,7 +325,7 @@ EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '18554008049', rg: '1
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@rebase.com', password: 'password', cpf: '18554008049')
 
-Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES004',
+Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES004', standard_recharge: 150,
                  description: 'Tesoureiro no departamento do financeiro')
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '80614943027', rg: '80614943000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario3@rebase.com',
@@ -330,7 +335,7 @@ EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '80614943027', rg: '
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@rebase.com', password: 'password', cpf: '80614943027')
 
-Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON004',
+Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON004', standard_recharge: 100,
                  description: 'Contador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '97024755032', rg: '97024755000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario4@rebase.com',
@@ -341,7 +346,7 @@ EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '97024755032', rg: '97
 User.create!(email: 'funcionario4@rebase.com', password: 'password', cpf: '97024755032')
 
 Department.create!(company_id: Company.last.id, name: 'Jurídico', code: 'JUR004', description: 'Setor Jurídico')
-Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV004',
+Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV004', standard_recharge: 200,
                  description: 'Advogado no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '94042561020', rg: '94042561000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario5@rebase.com',
@@ -351,7 +356,7 @@ EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '94042561020', rg: '94
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@rebase.com', password: 'password', cpf: '94042561020')
 
-Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC004',
+Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC004', standard_recharge: 150,
                  description: 'Secretário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '74441555008', rg: '74441555000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario6@rebase.com',
@@ -361,7 +366,7 @@ EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '74441555008', rg: '744
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario6@rebase.com', password: 'password', cpf: '74441555008')
 
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU004',
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU004', standard_recharge: 100,
                  description: 'Estagiário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sétimo Funcionário', cpf: '90166689009', rg: '90166689000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario7@rebase.com',
@@ -393,8 +398,9 @@ Company.create!(brand_name: 'Brainn', corporate_name: 'Brainn.CO LTDA',
 rh_brainn = Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH005',
                                description: 'Recursos Humanos')
 manager_brainn = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER005',
-                                  description: 'Gerente do RH')
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH005', description: 'Estagiário RH')
+                                  description: 'Gerente do RH', standard_recharge: 200)
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH005', description: 'Estagiário RH',
+                 standard_recharge: 100)
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '33965530046', rg: '33965530000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario@brainn.com',
                         phone_number: '41998989898', status: 'blocked', birth_date: '10/01/2000',
@@ -405,7 +411,7 @@ User.create!(email: 'funcionario@brainn.com', password: 'password', cpf: '339655
 
 Department.create!(company_id: Company.last.id, name: 'Financeiro', code: 'FIN005',
                    description: 'Setor Financeiro')
-Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM005',
+Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM005', standard_recharge: 200,
                  description: 'Administrador do departamento financeiro')
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '35330824079', rg: '35330824000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario2@brainn.com',
@@ -415,7 +421,7 @@ EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '35330824079', rg: '3
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@brainn.com', password: 'password', cpf: '35330824079')
 
-Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES005',
+Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES005', standard_recharge: 150,
                  description: 'Tesoureiro no departamento do financeiro')
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '53481555008', rg: '53481555008',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario3@brainn.com',
@@ -425,7 +431,7 @@ EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '53481555008', rg: '
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@brainn.com', password: 'password', cpf: '53481555008')
 
-Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON005',
+Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON005', standard_recharge: 100,
                  description: 'Contador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '68165838091', rg: '68165838000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario4@brainn.com',
@@ -436,7 +442,7 @@ EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '68165838091', rg: '68
 User.create!(email: 'funcionario4@brainn.com', password: 'password', cpf: '68165838091')
 
 Department.create!(company_id: Company.last.id, name: 'Jurídico', code: 'JUR005', description: 'Setor Jurídico')
-Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV005',
+Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV005', standard_recharge: 200,
                  description: 'Advogado no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '70421224029', rg: '70421224000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario5@brainn.com',
@@ -446,7 +452,7 @@ EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '70421224029', rg: '70
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@brainn.com', password: 'password', cpf: '70421224029')
 
-Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC005',
+Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC005', standard_recharge: 150,
                  description: 'Secretário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '05826218010', rg: '05826218000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario6@brainn.com',
@@ -456,7 +462,7 @@ EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '05826218010', rg: '058
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario6@brainn.com', password: 'password', cpf: '05826218010')
 
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU005',
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU005', standard_recharge: 100,
                  description: 'Estagiário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sétimo Funcionário', cpf: '70574272046', rg: '70574272046',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario7@brainn.com',
@@ -488,8 +494,9 @@ Company.create!(brand_name: 'Vindi', corporate_name: 'Vindi Pagamentos LTDA',
 rh_vindi = Department.create!(company_id: Company.last.id, name: 'Departamento de RH', code: 'RHH006',
                               description: 'Recursos Humanos')
 manager_vindi = Position.create!(department_id: Department.last.id, name: 'Gerente', code: 'GER006',
-                                 description: 'Gerente do RH')
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH006', description: 'Estagiário RH')
+                                 description: 'Gerente do RH', standard_recharge: 200)
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'ERH006', description: 'Estagiário RH',
+                 standard_recharge: 100)
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '86274187057', rg: '862741870',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario@vindi.com',
                         phone_number: '41998989898', status: 'blocked', birth_date: '10/01/2000',
@@ -500,7 +507,7 @@ User.create!(email: 'funcionario@vindi.com', password: 'password', cpf: '8627418
 
 Department.create!(company_id: Company.last.id, name: 'Financeiro', code: 'FIN006',
                    description: 'Setor Financeiro')
-Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM006',
+Position.create!(department_id: Department.last.id, name: 'Administrador', code: 'ADM006', standard_recharge: 200,
                  description: 'Administrador do departamento financeiro')
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '83431218130', rg: '83431218132',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario2@vindi.com',
@@ -510,7 +517,7 @@ EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '83431218130', rg: '8
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@vindi.com', password: 'password', cpf: '83431218130')
 
-Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES006',
+Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'TES006', standard_recharge: 150,
                  description: 'Tesoureiro no departamento do financeiro')
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '69553863523', rg: '69553863524',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario3@vindi.com',
@@ -520,7 +527,7 @@ EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '69553863523', rg: '
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@vindi.com', password: 'password', cpf: '69553863523')
 
-Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON006',
+Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON006', standard_recharge: 100,
                  description: 'Contador no departamento do financeiro')
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '17235678844', rg: '17235678845',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario4@vindi.com',
@@ -531,7 +538,7 @@ EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '17235678844', rg: '17
 User.create!(email: 'funcionario4@vindi.com', password: 'password', cpf: '17235678844')
 
 Department.create!(company_id: Company.last.id, name: 'Jurídico', code: 'JUR003', description: 'Setor Jurídico')
-Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV006',
+Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV006', standard_recharge: 200,
                  description: 'Advogado no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '81436745411', rg: '81436745412',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario5@vindi.com',
@@ -541,7 +548,7 @@ EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '81436745411', rg: '81
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@vindi.com', password: 'password', cpf: '81436745411')
 
-Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC006',
+Position.create!(department_id: Department.last.id, name: 'Secretário', code: 'SEC006', standard_recharge: 150,
                  description: 'Secretário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '64122783461', rg: '64122783462',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario6@vindi.com',
@@ -551,7 +558,7 @@ EmployeeProfile.create!(name: 'Sexto Funcionário', cpf: '64122783461', rg: '641
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario6@vindi.com', password: 'password', cpf: '64122783461')
 
-Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU006',
+Position.create!(department_id: Department.last.id, name: 'Estagiário', code: 'EJU006', standard_recharge: 100,
                  description: 'Estagiário no departamento do Jurídico')
 EmployeeProfile.create!(name: 'Sétimo Funcionário', cpf: '15884280793', rg: '15884280794',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario7@vindi.com',

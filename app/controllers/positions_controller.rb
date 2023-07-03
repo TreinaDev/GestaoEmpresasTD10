@@ -54,7 +54,7 @@ class PositionsController < ApplicationController
   end
 
   def position_params
-    params.require(:position).permit(:name, :description, :card_type_id)
+    params.require(:position).permit(:name, :description, :card_type_id, :standard_recharge)
   end
 
   def can_access_position
