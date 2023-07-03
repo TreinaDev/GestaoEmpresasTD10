@@ -1,8 +1,8 @@
 class Position < ApplicationRecord
   has_many :employee_profiles, dependent: :nullify
-  has_one :company, through: :department
   belongs_to :department
   before_validation :set_code, on: :create
+  has_one :company, through: :department
   before_save :update_standard_recharge, if: :card_type_id_changed?
   validates :name, :description, :code, presence: true
   validates :code, uniqueness: true, format: { with: /\A[A-Z]{3}\d{3}\z/, message: :invalid_format }
