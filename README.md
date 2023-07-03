@@ -41,6 +41,8 @@
 
 ## Modelo ER
 
+![Gestão de Empresas Participantes](https://github.com/TreinaDev/GestaoEmpresasTD10/assets/75085756/c2eb584a-d9e3-4665-b131-86b1782e9909)
+
 ## Funcionalidades
 
 :heavy_check_mark: Cadastro de Administrador via email com domínio **punti.com**
