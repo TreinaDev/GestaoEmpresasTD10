@@ -6,9 +6,11 @@
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('name') %>:
       <%= format_name(@employee_profile.name) %>
     </p>
-    <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>:
-      <%= format_name(@employee_profile.social_name) %>
-    </p>
+    <% if @employee_profile.social_name.present? %>
+      <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('social_name') %>:
+        <%= @employee_profile.social_name %>
+      </p>
+    <% end %>
     <p class="card-text m-1"><%= EmployeeProfile.human_attribute_name('email') %>:
       <%= @employee_profile.email %>
     </p>

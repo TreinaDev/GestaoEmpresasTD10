@@ -55,10 +55,15 @@
 
 
   </div>
-  <br>
+
     <div>
       <%= link_to t('.multiple_recharge'),
                     new_company_multiple_recharge_path,
-                    class: "btn btn-primary", data: { turbo: false } %>
+                    class: "btn btn-primary mt-2", data: { turbo: false } %>
+      
+      <%= link_to company_multiple_recharges_path(company_id: params[:company_id]), class:'btn btn-primary mt-2' do%>
+        <i class="bi bi-receipt"></i>
+        <%= RechargeHistory.model_name.human %>
+      <% end %>
     </div>
 <% end %>

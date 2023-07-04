@@ -65,7 +65,7 @@ class CompaniesController < ApplicationController
     @employee_profiles = EmployeeProfile.joins(:department)
                                         .where(departments: { company_id: })
                                         .where('cpf LIKE :search OR employee_profiles.name LIKE
-                                        :search', search: search_term)
+                                        :search OR employee_profiles.social_name LIKE :search', search: search_term)
   end
 
   private

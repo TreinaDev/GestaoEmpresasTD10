@@ -4,7 +4,7 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
   scenario 'mas confirma os dados primeiro' do
     company = create(:company, domain: 'empresa1.com')
     department = create(:department, company:)
-    position = create(:position, department:)
+    position = create(:position, department:, standard_recharge: 100.0)
     create(:manager_emails, company:, email: 'manager@empresa1.com')
     manager_user = create(:manager_user, email: 'manager@empresa1.com', cpf: '69142235219')
     manager = create(
@@ -80,18 +80,6 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
       }.to_json
     )
 
-    get_card_type_response = double(
-      'faraday_response',
-      status: 200,
-      body: [{
-        company_card_type_id: 1,
-        name: 'Name',
-        icon: nil,
-        start_points: 100,
-        conversion_tax: 1
-      }].to_json
-    )
-
     allow(Faraday).to receive(:get)
       .with('http://localhost:4000/api/v1/')
       .and_return(200)
@@ -107,18 +95,6 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
     allow(Faraday).to receive(:get)
       .with("http://localhost:4000/api/v1/cards/#{employee2.cpf}")
       .and_return(get_card_api_response)
-
-    allow(Faraday).to receive(:get)
-      .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
-      .and_return(get_card_type_response)
-
-    allow(Faraday).to receive(:get)
-      .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
-      .and_return(get_card_type_response)
-
-    allow(Faraday).to receive(:get)
-      .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
-      .and_return(get_card_type_response)
 
     login_as manager_user
     visit new_company_recharge_history_path(company_id: company.id)
@@ -144,7 +120,7 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
   scenario 'confirma a recarga e visualiza o histórico' do
     company = create(:company, domain: 'empresa1.com')
     department = create(:department, company:)
-    position = create(:position, department:)
+    position = create(:position, department:, standard_recharge: 100.0)
     create(:manager_emails, company:, email: 'manager@empresa1.com')
     manager_user = create(:manager_user, email: 'manager@empresa1.com', cpf: '69142235219')
     manager = create(
@@ -206,18 +182,6 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
       email: 'funcionario4@empresa1.com',
       cpf: '99701348923',
       card_status: false
-    )
-
-    get_card_type_response = double(
-      'faraday_response',
-      status: 200,
-      body: [{
-        company_card_type_id: 1,
-        name: 'Name',
-        icon: nil,
-        start_points: 100,
-        conversion_tax: 1
-      }].to_json
     )
 
     get_card_api_response = double(
@@ -247,18 +211,6 @@ feature 'Manager faz recarga de todos os cartões da empresa' do
     allow(Faraday).to receive(:get)
       .with('http://localhost:4000/api/v1/')
       .and_return(200)
-
-    allow(Faraday).to receive(:get)
-      .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
-      .and_return(get_card_type_response)
-
-    allow(Faraday).to receive(:get)
-      .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
-      .and_return(get_card_type_response)
-
-    allow(Faraday).to receive(:get)
-      .with("http://localhost:4000/api/v1/company_card_types?cnpj=#{company.registration_number}")
-      .and_return(get_card_type_response)
 
     allow(Faraday).to receive(:get)
       .with("http://localhost:4000/api/v1/cards/#{manager.cpf}")
