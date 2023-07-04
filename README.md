@@ -135,6 +135,9 @@ Rodando aplicação
 Acesse a aplicação em seu navegador através do endereço http://localhost:3000.
 
 ## Dados pré-cadastrados no *seed*
+__* Será necessário liberar os cartões disponíveis, para cada empresa, na app Cartões e Pagamentos.__
+
+__* Para usar o seeds, editar os cargos e atribuir um cartão, após sua liberação na app Cartões e Pagamentos.__
 
 <details>
 <summary>Dados de acesso</summary>

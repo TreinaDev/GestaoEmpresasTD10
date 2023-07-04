@@ -21,7 +21,7 @@ Position.create!(department_id: Department.last.id, name: 'Estagiário', code: '
 EmployeeProfile.create!(name: 'Primeiro Funcionário', cpf: '86121830301', rg: '86121830302',
                         address: 'Rua do funcionário da apple', email: 'funcionario@apple.com',
                         phone_number: '41998989898', status: 'unblocked', birth_date: '10/01/2000',
-                        admission_date: '29/06/2023',
+                        admission_date: '29/06/2023', social_name: 'Nome Social',
                         marital_status: 'married', department_id: Department.last.id,
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario@apple.com', password: 'password', cpf: '86121830301')
@@ -128,7 +128,7 @@ Position.create!(department_id: Department.last.id, name: 'Administrador', code:
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '26257310520', rg: '26257310524',
                         address: 'Rua do funcionário da microsoft', email: 'funcionario2@microsoft.com',
                         phone_number: '41998989898', status: 'unblocked', birth_date: '10/01/2000',
-                        admission_date: '29/06/2023',
+                        admission_date: '29/06/2023', social_name: 'Nome Social',
                         marital_status: 'married', department_id: Department.last.id,
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@microsoft.com', password: 'password', cpf: '26257310520')
@@ -244,7 +244,7 @@ Position.create!(department_id: Department.last.id, name: 'Contador', code: 'CON
 EmployeeProfile.create!(name: 'Quarto Funcionário', cpf: '13512160662', rg: '13512160661',
                         address: 'Rua do funcionário da Campus', email: 'funcionario4@campuscode.com',
                         phone_number: '41998989898', status: 'unblocked', birth_date: '10/01/2000',
-                        admission_date: '29/06/2023',
+                        admission_date: '29/06/2023', social_name: 'Nome Social',
                         marital_status: 'married', department_id: Department.last.id,
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario4@campuscode.com', password: 'password', cpf: '13512160662')
@@ -351,7 +351,7 @@ Position.create!(department_id: Department.last.id, name: 'Advogado', code: 'ADV
 EmployeeProfile.create!(name: 'Quinto Funcionário', cpf: '94042561020', rg: '94042561000',
                         address: 'Rua do funcionário da Rebase', email: 'funcionario5@rebase.com',
                         phone_number: '41998989898', status: 'unblocked', birth_date: '10/01/2000',
-                        admission_date: '29/06/2023',
+                        admission_date: '29/06/2023', social_name: 'Nome Social',
                         marital_status: 'married', department_id: Department.last.id,
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario5@rebase.com', password: 'password', cpf: '94042561020')
@@ -416,7 +416,7 @@ Position.create!(department_id: Department.last.id, name: 'Administrador', code:
 EmployeeProfile.create!(name: 'Segundo Funcionário', cpf: '35330824079', rg: '35330824000',
                         address: 'Rua do funcionário da Brainn', email: 'funcionario2@brainn.com',
                         phone_number: '41998989898', status: 'blocked', birth_date: '10/01/2000',
-                        admission_date: '29/06/2023',
+                        admission_date: '29/06/2023', social_name: 'Nome Social',
                         marital_status: 'married', department_id: Department.last.id,
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario2@brainn.com', password: 'password', cpf: '35330824079')
@@ -522,7 +522,7 @@ Position.create!(department_id: Department.last.id, name: 'Tesoureiro', code: 'T
 EmployeeProfile.create!(name: 'Terceiro Funcionário', cpf: '69553863523', rg: '69553863524',
                         address: 'Rua do funcionário da Vindi', email: 'funcionario3@vindi.com',
                         phone_number: '41998989898', status: 'unblocked', birth_date: '10/01/2000',
-                        admission_date: '29/06/2023',
+                        admission_date: '29/06/2023', social_name: 'Nome Social',
                         marital_status: 'married', department_id: Department.last.id,
                         position_id: Position.last.id, card_status: false)
 User.create!(email: 'funcionario3@vindi.com', password: 'password', cpf: '69553863523')
